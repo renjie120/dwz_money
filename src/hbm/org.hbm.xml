@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.org.OrgVO" table="organization_t">
+		<id name="orgId" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="orgName" column="orgname" type="string" />
+		<property name="orderCode" column="orgcode" type="string" />
+		<property name="parentOrg" column="parentOrg" type="string" />
+		<property name="orderId" column="orderid" type="string" />
+	</class>
+
+	<query name="money.org.OrgDao.findRecordById">
+		<![CDATA[from OrgVO as orgVO where orgId = ?]]>
+	</query>
+</hibernate-mapping>

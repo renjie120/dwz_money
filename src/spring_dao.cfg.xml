@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<bean id="sysSessionDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.SysSessionDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SysSession">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sysUserDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.SysUserDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SysUser">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="sysLogDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.SysLogDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SysLog">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="sysRoleDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.SysRoleDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SysRole">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="sysUserRoleDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.SysUserRoleDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SysUserRole">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="setPreferenceDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>
+				dwz.persistence.daos.SetPreferenceDao
+			</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.SetPreference">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="webPageDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.WebPageDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.WebPage">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="websiteDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.WebsiteDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.WebWebsite">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="conFileDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.ConFileDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.ConFile">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="conFolderDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.ConFolderDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.ConFolder">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="infNewsDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.InfNewsDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.InfNews">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="invCategoryDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>dwz.persistence.daos.InvCategoryDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="dwz.persistence.beans.InvCategory">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	
+</beans>

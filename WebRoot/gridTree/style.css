@@ -1,0 +1,33 @@
+@charset "utf-8";
+ 
+
+.panelBar,
+.toolBar li.hover, .toolBar li.hover a, .toolBar li.hover span, .toolBar span,
+.pagination2, .pagination2 li.hover, .pagination2 li.hover a, .pagination2 li span,
+.pagination2 li.disabled span span,
+.panelBar .line, .pagination2 li.jumpto, .pagination2 li.jumpto .goto { background:url(./images/dwz/grid.png) repeat-x;}
+
+.panelBar { border-color:#b8d0d6; background-color:#efefef;}
+
+.gridTree .gridHeader { background:#EEE;}
+.gridTree { background:#FFF;}
+.gridTree table { border-color:#d0d0d0;}
+.gridTree .gridHeader, .gridTree .gridHeader th { border-color:#d0d0d0; background:#f0eff0 url(./images/dwz/tableth.png) repeat-x;}
+.gridTree table th div { border-left-color:#EEE; border-right-color:#d0d0d0;}
+.gridTree table td { border-color:#ededed;}
+
+.gridTree .resizeMarker, .gridTree .resizeProxy { background:url(./images/grid/resizeCol.png) repeat-y;}
+
+.gridTree .gridHeader th.hover, .gridTree .gridHeader th.thSelected { border-color:#aaccf6; }
+.gridTree .gridTbody .gridRowBg { background:#f7f7f7;}
+.gridTree .gridTbody .gridRow { border-color:#ededed;}
+.gridTree .gridTbody .gridRow td.tdLast { border-color:#ededed;}
+.gridTree .gridTbody .hover { border-color:#dddddd; background:#f5f5f5;}
+.gridTree .gridTbody .hover .tdSelected { background:#f5f5f5;}
+.gridTree .gridTbody .selected { border-color:#b8d0d6; background:#7cc5e5;}
+.gridTree .gridTbody .selected .tdSelected { background:#e8edf3;}
+.gridTree .gridTbody .tdSelected { background:#f8f8f8;}
+.gridTree .error{background:#fb7e81;} 
+
+
+

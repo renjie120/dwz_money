@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>  
+	<package name="common" extends="struts2">
+		<default-action-ref name="index"></default-action-ref>
+		<action name="passport"
+			class="dwz.present.passport.PassportAction">
+			<result name="success" type="redirect">${backToUrl}</result>
+			<result name="input">
+				/WEB-INF/jsp/management/index/login.jsp
+			</result>
+		</action>
+
+		<!-- <action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->
+	</package>
+
+
+	<package name="management" namespace="/management"
+		extends="struts2">
+		<action name="index"
+			class="dwz.present.app.management.IndexAction">
+			<result name="loginDialog">
+				/WEB-INF/jsp/management/index/loginDialog.jsp
+			</result>
+		</action>
+		<action name="user"
+			class="dwz.present.app.management.UserAction">
+		</action>
+	</package>
+</struts>

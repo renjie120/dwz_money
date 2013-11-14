@@ -1,0 +1,98 @@
+@charset "utf-8";
+ 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td { padding:0; margin:0; font-size:12px; line-height:100%; font-family:Arial, sans-serif;}
+ 
+:focus { outline: 0;}
+body { width:100%; height:100%; text-align:center; color:black; }
+ul, ol { list-style:none;}
+ 
+table { border-collapse:separate; border-spacing:0;}
+caption, th, td { text-align:left; font-weight:normal;}
+ 
+blockquote:before, blockquote:after,
+q:before, q:after { content: "";}
+blockquote, q { quotes: "" "";}
+
+img { border:none;}
+a { color:#000; text-decoration:none;}
+a:hover {text-decoration:underline;} 
+ 
+
+.panelBar { display:block; overflow:hidden; height:25px; border-style:solid; border-width:1px 0; background-repeat:repeat-x; }
+
+.panelBar ul { padding:1px;}
+.panelBar li { float:left; display:block; overflow:hidden; height:23px; padding:0 0 0 5px;}
+.panelBar li.hover { background-position:0 -100px;}
+.panelBar li.hover a { background-position:100% -150px;}
+
+.panelBar .toolBar li, .panelBar .toolBar li.hover { padding:0 0 0 5px; background-position:0 -100px;}
+.panelBar .toolBar a, .panelBar .toolBar li.hover a { float:left; display:block; overflow:hidden; padding:0 5px 0 0; text-decoration:none; background-position:100% -150px;}
+.panelBar .toolBar span, .panelBar .toolBar li.hover span { float:left; display:block; overflow:hidden; height:23px; padding:0 0 0 20px; line-height:23px; cursor:pointer;}
+
+.panelBar .toolBar a.add span { background-position:0 -696px;}
+.panelBar .toolBar a.delete span { background-position:0 -746px;}
+.panelBar .toolBar a.edit span { background-position:0 -796px;}
+.panelBar .toolBar a.icon span { background-position:0 -846px;}
+
+.panelBar .toolBar li.line { display:block; overflow:hidden; width:12px; padding:0; text-indent:-1000px; background-position:5px -200px;}
+
+.panelBar .pages { float:left; overflow:hidden; height:21px;width:50px; padding:2px 5px;}
+.panelBar .pages span { float:left; line-height:21px;}
+.panelBar .pages select { float:left; margin:0 3px; font-size:12px;}
+
+.pagination2 { float:right; padding-left:7px; background-position:0 -199px;}
+.pagination2 li, .pagination2 li.hover { padding:0 0 0 5px; background-position:0 -100px;}
+.pagination2 a, .pagination2 li.hover a, .pagination2 li span { float:left; display:block; padding:0 5px 0 0; text-decoration:none; line-height:23px; background-position:100% -150px;}
+.pagination2 li.selected a{color:red; font-weight:bold;}
+.pagination2 span, .pagination2 li.hover span { float:left; display:block; height:23px; line-height:23px; cursor:pointer;}
+
+.pagination2 li .first span, .panelBar li .previous span { padding:0 0 0 10px;}
+.pagination2 li .next span, .panelBar li .last span { padding:0 10px 0 0;}
+.pagination2 li .first span { background-position:0 -244px;}
+.pagination2 li .previous span { background-position:0 -294px;}
+.pagination2 li .next span { background-position:100% -344px;}
+.pagination2 li .last span { background-position:100% -394px;}
+.pagination2 li .last { margin-right:5px;}
+
+.pagination2 li.disabled { background:none;}
+.pagination2 li.disabled span, .gridTree .pagination2 li.disabled a { background-position:0 100px; cursor:default;}
+.pagination2 li.disabled span span { color:#666;}
+.pagination2 li.disabled .first span { background-position:0 -444px;}
+.pagination2 li.disabled .previous span { background-position:0 -494px;}
+.pagination2 li.disabled .next span { background-position:100% -544px;}
+.pagination2 li.disabled .last span { background-position:100% -594px;}
+.pagination2 li.disabled .last { margin-right:5px;}
+
+.pagination2 li.jumpto { padding:2px 2px 0 7px; background-position:0 -200px;}
+.pagination2 li.jumpto .textInput { float:left; width:30px; padding:1px; border-color:#acaeaf;} 
+.pagination2 li.jumpto .goto { float:left; display:block; overflow:hidden; width:16px; height:19px; border:0;   
+				background-position:0 -650px; cursor:pointer;}
+
+.gridTree { display:block; overflow:hidden; width:300px; border-width:0 1px; position:relative;border-right:solid 1px #ededed;}
+.gridTree .gridHeader { display:block; overflow:all; width:100%;height:21px;}
+.gridTree .gridThead {  overflow:auto; }
+
+.gridTree .gridScroller { display:block; overflow:auto;position:relative;}
+.gridTree .gridTbody { overflow:auto; }
+
+.gridTree table { border:1; border-collapse:collapse;table-layout:fixed;}
+.gridTree .gridHeader th { 
+	padding:0; 
+	border-style:solid; 
+	border-width:0 0px 1px 0; 
+	vertical-align:top; 
+	white-space:nowrap; 
+	height:20px;
+	line-height:21px; 
+	cursor:default;}
+.gridTree .gridHeader th.hover, .gridTree .gridHeader th.thSelected { background-position:0 -50px;}
+.gridTree .gridTbody td { border-right:solid 1px #ededed; overflow:hidden; padding:0 3px; border-bottom:solid 1px #ededed; vertical-align:middle; line-height:21px;}
+.gridTree .gridTbody td div { display:block; overflow:hidden; height:21px; white-space:nowrap; line-height:21px;}
+.gridTree .gridTbody td div a{line-height:21px;} 

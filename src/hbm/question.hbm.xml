@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.question.QuestionVO" table="question_t">
+		<id name="questionId" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="questionDesc" column="questionDesc"
+			type="string" />
+		<property name="questionDate" column="questionDate" type="date" />
+		<property name="consoleDate" column="consoleDate" type="date" />
+		<property name="answer" column="answer" type="string" />
+		<property name="sort" column="sort" type="int" />
+		<property name="status" column="status" type="int" />
+		<property name="submit" column="submit" type="string" />
+		<property name="orderId" column="orderId" type="int" />
+	</class>
+
+	<query name="money.question.QuestionDao.findRecordById">
+		<![CDATA[from QuestionVO as questionVO where questionId = ?]]>
+	</query>
+</hibernate-mapping>

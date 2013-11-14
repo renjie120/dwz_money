@@ -1,0 +1,15 @@
+.myeclipse/
+.settings/
+.mymetadata
+*.bak
+*.class
+WebRoot/WEB-INF/classes/
+*.doc
+bin/
+*.chm
+.classpath
+.svn/
+demo/
+.project
+*.txt
+*.jpg

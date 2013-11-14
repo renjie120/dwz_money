@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-5-24 15:43:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dwz.persistence.beans.InvCategory" table="inv_category" lazy="false">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="pid" type="java.lang.Integer">
+            <column name="pid" />
+        </property>
+        <property name="lft" type="java.lang.Integer">
+            <column name="lft" />
+        </property>
+        <property name="rgt" type="java.lang.Integer">
+            <column name="rgt" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="100" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="description" length="65535" />
+        </property>
+        <property name="metaTitle" type="java.lang.String">
+            <column name="meta_title" length="100" />
+        </property>
+        <property name="metaKeyword" type="java.lang.String">
+            <column name="meta_keyword" length="200" />
+        </property>
+        <property name="metaDescription" type="java.lang.String">
+            <column name="meta_description" length="500" />
+        </property>
+        <property name="picUrl" type="java.lang.String">
+            <column name="pic_url" />
+        </property>
+        <property name="productNum" type="java.lang.Integer">
+            <column name="product_num" not-null="true" />
+        </property>
+        <property name="insertDate" type="java.util.Date">
+            <column name="insert_date" length="19" not-null="true" />
+        </property>
+        <property name="updateDate" type="java.util.Date">
+            <column name="update_date" length="19" not-null="true" />
+        </property>
+    </class>
+    <query name="dwz.persistence.InvCategoryDao.findAllInvCategory">
+   		<![CDATA[from InvCategory as invCategory order by invCategory.lft]]>
+    </query>
+    
+    
+</hibernate-mapping>

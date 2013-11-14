@@ -1,0 +1,59 @@
+﻿<link rel='stylesheet' type='text/css'  href='mycss.css' /><a href="mailto:lishuiqing110@163.com"></a>
+<a target="_blank" href="http://sighttp.qq.com/authd?IDKEY=dadd85855fb49766d761e9c27fdd4d4bf477d9a89d68ec40">
+<img border="0"  src="http://wpa.qq.com/imgd?IDKEY=dadd85855fb49766d761e9c27fdd4d4bf477d9a89d68ec40&pic=41 &r=0.28445716162470547" 
+alt="联系我" title="联系我"></a>&nbsp;&nbsp;&nbsp;
+<a href='http://blog.sina.com.cn/s/blog_3efe6ef10100unl6.html'>反馈</a>
+&nbsp;&nbsp;&nbsp;<span class='attention'>欢迎加入qq交流群:135633957</span><div style='height:95%;overflow:auto;'><table   bgcolor='#ffffff'  width="100%" border="1" cellspacing="0" cellpadding="0"><col style='width:10%'><col><col style='width:10%'><col style='width:10%'><tr class='head'><td>属性名称</td><td>属性说明</td><td>参数类型</td><td>是否必填</td></tr>
+<tr class='must' ><td class='left firstname'>1.columnModel</td><td>表格树的列显示设置,是对象的数组<br><table class='subtable'>  <tr><td colspan=4>columnModel中对象描述</td> </tr><tr> 	<td>属性名</td> 	<td>说明</td> 	<td>类型</td> 	<td>是否必填</td> </tr> <tr> 	<td>header</td> 	<td>列名描述</td> 	<td>字符串</td> 	<td>必填</td> </tr> <tr> 	<td>headerIndex</td> 	<td>数据来源的列名,和数据属性绑定直接相关</td> 	<td>字符串</td> 	<td>必填</td> </tr> <tr> 	<td>columntype</td> 	<td>列类型描述,详细见下表:</td> 	<td>对象类型</td> 	<td>可选</td> </tr> </table> <table class='subtable'> <tr> 	<td colspan='3'>columntype属性详细介绍</td> </tr> <tr> 	<td>属性</td> 	<td>说明</td> 	<td>是否必填</td> </tr> <tr> 	<td>inputtype</td> 	<td>列的渲染类型,为如下字符串,区分大小写<br>'select':使用下拉菜单渲染<br>'html':使用自定义html字符串渲染,将用实际的列的值替换字符串中的%<br>'checkbox':使用多选框渲染<br>'textbox':使用文本框渲染<br>'radiobox':使用单选框渲染<br>'function':使用回调函数渲染,参数为一个对象以及该行对象<br><span class='attention'>推荐使用'function'或者'html'模式!</span></td> 	<td>必填</td> </tr> <tr> 	<td>style</td> 	<td>样式</td> 	<td>可选</td> </tr> <tr> 	<td>values</td> 	<td>在'radiobox','select','checkbox'模式下对应的value数组</td> 	<td>对应模式下必填</td> </tr> <tr> 	<td>texts</td> 	<td>在'radiobox','select','checkbox'模式下对应的text数组</td> 	<td>对应模式下必填</td> </tr> <tr> 	<td>nameId</td> 	<td>表单元素的id,实际值会加上对应的主键列的值</td> 	<td>可选</td> </tr> <tr> 	<td>disabledIndex</td> 	<td>表单元素是否可用属性来源于数据中的该属性对应的值,为1则禁用,为0启用,适用于后台绑定</td> 	<td>可选</td> </tr> <tr> 	<td>visibledIndex</td> 	<td>表单元素是否可见属性来源于数据中的该属性对应的值,为1则可见,为0隐藏,适用于后台绑定</td> 	<td>可选</td> </tr> <tr> 	<td>onclick</td> 	<td>在'radiobox','checkbox'模式下对应的单击事件</td> 	<td>可选</td> </tr> </table></td><td>对象数组</td><td>必填</td></tr>
+<tr class='must' ><td class='left firstname'>2.idColumn</td><td>树状结构标示列,将据此形式上下层次关系</td><td>字符串</td><td>必填</td></tr>
+<tr class='must' ><td class='left firstname'>3.parentColumn</td><td>树状结构的父亲节点标识列,将据此找到上级节点</td><td>字符串</td><td>必填</td></tr>
+<tr class='must' ><td class='left firstname'>4.tableId</td><td>形成的表格树table的table标示</td><td>字符串</td><td>必填 </td></tr>
+<tr class='must' ><td class='left firstname'>5.el(废弃)</td><td> 表格树要渲染的div的标示</td><td>字符串</td><td>废弃(老版本中：必填！)</td></tr>
+<tr class='must' ><td class='left firstname'>6.data</td><td>静态表格树的数据,内容为一个js对象数组</td><td>字符串</td><td>必填(静态树)</td></tr>
+<tr class='must' ><td class='left firstname'>7.dataUrl</td><td>动态表格树的请求地址,表格树将根据其返回的json串组装成表格树</td><td>字符串</td><td>必填(动态树)</td></tr>
+<tr><td class='left firstname'>8.height</td><td>表格树高度,<span class='attention'>注意必须使用px像素结尾</span></td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>9.width</td><td>表格树宽度,可以使用百分比,数值,px像素等</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>10.hidddenProperties</td><td>隐藏的属性值,在将某些有用的属性不显示在表格中,但是以自定义的属性附加在该行中</td><td>字符串数组</td><td>可选</td></tr>
+<tr><td class='left firstname'>11.title</td><td>表格树的标题</td><td>暂未实现</td><td>不用</td></tr>
+<tr><td class='left firstname'>12.rowCount</td><td>是否计算表格树的行数,默认false</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>13.countColumnDesc</td><td>表格树行数显示列标题,在rowCount=true时有效</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>14.countColumnNm</td><td>序列依附到该指定的属性列所在的列位置,不填则默认为新建一列放在最前面,找不到该列对应的列数也为新建一列</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>15.countCellWd</td><td>计数列的列宽,默认为100</td><td>数字</td><td>可选</td></tr>
+<tr><td class='left firstname'>16.rowCountOption</td><td>表格树行数显示的方式选择<br>有1,2,3三种选择<br>1(默认):各层之间独立计算行数,翻页之后重新对第一层计数<br>2:各层之间独立计算行数,翻页之后第一层不重新计数<br>3:各层之间连续计数,不分层次<br><span class='attention'>注意,在懒加载模式下面仅支持第1种计数模式</td><td>数字</td><td>可选</td></tr>
+<tr><td class='left firstname'>17.checkOption</td><td>是否出现选择框<br>有"radio","multi"两种选择<br>"radio":单选按钮<br>"multi":多选按钮</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>18.expandColumnNm</td><td>出现伸缩栏所在的列位置,不填则默认为第1个数据列,找不到该列对应的列数也为第一列</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>19.checkColumnNm</td><td>选择框依附到该指定的属性列所在的列位置,不填则默认为第1列,找不到该列对应的列数也为第一列</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>20.chooesdOptionColumn</td><td>设置此属性,表示根据行数据中的该属性名称对应的值设置选择状态,适用于后台绑定选择状态,对应属性的数值为1为选择,0为不选择</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>21.multiChooseMode</td><td>出现多选按钮时的选择逻辑<br>有1,2,3,4,5中选择逻辑<br>1(默认):选择多选框不关联其他多选框状态<br>2.A:选择孩子节点父亲自动选择B:孩子都没有选择则父亲自动不选择C:父亲选择不影响孩子节点状态<br>其余状态请自己试验即可<br><span class='attention'>注意:懒加载状态下仅适用状态1</span></td><td>数字</td><td>可选</td></tr>
+<tr><td class='left firstname'>22.handleCheck</td><td>附加的选择逻辑处理,可以接受该选择按钮对象作为参数</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>23.pageBar</td><td>是否使用分页,默认为false,设置为true出现分页栏</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>24.pageSize</td><td>分页的每页条目数,默认为10<br><span class='attention'>注意:仅对第一层数据进行分页</span></td><td>数字</td><td>可选</td></tr>
+<tr><td class='left firstname'>25.pageBarId</td><td>分页栏id,默认为pageBarTable</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>26.handler</td><td>为表格树行对象添加处理函数,对象数组,各个方法均可以获得该行对象</td><td>对象数组</td><td>可选</td></tr>
+<tr class='must' ><td class='left firstname'>27.lazy</td><td>是否为懒加载表格树,默认为false</td><td>bool类型</td><td>必填(懒加载表格树)</td></tr>
+<tr class='must' ><td class='left firstname'>28.leafColumn</td><td>懒加载表格树中判断是否是树叶节点的属性<br>如果该列对应的值为0则为树叶节点,否则为1是树枝<br><span class='attention'>注意:必须是1或者0,不可以是true或者false</span></td><td>字符串</td><td>必填(懒加载表格树)</td></tr>
+<tr class='must' ><td class='left firstname'>29.lazyLoadUrl</td><td>懒加载表格树点击父亲节点展开孩子节点调用的请求url,后台要求返回json字符串数组</td><td>字符串</td><td>必填(懒加载表格树)</td></tr>
+<tr><td class='left firstname'>30.lazyPage</td><td>懒加载是否启动分页模式<br>在懒加载表格树中如果非第一层节点数据太多,可以设置该属性为true,将在子节点层次出现分页栏<br><span class='attention'>注意:前提条件lazy=true并且lazyMorePage=false</span></td><td>bool类型</td><td>可选(懒加载表格树)</td></tr>
+<tr><td class='left firstname'>31.lazyMorePage</td><td>懒加载是否启动逐步展示子节点的配置<br>在懒加载子节点数量太多的情况下,设置该属性为true将逐步展示子节点<br><span class='attention'>注意:前提条件lazy=true并且lazyPage=false</span></td><td>bool类型</td><td>可选(懒加载表格树)</td></tr>
+<tr><td class='left firstname'>32.lazyPageSize</td><td>懒加载分页情况下的每页显示的行数或者逐步显示子节点表格树每次显示的数目,默认为10</td><td>数字</td><td>可选(懒加载表格树)</td></tr>
+<tr><td class='left firstname'>33.exchangeColor</td><td>是否对表格树逐行换色显示,默认为true</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>34.expandAll</td><td>是否展开全部子节点<br>默认为false,懒加载表格树此选项无效</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>35.allCheck</td><td>多选模式下,是否出现全选的选择框,默认为true</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>36.disableOptionColumn</td><td>设置选择框的是否可用状态根据该属性列对应的数值进行设置<br>适用于后台控制选择按钮的是否可用状态</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>37.analyzeAtServer</td><td>是否在服务端进行树结构层次的分析,如果后台分析节点上下级层次关系,将减轻前台压力,但是后台逻辑要自行处理<br>默认为false</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>38.disabled</td><td>表格树中的表单元素是否全部设置为不可用<br>默认为false</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>39.debug</td><td>是否是调试模式,将显示表格树显示耗时等信息<br>默认false</td><td>bool类型</td><td>可选</td></tr>
+<tr><td class='left firstname'>40.onError</td><td>表格树出现错误调用的方法,默认为空</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>41.onSuccess</td><td>表格树加载完毕回调函数<br>函数对象,传入参数表格树对象</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>42.onPagingSuccess</td><td>分页完毕回调函数<br>函数对象,传入参数表格树对象</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>43.onLazyLoadSuccess</td><td>懒加载完毕回调函数<br>函数对象,传入参数表格树对象</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>44.beforeAjax</td><td>ajax请求前的函数,一般是出现滚动提示栏</td><td>函数</td><td>可选</td></tr>
+<tr><td class='left firstname'>45.afterAjax</td><td>ajax请求之后的函数,一般是将滚动提示栏取消</td><td>函数</td><td>可选 </td></tr>
+<tr><td class='left firstname'>46.closeImg</td><td>收缩表格树父亲节点的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>47.openImg</td><td>展开表格树父亲节点的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>48.lazyLoadImg</td><td>懒加载子节点显示的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>49.blankImg</td><td>节点前空白占位符的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>50.noparentImg</td><td>叶子节点的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>51.lastLeafImg</td><td>一层中最后一个叶子节点的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+<tr><td class='left firstname'>52.morePageImg</td><td>显示更多懒加载子节点的图标,可以根据实际情况进行设置</td><td>字符串</td><td>可选</td></tr>
+</table></div>

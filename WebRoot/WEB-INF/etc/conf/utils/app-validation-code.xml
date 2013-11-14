@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-validation-code>
+	<validation-code>
+		<validation-code-enable>false</validation-code-enable>
+		<width>76</width>
+		<height>29</height>
+		<code-count>4</code-count>
+	</validation-code>
+</app-validation-code>

@@ -1,0 +1,165 @@
+package testGridTree;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import db.DataBaseTool;
+import db.DataHandler;
+
+ 
+
+/**
+ * 数据库连接类.
+ * connect me:419723443@qq.com
+ */
+public class GridTreeDao {
+	private DataBaseTool dao  = null;
+	public GridTreeDao(){
+		dao = new DataBaseTool();
+	}
+	
+	public int getFirstLevelCount(){
+		List argList = new ArrayList();
+		argList.add("");
+		try {
+			return dao.queryForInt("SELECT COUNT(1) FROM CHINA_AREA T WHERE  T.AREA_PARENT = ?",argList);
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			return 0;
+		}  
+	}	
+	
+	public int getListCountByParent(String pId){
+		List argList = new ArrayList();
+		argList.add(pId);
+		try {
+			return dao.queryForInt("SELECT COUNT(1) FROM CHINA_AREA T WHERE  T.AREA_PARENT  = ?",argList);
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			return 0;
+		}   
+	}	 
+	
+	public List getList(int start,int end){
+		List ans = new ArrayList(); 
+        List argList = new ArrayList();
+		argList.add("");
+		argList.add(start-1);
+		argList.add(end-start);
+		try {
+			ans = dao.queryNewList("SELECT * FROM CHINA_AREA WHERE  AREA_PARENT = ? limit ?,?",argList,new DataHandler(){ 
+				@Override
+				public void processRow(ResultSet rs) throws SQLException {
+					DisBean bean = new DisBean();
+					bean.setDisid(rs.getString(1));
+					bean.setDisname(rs.getString(2));
+					bean.setDisparentId(notNull(rs.getString(3)));
+					bean.setIsLeaf(isLeaf(bean.getDisid()));
+					addRecord(bean);
+				} 
+			});
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		} 
+		return ans;
+	}
+	
+	public List getCommonList(int start,int end){
+      	List ans = new ArrayList(); 
+		List argList = new ArrayList();
+		argList.add("");
+		argList.add(start-1);
+		argList.add(end-start);
+		try {
+			ans = dao.queryNewList("SELECT * FROM CHINA_AREA WHERE  AREA_PARENT = ? limit ? ,?",argList,new DataHandler(){ 
+				@Override
+				public void processRow(ResultSet rs) throws SQLException {
+					DisBean bean = new DisBean();
+					bean.setDisid(rs.getString(1));
+					bean.setDisname(rs.getString(2));
+					bean.setDisparentId(notNull(rs.getString(3)));
+					addRecord(bean);
+				} 
+			});
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		} 
+		return ans;
+	}
+	
+	public String getRealQuerySql(String queryStr,int start,int end){
+		StringBuffer buf = new StringBuffer();
+		buf.append(queryStr).append(" limit "+start+" ,"+(end-start));
+		return buf.toString();
+	}
+	
+	public String isLeaf(String id) {
+		List argList = new ArrayList();
+		argList.add(id);
+		try {
+			int ans =  dao.queryForInt("SELECT COUNT(1) FROM CHINA_AREA T WHERE  T.AREA_PARENT = ?",argList);
+			if(ans>0){
+				return "1";
+			}
+			return "0";
+		} catch (SQLException e) { 
+			e.printStackTrace();
+			return "0";
+		}   
+	}
+	
+	public List getListByParent(String parentId,int start,int end){ 
+		List ans = new ArrayList(); 
+		List argList = new ArrayList();
+		argList.add(parentId);
+		argList.add(start-1);
+		argList.add(end-start);
+		try {
+			ans = dao.queryNewList("SELECT * FROM CHINA_AREA WHERE  AREA_PARENT = ? limit ?,?",argList,new DataHandler(){ 
+				@Override
+				public void processRow(ResultSet rs) throws SQLException {
+					DisBean bean = new DisBean();
+					bean.setDisid(rs.getString(1));
+					bean.setDisname(rs.getString(2));
+					bean.setDisparentId(notNull(rs.getString(3)));
+					bean.setIsLeaf(isLeaf(bean.getDisid()));
+					addRecord(bean);
+				} 
+			});
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		} 
+		return ans;
+	}
+	
+	public List getListByParent(String parentId){
+		List ans = new ArrayList(); 
+		List argList = new ArrayList();
+		argList.add(parentId); 
+		try {
+			ans = dao.queryList("SELECT * FROM CHINA_AREA WHERE  AREA_PARENT = ? ",argList,new DataHandler(){ 
+				@Override
+				public void processRow(ResultSet rs) throws SQLException {
+					DisBean bean = new DisBean();
+					bean.setDisid(rs.getString(1));
+					bean.setDisname(rs.getString(2));
+					bean.setDisparentId(notNull(rs.getString(3)));
+					bean.setIsLeaf(isLeaf(bean.getDisid()));
+					addRecord(bean);
+				} 
+			});
+		} catch (SQLException e) { 
+			e.printStackTrace();
+		} 
+		return ans; 
+	}
+	
+	private String notNull(String str){
+		if(str==null||"".equals(str.trim())){
+			return "";
+		}
+		return str;
+	}
+}

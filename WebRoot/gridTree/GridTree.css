@@ -1,0 +1,400 @@
+  .gridTree div.gridHeader
+{ 
+    position: relative; 
+    overflow: hidden;
+}	
+
+ .gridTree div.gridHeader 
+{ 
+  background:url("./images/th.png") repeat-x scroll 0 0 #F0EFF0;
+}	
+  
+.gridTree div.myhDivBox
+{
+    float: left; 
+    padding-right: 25px;
+}
+
+ .gridTree div.cDrag
+{
+    float: left;
+    position: absolute;
+    z-index: 2;
+    overflow: visible;
+}
+
+.gridTree div.cDrag div
+{   
+    float: left;
+    background: none;
+    display: block;
+    position: absolute;
+    height: 24px;
+    width: 5px;
+    cursor: e-resize;
+}
+
+.gridTree .gridCol { width:100%; display:block; overflow:hidden; height:21px; line-height:21px; white-space:nowrap;}
+
+
+.gridTree div.cDrag div:hover, .gridTree div.cDrag div.dragging
+{
+    background: url(images/line.gif) repeat-y 2px center;
+}
+
+ .showprogress{
+	z-index:98;
+	background:#f3f3f3;
+	border:1px solid #ccc;
+	position:absolute;
+	width:20px; 
+	top:20px; 
+	left:20px;
+	filter:Alpha(Opacity=50);
+	opacity:0.5;
+	display:none;
+ }
+  
+.gridTree  .centerMsg{   
+	color:black; 
+	line-height:60px;
+	font-size:14px; 
+	position: absolute; 
+	z-index:99;
+	border:2px solid blue;
+	background-color: #ffffff;
+	width:200px;
+	height:60px;
+}
+
+.gridTree  .firstPageAbled{
+	background: url(images/ui-abled.png);/* for IE6 */ 
+	width:20px;
+	height:20px;
+	background-position: -32px -128px;
+}
+
+.gridTree  .firstPageDisabled{
+	background: url(images/ui-disabled.png);/* for IE6 */ 
+	width:20px;
+	height:20px;
+	background-position: -32px -128px;
+}
+
+
+.gridTree  .menuTable{
+	border:0px;
+	cellpadding:0px;
+	cellspacing:0px;
+	background-color:#cecece;
+	font-family:Tahoma;
+	font-size:12px;
+	width:100px;
+}
+
+/*added on 20101222 for lazy-page-table*/
+  .lazyPageTable 
+{        
+        border: solid 0px gray;
+        padding: 0px;
+		width:300px; 
+		background-color:ffffff;
+		margin:0px;
+}  
+ 
+ .gridTree  .left { text-align:left;}
+ .gridTree  .right { text-align:right;}
+ .gridTree  .center { text-align:center;}
+
+.gridTree  .ellipsis{
+	overflow:hidden; text-overflow:ellipsis;  
+}
+
+.lazyPagediv{ 
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:99;   
+	display:none; 
+	background-color:#cecece;
+	border: solid 1px black;
+} 
+.gridTree .lazyPagingNum,.lazyPagingMsg {
+	font-size:12px; 
+}
+
+.gridTree  .lazyPagingNum,.lazyPagingMsg2 {
+	font-size:13px; 
+	text-align:right;
+}
+ 
+ .lazypagebarbtn {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0px #dddddd none;
+	width: 22px;
+	height: 23px;
+	cursor: pointer;
+	vertical-align: -2px;
+}
+
+.gridTree .lazyPagingNum { 
+	color:red;
+} 
+
+.gridTree .lazyPagingMsg { 
+	color:000000;
+	background-color:ffffff;
+	text-align:right;
+	width:400px;
+}
+
+.gridTree .splitbar{
+	width:1px;
+	background-color:000000 ;
+}
+
+/*before added on 20101222 for lazy-page-table*/
+.gridTree .countCell{ 
+	text-align:left;
+}
+
+.gridTree .checkCell{
+	width:20px;
+	text-align:center;
+}
+
+.gridTree .pagebarbtn {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0px #dddddd none;
+	width: 24px;
+	height: 25px;
+	cursor: pointer;
+	vertical-align: -2px;
+}
+
+ .jumpPage {
+	background-image: url(./images/ecimg/table/gotoPage.gif);
+}
+
+ .firstPage {
+	background-image: url(./images/ecimg/table/firstPage.gif);
+}
+
+ .prevPage {
+	background-image: url(./images/ecimg/table/prevPage.gif);
+}
+
+ .nextPage {
+	background-image: url(./images/ecimg/table/nextPage.gif);
+}
+
+ .lastPage {
+	background-image: url(./images/ecimg/table/lastPage.gif);
+}
+
+.gridTree .pageNavigationTool {
+	border:0px solid red;
+	white-space:nowrap;word-break:keep-all;word-wrap:normal;
+	width:1px;
+}
+
+.gridTree .pageNavigationNearPageTool {
+	border:0px solid red;
+	white-space:nowrap;word-break:keep-all;word-wrap:normal;
+	padding-top:3px;
+	text-align:center;
+}
+
+.gridTree .pageSizeTool {
+	border:0px solid red;
+	padding-top:2px;
+	width:120px;
+	text-align:left;
+}
+
+.gridTree .pageNavigationNearPageTool A {
+	width:12px;
+	text-decoration : none;
+}
+
+.gridTree .pageNavigationNearPageTool B {
+	width:12px;
+	color: #999999;
+}
+
+.gridTree .pageJumpTool {
+	width:95px;
+}
+
+.gridTree .separatorTool {
+	font-size:1px;	
+}
+
+ .disFirstPage {
+	background-image: url(./images/ecimg/table/firstPageDisabled.gif);
+}
+
+ .disPrevPage {
+	background-image: url(./images/ecimg/table/prevPageDisabled.gif);
+}
+
+ .disNextPage {
+	background-image: url(./images/ecimg/table/nextPageDisabled.gif);
+}
+
+ .disLastPage {
+	background-image: url(./images/ecimg/table/lastPageDisabled.gif);
+}
+
+.gridTree .pageBar{
+	font-size:12px;	
+}
+
+.gridTree .pageBar select {
+	width:50px;
+	font-size:11px;
+	font-family: Verdana;
+}
+
+.gridTree .pagebartd {
+}
+
+.gridTree .pagebartable {
+	border:0px red solid;
+	width:100%;
+}
+
+.gridTree .pagebartable td {
+	border:0px none red;
+} 
+
+.debugdiv{
+	width:100%;
+	height:30px;
+	top:500px;
+	text-align:left;
+	position:absolute;
+	left:0px;
+	z-index:99;
+	word-break:break-all;
+	font-size:12px;
+	border: 1px solid #000099;
+	overflow:auto;
+	height:30px;
+	color:red;
+}
+ 
+.gridTree input {
+	border: 1px solid black;
+}
+
+.gridTree .TrOdd td{
+	background-color: #FFFFFF; 
+}
+
+.gridTree .TrOdd td.emptyTh{
+	background-color: #FFFFFF;
+}
+
+.gridTree .TrOdd td,.TrEven td{
+	font-size:12px;	   
+} 
+
+.gridTree #_trhead th{
+	padding:0;
+}
+.gridTree .TrEven td{
+	background-color: #f3f4f3; 
+}
+
+.gridTree .TrEven td.emptyTh{
+	background-color: #FFFFFF;
+}
+
+
+.gridTree .selectlight td {
+	background-color: #ffeedd;	
+} 
+
+.gridTree .selectlight td.emptyTh{
+	background-color: #FFFFFF;
+}
+
+.gridTree .tableRegion{
+	background-color: #ffffff;	
+}
+
+.gridTree .toolbarTable{
+	border:0px red solid;
+	width:100%;
+}
+
+.gridTree .toolbarTable td {
+	border:0px none red;
+}
+
+.gridTree .statusTool {
+	border:0px solid red;
+	padding-top:2px;
+	text-align: right;
+	white-space:nowrap;word-break:keep-all;word-wrap:normal;
+} 
+
+.gridTree .highlight td{
+	background-color: #ddeeff;	
+}
+
+.gridTree .highlight td.emptyTh{
+	background-color: #ffffff;	
+}
+
+.gridTree .highlight{
+	background-color: #ddeeff;
+	cursor:hand;
+}
+
+.gridTree .ellipsis{
+	overflow:hidden; text-overflow:ellipsis;  
+}
+
+.gridTree .leaf{ 
+	background-image:url(./images/leaf.gif);
+}
+ 
+.gridTree table.tableRegion td,th{  
+ overflow:hidden; 
+ padding:0 1px; 
+ border:solid 1px #ededed;
+ vertical-align:middle; 
+ line-height:21px; 
+ }
+ 
+
+
+.gridTree .gridHeader, .gridTree .gridHeader th {border-right:solid 1px #d0d0d0;border-bottom:solid 1px #d0d0d0;
+	border-top:solid 1px #d0d0d0;border-left:0px;  background:#f0eff0 url(./images/dwz/tableth.png) repeat-x;} 
+
+div.gridTree{
+	border:solid 1px #d0d0d0;
+ }
+ 
+
+div.gridScroller{
+	width:100%;
+	overflow: auto;
+    position: relative;
+}
+
+.gridTree .gridHeader th {   
+	padding:0px; 
+	margin:0px;
+}
+
+  /** 为了使最后一个列宽的设置有效而添加的一个空的表头列的样式*/
+.gridTree  table.tableRegion td.emptyTh,th.emptyTh{  
+	border:solid 0px #ffffff; 
+ }

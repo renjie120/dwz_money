@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+
+	<bean id="orgDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.org.OrgDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.org.OrgVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="jdbcTool" class="common.MyJdbcTool">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>  
+	</bean>
+
+
+	<bean id="planDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.plan.PlanDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.plan.PlanVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cacheDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.cache.CacheDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.cache.CacheVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="moneyTypeDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.moneytype.MoneyTypeDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.moneytype.MoneyTypeVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="questionDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.question.QuestionDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.question.QuestionVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="moneyDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.detail.MoneyDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.detail.MoneyVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="menuDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.menu.MenuDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.menu.MenuVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="paramTypeDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.paramtype.ParamTypeDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.paramtype.ParamTypeVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="myUserDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.user.MyUserDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.user.MyUserVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="paramDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.params.ParamDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.params.ParamVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+</beans>

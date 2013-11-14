@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>etc_file</param-name>
+		<param-value>/WEB-INF/etc/conf/app-config.xml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:applicationContext.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>cleanup</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>dwz.framework.adapter.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<servlet-name>action</servlet-name>
+	</filter-mapping>
+
+	<!-- <filter> <filter-name>wrapper</filter-name> <filter-class> dwz.framework.adapter.web.filter.AppWrapperFilter 
+		</filter-class> </filter> <filter-mapping> <filter-name>wrapper</filter-name> 
+		<url-pattern>*.jsp</url-pattern> </filter-mapping> <filter-mapping> <filter-name>wrapper</filter-name> 
+		<url-pattern>*.do</url-pattern> </filter-mapping> -->
+
+	<filter>
+		<filter-name>sessionValidate</filter-name>
+		<filter-class>dwz.framework.adapter.web.filter.SessionValidateFilter</filter-class>
+		<init-param>
+			<param-name>uri</param-name>
+			<param-value>
+				/upload/download.jsp,/upload/upload.jsp/bootstrap/stock.jsp,/management/index!login.do,/validationCode!,/passport!,/management/syn!doAdd.do
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>loginUrl</param-name>
+			<param-value>/management/index!login.do</param-value>
+		</init-param>
+		<init-param>
+			<param-name>backToUrl</param-name>
+			<param-value>/management/index!index.do</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionValidate</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionValidate</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+
+	<!--<filter> <filter-name>sitemesh</filter-name> <filter-class> dwz.framework.adapter.web.filter.Struts2SiteMeshFilter 
+		</filter-class> </filter> <filter-mapping> <filter-name>sitemesh</filter-name> 
+		<url-pattern>/*</url-pattern> </filter-mapping> -->
+
+	<!-- struts2配置 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>struts-default.xml, ../struts.xml</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>struts-cleanup</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts-cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>
+			dwz.framework.adapter.web.listener.AppContextInitListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<resource-ref>
+		<res-ref-name>jdbc/app</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+		<res-sharing-scope>Shareable</res-sharing-scope>
+	</resource-ref>
+	<welcome-file-list>
+		<!--<welcome-file>index!index.do</welcome-file> -->
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

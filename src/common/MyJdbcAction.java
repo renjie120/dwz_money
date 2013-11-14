@@ -1,0 +1,114 @@
+﻿package common;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+
+import common.base.SpringContextUtil;
+
+import dwz.present.BaseAction;
+
+/**
+ * 直接执行sql的一个Action.
+ * 
+ * @author renjie120 connect my:(QQ)1246910068
+ * 
+ */
+public class MyJdbcAction extends BaseAction {
+	private String sql;
+
+	public String getSql() {
+		return sql;
+	}
+
+	public void setSql(String sql) {
+		this.sql = sql;
+	}
+
+	public String init() {
+		return "list";
+	}
+
+	public String exeSqlAction() throws Exception {
+		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		PlatformTransactionManager transactionManager = (DataSourceTransactionManager) SpringContextUtil
+				.getBean("jdbcTm");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setTimeout(5);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			jdbcDaoTest.exeSql(sql);
+		} catch (Exception ex) {
+			transactionManager.rollback(status);
+			System.out.println("出现异常了，回滚了！！");
+			throw ex;
+		}
+		transactionManager.commit(status);
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
+
+	public String querySqlAction() throws Exception {
+		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		PlatformTransactionManager transactionManager = (DataSourceTransactionManager) SpringContextUtil
+				.getBean("jdbcTm");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setTimeout(5);
+
+		TransactionStatus status = transactionManager.getTransaction(def);
+		try {
+			jdbcDaoTest.query(sql);
+		} catch (Exception ex) {
+			transactionManager.rollback(status);
+			System.out.println("出现异常了，回滚了！！");
+			throw ex;
+		}
+		transactionManager.commit(status);
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
+
+	private String toJsonArray(Map map) {
+		List columnNames = (List) map.get("columnNames");
+		List colType = (List) map.get("colType");
+		List data = (List) map.get("data");
+		StringBuffer buf = new StringBuffer();
+		if (data.size() > 0) {
+			int colsize = ((Object[]) data.get(0)).length;
+			buf.append("[");
+
+			buf.append("[");
+			for (int i = 0; i < columnNames.size(); i++) {
+				buf.append("'" + columnNames.get(i) + "(" + colType.get(i)
+						+ ")'");
+				if (i < data.size() - 1)
+					buf.append(",");
+			}
+			buf.append("],");
+			for (int i = 0; i < data.size(); i++) {
+				Object[] objs = (Object[]) data.get(i);
+				buf.append("[");
+				for (int j = 0; j < colsize; j++) {
+					buf.append("'" + objs[j] + "'");
+					if (j < colsize - 1)
+						buf.append(",");
+				}
+				buf.append("]");
+				if (i < data.size() - 1)
+					buf.append(",");
+			}
+			buf.append("]");
+		}
+		return buf.toString();
+	}
+}

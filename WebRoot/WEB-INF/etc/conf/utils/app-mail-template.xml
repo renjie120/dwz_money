@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-vm-template-config>
+	<vm-template>
+		<name>verifyEmail</name>
+		<subject><![CDATA[赶快验证，马上享受更全面的$site会员服务!]]></subject>
+		<body>
+			<![CDATA[
+				<p>尊敬的$firstName</p>
+				<p>您好！</p>
+				<p>感谢您注册$site会员（会员登录名：$userName）！</p>
+				<p>您注册时填写的邮箱：$email 还未通过验证！</p>
+				<p>请确认此邮箱是您本人使用，以保证潜在的商业伙伴联系到您！</p>
+				<p><a href="$verifyEmailUrl">点此确认</a></p>
+				<p>看不到或者无法点击以上按钮？</p>
+				<p>您可以将以下链接复制到浏览器中访问，同样能完成验证！</p>
+				<p><a href="$verifyEmailUrl">$verifyEmailUrl</a></p>
+				
+				<p>如果有任何疑问，欢迎给我们留言，我们将尽快给您回复！</p>
+				
+				<p>$company</p>
+				<p>$url</p>
+			]]>
+		</body>
+	</vm-template>
+	
+	<vm-template>
+		<name>registerConfirm</name>
+		<subject><![CDATA[欢迎注册$site会员!]]></subject>
+		<body>
+			<![CDATA[
+				<p>尊敬的$firstName</p>
+				<p>您好！</p>
+				<p>感谢您注册$site会员。</p>
+				<p>欢迎您加入$site中文网站——全球领先的网上贸易市场和商人社区！</p>
+				<p>以下是您的会员信息，请妥善保管！现在开始，您可以访问$site，开始您的网上贸易之旅！</p>
+				<p>会员登录名用户名: $userName</p>
+				<p>登录密码: $password</p>
+				
+				<p>$company</p>
+				<p>$url</p>
+			]]>
+		</body>
+	</vm-template>
+	
+	<vm-template>
+		<name>emailToFriend</name>
+		<subject><![CDATA[发现一供求信息，也许你会感兴趣]]></subject>
+		<body>
+			<![CDATA[
+			<p>$content</p>
+			<p>$yourName</p>
+			]]>
+		</body>
+	</vm-template>
+	<vm-template>
+		<name>complain</name>
+		<subject>举报</subject>
+		<body>
+			<![CDATA[
+			<p>$content</p>
+			<p>$yourName</p>
+			]]>
+		</body>
+	</vm-template>
+	<vm-template>
+		<name>forgetPassword</name>
+		<subject><![CDATA[您的$site会员登录密码]]></subject>
+		<body>
+			<![CDATA[
+				<p>尊敬的$firstName</p>
+				<p>您好！</p>
+				<p>您原先设定的登录用户名: $userName</p>
+				<p>您原先设定的登录密码: $password</p>
+				<p>请妥善保管</p>
+
+				<p>$company</p>
+				<p>$url</p>
+			]]>
+		</body>
+	</vm-template>
+
+</app-vm-template-config>

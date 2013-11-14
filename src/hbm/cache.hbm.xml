@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.cache.CacheVO" table="cache_t">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="cacheId" column="cacheid" type="string" />
+		<property name="cacheName" column="cachename" type="string" />
+
+	</class>
+
+	<query name="money.cache.CacheDao.findRecordById">
+		<![CDATA[from CacheVO as cacheVO where id = ?]]>
+	</query>
+	<query name="money.cache.CacheDao.deleteAll">
+		<![CDATA[delete from CacheVO ]]>
+	</query>
+	<query name="money.cache.CacheDao.findRecordByCacheId">
+		<![CDATA[from CacheVO as cacheVO where cacheId = ?]]>
+	</query>
+</hibernate-mapping>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>server library</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>server</short-name>
+	<uri>http://www.quidos.co.uk/quidos-server</uri>
+	<function>
+		<description>Return user info</description>
+		<name>user</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			dwz.framework.user.User getUser()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return boolean</description>
+		<name>isQa</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			boolean isQa();
+		</function-signature>
+	</function>
+	<function>
+		<description>Return boolean</description>
+		<name>isTrainingEa</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			boolean isTrainingEa();
+		</function-signature>
+	</function>
+	<function>
+		<description>Return forum Server</description>
+		<name>forumServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getForumServer()
+		</function-signature>
+	</function>		
+	<function>
+		<description>Return System Server</description>
+		<name>systemServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getSystemServer()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return Static Server</description>
+		<name>staticServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getStaticServer()
+		</function-signature>
+	</function>
+
+	<function>
+		<description>Return WWW Server</description>
+		<name>WWWServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getWWWServer()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return Management Server</description>
+		<name>managementServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getManagementServer()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return System Secure Server</description>
+		<name>systemSecureServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getSystemSecureServer()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return WWW Secure Server</description>
+		<name>WWWSecureServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getWWWSecureServer()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return Management Secure Server</description>
+		<name>managementSecureServer</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getManagementSecureServer()
+		</function-signature>
+	</function>	
+	<function>
+		<description>Return Static RootUri</description>
+		<name>staticRootUri</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getStaticContentUri()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return Static page Uri</description>
+		<name>staticPageUri</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getStaticPageUri()
+		</function-signature>
+	</function>	
+	<function>
+		<description>Return Static page Url</description>
+		<name>staticPageUrl</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getStaticPageUrl()
+		</function-signature>
+	</function>		
+	<function>
+		<description>Return Domain</description>
+		<name>domain</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getDomain()
+		</function-signature>
+	</function>
+	<function>
+		<description>Return Domain Without First Dot</description>
+		<name>domainWithoutFD</name>
+		<function-class>dwz.framework.el.ServerInfo</function-class>
+		<function-signature>
+			java.lang.String getDomainWithoutFD()
+		</function-signature>
+	</function>
+	<function>
+		<description>Contains Object</description>
+		<name>contains</name>
+		<function-class>dwz.framework.el.ElUtility</function-class>
+		<function-signature>
+			boolean contains(java.lang.Object, java.util.Collection)
+		</function-signature>
+	</function>
+
+</taglib>

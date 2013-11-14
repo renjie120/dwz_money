@@ -1,0 +1,22 @@
+log4j.rootLogger=ERROR,FILE,appender1,filelog
+#输出到控制台
+log4j.appender.appender1=org.apache.log4j.ConsoleAppender 
+log4j.appender.appender1.Threshold=ERROR
+log4j.appender.appender1.layout=org.apache.log4j.TTCCLayout
+
+#每天产生一个日志文件  
+log4j.appender.filelog=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.filelog.File=d:/log/info.log
+log4j.appender.filelog.Threshold=INFO
+#下面设置每天产生一个日志文件
+log4j.appender.filelog.DatePattern='.'yyyy-MM-dd
+log4j.appender.filelog.layout=org.apache.log4j.PatternLayout
+log4j.appender.filelog.layout.ConversionPattern= %d - %c -%-4r [%t] %-5p %c %x - %m%n
+
+log4j.appender.FILE=org.apache.log4j.FileAppender
+log4j.appender.FILE.File=d:/log/error.log
+log4j.appender.FILE.Threshold=ERROR
+log4j.appender.FILE.Append=true
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern= %d - %c -%-4r [%t] %-5p %c %x - %m%n
+# Use this layout for LogFactor 5 analysis 

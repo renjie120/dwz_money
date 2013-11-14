@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<bean id="sessionManager"
+		class="dwz.framework.http.session.mdb.mysqldb.schedule.impl.SessionManagerImpl">
+	</bean>
+	<bean id="mailManager"
+		class="dwz.framework.mail.impl.MailManagerImpl">
+	</bean>
+
+	<bean id="userManager"
+		class="dwz.framework.user.impl.UserManagerImpl">
+		<constructor-arg index="0" ref="sysUserDao"></constructor-arg>
+	</bean> 
+
+	<bean id="roleManager"
+		class="dwz.framework.user.impl.RoleManagerImpl">
+		<constructor-arg index="0" ref="sysRoleDao"></constructor-arg>
+		<constructor-arg index="1" ref="sysUserRoleDao"></constructor-arg>
+	</bean>
+
+	<bean id="setupManager"
+		class="dwz.business.setup.impl.SetupManagerImpl">
+		<constructor-arg index="0" ref="setPreferenceDao"></constructor-arg>
+	</bean>
+
+	<bean id="systemLogManager"
+		class="dwz.framework.syslog.impl.SystemLogManagerImpl">
+		<constructor-arg index="0" ref="sysLogDao"></constructor-arg>
+	</bean>
+
+	<bean id="newsManager"
+		class="dwz.business.info.impl.NewsManagerImpl">
+		<constructor-arg index="0" ref="infNewsDao"></constructor-arg>
+	</bean>
+
+	<bean id="contentManager"
+		class="dwz.business.content.impl.ContentManagerImpl">
+		<constructor-arg index="0" ref="conFileDao"></constructor-arg>
+		<constructor-arg index="1" ref="conFolderDao"></constructor-arg>
+		<constructor-arg index="2" ref="sysRoleDao"></constructor-arg>
+	</bean>
+
+	<bean id="websiteManager"
+		class="dwz.business.website.impl.WebsiteManagerImpl">
+		<constructor-arg index="0" ref="websiteDao"></constructor-arg>
+		<constructor-arg index="1" ref="webPageDao"></constructor-arg>
+	</bean>
+	<bean id="categoryManager"
+		class="dwz.business.inv.impl.CategoryManagerImpl">
+		<constructor-arg index="0" ref="invCategoryDao"></constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-session-config>
+	<session>
+		<name>clearSession</name>
+		<auto-clear-enable>false</auto-clear-enable>
+		<auto-clear-interval>60</auto-clear-interval>
+		<timeout>480</timeout>
+	</session>
+</app-session-config>

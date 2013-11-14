@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timer-task-set>
+	<timer-task>
+		<name>cleanUpDB</name>
+		<period>1 DAY</period>#0,SECOND,MINUTE,HOUR,DAY,WEEK,MONTH,YEAR
+		<priority>low</priority>#high,normal,low
+		<class>dwz.business.task.CleanUpDBTask</class>
+		<delay>0</delay>#same as period
+		<start-time>0</start-time>#yyyy-MM-dd-hh-mm-ss
+		<runnable>true</runnable>
+	</timer-task>
+	
+</timer-task-set>

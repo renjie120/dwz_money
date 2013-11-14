@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-5-24 15:43:26 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dwz.persistence.beans.InvProduct" table="inv_product" catalog="dwz4j">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="brandId" type="java.lang.Integer">
+            <column name="brand_id" />
+        </property>
+        <property name="categoryId" type="java.lang.Integer">
+            <column name="category_id" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="32" />
+        </property>
+        <property name="sku" type="string">
+            <column name="sku" length="30" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="100" />
+        </property>
+        <property name="shortDescription" type="string">
+            <column name="short_description" length="65535" />
+        </property>
+        <property name="longDescription" type="string">
+            <column name="long_description" length="65535" />
+        </property>
+        <property name="picUrl" type="string">
+            <column name="pic_url" />
+        </property>
+        <property name="metaTitle" type="string">
+            <column name="meta_title" length="100" />
+        </property>
+        <property name="metaKeyword" type="string">
+            <column name="meta_keyword" length="65535" />
+        </property>
+        <property name="metaDescription" type="string">
+            <column name="meta_description" length="65535" />
+        </property>
+        <property name="regularPrice" type="big_decimal">
+            <column name="regular_price" precision="8" />
+        </property>
+        <property name="quantity" type="java.lang.Integer">
+            <column name="quantity" />
+        </property>
+        <property name="salesPrice" type="big_decimal">
+            <column name="sales_price" precision="8" />
+        </property>
+        <property name="showSalesPrice" type="java.lang.Short">
+            <column name="show_sales_price" />
+        </property>
+        <property name="listPrice" type="big_decimal">
+            <column name="list_price" precision="8" />
+        </property>
+        <property name="showListPrice" type="java.lang.Short">
+            <column name="show_list_price" />
+        </property>
+        <property name="showOnWeb" type="java.lang.Short">
+            <column name="show_on_web" />
+        </property>
+        <property name="callPricing" type="java.lang.Short">
+            <column name="call_pricing" />
+        </property>
+        <property name="callPricingMessage" type="string">
+            <column name="call_pricing_message" length="100" />
+        </property>
+        <property name="cost" type="big_decimal">
+            <column name="cost" precision="8" />
+        </property>
+        <property name="sellCount" type="java.lang.Integer">
+            <column name="sell_count" precision="5" scale="0" />
+        </property>
+        <property name="hitCount" type="java.lang.Integer">
+            <column name="hit_count" precision="5" scale="0" />
+        </property>
+        <property name="specUrl" type="string">
+            <column name="spec_url" />
+        </property>
+        <property name="weight" type="big_decimal">
+            <column name="weight" precision="6" />
+        </property>
+        <property name="weightUom" type="string">
+            <column name="weight_uom" length="10" />
+        </property>
+        <property name="insertDate" type="java.util.Date">
+            <column name="insert_date" length="19" />
+        </property>
+        <property name="updateDate" type="java.util.Date">
+            <column name="update_date" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

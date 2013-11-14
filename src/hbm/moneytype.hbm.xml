@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.moneytype.MoneyTypeVO" table="tally_type_t">
+		<id name="moenyTypeSno" column="tally_type_sno" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="moneyTypeDesc" column="tally_type_desc"
+			type="string" />
+		<property name="moneyType" column="money_type" type="string" />
+		<property name="parentCode" column="parent_code" type="string" />
+		<property name="typeCode" column="type_code" type="string" />
+		<property name="orderId" column="orderid" type="int" />
+
+	</class>
+
+	<query name="money.moneytype.MoneyTypeDao.findFirstLevel">
+		<![CDATA[from MoneyTypeVO as moneytypeVO where parentCode is null]]>
+	</query>
+	<query name="money.moneytype.MoneyTypeDao.findChildren">
+		<![CDATA[from MoneyTypeVO as moneytypeVO where parentCode = ?]]>
+	</query>
+	<query name="money.moneytype.MoneyTypeDao.findChildCount">
+		<![CDATA[select count(typeCode)  from MoneyTypeVO as moneytypeVO where parentCode = ?]]>
+	</query>
+	<query name="money.moneytype.MoneyTypeDao.findRecordById">
+		<![CDATA[from MoneyTypeVO as moneytypeVO where moenyTypeSno = ?]]>
+	</query>
+	<query name="money.moneytype.MoneyTypeDao.findAll">
+		<![CDATA[from MoneyTypeVO as moneytypeVO ]]>
+	</query>
+</hibernate-mapping>

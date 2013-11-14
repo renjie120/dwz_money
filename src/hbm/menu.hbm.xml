@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.menu.MenuVO" table="menu_t">
+		<id name="menuId" column="menuid" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="target" column="target"  type="string" />
+		<property name="menuName" column="menuname" />
+		<property name="url" column="url" type="string"/>
+		<property name="parentId" column="parentid" type="int"/>
+		<property name="level" column="level" type="string"/>
+		<property name="orderId" column="orderid" type="int" />
+		<property name="relId" column="relId" type="string" />
+	</class>
+
+	<query name="money.menu.MenuDao.findRecordById">
+		<![CDATA[from MenuVO as menuVO where menuId = ?]]>
+	</query>
+</hibernate-mapping>

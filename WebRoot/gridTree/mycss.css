@@ -1,0 +1,65 @@
+.divClass
+{
+        height:250px;
+        width:100%;
+        overflow:auto;
+}
+.head{
+	text-align:center;
+}
+.center{
+	text-align:center;
+}
+.left{
+	text-align:left;
+}
+.right{
+	text-align:right;
+}
+td
+{
+        height:30px;
+        border-bottom:1px solid black;
+        border-right:1px solid black;
+        cursor:default;
+}
+th
+{
+        height:20px;
+        font-size:12px;
+        font-weight:normal;
+        border-bottom:0px solid black;
+        border-right:1px solid black;
+        background-color:#999999
+}
+table
+{
+        border-top:0px solid black;
+        border-left:1px solid black;
+        font-size:13px;
+}
+.content
+{
+       background-color:#FFFFFF;
+}
+.must .firstname
+{
+    COLOR: red;
+	font-weight:bold;
+}
+
+.lazytree
+{
+    font-family: "ËÎÌו";
+    font-size: 12px;
+    background-color: #CCCCCC;    
+}
+.attention{
+	COLOR: blue;
+	font-weight:bold;
+}
+
+.subtable{
+	  border:1px solid black;
+      font-size:13px;
+}

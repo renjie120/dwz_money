@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>information library</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>info</short-name>
+	<uri>http://localhost/core-info</uri>
+
+	<function>
+		<description>Return AD group info</description>
+		<name>adGroup</name>
+		<function-class>dwz.business.el.InfoEL</function-class>
+		<function-signature>
+			dwz.business.info.AdGroup getAdGroup(java.lang.String)
+		</function-signature>
+	</function>
+	<function>
+		<description>Return ads list by group</description>
+		<name>ads</name>
+		<function-class>dwz.business.el.InfoEL</function-class>
+		<function-signature>
+			java.util.Collection getAds(java.lang.String)
+		</function-signature>
+	</function>
+	<function>
+		<description>Return news list by type</description>
+		<name>news</name>
+		<function-class>dwz.business.el.InfoEL</function-class>
+		<function-signature>
+			java.util.Collection listNews(java.lang.String, java.lang.Integer, java.lang.Integer)
+		</function-signature>
+	</function>
+	
+	<function>
+		<description>Return page list by type</description>
+		<name>pages</name>
+		<function-class>dwz.business.el.InfoEL</function-class>
+		<function-signature>
+			java.util.Collection listPages(java.lang.String)
+		</function-signature>
+	</function>
+	
+	<function>
+		<description>Return category list</description>
+		<name>categorys</name>
+		<function-class>dwz.business.el.InfoEL</function-class>
+		<function-signature>
+			java.util.Collection listCategorys()
+		</function-signature>
+	</function>
+</taglib>

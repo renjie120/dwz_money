@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="gen" namespace="/" extends="struts2">
+		<global-results>
+			<result name="test">test1.jsp</result>
+		</global-results>
+	</package>
+
+
+	<package name="gridtree" namespace="/gridtree" extends="struts2">
+		<action name="gridTree"
+			class="querygridtree.action.GridTreeAction" />
+
+		<action name="demo"
+			class="querygridtree.action.InitGridTreeAction" />
+	</package>
+
+	<package name="commonGridTree" namespace="/commongridtree"
+		extends="struts2">
+		<action name="initlazy"
+			class="testGridTree.action.InitTableTreeLazyAction" />
+
+		<action name="lazy"
+			class="testGridTree.action.TableTreeLazyAction" />
+
+		<action name="lazypage"
+			class="testGridTree.action.TableTreeLazyPagingAction" />
+
+		<action name="common"
+			class="testGridTree.action.TableTreeAction" />
+	</package>
+
+	<package name="upload" namespace="/upload" extends="struts2">
+		<interceptors>
+			<interceptor name="myMethodInterceptor"
+				class="common.struts2.MyMethodInterceptor">
+				<param name="name">uploadMethodFilter</param>
+			</interceptor>
+		</interceptors>
+		<action name="test" class="common.struts2.UploadAction">
+			<param name="allowTypes">
+				image/png,image/bmp,image/jpeg
+			</param>
+			<param name="savePath">/upload</param>
+			<interceptor-ref name="fileUpload">
+				<param name="allowTypes">
+					image/png,image/bmp,image/jpeg
+				</param>
+				<param name="maximumSize">2000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="init">/WEB-INF/struts2/fileupload.jsp</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+			<result name="success">
+				/WEB-INF/struts2/consoleUpload.jsp
+			</result>
+		</action>
+
+		<action name="test2" class="common.struts2.UploadAction2">
+			<param name="allowTypes">
+				image/png,image/bmp,image/jpeg
+			</param>
+			<param name="savePath">/upload</param>
+			<interceptor-ref name="fileUpload">
+				<param name="allowTypes">
+					image/png,image/bmp,image/jpeg
+				</param>
+				<param name="maximumSize">2000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+			<result name="init">
+				/WEB-INF/struts2/fileupload2.jsp
+			</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+			<result name="ognl">/WEB-INF/struts2/ognlTest.jsp</result>
+			<result name="success">
+				/WEB-INF/struts2/consoleUpload2.jsp
+			</result>
+		</action>
+
+		<action name="down" class="common.struts2.DownloadAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">
+					attatchment;filename="test.txt"
+				</param>
+				<param name="bufferSize">4094</param>
+			</result>
+		</action>
+		<action name="down2" class="common.struts2.DownloadAction2">
+			<param name="fileName">中文附件.txt</param>
+			<result name="success" type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">
+					attatchment;filename="${downloadFileName}"
+				</param>
+				<param name="bufferSize">4094</param>
+			</result>
+		</action>
+		<action name="down3" class="common.struts2.DownloadAction3">
+			<!-- 下面演示使用的方法名过滤器 -->
+			<interceptor-ref name="myMethodInterceptor">
+				<!-- 下面为这个方法名过滤器取个名字 -->
+				<param name="name">hahachangename</param>
+				<!-- 下面表示要进行过滤的方法 -->
+				<param name="includeMethods">execute</param>
+				<!-- 如果同时写了include和exclude，会拦截这个方法！ -->
+				<param name="excludeMethods">execute</param>
+			</interceptor-ref>
+			<!-- 注意，凡是使用了interceptor-ref，就不会再使用默认的defaultStack了，除非这里重新写一遍！ -->
+			<interceptor-ref name="defaultStack" />
+			<param name="inputPath">/WEB-INF/download/操作流程.doc</param>
+			<param name="fileName">操作流程.doc</param>
+			<result name="success" type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="inputName">targetFile</param>
+				<param name="contentDisposition">
+					attatchment;filename="${downloadFileName}"
+				</param>
+				<param name="bufferSize">4094</param>
+			</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+		</action>
+	</package>
+
+	<package name="typechange" namespace="/typechangedemo"
+		extends="struts2">
+		<action name="saveuser"
+			class="common.struts2.TypeChangeAction">
+			<result name="success">
+				/WEB-INF/struts2/userTest.jsp
+			</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+			<result name="init">
+				/WEB-INF/jsp/typechangedemo/saveuser/initUser.jsp
+			</result>
+		</action>
+
+		<action name="saveuser2"
+			class="common.struts2.TypeChangeAction2">
+			<result name="success">
+				/WEB-INF/struts2/userTest.jsp
+			</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+			<result name="init">
+				/WEB-INF/jsp/typechangedemo/saveuser/initUser2.jsp
+			</result>
+		</action>
+	</package> 
+
+	<package name="source" namespace="/source" extends="struts2"> 
+		<action name="*" class="common.struts2.PlainTextResultAction">
+			<result name="jsp" type="plainText">
+				/WEB-INF/source/{1}.jsp
+			</result>
+			<result name="java" type="plainText">
+				/WEB-INF/source/{1}.java
+			</result>
+			<result name="nosource" type="redirect">
+				/WEB-INF/source/nosource.jsp
+			</result>
+		</action>
+	</package>
+
+</struts>

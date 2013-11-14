@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.action.extension" value="do" />
+	<constant name="struts.custom.i18n.resources"
+		value="resource/messages">
+	</constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+
+	<constant name="struts.configuration.xml.reload" value="false"></constant>
+	<constant name="struts.enable.SlashesInActionNames" value="false"></constant>
+
+	<package name="struts2" extends="struts-default" abstract="true">
+		<interceptors>
+			<interceptor name="dwzException"
+				class="dwz.framework.adapter.web.interceptor.ParamExceptionMappingInterceptor">
+			</interceptor>
+			<!--  interceptor name="myInterceptor"
+				class="common.struts2.MyInterceptor">
+				</interceptor-->
+			<interceptor-stack name="dwzDefaultStack">
+				<interceptor-ref name="dwzException" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="actionMappingParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">
+						dojo\..*,^struts\..*
+					</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<!--   interceptor-ref name="myInterceptor" /-->
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">
+						input,back,cancel,browse
+					</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">
+						input,back,cancel,browse
+					</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="dwzDefaultStack" />
+
+
+		<global-results>
+			<result name="test">test2.jsp</result>
+			<result name="operationDone">
+				/WEB-INF/jsp/common/${operationDone}.jsp
+			</result>
+			<result name="input">
+				/WEB-INF/jsp${proxy.namespace}/${proxy.actionName}/${proxy.method}.jsp
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="input"
+				exception="java.lang.NoSuchMethodException" />
+			<exception-mapping result="operationDone"
+				exception="java.lang.Exception" />
+		</global-exception-mappings>
+	</package>
+
+	<package name="common" extends="struts2">
+		<default-action-ref name="index"></default-action-ref>
+		<action name="passport"
+			class="dwz.present.passport.PassportAction">
+			<result name="success" type="redirect">${backToUrl}</result>
+			<result name="input">
+				/WEB-INF/jsp/management/index/login.jsp
+			</result>
+		</action>
+
+		<!-- <action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->
+	</package>
+
+
+	<package name="management" namespace="/management"
+		extends="struts2">
+		<action name="index"
+			class="dwz.present.app.management.IndexAction">
+			<result name="loginDialog">
+				/WEB-INF/jsp/management/index/loginDialog.jsp
+			</result>
+		</action>
+		<action name="syn" class="money.detail.MoneySynAction">
+		</action> 
+		<action name="user"
+			class="dwz.present.app.management.UserAction">
+		</action>
+	</package>
+</struts>

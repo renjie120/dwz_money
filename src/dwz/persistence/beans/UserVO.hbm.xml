@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="login.data.UserVO" table="user">
+		<id name="userId" column="userid">
+			<generator class="sequence">
+				<param name="sequence">USERSEQ</param>
+			</generator>
+		</id>		
+		<property name="userName" column="user_Name" type="string" />
+		<property name="password" column="password" type="string" />
+		<property name="loginName" column="login_Name" type="string" />
+		<property name="parentId" column="parent_Id" type="string" />
+		<property name="departmentId" column="depart_id" type="string" /> 
+		<property name="enable" column="enable" type="string" /> 
+	</class>
+	<query
+		name="dwz.persistence.daos.NewUserDao.findByPublicCredential">
+		<![CDATA[select UserVO.userId from UserVO as user where user.userName = ? and user.password = ? and (user.enable='Y')]]>
+	</query>
+	<query
+		name="dwz.persistence.daos.NewUserDao.findUserById">
+		<![CDATA[from UserVO as user where user.userId = ? ]]>
+	</query> 
+	
+	<query
+		name="dwz.persistence.daos.NewUserDao.findAllUserNum">
+		<![CDATA[select count(UserVO.userId)  from UserVO as user where user.enable = ?]]>
+	</query> 
+</hibernate-mapping>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-webstore-template>
+	<!-- 
+		The first template is default template.
+		The first layout is default layout.
+		The first theme is default theme.
+	-->
+
+	<web-base-url>/home/jsp</web-base-url>
+	<web-style-url>/styles/store</web-style-url>
+	<web-default-page-html>
+		<![CDATA[
+]]>
+	</web-default-page-html>
+	<web-template-list>
+		<template>
+			<!-- 
+				pictureUrl = <pre-pic-base> + 
+				'/' + <layout-list.layout.name> + '_' + <theme-list.theme.name>+ '_lg.' + <pre-pic-ext>;
+				thumbnailPictureUrl = <pre-pic-base> + 
+				'/' + <layout-list.layout.name> + '_' + <theme-list.theme.name>+ '_sm.' + <pre-pic-ext>;
+			-->
+			<name>template1</name>
+			<label>Retail-01</label>
+			<description>Retail and Wholesales Template</description>
+			<default-layout>hlcf</default-layout>
+			<default-theme>theme1</default-theme>
+			<pre-pic-base>/styles/store/template1/preview</pre-pic-base>
+			<pre-pic-ext>gif</pre-pic-ext>
+
+			<layout-list>
+				<layout>
+					<name>hlcf</name>
+					<css>hlcf</css>
+					<index>1</index>
+					<description>导航放左边</description>
+				</layout>
+				<layout>
+					<name>hcrf</name>
+					<css>hcrf</css>
+					<index>2</index>
+					<description>导航放右边</description>
+				</layout>
+			</layout-list>
+			<theme-list>
+				<theme>
+					<name>theme1</name>
+					<css>#E21E1F</css>
+					<label>Red</label>
+					<description>Retail and Wholesales red</description>
+				</theme>
+			</theme-list>
+		</template>
+
+	</web-template-list>
+
+</app-webstore-template>
