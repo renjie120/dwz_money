@@ -18,7 +18,7 @@
 				/WEB-INF/jsp/plan/PlanEdit.jsp
 			</result>
 		</action>
-		
+		<!--  
 		<action name="tree" class="money.plan.PlanAction">
 			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
 			<result name="detail">
@@ -30,7 +30,7 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/plan/PlanEdit.jsp
 			</result>
-		</action>
+		</action>-->
 
 		<action name="newmoney" class="money.detail.MoneyAction">
 			<param name="savePath">/upload</param>

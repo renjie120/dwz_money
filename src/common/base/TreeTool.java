@@ -15,9 +15,12 @@ public class TreeTool<T extends TreeAble> {
 		Iterator<T> it = c.iterator();
 		while (it.hasNext()) {
 			T vo = it.next();
-			buffer.append("{'id':'" + vo.getTreeId() + "','pId':'"+ vo.getParentId() + "','name':'" + vo.getTreeName() + "'},");
+			buffer.append("{'id':'" + vo.getTreeId() + "','pId':'"
+					+ vo.getParentId() + "','name':'" + vo.getTreeName()
+					+ "'},");
 		}
-		buffer = buffer.deleteCharAt(buffer.lastIndexOf(","));
+		if (buffer.length() > 1)
+			buffer = buffer.deleteCharAt(buffer.lastIndexOf(","));
 		buffer.append("]");
 		return buffer.toString();
 	}

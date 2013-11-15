@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%> 
 <%@ page import="java.net.*,java.io.*"%>
 <% 
-		String[] stocks = new String[]{"sh600000","sh000001","sh600718","sh600000","sz399001"};
+		/*String[] stocks = new String[]{"sh600000","sh000001","sh600718","sh600000","sz399001"};
 		String[] stocks2 = new String[]{"sh600383","sh000002","sh600635","sh601118","sz000799"};
 		int i1 = (int)(Math.random()*5);
 		int i2 =  (int)(Math.random()*5);
@@ -20,6 +20,6 @@
 			response.getWriter().write(str);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		} */
 %>
  

@@ -68,7 +68,8 @@ body {
 
 		<hr>
 		<footer>
-		<jsp:include page="/WEB-INF/jsp/management/index/stockFoot.jsp"></jsp:include>
+		<!-- /WEB-INF/jsp/management/index/stockFoot.jsp -->
+		 
 		<p>
 			©2012 人杰技术网版权所有 沪ICP备12002847号
 			<script language="javascript" type="text/javascript"

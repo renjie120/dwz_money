@@ -24,17 +24,22 @@ public class StandardPassport extends Passport {
 		Collection<MyUserVO> ids = null;
 		MyUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.myUserDao);
 		
-		ids = userDao.findByLoginId2(appUserName);
-		//镆ヨ鐧婚檰鍚嶆槸鍚﹀瓨鍦?
+		ids = userDao.findByLoginId2(appUserName); 
 		if (ids == null || ids.size() < 1) {
 			System.out.println("login failed: " + appUserType + ": "
 					+ appUserName);
 			throw new AuthenticationException("msg.login.failure1");
-		}
-		//妫€镆ュ瘑镰侊紒
+		} 
 		MyUserVO userVo = ids.iterator().next();
 		String pass = userVo.getPass(); 
+		try {
+			System.out.println(Coder.toMyCoder(pass)+"--加密密码是");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(!Coder.fromMyCoder(pass).equals(appPassword)){
+			
 			System.out.println("login failed: " + appUserType + ": "
 					+ appUserName);
 			throw new AuthenticationException("msg.login.failure2");

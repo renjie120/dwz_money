@@ -63,7 +63,7 @@ body {
     }
     function see(){  
      var obj = $('#num');   
-     $.ajax({
+     /*$.ajax({
         url : appPath+"/bootstrap/stock.jsp",
         type : 'POST',
         dataType : 'json',
@@ -85,7 +85,7 @@ body {
         	obj.html(tb.join(''));
         	
         }
-      });  
+      });  */
     }
 </script>  
 <font size="2"> <span id='num'></span> <span id='num2'></span> 

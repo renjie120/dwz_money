@@ -52,8 +52,8 @@ function initLayout(){
 	$("#taskbar").css({top: iContentH + $("#header").height() + 5, width:$(window).width()});
  
 	//下面对表格树进行控制高度自适应.
-	var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-64;  
-	$('#newtableTree').resetHeight(gridTreeHeight);      
+	//var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-64;  
+	//$('#newtableTree').resetHeight(gridTreeHeight);      
 }
 
 function initUI(_box){
