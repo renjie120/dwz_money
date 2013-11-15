@@ -222,6 +222,35 @@ LOCK TABLES `inv_product` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `menu_t`
+--
+
+DROP TABLE IF EXISTS `menu_t`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu_t` (
+  `menuid` int(10) NOT NULL AUTO_INCREMENT,
+  `target` varchar(1000) DEFAULT NULL,
+  `menuname` varchar(1000) DEFAULT NULL,
+  `parentId` varchar(1000) DEFAULT NULL,
+  `orderId` int(10) DEFAULT NULL,
+  `url` varchar(1000) DEFAULT NULL,
+  `level` varchar(1000) DEFAULT NULL,
+  `relId` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`menuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_t`
+--
+
+LOCK TABLES `menu_t` WRITE;
+/*!40000 ALTER TABLE `menu_t` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu_t` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Temporary table structure for view `money_detail_bigtype_v`
 --
 
@@ -287,7 +316,7 @@ CREATE TABLE `money_detail_t` (
   `userful` varchar(10) DEFAULT NULL,
   `useful` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`money_Sno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,6 +325,7 @@ CREATE TABLE `money_detail_t` (
 
 LOCK TABLES `money_detail_t` WRITE;
 /*!40000 ALTER TABLE `money_detail_t` DISABLE KEYS */;
+INSERT INTO `money_detail_t` VALUES (2,'2013-11-15',2222.00,'AA','222222',0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `money_detail_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,6 +362,22 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary table structure for view `money_detail_type_year_v`
+--
+
+DROP TABLE IF EXISTS `money_detail_type_year_v`;
+/*!50001 DROP VIEW IF EXISTS `money_detail_type_year_v`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `money_detail_type_year_v` (
+  `money` tinyint NOT NULL,
+  `money_type` tinyint NOT NULL,
+  `tallytype` tinyint NOT NULL,
+  `year` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary table structure for view `money_detail_view`
 --
 
@@ -355,6 +401,32 @@ SET character_set_client = utf8;
   `bigtype` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `organization_t`
+--
+
+DROP TABLE IF EXISTS `organization_t`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `organization_t` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `orgName` varchar(1000) DEFAULT NULL,
+  `orgcode` varchar(1000) DEFAULT NULL,
+  `parentOrg` varchar(1000) DEFAULT NULL,
+  `orderid` varchar(1000) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `organization_t`
+--
+
+LOCK TABLES `organization_t` WRITE;
+/*!40000 ALTER TABLE `organization_t` DISABLE KEYS */;
+/*!40000 ALTER TABLE `organization_t` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `parameter_type`
@@ -427,7 +499,7 @@ CREATE TABLE `plan_t` (
   `enddate` date DEFAULT NULL,
   `realenddate` date DEFAULT NULL,
   PRIMARY KEY (`planId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,6 +508,7 @@ CREATE TABLE `plan_t` (
 
 LOCK TABLES `plan_t` WRITE;
 /*!40000 ALTER TABLE `plan_t` DISABLE KEYS */;
+INSERT INTO `plan_t` VALUES (1,'2013-11-15','111',0,0,111,'2013-11-15','2013-11-15','2013-11-15','2013-11-15');
 /*!40000 ALTER TABLE `plan_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,6 +539,7 @@ CREATE TABLE `question_t` (
 
 LOCK TABLES `question_t` WRITE;
 /*!40000 ALTER TABLE `question_t` DISABLE KEYS */;
+INSERT INTO `question_t` VALUES ('111111111','2013-11-15','2013-11-15','11111',-1,0,'test',0,1,NULL);
 /*!40000 ALTER TABLE `question_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -709,7 +783,7 @@ CREATE TABLE `tally_type_t` (
   `type_code` varchar(2000) DEFAULT NULL,
   `orderid` int(5) DEFAULT NULL,
   PRIMARY KEY (`tally_type_sno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -718,6 +792,7 @@ CREATE TABLE `tally_type_t` (
 
 LOCK TABLES `tally_type_t` WRITE;
 /*!40000 ALTER TABLE `tally_type_t` DISABLE KEYS */;
+INSERT INTO `tally_type_t` VALUES (1,'大型开支','A',NULL,'AA',1),(2,'常规支出','B',NULL,NULL,2),(3,'房租','B1','2','B1',3);
 /*!40000 ALTER TABLE `tally_type_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -750,7 +825,7 @@ CREATE TABLE `user_t` (
 
 LOCK TABLES `user_t` WRITE;
 /*!40000 ALTER TABLE `user_t` DISABLE KEYS */;
-INSERT INTO `user_t` VALUES (1,'renjie120','`=Ub5.?cIQMR','test',1,'111@11.com',NULL,NULL,'1',NULL,1),(2,'1','LxUxGc)+PoVc@n8F;M)2','●●●●●●●',0,'11@1.c','111111111111','1','2','11',0);
+INSERT INTO `user_t` VALUES (1,'renjie120','`=Ub5.?cIQMR','test',1,'111@11.com',NULL,NULL,'1',NULL,1),(2,'李水清','Tt[hUj5P`=Yf@nKV6L>B','admin',0,'','11111111111111','1','2','1',1);
 /*!40000 ALTER TABLE `user_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -917,6 +992,25 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `money_detail_type_year_v`
+--
+
+/*!50001 DROP TABLE IF EXISTS `money_detail_type_year_v`*/;
+/*!50001 DROP VIEW IF EXISTS `money_detail_type_year_v`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `money_detail_type_year_v` AS select sum(`t`.`MONEY`) AS `money`,`t`.`MONEY_TYPE` AS `money_type`,`t`.`tallytype` AS `tallytype`,`t`.`year` AS `year` from `money_detail_view` `t` group by `t`.`year`,`t`.`MONEY_TYPE`,`t`.`tallytype` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `money_detail_view`
 --
 
@@ -963,4 +1057,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-15 11:40:01
+-- Dump completed on 2013-11-15 14:43:24

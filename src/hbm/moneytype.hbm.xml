@@ -19,6 +19,7 @@
 	<query name="money.moneytype.MoneyTypeDao.findFirstLevel">
 		<![CDATA[from MoneyTypeVO as moneytypeVO where parentCode is null]]>
 	</query>
+	  
 	<query name="money.moneytype.MoneyTypeDao.findChildren">
 		<![CDATA[from MoneyTypeVO as moneytypeVO where parentCode = ?]]>
 	</query>

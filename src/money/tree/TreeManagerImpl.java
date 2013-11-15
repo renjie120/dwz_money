@@ -53,12 +53,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 			Iterator<MoneyTypeVO> it = firstlevel.iterator();
 			while (it.hasNext()) {
-				MoneyTypeVO vo = it.next();
-				String[] codeString = new String[] { vo.getTypeCode() };
-				int totalCount = this.moneyTypeDao
-						.countByQuery(
-								"select count(typeCode)  from MoneyTypeVO as moneytypeVO where parentCode = ?",
-								(Object[]) codeString);
+				MoneyTypeVO vo = it.next(); 
+				int totalCount = this.moneyTypeDao.findChildCount(Integer.parseInt(vo.getTypeCode())); 
 				if (totalCount > 0) {
 					Collection<MoneyTypeVO> child = this.moneyTypeDao
 							.findChildren(vo.getTypeCode());

@@ -1,8 +1,6 @@
 ﻿package money.org;
 
-import java.util.Date;
 import java.io.Serializable;
-import java.util.Date;
 
 public class OrgVO implements Serializable {
 	private static final long serialVersionUID = 1L;

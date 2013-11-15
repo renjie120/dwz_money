@@ -31,13 +31,7 @@ public class StandardPassport extends Passport {
 			throw new AuthenticationException("msg.login.failure1");
 		} 
 		MyUserVO userVo = ids.iterator().next();
-		String pass = userVo.getPass(); 
-		try {
-			System.out.println(Coder.toMyCoder(pass)+"--加密密码是");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String pass = userVo.getPass();  
 		if(!Coder.fromMyCoder(pass).equals(appPassword)){
 			
 			System.out.println("login failed: " + appUserType + ": "

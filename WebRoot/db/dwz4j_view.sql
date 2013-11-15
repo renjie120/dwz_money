@@ -78,3 +78,12 @@ select qt.id             AS id,
   from ((question_t qt join params pm) join params pm2)
  where ((qt.sort = pm.parameterid) and (pm.parametertype = 5) and
        (qt.status = pm2.parameterid) and (pm2.parametertype = 6)); 
+       
+create view money_detail_type_year_v as
+select sum(MONEY) AS money,
+       t.MONEY_TYPE AS money_type,
+       t.tallytype AS tallytype,
+       t.year AS year
+  from money_detail_view t
+ group by year, MONEY_TYPE, tallytype;
+       
