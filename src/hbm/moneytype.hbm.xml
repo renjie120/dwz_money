@@ -24,7 +24,7 @@
 		<![CDATA[from MoneyTypeVO as moneytypeVO where parentCode = ?]]>
 	</query>
 	<query name="money.moneytype.MoneyTypeDao.findChildCount">
-		<![CDATA[select count(typeCode)  from MoneyTypeVO as moneytypeVO where parentCode = ?]]>
+		<![CDATA[select count(moenyTypeSno)  from MoneyTypeVO  where parentCode = ?]]>
 	</query>
 	<query name="money.moneytype.MoneyTypeDao.findRecordById">
 		<![CDATA[from MoneyTypeVO as moneytypeVO where moenyTypeSno = ?]]>

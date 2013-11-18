@@ -1,6 +1,7 @@
 ﻿package money.moneytype;
 
 import java.util.Collection;
+import java.util.List;
 
 import dwz.dal.BaseDao;
 
@@ -26,7 +27,7 @@ public interface MoneyTypeDao extends BaseDao<MoneyTypeVO, Integer> {
 	 * @param moenyTypeSno
 	 * @return
 	 */
-	public int findChildCount(int moenyTypeSno);
+	public List findChildCount(String moenyTypeSno);
 
 	public Collection<MoneyTypeVO> findAll(); 
 

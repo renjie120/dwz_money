@@ -32,14 +32,14 @@ body {
 							用户名(默认test)
 						</label>
 						<input type="text" name="app_username" size="20"
-							class="login_input" value="test" />
+							class="login_input" value="" />
 					</p>
 					<p>
 						<label>
 							密码(默认为1)
 						</label>
 						<input type="password" name="app_password" size="20"
-							class="login_input" value="1" />
+							class="login_input" value="" />
 					</p>
 					<div class="login_bar">
 						<input class="sub" type="submit" value="登陆" />

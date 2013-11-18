@@ -176,7 +176,10 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 	 */
 	public ParamSelect getParamsByType(String paraType) { 
 		ParamSelect paramTypeCodes = getAllParamTypeCode();
-		int val = Integer.parseInt(paramTypeCodes.getValue(paraType)); 
-		return getParamsByType(val,paraType);
+		if(paramTypeCodes.getValue(paraType)!=null){
+			int val = Integer.parseInt(paramTypeCodes.getValue(paraType)); 
+			return getParamsByType(val,paraType);
+		}
+		return null;
 	} 
 }

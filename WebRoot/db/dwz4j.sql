@@ -27,7 +27,7 @@ CREATE TABLE `cache_t` (
   `cacheId` varchar(1000) DEFAULT NULL,
   `cacheName` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `cache_t` (
 
 LOCK TABLES `cache_t` WRITE;
 /*!40000 ALTER TABLE `cache_t` DISABLE KEYS */;
-INSERT INTO `cache_t` VALUES (1,'moneyType','金额类型'),(2,'allparamtype','属性类型'),(3,'allparamtypecode','全部参数代码'),(4,'moneyTypeTree','金额类型树');
+INSERT INTO `cache_t` VALUES (11,'moneyType','金额类型'),(12,'allparamtype','属性类型'),(13,'allparamtypecode','全部参数代码'),(14,'paramtype1','参数:questionSort'),(15,'paramtype2','参数:menulevel'),(16,'paramtype3','参数:planstatus'),(17,'paramtype4','参数:plantype'),(18,'paramtype5','参数:menutarget'),(19,'paramtype6','参数:questionStatus'),(20,'moneyTypeTree','金额类型树');
 /*!40000 ALTER TABLE `cache_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +325,7 @@ CREATE TABLE `money_detail_t` (
 
 LOCK TABLES `money_detail_t` WRITE;
 /*!40000 ALTER TABLE `money_detail_t` DISABLE KEYS */;
-INSERT INTO `money_detail_t` VALUES (2,'2013-11-15',2222.00,'AA','222222',0,NULL,NULL,NULL);
+INSERT INTO `money_detail_t` VALUES (2,'2013-11-15',2222.00,'B1','222222',0,1,'1','1');
 /*!40000 ALTER TABLE `money_detail_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,7 +441,7 @@ CREATE TABLE `parameter_type` (
   `orderId` int(10) DEFAULT NULL,
   `code` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`parameter_type_Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -450,6 +450,7 @@ CREATE TABLE `parameter_type` (
 
 LOCK TABLES `parameter_type` WRITE;
 /*!40000 ALTER TABLE `parameter_type` DISABLE KEYS */;
+INSERT INTO `parameter_type` VALUES (1,'问题类别',1,'questionSort'),(2,'菜单级别',2,'menulevel'),(3,'计划状态',3,'planstatus'),(4,'计划类型',4,'plantype'),(5,'菜单目的',5,'menutarget'),(6,'问题状态',6,'questionStatus');
 /*!40000 ALTER TABLE `parameter_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,7 +469,7 @@ CREATE TABLE `params` (
   `usevalue` varchar(100) DEFAULT NULL,
   `orderId` int(10) DEFAULT NULL,
   PRIMARY KEY (`parameterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -477,6 +478,7 @@ CREATE TABLE `params` (
 
 LOCK TABLES `params` WRITE;
 /*!40000 ALTER TABLE `params` DISABLE KEYS */;
+INSERT INTO `params` VALUES (1,1,'简单',1,'0',1),(2,1,'中级',2,'0',2),(3,1,'复杂',3,'0',0),(4,2,'一级菜单',1,'0',0),(5,2,'二级菜单',2,'0',0),(6,2,'三级菜单',3,'0',0),(7,3,'计划中',1,'0',0),(8,3,'执行中',2,'0',0),(9,3,'执行完毕',3,'0',0),(10,3,'废弃',4,'0',0),(11,4,'紧急',1,'0',0),(12,4,'重要',2,'0',0),(13,4,'无足轻重',3,'0',0),(14,6,'待解决',1,'0',0),(15,6,'已经解决',2,'0',0),(16,6,'解决不了',3,'0',0);
 /*!40000 ALTER TABLE `params` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -508,7 +510,7 @@ CREATE TABLE `plan_t` (
 
 LOCK TABLES `plan_t` WRITE;
 /*!40000 ALTER TABLE `plan_t` DISABLE KEYS */;
-INSERT INTO `plan_t` VALUES (1,'2013-11-15','111',0,0,111,'2013-11-15','2013-11-15','2013-11-15','2013-11-15');
+INSERT INTO `plan_t` VALUES (1,'2013-11-15','111',13,7,111,'2013-11-15','2013-11-15','2013-11-15','2013-11-15');
 /*!40000 ALTER TABLE `plan_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,7 +541,7 @@ CREATE TABLE `question_t` (
 
 LOCK TABLES `question_t` WRITE;
 /*!40000 ALTER TABLE `question_t` DISABLE KEYS */;
-INSERT INTO `question_t` VALUES ('111111111','2013-11-15','2013-11-15','11111',-1,0,'test',0,1,NULL);
+INSERT INTO `question_t` VALUES ('33333333333','2013-11-18','2013-11-18','2222222',3,15,'admin',0,3,NULL);
 /*!40000 ALTER TABLE `question_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -792,7 +794,7 @@ CREATE TABLE `tally_type_t` (
 
 LOCK TABLES `tally_type_t` WRITE;
 /*!40000 ALTER TABLE `tally_type_t` DISABLE KEYS */;
-INSERT INTO `tally_type_t` VALUES (1,'大型开支','A',NULL,'AA',1),(2,'常规支出','B',NULL,NULL,2),(3,'房租','B1','2','B1',3);
+INSERT INTO `tally_type_t` VALUES (1,'大型开支','1',NULL,'A',1),(2,'常规支出','1',NULL,'B',2),(3,'房租','B1','B','B1',3);
 /*!40000 ALTER TABLE `tally_type_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -825,7 +827,7 @@ CREATE TABLE `user_t` (
 
 LOCK TABLES `user_t` WRITE;
 /*!40000 ALTER TABLE `user_t` DISABLE KEYS */;
-INSERT INTO `user_t` VALUES (1,'renjie120','`=Ub5.?cIQMR','test',1,'111@11.com',NULL,NULL,'1',NULL,1),(2,'李水清','Tt[hUj5P`=Yf@nKV6L>B','admin',0,'','11111111111111','1','2','1',1);
+INSERT INTO `user_t` VALUES (1,'renjie120','`=Ub5.?cIQMR','test',1,'111@11.com',NULL,NULL,'1',NULL,1),(2,'李水清','X:VpHm9Da`Bm2+5SJbDzPt0RFIHS','admin',0,'','11111111111111','1','2','1',1);
 /*!40000 ALTER TABLE `user_t` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1057,4 +1059,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-15 14:43:24
+-- Dump completed on 2013-11-18 16:01:15

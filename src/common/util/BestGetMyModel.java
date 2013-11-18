@@ -251,6 +251,7 @@ public class BestGetMyModel extends ChangeText {
 		File f = new File(newDirName + "/");
 		f.mkdirs();
 		File srcDirFile = new File(srcDir);
+		System.out.println(srcDirFile.getAbsolutePath());
 		File[] childFiles = srcDirFile.listFiles();
 		String newClassName = entryName;
 		for (File fi : childFiles) {
@@ -297,10 +298,10 @@ public class BestGetMyModel extends ChangeText {
 		NodeList children = list.getChildNodes();
 		for (int j = 0; j < children.getLength(); j++) {
 			Node child = children.item(j);
-			if (child.getNodeName().equals("id")
-					|| child.getNodeName().equals("property")) {
+			if ("id".equals(child.getNodeName())
+					|| "property".equals(child.getNodeName())) {
 				Config config = new Config();
-				if (child.getNodeName().equals("id")) {
+				if ("id".equals(child.getNodeName())) {
 					idKey = DomUtil.getAttribute(child, "name");
 					idColumn = DomUtil.getAttribute(child, "column");
 					idType = DomUtil.getAttribute(child, "type");

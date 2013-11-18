@@ -63,11 +63,12 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 				.getParamsByType(AllSelectContants.QUESTION_SORT.getName());
 		ParamSelect select2 = allSelect
 				.getParamsByType(AllSelectContants.QUESTION_STATUS.getName());
-		for (QuestionVO po : voList) {
-			po.setSortName(select1.getName("" + po.getSort()));
-			po.setStatusName(select2.getName("" + po.getStatus()));
-			eaList.add(new QuestionImpl(po));
-		}
+		if (select1 != null && select2 != null)
+			for (QuestionVO po : voList) {
+				po.setSortName(select1.getName("" + po.getSort()));
+				po.setStatusName(select2.getName("" + po.getStatus()));
+				eaList.add(new QuestionImpl(po));
+			}
 
 		return eaList;
 	}
@@ -156,8 +157,8 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 				count++;
 			}
 		}
-		//查询问题类别
-		if (questionQueryVO.getQuestionSortC()>0) {
+		// 查询问题类别
+		if (questionQueryVO.getQuestionSortC() > 0) {
 			// 包含
 			if ("1".equals(questionQueryVO.getQuestionSortConditionC())) {
 				sb.append(count == 0 ? " where" : " and").append(
@@ -171,8 +172,8 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 				count++;
 			}
 		}
-		//查询问题状态
-		if ( questionQueryVO.getQuestionStatusC()>0) {
+		// 查询问题状态
+		if (questionQueryVO.getQuestionStatusC() > 0) {
 			// 包含
 			if ("1".equals(questionQueryVO.getQuestionStatusConditionC())) {
 				sb.append(count == 0 ? " where" : " and").append(
@@ -186,7 +187,7 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 				count++;
 			}
 		}
-		//查询答案条件
+		// 查询答案条件
 		if (!CommonUtil.isEmpty(questionQueryVO.getAnswerC())) {
 			// 包含
 			if ("1".equals(questionQueryVO.getQuestionDescConditionC())) {
@@ -201,28 +202,28 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 				count++;
 			}
 		}
-		//较小的解决日期
+		// 较小的解决日期
 		if (!CommonUtil.isBlank(questionQueryVO.getSmallConsoleDateC())) {
 			sb.append(count == 0 ? " where" : " and").append(
 					" question.consoleDate >= ? ");
 			argList.add(questionQueryVO.getSmallConsoleDateC());
 			count++;
 		}
-		//较大的解决日期
+		// 较大的解决日期
 		if (!CommonUtil.isBlank(questionQueryVO.getBigConsoleDateC())) {
 			sb.append(count == 0 ? " where" : " and").append(
 					" question.consoleDate <= ? ");
 			argList.add(questionQueryVO.getBigConsoleDateC());
 			count++;
 		}
-		//较小的提问日期
+		// 较小的提问日期
 		if (!CommonUtil.isBlank(questionQueryVO.getSmallQuestionDateC())) {
 			sb.append(count == 0 ? " where" : " and").append(
 					" question.questionDate >= ? ");
 			argList.add(questionQueryVO.getSmallQuestionDateC());
 			count++;
 		}
-		//较大的提问日期
+		// 较大的提问日期
 		if (!CommonUtil.isBlank(questionQueryVO.getBigQuestionDateC())) {
 			sb.append(count == 0 ? " where" : " and").append(
 					" question.questionDate <= ? ");

@@ -32,9 +32,9 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	 */
 	private static final long serialVersionUID = 1L;
 	QuestionManager pMgr = bf.getManager(BeanManagerKey.questionManager);
-	private Question questionVo; 
+	private Question questionVo;
 
-	public String beforeAdd() { 
+	public String beforeAdd() {
 		return "detail";
 	}
 
@@ -47,30 +47,32 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		try {
 			submit = getAppContext().getUser().getId();
 			QuestionImpl questionImpl = new QuestionImpl(questionDesc,
-					questionDate, consoleDate, answer, sort, orderId, status,submit);
+					questionDate, consoleDate, answer, sort, orderId, status,
+					submit);
 			pMgr.createQuestion(questionImpl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
-		writeToPage(response,getText("msg.operation.success"));
+		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
 
-	public String report() {  
+	public String report() {
 		return "report";
 	}
-	
-	public String reportXml() {  
-		response.setContentType("text/plain;charset=GBK"); 
+
+	public String reportXml() {
+		response.setContentType("text/plain;charset=GBK");
 		try {
-			response.getWriter().write("<graph showNamesalPrecision='0'><set name='USA' value='20'/><set name='USA' value='20'/></graph>");
-		} catch (IOException e) { 
+			response.getWriter()
+					.write("<graph showNamesalPrecision='0'><set name='USA' value='20'/><set name='USA' value='20'/></graph>");
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 删除信息.
 	 * 
@@ -87,45 +89,58 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	 * 
 	 * @return
 	 */
-	public String beforeUpdate() {  
+	public String beforeUpdate() {
 		questionVo = pMgr.getQuestion(questionId);
 		return "editdetail";
 	}
 
 	private static enum ExportFiled {
-		QUESTIONID("问题ID"), SORT("问题类型"), QUESTIONDESC("问题描述"), QUESTIONDATE(
-				"发现日期"), CONSOLEDATE("解决时间"), ANSWER("解决方案"), STATUS("问题状态");
+		QUESTIONID, SORT, QUESTIONDESC, QUESTIONDATE, CONSOLEDATE, ANSWER, STATUS;
 		private String context;
 
-		public String getContext() {
-			return this.context;
-		}
-
-		private ExportFiled(String context) {
-			this.context = context;
+		@Override
+		public String toString() {
+			switch (this.ordinal()) {
+			case 0:
+				return "问题ID";
+			case 1:
+				return "问题类型";
+			case 2:
+				return "问题描述";
+			case 3:
+				return "发现日期";
+			case 4:
+				return "解决时间";
+			case 5:
+				return "解决方案";
+			case 6:
+				return "问题状态";
+			default:
+				return "";
+			}
 		}
 	}
 
 	public String export() {
 		response.setContentType("Application/excel");
 		String fileNameString = CommonUtil.toUtf8String("问题列表.xls");
-		response.addHeader("Content-Disposition",
-				"attachment;filename="+fileNameString);
+		response.addHeader("Content-Disposition", "attachment;filename="
+				+ fileNameString);
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<QuestionSearchFields, Object> criterias = getCriterias();
 
-		Collection<Question> questionList = pMgr.searchQuestion(criterias,questionQueryVO,
-				realOrderField(), startIndex, numPerPage);
+		Collection<Question> questionList = pMgr.searchQuestion(criterias,
+				questionQueryVO, realOrderField(), startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
 		int rowIndex = 0;
 
 		e.createRow(rowIndex++);
 		for (ExportFiled filed : ExportFiled.values()) {
-			e.setCell(filed.ordinal(), filed.getContext());
+			e.setCell(filed.ordinal(), filed.toString());
 		}
 
 		for (Question question : questionList) {
@@ -167,9 +182,10 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 
 	/**
 	 * 高级查询之前.
+	 * 
 	 * @return
 	 */
-	public String beforeQuery() { 
+	public String beforeQuery() {
 		return "query";
 	}
 
@@ -182,13 +198,13 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		try {
 			QuestionImpl questionImpl = new QuestionImpl(questionId,
 					questionDesc, questionDate, consoleDate, answer, sort,
-					orderId, status,submit);
+					orderId, status, submit);
 			pMgr.updateQuestion(questionImpl);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
-		writeToPage(response,getText("msg.operation.success"));
-		return null; 
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
 	}
 
 	private int page = 1;
@@ -206,19 +222,20 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<QuestionSearchFields, Object> criterias = getCriterias();
 
-		Collection<Question> moneyList = pMgr.searchQuestion(criterias,questionQueryVO,
-				realOrderField(), startIndex, numPerPage); 
+		Collection<Question> moneyList = pMgr.searchQuestion(criterias,
+				questionQueryVO, realOrderField(), startIndex, numPerPage);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
-		request.setAttribute("totalCount", pMgr.searchQuestionNum(criterias,questionQueryVO)); 
-		
-		ActionContext.getContext().put("list", moneyList); 
+		request.setAttribute("totalCount",
+				pMgr.searchQuestionNum(criterias, questionQueryVO));
+
+		ActionContext.getContext().put("list", moneyList);
 		ActionContext.getContext().put("questionVo", questionVo);
-		ActionContext.getContext().put("questionQueryVO", questionQueryVO); 
+		ActionContext.getContext().put("questionQueryVO", questionQueryVO);
 		return "list";
 	}
-	
-	public String complexQuery() { 
+
+	public String complexQuery() {
 		return "goonquery";
 	}
 
@@ -252,25 +269,30 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 
 	/**
 	 * 按照装状态统计各个问题.
+	 * 
 	 * @return
 	 */
-	public String reportQuestionByStatusXml() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil"); 
-		List ans = util.getCountGroupByOneColumn("question_v", "statusname"); 
-		writeToPage(response,ReportTool.getSimpleCountXML(ans,"按照状态统计问题数量")); 
+	public String reportQuestionByStatusXml() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util.getCountGroupByOneColumn("question_v", "statusname");
+		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按照状态统计问题数量"));
 		return null;
 	}
-	
+
 	/**
 	 * 安装分类统计各个问题.
+	 * 
 	 * @return
 	 */
-	public String reportQuestionByTypeXml() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil"); 
-		List ans = util.getCountGroupByOneColumn("question_v", "typename"); 
-		writeToPage(response,ReportTool.getSimpleCountXML(ans,"按照类型统计问题数量")); 
+	public String reportQuestionByTypeXml() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util.getCountGroupByOneColumn("question_v", "typename");
+		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按照类型统计问题数量"));
 		return null;
 	}
+
 	private Map<QuestionSearchFields, Object> getCriterias() {
 		Map<QuestionSearchFields, Object> criterias = new HashMap<QuestionSearchFields, Object>();
 		QuestionVO vo = new QuestionVO();
@@ -388,9 +410,9 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		this.status = status;
 	}
 
-	private QuestionQueryVO questionQueryVO=new QuestionQueryVO();  
-	
-	public Object getModel() { 
+	private QuestionQueryVO questionQueryVO = new QuestionQueryVO();
+
+	public Object getModel() {
 		return questionQueryVO;
 	}
 

@@ -54,11 +54,14 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			Iterator<MoneyTypeVO> it = firstlevel.iterator();
 			while (it.hasNext()) {
 				MoneyTypeVO vo = it.next(); 
-				int totalCount = this.moneyTypeDao.findChildCount(Integer.parseInt(vo.getTypeCode())); 
-				if (totalCount > 0) {
-					Collection<MoneyTypeVO> child = this.moneyTypeDao
-							.findChildren(vo.getTypeCode());
-					allNodeCollection.addAll(child);
+				List c =  this.moneyTypeDao.findChildCount( vo.getTypeCode() );
+				if(c!=null&&c.size()>0){ 
+					int totalCount = Integer.parseInt(""+c.get(0)); 
+					if (totalCount > 0) {
+						Collection<MoneyTypeVO> child = this.moneyTypeDao
+								.findChildren(vo.getTypeCode());
+						allNodeCollection.addAll(child);
+					}
 				}
 			}
 			TreeTool<MoneyTypeVO> tree = new TreeTool<MoneyTypeVO>();

@@ -24,65 +24,71 @@ import dwz.present.BaseAction;
 
 /**
  * 理财管理.
+ * 
  * @author lsq
- *
+ * 
  */
-public class MoneyAction extends BaseAction{
+public class MoneyAction extends BaseAction {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
 	MoneyManager mMgr = bf.getManager(BeanManagerKey.moneyManager);
-	private Money moneyVo; 
+	private Money moneyVo;
 	private int moneySno;
 	private double money;
-	private Date moneyTime; 
+	private Date moneyTime;
 	private String moneyType;
 	private String moneyDesc;
 	private int shopCard;
-	private String bookType; 
-	private File upload; 
+	private String bookType;
+	private File upload;
 	private String arg;
-	//下面的两个属性是用来接收依赖注入的属性----如果定义了file上传的属性为xxx，还要再定义两个属性用来封装类型和文件名！（如果不写怎么样？）
-	private String uploadContentType;  
+	// 下面的两个属性是用来接收依赖注入的属性----如果定义了file上传的属性为xxx，还要再定义两个属性用来封装类型和文件名！（如果不写怎么样？）
+	private String uploadContentType;
 	private String uploadFileName;
-	//设置允许上传的文件类型
+	// 设置允许上传的文件类型
 	private String allowTypes;
-	//下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
-	private String savePath;  
+	// 下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
+	private String savePath;
+
 	public double getMoney() {
 		return money;
 	}
-	public String beforeAdd() {  
+
+	public String beforeAdd() {
 		return "detail";
-	} 
+	}
+
 	/**
 	 * 指向下载界面.
+	 * 
 	 * @return
 	 */
 	public String initImport() {
 		return "import";
 	}
-	 
+
 	public String technology() {
 		return "technology";
 	}
-	
+
 	public String newindex() {
 		return "newindex";
 	}
-	
+
 	public String about() {
 		return "about";
 	}
-	 
+
 	/**
 	 * 模板下载.
+	 * 
 	 * @return
 	 */
 	public String model() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("下载模板.xls");
+		String fileNameString = CommonUtil.toUtf8String("result.xls");
 		response.addHeader("Content-Disposition", "attachment;filename="
 				+ fileNameString);
 
@@ -94,60 +100,82 @@ public class MoneyAction extends BaseAction{
 		e.exportXls(response);
 		return null;
 	}
-	
-	public String importExcel() throws Exception { 
-		 if(CommonUtil.isEmpty(uploadFileName)||!(uploadFileName.endsWith(".xls")||uploadFileName.endsWith(".xlsx"))){
-			 writeToPage(response,"请上传excel文件!");
+
+	public String importExcel() throws Exception {
+		if (CommonUtil.isEmpty(uploadFileName)
+				|| !(uploadFileName.endsWith(".xls") || uploadFileName
+						.endsWith(".xlsx"))) {
+			writeToPage(response, "请上传excel文件!");
 			return null;
-		 }
-		//得到文件后缀名
-		String fileType=uploadFileName.substring(uploadFileName.indexOf("."),uploadFileName.length());
-		//得到新的文件名..防止重名.
-		String newfile=uploadFileName.substring(0,uploadFileName.indexOf("."))+getContextUser().getUserName()+System.currentTimeMillis()+"."+fileType;
-		//下面的文件上传路径先要保证在服务器上面已经存在！
-		String desFileString = getSavePath()+"\\"+newfile; 
-		FileOutputStream fos = new FileOutputStream(desFileString); 
-		FileInputStream fis = new FileInputStream(upload);
-		byte[] buffer= new byte[1024];
-		int len = 0;
-		while((len=fis.read(buffer))>0){
-			fos.write(buffer,0,len);
-		} 
-		File f = new File(desFileString);
-		if(f.exists()){ 
-			//导入excel中的数据到数据库.
-			mMgr.importFromExcel(f); 
 		}
-		writeToPage(response,"导入成功!");
+		// 得到文件后缀名
+		String fileType = uploadFileName.substring(uploadFileName.indexOf("."),
+				uploadFileName.length());
+		// 得到新的文件名..防止重名.
+		String newfile = uploadFileName.substring(0,
+				uploadFileName.indexOf("."))
+				+ getContextUser().getUserName()
+				+ System.currentTimeMillis()
+				+ "." + fileType;
+		// 下面的文件上传路径先要保证在服务器上面已经存在！
+		String desFileString = getSavePath() + "\\" + newfile;
+		FileOutputStream fos = new FileOutputStream(desFileString);
+		FileInputStream fis = new FileInputStream(upload);
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while ((len = fis.read(buffer)) > 0) {
+			fos.write(buffer, 0, len);
+		}
+		File f = new File(desFileString);
+		if (f.exists()) {
+			// 导入excel中的数据到数据库.
+			mMgr.importFromExcel(f);
+		}
+		writeToPage(response, "导入成功!");
 		return null;
 	}
-	
+
 	private static enum ExportFiled {
-		MONEY_TIME,MONEY,MONEY_TYPE,MONEY_DESC
+		MONEY_TIME, MONEY, MONEY_TYPE, MONEY_DESC;
+		@Override
+		public String toString() {
+			switch (this.ordinal()) {
+			case 0:
+				return "时间";
+			case 1:
+				return "金额";
+			case 2:
+				return "类型";
+			case 3:
+				return "描述";
+			default:
+				return "";
+			} 
+		}
 	}
-	
-	public String export() {  
+
+	public String export() {
 		String fileNameString = CommonUtil.toUtf8String("金额列表导出结果.xls");
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition",
-				"attachment;filename="+fileNameString);
+		response.addHeader("Content-Disposition", "attachment;filename="
+				+ fileNameString);
 
-		int pageNum = getPageNum(); 
+		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
-		int startIndex = (pageNum-1)*numPerPage;
+		int startIndex = (pageNum - 1) * numPerPage;
 		Map<MoneySearchFields, Object> criterias = getCriterias();
 
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
-				realOrderField(), startIndex, numPerPage);   
+				realOrderField(), startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
 		int rowIndex = 0;
- 
+
 		e.createRow(rowIndex++);
 		for (ExportFiled filed : ExportFiled.values()) {
 			e.setCell(filed.ordinal(), filed.toString());
 		}
- 
+
 		for (Money money : moneyList) {
 			e.createRow(rowIndex++);
 
@@ -164,7 +192,7 @@ public class MoneyAction extends BaseAction{
 					break;
 				case MONEY_DESC:
 					e.setCell(filed.ordinal(), money.getMoneyDesc());
-					break; 
+					break;
 				default:
 					break;
 				}
@@ -175,59 +203,64 @@ public class MoneyAction extends BaseAction{
 		e.exportXls(response);
 		return null;
 	}
-	
+
 	/**
 	 * 添加信息.
+	 * 
 	 * @return
 	 */
-	public String doAdd() { 
+	public String doAdd() {
 		try {
-			MoneyImpl moneyImpl = new MoneyImpl( moneyTime, money,moneyType, moneyDesc, shopCard, bookType);
+			MoneyImpl moneyImpl = new MoneyImpl(moneyTime, money, moneyType,
+					moneyDesc, shopCard, bookType);
 			mMgr.createMoney(moneyImpl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
-		writeToPage(response,getText("msg.operation.success"));
+		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
-	
-	public String report() {  
+
+	public String report() {
 		return "report";
 	}
-	  
-	
+
 	/**
 	 * 删除信息.
+	 * 
 	 * @return
 	 */
 	public String doDelete() {
-		String ids = request.getParameter("ids"); 
+		String ids = request.getParameter("ids");
 		mMgr.removeMoney(ids);
-		return ajaxForwardSuccess(getText("msg.operation.success")); 
+		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	/**
 	 * 得到详细信息.
+	 * 
 	 * @return
 	 */
-	public String beforeUpdate() { 
-		moneyVo = mMgr.getMoney(moneySno); 
+	public String beforeUpdate() {
+		moneyVo = mMgr.getMoney(moneySno);
 		return "editdetail";
 	}
 
 	/**
 	 * 更新信息.
+	 * 
 	 * @return
 	 */
 	public String doUpdate() {
 		try {
-			MoneyImpl moneyImpl = new MoneyImpl(moneyTime,money,  moneyType,  moneyDesc,  shopCard,  bookType,moneySno);
+			MoneyImpl moneyImpl = new MoneyImpl(moneyTime, money, moneyType,
+					moneyDesc, shopCard, bookType, moneySno);
 			mMgr.updateMoney(moneyImpl);
-		} catch (ValidateFieldsException e) { 
+		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
-		writeToPage(response,getText("msg.operation.success"));
+		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
 
@@ -237,27 +270,29 @@ public class MoneyAction extends BaseAction{
 
 	/**
 	 * 查询信息.
+	 * 
 	 * @return
 	 */
 	public String query() {
-		int pageNum = getPageNum(); 
+		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
-		int startIndex = (pageNum-1)*numPerPage;
+		int startIndex = (pageNum - 1) * numPerPage;
 		Map<MoneySearchFields, Object> criterias = getCriterias();
 
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
-				realOrderField(), startIndex, numPerPage);   
-		
+				realOrderField(), startIndex, numPerPage);
+
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
-		request.setAttribute("totalCount", mMgr.searchMoneyNum(criterias)); 
-		ActionContext.getContext().put("list", moneyList);  
+		request.setAttribute("totalCount", mMgr.searchMoneyNum(criterias));
+		ActionContext.getContext().put("list", moneyList);
 		return "list";
 	}
 
-	public String reQuery() { 
+	public String reQuery() {
 		return "list";
-	} 
+	}
+
 	public int getPage() {
 		return page;
 	}
@@ -281,69 +316,84 @@ public class MoneyAction extends BaseAction{
 	public void setCount(long count) {
 		this.count = count;
 	}
- 
+
 	private Map<MoneySearchFields, Object> getCriterias() {
-		Map<MoneySearchFields, Object> criterias = new HashMap<MoneySearchFields, Object>(); 
-		/*if (moneyVo.getId()>0)
+		Map<MoneySearchFields, Object> criterias = new HashMap<MoneySearchFields, Object>();
+		if (moneyVo == null)
+			return criterias;
+		if (moneyVo.getId() > 0)
 			criterias.put(MoneySearchFields.MONEY_SNO, moneyVo.getId());
 		if (CommonUtil.isNotEmpty(moneyVo.getBookType()))
 			criterias.put(MoneySearchFields.BOOK_TYPE, moneyVo.getBookType());
 		if (CommonUtil.isNotEmpty(moneyVo.getMoneyDesc()))
-			criterias.put(MoneySearchFields.MONEY_DESC,"%"+moneyVo.getMoneyDesc()+"%");
+			criterias.put(MoneySearchFields.MONEY_DESC,
+					"%" + moneyVo.getMoneyDesc() + "%");
 		if (!CommonUtil.isBlank(moneyVo.getMoneyTime()))
-			criterias.put(MoneySearchFields.MONEY_TIME,moneyVo.getMoneyTime());
-		if (moneyVo.getMoney()>0)
-			criterias.put(MoneySearchFields.MONEY,moneyVo.getMoney());
-		if (moneyVo.getShopCard()>0)
-			criterias.put(MoneySearchFields.SHOP_CARD,moneyVo.getShopCard());
-			*/
+			criterias.put(MoneySearchFields.MONEY_TIME, moneyVo.getMoneyTime());
+		if (moneyVo.getMoney() > 0)
+			criterias.put(MoneySearchFields.MONEY, moneyVo.getMoney());
+		if (moneyVo.getShopCard() > 0)
+			criterias.put(MoneySearchFields.SHOP_CARD, moneyVo.getShopCard());
 		return criterias;
 	}
-	
+
 	/**
 	 * 按照类别统计数量.
+	 * 
 	 * @return
 	 */
-	public String reportCountByType() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil");
-		List ans = util.getCountGroupByOneColumn("money_detail_t", "money_type");  
-		writeToPage(response,ReportTool.getSimpleCountXML(ans,"按类数量统计"));
-		return null;
-	}
-	
-	/**
-	 * 按照类别，年份统计金额总数.
-	 * @return
-	 */
-	public String reportSumByTypeAndYear() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil");
-		List ans = util.getTribleColumn("money_detail_type_year_v", "money","tallytype","year");  
-		writeToPage(response,ReportTool.getMultiSeriesReportXML(ans,"年度统计")[2]);
-		return null;
-	}
-	
-	/**
-	 * 按照类别，年份，月份统计金额总数.
-	 * @return
-	 */
-	public String reportSumByTypeAndYearAndMonth() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil");
-		List ans = util.getTribleColumn("money_detail_type_year_month_v", "money","tallytype","month"," where year='2011'");  
-		writeToPage(response,ReportTool.getMultiSeriesReportXML(ans,"2011年统计数据")[2]);
-		return null;
-	}
-	
-	/**
-	 * 按照类别统计各个的总金额.
-	 * @return
-	 */
-	public String reportSumByType() {  
-		ReportDaoUtil util = (ReportDaoUtil)SpringContextUtil.getBean("reportUtil"); 
-		List ans = util.getSumGroupByOneColumn("money_detail_type_v", "tallytype","money"); 
-		writeToPage(response,ReportTool.getSimpleSumXML(ans,"按类总数统计")); 
+	public String reportCountByType() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util
+				.getCountGroupByOneColumn("money_detail_t", "money_type");
+		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按类数量统计"));
 		return null;
 	}
 
+	/**
+	 * 按照类别，年份统计金额总数.
+	 * 
+	 * @return
+	 */
+	public String reportSumByTypeAndYear() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util.getTribleColumn("money_detail_type_year_v", "money",
+				"tallytype", "year");
+		writeToPage(response,
+				ReportTool.getMultiSeriesReportXML(ans, "年度统计")[2]);
+		return null;
+	}
+
+	/**
+	 * 按照类别，年份，月份统计金额总数.
+	 * 
+	 * @return
+	 */
+	public String reportSumByTypeAndYearAndMonth() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util.getTribleColumn("money_detail_type_year_month_v",
+				"money", "tallytype", "month", " where year='2011'");
+		writeToPage(response,
+				ReportTool.getMultiSeriesReportXML(ans, "2011年统计数据")[2]);
+		return null;
+	}
+
+	/**
+	 * 按照类别统计各个的总金额.
+	 * 
+	 * @return
+	 */
+	public String reportSumByType() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		List ans = util.getSumGroupByOneColumn("money_detail_type_v",
+				"tallytype", "money");
+		writeToPage(response, ReportTool.getSimpleSumXML(ans, "按类总数统计"));
+		return null;
+	}
 
 	public Money getMoneyVo() {
 		return moneyVo;
@@ -404,33 +454,43 @@ public class MoneyAction extends BaseAction{
 	public void setMoney(double money) {
 		this.money = money;
 	}
+
 	public File getUpload() {
 		return upload;
 	}
+
 	public void setUpload(File upload) {
 		this.upload = upload;
 	}
+
 	public String getUploadContentType() {
 		return uploadContentType;
 	}
+
 	public void setUploadContentType(String uploadContentType) {
 		this.uploadContentType = uploadContentType;
 	}
+
 	public String getUploadFileName() {
 		return uploadFileName;
 	}
+
 	public void setUploadFileName(String uploadFileName) {
 		this.uploadFileName = uploadFileName;
 	}
+
 	public String getAllowTypes() {
 		return allowTypes;
 	}
+
 	public void setAllowTypes(String allowTypes) {
 		this.allowTypes = allowTypes;
 	}
+
 	public String getSavePath() {
 		return ServletActionContext.getRequest().getRealPath(savePath);
 	}
+
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
