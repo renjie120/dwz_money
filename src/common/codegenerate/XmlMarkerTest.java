@@ -20,13 +20,13 @@ public class XmlMarkerTest {
 				Map m = new HashMap();
 				try {
 					m.put("doc", freemarker.ext.dom.NodeModel.parse(new File(
-							"F:\\github\\dwz_money\\template\\data.xml")));
+							"D:\\My Documents\\GitHub\\dwz_money\\template\\data.xml")));
 				} catch (Exception e) { 
 					e.printStackTrace();
 				}
 				return m;
 			}
 		}.make();
-		System.out.println("生成完毕");
+		System.out.println("\n\n生成完毕");
 	}
 }
