@@ -18,12 +18,12 @@ public abstract class Generate {
 		this.out = out;
 	}
 
-	abstract Object setData();
+	public abstract Object setData();
 
 	public void make() {
 		try {
 			Configuration cfg = new Configuration();
-			File f = new File("template");
+			File f = new File("code_template");
 			cfg.setDirectoryForTemplateLoading(f);
 			cfg.setObjectWrapper(new DefaultObjectWrapper());
 			

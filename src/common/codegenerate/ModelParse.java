@@ -1,5 +1,6 @@
 package common.codegenerate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -16,13 +17,11 @@ import common.util.DomUtil;
  */
 public class ModelParse {
 	private String fileName;
-	private String idKey;
-	private String idColumn;
-	private String idType;
-	private List<ColumnModel> attributes;
-	private String tableName;
-	private String entryName;
-	private String entryDesc;
+	private List<ColumnModel> attributes = new ArrayList<ColumnModel>();
+	private String table;
+	private String className;
+	private String classDesc;
+	private String packageName;
 
 	public String getFileName() {
 		return fileName;
@@ -36,9 +35,10 @@ public class ModelParse {
 		ClassModel model = new ClassModel();
 		Document doc = DomUtil.getXmlDocument(fileName);
 		Node list = doc.getElementsByTagName("class").item(0);
-		tableName = DomUtil.getAttribute(list, "table");
-		entryName = DomUtil.getAttribute(list, "name");
-		entryDesc = DomUtil.getAttribute(list, "desc");
+		table = DomUtil.getAttribute(list, "table");
+		packageName = DomUtil.getAttribute(list, "package");
+		className = DomUtil.getAttribute(list, "name");
+		classDesc = DomUtil.getAttribute(list, "desc");
 		NodeList children = list.getChildNodes();
 		for (int j = 0; j < children.getLength(); j++) {
 			Node child = children.item(j);
@@ -46,26 +46,28 @@ public class ModelParse {
 					|| "property".equals(child.getNodeName())) {
 				ColumnModel config = new ColumnModel();
 				if ("id".equals(child.getNodeName())) {
-					idKey = DomUtil.getAttribute(child, "name");
-					idColumn = DomUtil.getAttribute(child, "column");
-					idType = DomUtil.getAttribute(child, "type");
-				}
+					config.setIskey("true");
+					model.setKeyDesc(DomUtil.getAttribute(child, "desc"));
+					model.setKeyName(DomUtil.getAttribute(child, "name"));
+					model.setKeyColumn(DomUtil.getAttribute(child, "column"));
+					model.setKeyType(DomUtil.getAttribute(child, "type"));
+				} else
+					config.setIskey("false");
 				config.setNodeType(child.getNodeName());
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
 				config.setName(DomUtil.getAttribute(child, "name"));
 				config.setColumn(DomUtil.getAttribute(child, "column"));
+				config.setType(DomUtil.getAttribute(child, "type"));
 				config.setClas(DomUtil.getAttribute(child, "class"));
 				config.setLength(DomUtil.getAttribute(child, "length"));
-				config.setType(DomUtil.getAttribute(child, "type"));
+				
 				attributes.add(config);
 			}
-		} 
-		model.setTableName(tableName);
-		model.setEntryName(entryName);
-		model.setEntryDesc(entryDesc);
-		model.setIdKey(idKey);
-		model.setIdColumn(idColumn);
-		model.setIdType(idType);
+		}
+		model.setTable(table);
+		model.setClassName(className);
+		model.setPackageName(packageName);
+		model.setClassDesc(classDesc);
 		model.setAttributes(attributes);
 		return model;
 	}

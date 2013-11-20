@@ -9,14 +9,6 @@ import java.util.List;
  * 
  */
 public class ClassModel {
-	private List attributes = null;
-	private String idKey = "";
-	private String entryName = "";
-	private String entryDesc = "";
-	private String idColumn = "";
-	private String idType = "";
-	private String tableName = "";
-
 	public List getAttributes() {
 		return attributes;
 	}
@@ -33,20 +25,28 @@ public class ClassModel {
 		this.idKey = idKey;
 	}
 
-	public String getEntryName() {
-		return entryName;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setEntryName(String entryName) {
-		this.entryName = entryName;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public String getEntryDesc() {
-		return entryDesc;
+	public String getPackageName() {
+		return packageName;
 	}
 
-	public void setEntryDesc(String entryDesc) {
-		this.entryDesc = entryDesc;
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	public String getClassDesc() {
+		return classDesc;
+	}
+
+	public void setClassDesc(String classDesc) {
+		this.classDesc = classDesc;
 	}
 
 	public String getIdColumn() {
@@ -65,12 +65,57 @@ public class ClassModel {
 		this.idType = idType;
 	}
 
-	public String getTableName() {
-		return tableName;
+	public String getTable() {
+		return table;
 	}
 
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTable(String table) {
+		this.table = table;
 	}
+
+	private String keyName;
+	private String keyColumn;
+	private String keyType;
+	private String keyDesc;
+	public String getKeyName() {
+		return keyName;
+	}
+
+	public void setKeyName(String keyName) {
+		this.keyName = keyName;
+	}
+
+	public String getKeyColumn() {
+		return keyColumn;
+	}
+
+	public void setKeyColumn(String keyColumn) {
+		this.keyColumn = keyColumn;
+	}
+
+	public String getKeyType() {
+		return keyType;
+	}
+
+	public void setKeyType(String keyType) {
+		this.keyType = keyType;
+	}
+
+	public String getKeyDesc() {
+		return keyDesc;
+	}
+
+	public void setKeyDesc(String keyDesc) {
+		this.keyDesc = keyDesc;
+	}
+
+	private List attributes = null;
+	private String idKey = "";
+	private String className = "";
+	private String packageName = "";
+	private String classDesc = "";
+	private String idColumn = "";
+	private String idType = "";
+	private String table = "";
 
 }

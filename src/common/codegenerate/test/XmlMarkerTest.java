@@ -1,10 +1,13 @@
-package common.codegenerate;
+package common.codegenerate.test;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+
+import common.codegenerate.Generate;
 
 /**
  * 解析xml文档的例子.
@@ -20,8 +23,9 @@ public class XmlMarkerTest {
 				Map m = new HashMap();
 				try {
 					m.put("doc", freemarker.ext.dom.NodeModel.parse(new File(
-							"D:\\My Documents\\GitHub\\dwz_money\\template\\data.xml")));
-				} catch (Exception e) { 
+							"F:\\github\\dwz_money\\template\\data.xml")));
+					// "D:\\My Documents\\GitHub\\dwz_money\\template\\data.xml")));
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				return m;

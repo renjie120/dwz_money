@@ -1,9 +1,13 @@
-package common.codegenerate;
+package common.codegenerate.test;
 
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+
+import common.codegenerate.Generate;
+import common.codegenerate.IndexOfMethod;
+import common.codegenerate.UpperDirective;
 
 public class FreeMarkerTest {
 	public static void main(String[] agrgs) {

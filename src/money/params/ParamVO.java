@@ -5,19 +5,20 @@ import java.io.Serializable;
 import common.base.SelectAble;
 
 /**
- * 理财管理类. 
+ * 理财管理类.
+ * 
  * @author lsq
  * 
  */
-public class ParamVO implements Serializable,SelectAble {
+public class ParamVO implements Serializable, SelectAble {
 	private static final long serialVersionUID = 1L;
-	private int parameterID; 
+	private int parameterID;
 	private int parameterType;
 	private String parameterTypeName;
 	private String parameterName;
 	private Integer parameterValue;
 	private String useValue;
-	private int orderId; 
+	private int orderId;
 
 	public Integer getParameterValue() {
 		return parameterValue;
@@ -35,23 +36,25 @@ public class ParamVO implements Serializable,SelectAble {
 		this.useValue = useValue;
 	}
 
-	public ParamVO(){
-		
+	public ParamVO() {
+
 	}
-	
-	public ParamVO(int parameterType,String parameterName,int orderId,int parameterValue,String useValue){
+
+	public ParamVO(int parameterType, String parameterName, int orderId,
+			int parameterValue, String useValue) {
 		this.parameterType = parameterType;
 		this.parameterName = parameterName;
-		this.orderId = orderId;  
+		this.orderId = orderId;
 		this.useValue = useValue;
 		this.parameterValue = parameterValue;
 	}
-	
-	public ParamVO(int parameterID,int parameterType,String parameterName,int orderId,int parameterValue,String useValue){
+
+	public ParamVO(int parameterID, int parameterType, String parameterName,
+			int orderId, int parameterValue, String useValue) {
 		this.parameterID = parameterID;
 		this.parameterType = parameterType;
 		this.parameterName = parameterName;
-		this.orderId = orderId;  
+		this.orderId = orderId;
 		this.useValue = useValue;
 		this.parameterValue = parameterValue;
 	}
@@ -87,7 +90,6 @@ public class ParamVO implements Serializable,SelectAble {
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
- 
 
 	public String getParameterTypeName() {
 		return parameterTypeName;
@@ -97,14 +99,14 @@ public class ParamVO implements Serializable,SelectAble {
 		this.parameterTypeName = parameterTypeName;
 	}
 
-	public String getOptionId() { 
-		if("1".equals(this.useValue))
-			return this.parameterValue+"";
+	public String getOptionId() {
+		if ("1".equals(this.useValue))
+			return this.parameterValue + "";
 		else
-			return this.parameterID+"";
+			return this.parameterID + "";
 	}
 
-	public String getOptionName() { 
+	public String getOptionName() {
 		return this.parameterName;
-	} 
+	}
 }

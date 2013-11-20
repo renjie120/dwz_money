@@ -9,12 +9,14 @@ public interface Param extends BusinessObject {
 	public int getParameterType();
 
 	public String getParameterTypeName();
-	
+
 	public String getParameterName();
-	
-	public int getOrderId(); 
-	public String getUseValue(); 
-	public int getParameterValue(); 
-	
-	public int getParameterID() ;
+
+	public int getOrderId();
+
+	public String getUseValue();
+
+	public int getParameterValue();
+
+	public int getParameterID();
 }

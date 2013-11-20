@@ -76,6 +76,5 @@ public class OrgVO implements Serializable {
 
 	public String getOrderId() {
 		return orderId;
-	}
-
+	} 
 }
