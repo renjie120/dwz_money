@@ -14,7 +14,7 @@ public class ${model.className}Impl implements ${model.className} {
 		this.<@arg nm="${model.className}"/>VO = new ${vo}(<@allfield2 nm=model.attributes />);
 	} 
 
-	public ${vo} getOrgVO() {
+	public ${vo} get${model.className}VO() {
 		return this.<@arg nm="${model.className}"/>VO;
 	}
 

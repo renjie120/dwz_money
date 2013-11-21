@@ -1,6 +1,5 @@
 ﻿package common.codegenerate;
 
-import java.util.HashMap;
 
 /**
  * 分析配置文件的节点.

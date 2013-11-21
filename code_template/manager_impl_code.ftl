@@ -7,16 +7,22 @@ import java.util.Map;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
-public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager implements
-		${model.className}Manager {
+/**
+ * 关于${model.classDesc}的业务操作实现类.
+ * @author ${author}
+ * ${auth}
+ * ${website}
+ */ 
+public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
+		${nm}Manager {
 
 	private ${dao} ${daoarg} = null;
 
-	public ${model.className}ManagerImpl(${dao} ${daoarg}) {
+	public ${nm}ManagerImpl(${dao} ${daoarg}) {
 		this.${daoarg} = ${daoarg};
 	}
 
-	public Integer search${model.className}Num(Map<${model.className}SearchFields, Object> criterias) {
+	public Integer search${nm}Num(Map<${nm}SearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
 		}
@@ -28,9 +34,9 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		return totalCount.intValue();
 	}
 
-	public Collection<${model.className}> search${model.className}(Map<${model.className}SearchFields, Object> criterias,
+	public Collection<${nm}> search${nm}(Map<${nm}SearchFields, Object> criterias,
 			String orderField, int startIndex, int count) {
-		ArrayList<${model.className}> eaList = new ArrayList<${model.className}>();
+		ArrayList<${nm}> eaList = new ArrayList<${nm}>();
 		if (criterias == null)
 			return eaList;
 
@@ -43,56 +49,34 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			return eaList;
 
 		for (${vo} po : voList) {
-			eaList.add(new ${model.className}>Impl(po));
+			eaList.add(new ${nm}>Impl(po));
 		}
 
 		return eaList;
 	}
 
 	private Object[] createQuery(boolean useCount,
-			Map<${model.className}SearchFields, Object> criterias, String orderField) {
+			Map<${nm}SearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count(distinct ${model.className?lower_case}) "
-						: "select distinct ${model.className?lower_case} ").append("from ${vo} as ${model.className?lower_case} ");
+				useCount ? "select count(distinct ${classarg}) "
+						: "select distinct ${classarg} ").append("from ${vo} as ${classarg} ");
 
 		int count = 0;
 		List argList = new ArrayList();
 		if (criterias.size() > 0)
-			for (Map.Entry<${model.className}SearchFields, Object> entry : criterias
+			for (Map.Entry<${nm}SearchFields, Object> entry : criterias
 					.entrySet()) {
-				${model.className}SearchFields fd = entry.getKey();
+				${nm}SearchFields fd = entry.getKey();
 				switch (fd) {
-				case ORGID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" org.orgId =? ");
-					argList.add(entry.getValue());
-					count++;
+				<#list model.attributes as attr>
+					case ${attr.name?upper_case}:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} <#if '${attr.type}'='string'>like<#else>=</#if> ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case ORGNAME:
-					sb.append(count == 0 ? " where" : " and").append(
-							" org.orgName like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
-				case ORDERCODE:
-					sb.append(count == 0 ? " where" : " and").append(
-							" org.orderCode like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
-				case PARENTORG:
-					sb.append(count == 0 ? " where" : " and").append(
-							" org.parentOrg like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
-				case ORDERID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" org.orderId like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
+				</#list> 
 				default:
 					break;
 				}
@@ -102,76 +86,52 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
 
-		${model.className}OrderByFields orderBy = ${model.className}OrderByFields.${model.keyName?upper_case}_DESC;
+		${nm}OrderByFields orderBy = ${nm}OrderByFields.${model.keyName?upper_case}_DESC;
 		if (orderField != null && orderField.length() > 0) {
-			orderBy = OrgOrderByFields.valueOf(orderField);
+			orderBy = ${nm}OrderByFields.valueOf(orderField);
 		}
 
 		switch (orderBy) {
-		case ORGID:
-			sb.append(" order by org.orgId");
+		<#list model.attributes as attr>
+			case ${attr.name?upper_case}:
+				 sb.append(" order by ${classarg}.${attr.name}");
 			break;
-		case ORGID_DESC:
-			sb.append(" order by org.orgId desc");
-			break;
-		case ORGNAME:
-			sb.append(" order by org.orgName");
-			break;
-		case ORGNAME_DESC:
-			sb.append(" order by org.orgName desc");
-			break;
-		case ORDERCODE:
-			sb.append(" order by org.orderCode");
-			break;
-		case ORDERCODE_DESC:
-			sb.append(" order by org.orderCode desc");
-			break;
-		case PARENTORG:
-			sb.append(" order by org.parentOrg");
-			break;
-		case PARENTORG_DESC:
-			sb.append(" order by org.parentOrg desc");
-			break;
-		case ORDERID:
-			sb.append(" order by org.orderId");
-			break;
-		case ORDERID_DESC:
-			sb.append(" order by org.orderId desc");
-			break;
-
+		</#list>  
+			default:
+				break;
 		}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
-	public void createOrg(Org org) throws ValidateFieldsException {
-		OrgImpl orgImpl = (OrgImpl) org;
-		this.${daoarg}.insert(orgImpl.getOrgVO());
+	public void create${nm}(${nm} ${classarg}) throws ValidateFieldsException {
+		${nm}Impl ${classarg}Impl = (${nm}Impl) ${classarg};
+		this.${daoarg}.insert(${classarg}Impl.get${nm}VO());
 	}
 
-	public void removeOrg(String orgIds) {
-		String[] idArr = orgIds.split(",");
+	public void remove${nm}(String ids) {
+		String[] idArr = ids.split(",");
 		for (String s : idArr) {
 			${vo} vo = this.${daoarg}.findByPrimaryKey(Integer.parseInt(s));
 			this.${daoarg}.delete(vo);
 		}
 	}
 
-	public void updateOrg(Org org) throws ValidateFieldsException {
-		OrgImpl orgImpl = (OrgImpl) org;
+	public void update${nm}(${nm} ${classarg}) throws ValidateFieldsException {
+		${nm}Impl ${classarg}Impl = (${nm}Impl) ${classarg};
 
-		${vo} po = orgImpl.getOrgVO();
+		${vo} po = ${classarg}Impl.get${nm}VO();
 		this.${daoarg}.update(po);
 	}
 
-	public Org getOrg(Integer id) {
-		Collection<${vo}> orgs = this.${daoarg}.findRecordById(id);
+	public ${nm} get${nm}(${nm}Integer id) {
+		Collection<${vo}> ${classarg}s = this.${daoarg}.findRecordById(id);
 
-		if (orgs == null || orgs.size() < 1)
+		if (${classarg}s == null || ${classarg}s.size() < 1)
 			return null;
 
-		${vo} org = orgs.toArray(new ${vo}[orgs.size()])[0];
+		${vo} ${classarg} = ${classarg}s.toArray(new ${vo}[${classarg}s.size()])[0];
 
-		return new OrgImpl(org);
+		return new ${nm}Impl(${classarg});
 	}
 
 }

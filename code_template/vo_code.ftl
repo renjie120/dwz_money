@@ -21,22 +21,5 @@ public class ${vo} implements Serializable {
 		 </#list>
 	}
 	 
- <#list model.attributes as attr>
- 	//${attr.desc}
- 	private ${attr.type} ${attr.name};
- 	
- 	/**
- 	 * 获取${attr.desc}的属性值.
- 	 */
- 	public <@datatype nm="${attr.type}" key="${attr.iskey}"/> get${attr.name?cap_first}(){
- 		return ${attr.name};
- 	}
- 	
- 	/**
- 	 * 设置${attr.desc}的属性值.
- 	 */
- 	public void set${attr.name?cap_first}(<@datatype nm="${attr.type}" key="${attr.iskey}"/> <@arg nm="${attr.name}"/>){
- 		this.${attr.name} = <@arg nm="${attr.name}"/>;
- 	}
- </#list>
+  <@allGetAndSet nm=model.attributes />
 }

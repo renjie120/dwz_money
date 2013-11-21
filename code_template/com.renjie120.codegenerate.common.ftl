@@ -4,6 +4,8 @@
 <#-- 将一个数据类型转换为对应的大写类型.除去int，double等类型 全部首字母大写，否则保持本来面目 -->
 <#macro datatype2 nm><#if '${nm}'!='int'&&'${nm}'!='float'&&'${nm}'!='double'&&'${nm}'!='boolean'>${nm?cap_first}<#else>${nm}</#if></#macro>
 
+<#assign nm>${model.className?lower_case}</#assign>
+<#assign classarg>${model.className?lower_case}</#assign>
 <#assign daoarg>${model.className?lower_case}dao</#assign>
 <#assign dao>${model.className?cap_first}Dao</#assign>
 <#assign vo>${model.className?cap_first}VO</#assign> 
@@ -12,15 +14,39 @@
 
 <#macro big nm>${nm?upper_case}</#macro>
 
+<#-- 全部的属性参数连接字符串 Arg arg1,Arg2 arg2。。。。。-->
 <#macro allfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> <@datatype2 nm=attr.type/> ${attr.name} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
+<#-- 全部的属性的连接字符串 -->
 <#macro allfield2 nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
+<#-- 全部的属性的排序字符串的连接字符串 -->
 <#macro allorderfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case},  ${attr.name?upper_case}_DESC <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
+<#-- 全部的属性的大写的连接字符串. -->
 <#macro allbigfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
 <#macro manager nm>${nm?cap_first}Manager</#macro>
+
+<#-- 得到全部的get和set方法. -->
+<#macro allGetAndSet nm>
+	<#list nm as attr> 
+	private ${attr.type} ${attr.name}; 
+ 	/**
+ 	 * 获取${attr.desc}的属性值.
+ 	 */
+ 	public <@datatype nm="${attr.type}" key="${attr.iskey}"/> get${attr.name?cap_first}(){
+ 		return ${attr.name};
+ 	}
+ 	
+ 	/**
+ 	 * 设置${attr.desc}的属性值.
+ 	 */
+ 	public void set${attr.name?cap_first}(<@datatype nm="${attr.type}" key="${attr.iskey}"/> <@arg nm="${attr.name}"/>){
+ 		this.${attr.name} = <@arg nm="${attr.name}"/>;
+ 	}
+ 	 </#list>
+</#macro>
 
 <#assign author="www(水清)">
 
