@@ -3,13 +3,19 @@
 
 <#-- 将一个数据类型转换为对应的大写类型.除去int，double等类型 全部首字母大写，否则保持本来面目 -->
 <#macro datatype2 nm><#if '${nm}'!='int'&&'${nm}'!='float'&&'${nm}'!='double'&&'${nm}'!='boolean'>${nm?cap_first}<#else>${nm}</#if></#macro>
-
+ 
+<#assign numPerPage=r"${numPerPage}"/>
+<#assign pageNum=r"${pageNum}"/>
+<#assign orderField=r"${param.orderField}"/>
+<#assign orderDirection=r"${param.orderDirection}"/> 
+<#assign totalCount=r"${totalCount}"/>
 <#assign bignm>${model.className?cap_first}</#assign>
 <#assign nm>${model.className?lower_case}</#assign>
 <#assign classarg>${model.className?lower_case}</#assign>
 <#assign daoarg>${model.className?lower_case}dao</#assign>
 <#assign dao>${model.className?cap_first}Dao</#assign>
-<#assign vo>${model.className?cap_first}VO</#assign> 
+<#assign vo>${model.className?cap_first}VO</#assign>
+<#assign class2>${model.className?uncap_first}</#assign>  
 
 <#macro arg nm>${nm?lower_case}</#macro>
 
@@ -27,12 +33,10 @@
 <#-- 全部的属性的大写的连接字符串. -->
 <#macro allbigfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
-<#macro manager nm>${nm?cap_first}Manager</#macro>
-
 <#-- 得到全部的get和set方法. -->
 <#macro allGetAndSet nm>
 	<#list nm as attr> 
-	private ${attr.type} ${attr.name}; 
+	private <@datatype nm="${attr.type}" key="${attr.iskey}"/> ${attr.name}; 
  	/**
  	 * 获取${attr.desc}的属性值.
  	 */

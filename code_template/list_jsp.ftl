@@ -1,15 +1,16 @@
+<#include "/com.renjie120.codegenerate.common.ftl">
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<form id="pagerForm" method="post" action="/money/menu!query.do">
+<form id="pagerForm" method="post" action="/money/${nm}!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
-	<input type="hidden" name="orderField" value="${param.orderField}" />
+	<input type="hidden" name="orderField" value="${orderField}" />
 	<input type="hidden" name="orderDirection"
-		value="${param.orderDirection}" />
+		value="${orderDirection}" />
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
-		action="/money/menu!query.do" method="post">
+		action="/money/${nm}!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
@@ -36,7 +37,7 @@
 						</div>
 					</li>
 					<li>
-						<a class="button" href="/money/menu!beforeQuery.do"
+						<a class="button" href="/money/${nm}!beforeQuery.do"
 							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
 					</li>
 				</ul>
@@ -48,20 +49,20 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add" href="/money/menu!beforeAdd.do" target="dialog" mask="true"
+				<a class="add" href="/money/${nm}!beforeAdd.do" target="dialog" mask="true"
 					title="添加菜单"><span>添加</span> </a>
 			</li>
 			<li>
-				<a class="delete" href="/money/menu!doDelete.do" postType="string"
+				<a class="delete" href="/money/${nm}!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
 			<li>
-				<a class="edit" href="/money/menu!beforeUpdate.do?menuId={menuId}" mask="true"
+				<a class="edit" href="/money/${nm}!beforeUpdate.do?menuId={menuId}" mask="true"
 					target="dialog" title="修改菜单"><span>修改</span> </a>
 			</li>
 			<li>
-				<a class="icon" href="/money/menu!export.do" target="dwzExport"
+				<a class="icon" href="/money/${nm}!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
 
@@ -73,28 +74,11 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100">
-					菜单流水号
-				</th>
-				<th width="100" orderField="MENUNAME" class="asc">
-					菜单名
-				</th>
-				<th width="100">
-					链接
-				</th>
-				<th width="100" orderField="TARGET_DESC" class="desc">
-					菜单指向
-				</th>
-				<th width="100" orderField="PARENTID_DESC" class="desc">
-					父级菜单
-				</th>
-				<th width="100" orderField="LEVEL" class="asc">
-					菜单级别
+				<#list model.attributes as attr> 
+				<th width="100" orderField="${attr.name}"  orderField="${attr.name?upper_case}" >
+						${attr.desc} 
 				</th> 
-				<th width="100">
-					菜单页编码
-				</th>
-
+				</#list>    
 			</tr>
 		</thead>
 		<tbody>
@@ -104,28 +88,11 @@
 						<input name="ids" value="<s:property value="menuId" />"
 							type="checkbox">
 					</td>
+					<#list model.attributes as attr> 
 					<td>
-						<s:property value="menuId" />
+						<s:property value="${attr.name}" />
 					</td>
-					<td>
-						<s:property value="menuName" />
-					</td>
-					<td>
-						<s:property value="url" />
-					</td>
-					<td>
-						<s:property value="target" />
-					</td>
-					<td>
-						<s:property value="parentId" />
-					</td>
-					<td>
-						<s:property value="level" />
-					</td> 
-					<td>
-						<s:property value="relId" />
-					</td>
-
+					</#list>   
 				</tr>
 			</s:iterator>
 		</tbody>

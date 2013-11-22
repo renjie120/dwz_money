@@ -8,7 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import dwz.framework.core.business.BusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
-public interface <@manager nm="${model.className}"/>  extends BusinessObjectManager {
+/**
+ * 关于${model.classDesc}的业务操作操作接口.
+ * @author ${author}
+ * ${auth}
+ * ${website}
+ */ 
+public interface ${model.className}Manager  extends BusinessObjectManager {
 	/**
 	 * 根据条件查询分页信息.
 	 * @param criterias 条件
@@ -55,5 +61,5 @@ public interface <@manager nm="${model.className}"/>  extends BusinessObjectMana
 	 * @param ${model.keyName}
 	 * @return
 	 */
-	public ${beanname} getOrg(${model.keyType} ${model.keyName});
+	public ${beanname} get${model.className}(${model.keyType} ${model.keyName});
 }

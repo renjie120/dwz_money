@@ -1,0 +1,6 @@
+<class name="Org" table="organization_t" desc="组织机构" package="money.org">
+	<id name="orgId" column="id" type="int" desc="机构id"/>
+	<property name="orgName" column="orgname" type="string" desc="机构名称" query="true"/>
+	<property name="orderCode" column="orgcode" type="string" desc="机构编码"/>
+	<property name="orderId" column="orderid" type="int" desc="排序列" query="true"/>
+</class>

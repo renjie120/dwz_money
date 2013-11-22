@@ -4,7 +4,7 @@ package ${model.packageName};
 import dwz.framework.core.business.BusinessObject;
 
 /**
- * 关于${model.classDesc}的业务操作接口
+ * 关于${model.classDesc}的业务类接口
  * @author ${author}
  * ${auth}
  * ${website}

@@ -1,52 +1,20 @@
-
+<#include "/com.renjie120.codegenerate.common.ftl">
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
 <div class="pageContent">
-	<form method="post" action="/money/menu!doAdd.do"
+	<form method="post" action="/money/${nm}!doAdd.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<div class="pageFormContent" layoutH="57">
-			<div class="unit">
+			<#list model.attributes as attr> 
+			 <div class="unit">
 				<label>
-					菜单名:
+					${attr.desc}:
 				</label>
-				<input name="menuName" class="textInput  required " size="30"
-					type="text" />
+				<input name="${attr.name}" class="textInput  required " size="30"
+					type="text"   />
 			</div>
-			<div class="unit">
-				<label>
-					链接:
-				</label>
-				<input name="url" class="textInput  " size="30" type="text" />
-			</div>
-			<div class="unit">
-				<label>
-					菜单指向:
-				</label>
-				<my:newselect tagName="target"  paraType="menutarget"  />  
-			</div> 
-			<div class="unit">
-				<label>
-					菜单级别:
-				</label>
-				<my:newselect tagName="level" id="level"  paraType="menulevel"  />  
-			</div> 
-			<div class="unit">
-				<label>
-					父级菜单:
-				</label> 
-				<input class="required" name="moneyTypeName" type="text" readOnly="true"/> 
-				<input  name="moneyType" type="hidden"/> 
-				<a class="btnLook" href="/money/tree!menuTree.do"
-				 lookupGroup="obj"  lookupToPks="true" 
-				 lookupPk="moneyType" title='收支类别树'  width='300'></a>  
-			</div>
-			<div class="unit">
-				<label>
-					菜单页编码:
-				</label>
-				<input name="relId" class="textInput  " size="30" type="text" />
-			</div> 
+			</#list>  
 		</div>
 		<div class="formBar">
 			<ul>

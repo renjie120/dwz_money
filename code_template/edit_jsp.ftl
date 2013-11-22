@@ -1,5 +1,4 @@
-
-
+<#include "/com.renjie120.codegenerate.common.ftl">
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="${model.packageName}.${model.className}"%>

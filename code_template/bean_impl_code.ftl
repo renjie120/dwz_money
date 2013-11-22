@@ -2,6 +2,12 @@
 
 import dwz.framework.core.business.BusinessObject;
 
+/**
+ * 关于${model.classDesc}的业务实体类.
+ * @author ${author}
+ * ${auth}
+ * ${website}
+ */ 
 public class ${model.className}Impl implements ${model.className} {
 	private ${vo} <@arg nm="${model.className}"/>VO = null;
 	private static final long serialVersionUID = 1L;

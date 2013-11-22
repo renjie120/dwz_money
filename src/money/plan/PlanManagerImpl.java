@@ -23,6 +23,9 @@ public class PlanManagerImpl extends AbstractBusinessObjectManager implements
 		this.planDao = planDao;
 	}
 
+	/**
+	 * 
+	 */
 	public Integer searchPlanNum(Map<PlanSearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
@@ -35,6 +38,9 @@ public class PlanManagerImpl extends AbstractBusinessObjectManager implements
 		return totalCount.intValue();
 	}
 
+	/**
+	 * 查询记录.
+	 */
 	public Collection<Plan> searchPlan(Map<PlanSearchFields, Object> criterias,
 			String orderField, int startIndex, int count) {
 		ArrayList<Plan> eaList = new ArrayList<Plan>();

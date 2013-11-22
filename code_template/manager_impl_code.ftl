@@ -13,16 +13,24 @@ import dwz.framework.core.exception.ValidateFieldsException;
  * ${auth}
  * ${website}
  */ 
-public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
-		${nm}Manager {
+public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager implements
+		${model.className}Manager {
 
 	private ${dao} ${daoarg} = null;
 
-	public ${nm}ManagerImpl(${dao} ${daoarg}) {
+	/**
+	 * 构造函数.
+	 */
+	public ${model.className}ManagerImpl(${dao} ${daoarg}) {
 		this.${daoarg} = ${daoarg};
 	}
 
-	public Integer search${nm}Num(Map<${nm}SearchFields, Object> criterias) {
+	/**
+	 * 查询总数.
+	 * @param criterias 查询条件
+	 * @return
+	 */
+	public Integer search${model.className}Num(Map<${model.className}SearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
 		}
@@ -34,9 +42,17 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 		return totalCount.intValue();
 	}
 
-	public Collection<${nm}> search${nm}(Map<${nm}SearchFields, Object> criterias,
+	/**
+	 * 根据条件查询分页信息.
+	 * @param criterias 条件
+	 * @param orderField 排序列
+	 * @param startIndex 开始索引
+	 * @param count 总数
+	 * @return
+	 */
+	public Collection<${model.className}> search${model.className}(Map<${model.className}SearchFields, Object> criterias,
 			String orderField, int startIndex, int count) {
-		ArrayList<${nm}> eaList = new ArrayList<${nm}>();
+		ArrayList<${model.className}> eaList = new ArrayList<${model.className}>();
 		if (criterias == null)
 			return eaList;
 
@@ -49,14 +65,14 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 			return eaList;
 
 		for (${vo} po : voList) {
-			eaList.add(new ${nm}>Impl(po));
+			eaList.add(new ${model.className}>Impl(po));
 		}
 
 		return eaList;
 	}
 
 	private Object[] createQuery(boolean useCount,
-			Map<${nm}SearchFields, Object> criterias, String orderField) {
+			Map<${model.className}SearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count(distinct ${classarg}) "
@@ -65,9 +81,9 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 		int count = 0;
 		List argList = new ArrayList();
 		if (criterias.size() > 0)
-			for (Map.Entry<${nm}SearchFields, Object> entry : criterias
+			for (Map.Entry<${model.className}SearchFields, Object> entry : criterias
 					.entrySet()) {
-				${nm}SearchFields fd = entry.getKey();
+				${model.className}SearchFields fd = entry.getKey();
 				switch (fd) {
 				<#list model.attributes as attr>
 					case ${attr.name?upper_case}:
@@ -86,9 +102,9 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
 
-		${nm}OrderByFields orderBy = ${nm}OrderByFields.${model.keyName?upper_case}_DESC;
+		${model.className}OrderByFields orderBy = ${model.className}OrderByFields.${model.keyName?upper_case}_DESC;
 		if (orderField != null && orderField.length() > 0) {
-			orderBy = ${nm}OrderByFields.valueOf(orderField);
+			orderBy = ${model.className}OrderByFields.valueOf(orderField);
 		}
 
 		switch (orderBy) {
@@ -103,12 +119,12 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
-	public void create${nm}(${nm} ${classarg}) throws ValidateFieldsException {
-		${nm}Impl ${classarg}Impl = (${nm}Impl) ${classarg};
-		this.${daoarg}.insert(${classarg}Impl.get${nm}VO());
+	public void create${model.className}(${model.className} ${classarg}) throws ValidateFieldsException {
+		${model.className}Impl ${classarg}Impl = (${model.className}Impl) ${classarg};
+		this.${daoarg}.insert(${classarg}Impl.get${model.className}VO());
 	}
 
-	public void remove${nm}(String ids) {
+	public void remove${model.className}(String ids) {
 		String[] idArr = ids.split(",");
 		for (String s : idArr) {
 			${vo} vo = this.${daoarg}.findByPrimaryKey(Integer.parseInt(s));
@@ -116,14 +132,14 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 		}
 	}
 
-	public void update${nm}(${nm} ${classarg}) throws ValidateFieldsException {
-		${nm}Impl ${classarg}Impl = (${nm}Impl) ${classarg};
+	public void update${model.className}(${model.className} ${classarg}) throws ValidateFieldsException {
+		${model.className}Impl ${classarg}Impl = (${model.className}Impl) ${classarg};
 
-		${vo} po = ${classarg}Impl.get${nm}VO();
+		${vo} po = ${classarg}Impl.get${model.className}VO();
 		this.${daoarg}.update(po);
 	}
 
-	public ${nm} get${nm}(${nm}Integer id) {
+	public ${model.className} get${model.className}(${model.keyType} id) {
 		Collection<${vo}> ${classarg}s = this.${daoarg}.findRecordById(id);
 
 		if (${classarg}s == null || ${classarg}s.size() < 1)
@@ -131,7 +147,7 @@ public class ${nm}ManagerImpl extends AbstractBusinessObjectManager implements
 
 		${vo} ${classarg} = ${classarg}s.toArray(new ${vo}[${classarg}s.size()])[0];
 
-		return new ${nm}Impl(${classarg});
+		return new ${model.className}Impl(${classarg});
 	}
 
 }

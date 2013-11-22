@@ -1,7 +1,5 @@
 package common.codegenerate.test;
 
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,14 +11,13 @@ public class Code {
 		// final String file =
 		// "D:\\My Documents\\GitHub\\dwz_money\\code_template\\datamodle.xml";
 		final String file = "F:\\github\\dwz_money\\code_template\\datamodle.xml";
-		String beanName = "Org";
+		String beanName = "Plan";
 		// Writer out = null;
 		// try {
 		// out = new FileWriter("d:\\out.txt");
 		// } catch (IOException e) {
 		// e.printStackTrace();
-		// }
-		Writer out = new OutputStreamWriter(System.out);
+		// } 
 		new Generate("action_code.ftl", beanName + "Action.java") {
 			public Object setData() {
 				ModelParse p = new ModelParse();
@@ -92,6 +89,46 @@ public class Code {
 		}.make();
 
 		new Generate("manager_impl_code.ftl", beanName + "ManagerImpl.java") {
+			public Object setData() {
+				ModelParse p = new ModelParse(); 
+				p.setFileName(file);
+				Map m = new HashMap();
+				m.put("model", p.parse());
+				return m;
+			}
+		}.make();
+		
+		new Generate("edit_jsp.ftl", beanName + "edit.jsp") {
+			public Object setData() {
+				ModelParse p = new ModelParse(); 
+				p.setFileName(file);
+				Map m = new HashMap();
+				m.put("model", p.parse());
+				return m;
+			}
+		}.make();
+		
+		new Generate("info_jsp.ftl", beanName + "info.jsp") {
+			public Object setData() {
+				ModelParse p = new ModelParse(); 
+				p.setFileName(file);
+				Map m = new HashMap();
+				m.put("model", p.parse());
+				return m;
+			}
+		}.make();
+		
+		new Generate("list_jsp.ftl", beanName + "list.jsp") {
+			public Object setData() {
+				ModelParse p = new ModelParse(); 
+				p.setFileName(file);
+				Map m = new HashMap();
+				m.put("model", p.parse());
+				return m;
+			}
+		}.make();
+		
+		new Generate("hbm_code.ftl", beanName.toLowerCase() + ".hbm.xml") {
 			public Object setData() {
 				ModelParse p = new ModelParse(); 
 				p.setFileName(file);
