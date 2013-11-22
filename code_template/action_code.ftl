@@ -17,15 +17,15 @@ import dwz.present.BaseAction;
  * ${auth}
  * ${website}
  */ 
-public class ${nm}Action extends BaseAction {
+public class ${bignm}Action extends BaseAction {
 	/**
 	 *  序列化对象.
 	 */
 	private static final long serialVersionUID = 1L;
 	//业务接口对象.
-	${nm}Manager pMgr = bf.getManager(BeanManagerKey.${classarg}Manager);
+	${bignm}Manager pMgr = bf.getManager(BeanManagerKey.${classarg}Manager);
 	//业务实体对象
-	private ${nm} ${classarg}Vo;
+	private ${bignm} ${classarg}Vo;
 	//当前页数
 	private int page = 1;
 	//每页显示数量
@@ -39,8 +39,8 @@ public class ${nm}Action extends BaseAction {
 
 	public String doAdd() {
 		try {
-			${nm}Impl ${classarg}Impl = new ${nm}Impl(<@allfield2 nm=model.attributes />);
-			pMgr.create${nm}(${classarg}Impl);
+			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
+			pMgr.create${bignm}(${classarg}Impl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -51,19 +51,19 @@ public class ${nm}Action extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
-		pMgr.remove${nm}(ids);
+		pMgr.remove${bignm}(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	public String beforeUpdate() {
-		${classarg}Vo = pMgr.get${nm}(orgId);
+		${classarg}Vo = pMgr.get${bignm}(orgId);
 		return "editdetail";
 	}
 
 	public String doUpdate() {
 		try {
-			${nm}Impl ${classarg}Impl = new ${nm}Impl(<@allfield2 nm=model.attributes />);
-			pMgr.update${nm}(${classarg}Impl);
+			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
+			pMgr.update${bignm}(${classarg}Impl);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
@@ -91,14 +91,14 @@ public class ${nm}Action extends BaseAction {
 
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=${nm}List.xls");
+		response.addHeader("Content-Disposition","attachment;filename=${bignm}List.xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
-		Map<${nm}SearchFields, Object> criterias = getCriterias();
+		Map<${bignm}SearchFields, Object> criterias = getCriterias();
 
-		Collection<${nm}> ${classarg}List = pMgr.search${nm}(criterias, realOrderField(),
+		Collection<${bignm}> ${classarg}List = pMgr.search${bignm}(criterias, realOrderField(),
 				startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
@@ -109,7 +109,7 @@ public class ${nm}Action extends BaseAction {
 			e.setCell(filed.ordinal(), filed.getName());
 		}
 
-		for (${nm} ${classarg} : ${classarg}List) {
+		for (${bignm} ${classarg} : ${classarg}List) {
 			e.createRow(rowIndex++);
 
 			for (ExportFiled filed : ExportFiled.values()) {
@@ -134,9 +134,9 @@ public class ${nm}Action extends BaseAction {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
-		Map<${nm}SearchFields, Object> criterias = getCriterias();
+		Map<${bignm}SearchFields, Object> criterias = getCriterias();
 
-		Collection<${nm}> moneyList = pMgr.search${nm}(criterias, realOrderField(),
+		Collection<${bignm}> moneyList = pMgr.search${bignm}(criterias, realOrderField(),
 				startIndex, numPerPage);
 
 		request.setAttribute("pageNum", pageNum);
@@ -177,16 +177,16 @@ public class ${nm}Action extends BaseAction {
 		this.count = count;
 	}
 
-	private Map<${nm}SearchFields, Object> getCriterias() {
-		Map<${nm}SearchFields, Object> criterias = new HashMap<${nm}SearchFields, Object>();
+	private Map<${bignm}SearchFields, Object> getCriterias() {
+		Map<${bignm}SearchFields, Object> criterias = new HashMap<${bignm}SearchFields, Object>();
 		return criterias;
 	}
 
-	public ${nm} get${nm}Vo() {
+	public ${bignm} get${bignm}Vo() {
 		return ${classarg}Vo;
 	}
 
-	public void set${nm}Vo(${nm} ${classarg}Vo) {
+	public void set${bignm}Vo(${bignm} ${classarg}Vo) {
 		this.${classarg}Vo = ${classarg}Vo;
 	}
   

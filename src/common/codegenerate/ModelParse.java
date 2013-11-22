@@ -59,8 +59,7 @@ public class ModelParse {
 				config.setColumn(DomUtil.getAttribute(child, "column"));
 				config.setType(DomUtil.getAttribute(child, "type"));
 				config.setClas(DomUtil.getAttribute(child, "class"));
-				config.setLength(DomUtil.getAttribute(child, "length"));
-				
+				config.setLength(DomUtil.getAttribute(child, "length")); 
 				attributes.add(config);
 			}
 		}

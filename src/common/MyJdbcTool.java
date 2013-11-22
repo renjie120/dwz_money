@@ -5,24 +5,34 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowCountCallbackHandler;
-
+class haha extends Thread{
+	
+}
 public class MyJdbcTool {
 	private JdbcTemplate jdbcTemplate;
 
-	public JdbcTemplate getJdbcTemplate() {
+	public synchronized static Integer haha(){
+		return 1;
+	}
+	public JdbcTemplate getJdbcTemplate() { 
 		return jdbcTemplate;
 	}
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	} 
-	 
+	public static void main(String[] args)   {
+		 
+	}
+
 	/**
 	 * 执行一段sql语句 
 	 * @param sql

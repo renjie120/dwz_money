@@ -4,6 +4,7 @@
 <#-- 将一个数据类型转换为对应的大写类型.除去int，double等类型 全部首字母大写，否则保持本来面目 -->
 <#macro datatype2 nm><#if '${nm}'!='int'&&'${nm}'!='float'&&'${nm}'!='double'&&'${nm}'!='boolean'>${nm?cap_first}<#else>${nm}</#if></#macro>
 
+<#assign bignm>${model.className?cap_first}</#assign>
 <#assign nm>${model.className?lower_case}</#assign>
 <#assign classarg>${model.className?lower_case}</#assign>
 <#assign daoarg>${model.className?lower_case}dao</#assign>
