@@ -12,7 +12,18 @@ public class ColumnModel {
 	private String name;
 	// 数据库中的列名
 	private String column;
- 
+	//非空.
+	private String notnull;
+  
+
+	public String getNotnull() {
+		return notnull;
+	}
+
+	public void setNotnull(String notnull) {
+		this.notnull = notnull;
+	}
+
 	/**
 	 * 是否是主键.
 	 */
@@ -30,6 +41,16 @@ public class ColumnModel {
 	private String type;
 	// 节点类型：属性，或者id列
 	private String nodeType;
+	//列宽度
+	private String width;
+	public String getWidth() {
+		return width;
+	}
+
+	public void setWidth(String width) {
+		this.width = width;
+	}
+
 	// 属性描述
 	private String desc;
 	// jsp中描述属性的样式（number）

@@ -27,16 +27,29 @@ public abstract class Generate {
 			e.printStackTrace();
 		}
 	}
+	
+	public Generate(String ftlname,String beanName, String outFile) {
+		this.ftlname = ftlname;
+		try {
+			File f= new File("d:\\"+beanName);
+			if(!f.exists())
+				f.mkdir();
+			out = new FileWriter("d:\\"+beanName+"\\"+(beanName+outFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public abstract Object setData();
 
 	public void make() {
 		try {
 			Configuration cfg = new Configuration();
+			//设置模板文件所在的文件夹
 			File f = new File("code_template");
 			cfg.setDirectoryForTemplateLoading(f);
 			cfg.setObjectWrapper(new DefaultObjectWrapper());
-
+			//读取模板进行解析.
 			Template temp = cfg.getTemplate(ftlname);
 			Object data = setData();
 			temp.process(data, out);

@@ -3,6 +3,10 @@
 
 <#-- 将一个数据类型转换为对应的大写类型.除去int，double等类型 全部首字母大写，否则保持本来面目 -->
 <#macro datatype2 nm><#if '${nm}'!='int'&&'${nm}'!='float'&&'${nm}'!='double'&&'${nm}'!='boolean'>${nm?cap_first}<#else>${nm}</#if></#macro>
+
+<#-- 修改类型名称.-->
+<#macro changetype nm><#if nm='int'>Integer<#elseif nm='double'>Double<#elseif nm='float'>Float<#else>${nm}</#if></#macro>
+
  
 <#assign numPerPage=r"${numPerPage}"/>
 <#assign pageNum=r"${pageNum}"/>
@@ -18,14 +22,23 @@
 <#assign class2>${model.className?uncap_first}</#assign>  
 
 <#macro arg nm>${nm?lower_case}</#macro>
+ 
 
 <#macro big nm>${nm?upper_case}</#macro>
 
 <#-- 全部的属性参数连接字符串 Arg arg1,Arg2 arg2。。。。。-->
 <#macro allfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> <@datatype2 nm=attr.type/> ${attr.name} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
+<#-- 全部的属性除去主键.参数连接字符串 Arg arg1,Arg2 arg2。。。。。-->
+<#macro allfieldnotkey nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><@datatype2 nm=attr.type/> ${attr.name} <#assign index=index+1><#if index<size>,</#if><#else><#assign index=index+1></#if></#list></#macro>
+
+
 <#-- 全部的属性的连接字符串 -->
 <#macro allfield2 nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
+
+<#-- 全部的属性除去主键的连接字符串 -->
+<#macro allfield2notkey nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'>${attr.name} <#assign index=index+1><#if index<size>,</#if><#else><#assign index=index+1></#if></#list></#macro>
+
 
 <#-- 全部的属性的排序字符串的连接字符串 -->
 <#macro allorderfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case},  ${attr.name?upper_case}_DESC <#assign index=index+1><#if index<size>,</#if></#list></#macro>

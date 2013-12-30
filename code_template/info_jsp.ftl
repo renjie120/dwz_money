@@ -7,13 +7,19 @@
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<div class="pageFormContent" layoutH="57">
 			<#list model.attributes as attr> 
-			 <div class="unit">
-				<label>
-					${attr.desc}:
-				</label>
-				<input name="${attr.name}" class="textInput  required " size="30"
-					type="text"   />
-			</div>
+				<#if '${attr.name}'!='${model.keyName}'>
+					 <div class="unit">
+						<label>
+							${attr.desc}:
+						</label>
+						<#if '${attr.type}'='date'>
+							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a>
+						<#else>
+							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"   />
+						</#if>
+					</div>
+				</#if>
 			</#list>  
 		</div>
 		<div class="formBar">

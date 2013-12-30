@@ -2,7 +2,7 @@
 package ${model.packageName};
 
 import dwz.framework.core.business.BusinessObject;
-
+import java.util.Date;
 /**
  * 关于${model.classDesc}的业务类接口
  * @author ${author}

@@ -3,24 +3,30 @@
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="${model.packageName}.${model.className}"%>
 <% 
-	${model.className} vo = (${model.className}) request.getAttribute("${vo}"); 
+	${model.className} vo = (${model.className}) request.getAttribute("${classarg}Vo"); 
 %>
 <div class="pageContent">
 	<form method="post" action="/money/${nm}!doUpdate.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
-		<input type='hidden' name="{model.keyName}"
-			value="<s:property value="${vo}.{model.keyName}"/>">
-		<div class="pageFormContent" layoutH="57">
-			 <#list model.attributes as attr> 
-			 <div class="unit">
-				<label>
-					${attr.desc}:
-				</label>
-				<input name="${attr.name}" class="textInput  required " size="30"
-					type="text" value="<s:property value="${vo}.${attr.name}"/>" />
-			</div>
-			</#list> 
+		<input type='hidden' name="${model.keyName}"
+			value="<s:property value="${classarg}Vo.${model.keyName}"/>">
+		<div class="pageFormContent" layoutH="57"> 
+			<#list model.attributes as attr> 
+				<#if '${attr.name}'!='${model.keyName}'>
+					 <div class="unit">
+						<label>
+							${attr.desc}:
+						</label>
+						<#if '${attr.type}'='date'>
+							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"  value="<s:property value="${classarg}Vo.${attr.name}"/>" />
+							<a class="inputDateButton" href="javascript:;">选择</a>
+						<#else>
+							<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"  value="<s:property value="${classarg}Vo.${attr.name}"/>" />
+						</#if>
+					</div>
+				</#if>
+			</#list>  
 		</div>
 		<div class="formBar">
 			<ul>

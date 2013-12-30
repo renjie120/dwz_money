@@ -56,8 +56,10 @@ public class ModelParse {
 				config.setNodeType(child.getNodeName());
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
 				config.setName(DomUtil.getAttribute(child, "name"));
+				config.setWidth(DomUtil.getAttribute(child, "width"));
 				config.setColumn(DomUtil.getAttribute(child, "column"));
 				config.setType(DomUtil.getAttribute(child, "type"));
+				config.setNotnull(DomUtil.getAttribute(child, "notnull"));
 				config.setClas(DomUtil.getAttribute(child, "class"));
 				config.setLength(DomUtil.getAttribute(child, "length")); 
 				attributes.add(config);

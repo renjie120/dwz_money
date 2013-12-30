@@ -72,6 +72,18 @@
 			</bean>
 		</property>
 	</bean>
+	
+	<bean id="diaryDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.diary.DiaryDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.diary.DiaryVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 
 	<bean id="moneyDao" parent="daoProxy">
 		<property name="proxyInterfaces">

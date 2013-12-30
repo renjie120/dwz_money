@@ -45,6 +45,11 @@
 		class="money.question.QuestionManagerImpl">
 		<constructor-arg index="0" ref="questionDao"></constructor-arg>
 	</bean>
+	
+	<bean id="diaryManager"
+		class="money.diary.DiaryManagerImpl">
+		<constructor-arg index="0" ref="diaryDao"></constructor-arg>
+	</bean>
 
 	<bean id="menuManager" class="money.menu.MenuManagerImpl">
 		<constructor-arg index="0" ref="menuDao"></constructor-arg>

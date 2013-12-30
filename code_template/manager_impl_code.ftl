@@ -65,7 +65,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			return eaList;
 
 		for (${vo} po : voList) {
-			eaList.add(new ${model.className}>Impl(po));
+			eaList.add(new  ${model.className}Impl(po));
 		}
 
 		return eaList;
@@ -124,7 +124,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		this.${daoarg}.insert(${classarg}Impl.get${model.className}VO());
 	}
 
-	public void remove${model.className}(String ids) {
+	public void remove${model.className}s(String ids) {
 		String[] idArr = ids.split(",");
 		for (String s : idArr) {
 			${vo} vo = this.${daoarg}.findByPrimaryKey(Integer.parseInt(s));

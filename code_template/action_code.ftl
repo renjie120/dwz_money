@@ -3,9 +3,8 @@
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.opensymphony.xwork2.ActionContext;
-
+import java.util.Date;
+import com.opensymphony.xwork2.ActionContext; 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
@@ -39,7 +38,7 @@ public class ${bignm}Action extends BaseAction {
 
 	public String doAdd() {
 		try {
-			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
+			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2notkey nm=model.attributes />);
 			pMgr.create${bignm}(${classarg}Impl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -51,12 +50,12 @@ public class ${bignm}Action extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
-		pMgr.remove${bignm}(ids);
+		pMgr.remove${bignm}s(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	public String beforeUpdate() {
-		${classarg}Vo = pMgr.get${bignm}(orgId);
+		${classarg}Vo = pMgr.get${bignm}(${model.keyName});
 		return "editdetail";
 	}
 
@@ -141,11 +140,12 @@ public class ${bignm}Action extends BaseAction {
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
-		request.setAttribute("totalCount", pMgr.searchOrgNum(criterias));
+		int count = pMgr.search${bignm}Num(criterias);
+		request.setAttribute("totalCount", count);
 		ActionContext.getContext().put("list", moneyList);
 		ActionContext.getContext().put("pageNum", pageNum);
 		ActionContext.getContext().put("numPerPage", numPerPage);
-		ActionContext.getContext().put("totalCount",pMgr.searchOrgNum(criterias));
+		ActionContext.getContext().put("totalCount",count);
 		return "list";
 	}
 

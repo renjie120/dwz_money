@@ -9,11 +9,13 @@
 			<generator class="increment"></generator>
 		</id>
 		<#list model.attributes as attr>
-			<property name="${attr.name}" column="${attr.name}" type="${attr.type}" />
+			<#if attr.name!='${model.keyName}'>
+				<property name="${attr.name}" column="${attr.column}" type="${attr.type}" />
+			</#if>
 		</#list> 
 	</class>
 
 	<query name="money.${model.className?uncap_first}.${vo}.findRecordById">
-		<![CDATA[from ${vo} as ${class2}VO where ${model.keyName} = ?]]>
+		<![CDATA[from ${vo} as ${class2}Dao where ${model.keyName} = ?]]>
 	</query>
 </hibernate-mapping>

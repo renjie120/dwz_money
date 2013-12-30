@@ -58,8 +58,8 @@
 				</a>
 			</li>
 			<li>
-				<a class="edit" href="/money/${nm}!beforeUpdate.do?menuId={menuId}" mask="true"
-					target="dialog" title="修改菜单"><span>修改</span> </a>
+				<a class="edit" href="/money/${nm}!beforeUpdate.do?${model.keyName}={${model.keyName}}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
 			<li>
 				<a class="icon" href="/money/${nm}!export.do" target="dwzExport"
@@ -75,7 +75,7 @@
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
 				<#list model.attributes as attr> 
-				<th width="100" orderField="${attr.name}"  orderField="${attr.name?upper_case}" >
+				<th width="${attr.width}"    orderField="${attr.name?upper_case}" >
 						${attr.desc} 
 				</th> 
 				</#list>    
@@ -83,15 +83,15 @@
 		</thead>
 		<tbody>
 			<s:iterator value="list" status="stu">
-				<tr target="menuId" rel="<s:property value="menuId" />">
+				<tr target="${model.keyName}" rel="<s:property value="${model.keyName}" />">
 					<td>
-						<input name="ids" value="<s:property value="menuId" />"
+						<input name="ids" value="<s:property value="${model.keyName}" />"
 							type="checkbox">
 					</td>
-					<#list model.attributes as attr> 
+					<#list model.attributes as attr>  
 					<td>
 						<s:property value="${attr.name}" />
-					</td>
+					</td> 
 					</#list>   
 				</tr>
 			</s:iterator>

@@ -122,6 +122,20 @@
 				/WEB-INF/jsp/user/detail/edit.jsp
 			</result>
 		</action>
+		
+		<action name="diary" class="money.diary.DiaryAction">
+			<result name="list">
+				/WEB-INF/jsp/diary/Diarylist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/diary/Diaryinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/diary/Diaryedit.jsp
+			</result>
+		</action>
+		
+		
 		<action name="paramType"
 			class="money.paramtype.ParamTypeAction">
 			<result name="list">

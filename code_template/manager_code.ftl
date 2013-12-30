@@ -23,7 +23,7 @@ public interface ${model.className}Manager  extends BusinessObjectManager {
 	 * @param count 总数
 	 * @return
 	 */
-	public Collection<${beanname}> searchOrg(Map<${beanname}SearchFields, Object> criterias,
+	public Collection<${beanname}> search${beanname}(Map<${beanname}SearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
 	/**
@@ -54,7 +54,7 @@ public interface ${model.className}Manager  extends BusinessObjectManager {
 	 * @param ${model.keyName}
 	 */
 	@Transactional
-	public void remove${beanname}(${model.keyType} ${model.keyName});
+	public void remove${beanname}s(String ${model.keyName});
 
 	/**
 	 * 根据主键取值.

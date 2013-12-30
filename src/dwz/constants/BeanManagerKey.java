@@ -6,5 +6,5 @@ public enum BeanManagerKey {
 	newsManager,contentManager,websiteManager,categoryManager,
 	queryGridTreeBO,moneyManager,allSelectManager,
 	paramManager,paramTypeManager,myUserManager,moneyTypeManager,
-	menuManager,orgManager,questionManager
+	menuManager,orgManager,questionManager,diaryManager
 }

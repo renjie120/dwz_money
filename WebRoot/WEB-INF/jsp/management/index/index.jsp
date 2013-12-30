@@ -278,6 +278,9 @@ if ($.browser.msie) {
 									<a href="/money/org!query.do" target="navTab" rel="orglist">组织机构列表</a>
 								</li>
 								<li>
+									<a href="/money/diary!query.do" target="navTab" rel="orglist">日志列表</a>
+								</li>
+								<li>
 									<a href="/money/cache!query.do" target="navTab"
 										rel="paramstypelist">缓存列表</a>
 								</li>
