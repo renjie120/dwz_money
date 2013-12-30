@@ -136,7 +136,7 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
-		MoneyOrderByFields orderBy = MoneyOrderByFields.MONEY_SNO_DESC;
+		MoneyOrderByFields orderBy = MoneyOrderByFields.MONEY_TIME_DESC;
 		if (orderField != null && orderField.length() > 0) {
 			orderBy = MoneyOrderByFields.valueOf(orderField);
 		}
