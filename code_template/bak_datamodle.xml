@@ -1,0 +1,12 @@
+<class name="Plan" table="plan_t" desc="计划任务表" package="money.plan">
+	<id name="palnId" column="plandid" type="int" desc="计划id"/>
+	<property name="planDate" column="plandate" type="date" desc="计划时间" query="true"/>
+	<property name="planDesc" column="plandesc" type="string" desc="计划描述"/>
+	<property name="planType" column="plantype" type="int" desc="计划类型" query="true"/>
+	<property name="planStatus" column="planstatus" type="int" desc="计划状态"/>
+	<property name="userId" column="userid" type="int" desc="计划人" query="true"/>
+	<property name="startDate" column="startdate" type="date" desc="开始时间"/>
+	<property name="realStartDate" column="realstartdate" type="date" desc="实际开始时间" query="true"/>
+	<property name="endDate" column="enddate" type="date" desc="结束时间"/>
+	<property name="realEndDate" column="realenddate" type="date" desc="实际结束时间" query="true"/> 
+</class>
