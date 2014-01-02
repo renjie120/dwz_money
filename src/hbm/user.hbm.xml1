@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.user.MyUserVO" table="user_t"
+	dynamic-update="true">
+		<id name="userId" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>		
+		<property name="userName" column="userName" type="string" />
+		<property name="pass" column="pass" type="string" />
+		<property name="loginId" column="loginId" type="string" />
+		<property name="orgId" column="orgId" type="int" />
+		<property name="email" column="email" type="string" /> 
+		<property name="phone" column="phone" type="string" />
+		<property name="mobile" column="mobile" type="string" />
+		<property name="userType" column="usertype" type="string" />
+		<property name="address" column="address" type="string" /> 
+		<property name="orderId" column="orderId" type="int" /> 
+	</class>
+	<query
+		name="money.user.MyUserDao.findRecordById">
+		<![CDATA[from MyUserVO as userVO where userId = ?]]>
+	</query> 
+	<query
+		name="money.user.MyUserDao.findByLoginId2">
+		<![CDATA[from MyUserVO as userVO where loginId = ?]]>
+	</query>
+	<query
+		name="money.user.MyUserDao.updateAllPasswd">
+		<![CDATA[update MyUserVO set pass=? where loginId = ?]]>
+	</query>
+	<query
+		name="money.user.MyUserDao.findByLoginId">
+		<![CDATA[select userId from MyUserVO as userVO where loginId = ? and pass = ?]]>
+	</query>
+</hibernate-mapping>
