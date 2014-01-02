@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="money.${class2}.${vo}" table="${model.table}">
+	<class name="money.${model.className?lower_case}.${vo}" table="${model.table}">
 		<id name="${model.keyName}" column="${model.keyColumn}" type="${model.keyType}">
 			<generator class="increment"></generator>
 		</id>
@@ -15,7 +15,7 @@
 		</#list> 
 	</class>
 
-	<query name="money.${model.className?uncap_first}.${vo}.findRecordById">
+	<query name="money.${model.className?lower_case}.${dao}.findRecordById">
 		<![CDATA[from ${vo} as ${class2}Dao where ${model.keyName} = ?]]>
 	</query>
 </hibernate-mapping>

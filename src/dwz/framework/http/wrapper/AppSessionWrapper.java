@@ -57,7 +57,7 @@ public class AppSessionWrapper implements HttpSession {
 			User user = null;
 			try {
 				UserManager uMgr = BusinessFactory.getFactory().getManager(
-						BeanManagerKey.userManager);
+						BeanManagerKey.myuserManager);
 				SysSession sysSession = this.getSysSession();
 				if (sysSession != null)
 					user = uMgr.getUser(sysSession.getUserId());

@@ -132,7 +132,7 @@ public class FileInfoImpl extends AbstractBusinessObject implements FileInfo {
 	}
 	
 	public User getUser(){
-		UserManager userManager = BusinessFactory.getFactory().getManager(BeanManagerKey.userManager);
+		UserManager userManager = BusinessFactory.getFactory().getManager(BeanManagerKey.myuserManager);
 		return userManager.getUser(conFile.getUserId());
 	}
 

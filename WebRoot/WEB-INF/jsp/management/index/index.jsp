@@ -262,14 +262,14 @@ if ($.browser.msie) {
 							</h2>
 						</div>
 						<div class="accordionContent">
-							<ul class="tree treeFolder">
+							<ul class="tree treeFolder"> 
 								<li>
-									<a href="/money/paramType!query.do" target="navTab"
-										rel="paramstypelist">参数类型列表</a>
-								</li>
+									<a href="/money/paramtype!query.do" target="navTab"
+										rel="paramstypelist2">新参数类型列表</a>
+								</li> 
 								<li>
 									<a href="/money/param!query.do" target="navTab"
-										rel="paramslist">参数列表</a>
+										rel="paramslist2">新参数列表</a>
 								</li>
 								<li>
 									<a href="/money/menu!query.do" target="navTab" rel="menulist">菜单列表</a>

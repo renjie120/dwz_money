@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import money.user.IUser;
-import money.user.MyUserManager;
+import money.myuser.MyUser;
+import money.myuser.MyUserImpl;
+import money.myuser.MyUserManager;
+import money.myuser.MyUserVO;
 
 import common.util.Coder;
 
@@ -65,10 +67,8 @@ public abstract class Passport {
 			session.setAttribute(Constants.AUTHENTICATION_KEY, userId);
 		} else {
 			MyUserManager uMgr = BusinessFactory.getFactory().getManager(
-					BeanManagerKey.myUserManager);
-			IUser user = uMgr.getUser(userId); 
-			//密码解密
-			user.setPass(Coder.fromMyCoder(user.getPass()));
+					BeanManagerKey.myuserManager);
+			MyUser  user = uMgr.getMyUser(userId);  
 			session.setAttribute(Constants.AUTHENTICATION_KEY, new UserImpl(convertUser(user))); 
 		}
 	}
@@ -79,12 +79,12 @@ public abstract class Passport {
 	 * @param myUser
 	 * @return
 	 */
-	private static SysUser convertUser(IUser myUser){
+	private static SysUser convertUser(MyUser myUser){
 		SysUser ans = new SysUser();
 		ans.setUserName(myUser.getUserName());
 		ans.setId(myUser.getLoginId());
-		ans.setUserId(myUser.getUserId()+"");
-		ans.setPassword(myUser.getPass());
+		ans.setUserId(myUser.getUseId()+""); 
+		ans.setPassword(Coder.fromMyCoder(myUser.getPassword()));
 		ans.setPhone(myUser.getPhone());
 		ans.setEmail(myUser.getEmail()); 
 		if(myUser.getLoginId().equals("admin"))

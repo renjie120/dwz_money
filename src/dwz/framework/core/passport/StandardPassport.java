@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import money.user.MyUserDao;
-import money.user.MyUserVO;
+import money.myuser.MyUserDao;
+import money.myuser.MyUserVO;
 
 import common.util.Coder;
 
@@ -31,14 +31,14 @@ public class StandardPassport extends Passport {
 			throw new AuthenticationException("msg.login.failure1");
 		} 
 		MyUserVO userVo = ids.iterator().next();
-		String pass = userVo.getPass();  
+		String pass = userVo.getPassword();  
 		if(!Coder.fromMyCoder(pass).equals(appPassword)){
 			
 			System.out.println("login failed: " + appUserType + ": "
 					+ appUserName);
 			throw new AuthenticationException("msg.login.failure2");
 		} 
-		setSessionUser(request, userVo.getUserId());
+		setSessionUser(request, userVo.getUseId());
 		
 	}
 

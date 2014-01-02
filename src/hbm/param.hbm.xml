@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.param.ParamVO" table="params">
+		<id name="paramId" column="parameterID" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="paramType" column="parameterType" type="int" />
+				<property name="paramName" column="parameterName" type="string" />
+				<property name="paramValue" column="paramvalue" type="int" />
+				<property name="usevalue" column="usevalue" type="string" />
+				<property name="orderId" column="orderId" type="int" />
+	</class>
+
+	<query name="money.param.ParamDao.findRecordById">
+		<![CDATA[from ParamVO as paramDao where paramId = ?]]>
+	</query>
+	<query name="money.param.ParamDao.findParmByType">
+		<![CDATA[from ParamVO as param where param.paramType = ?]]>
+	</query>
+</hibernate-mapping>

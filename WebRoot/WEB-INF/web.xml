@@ -107,7 +107,7 @@
 
 	<listener>
 		<listener-class>
-			dwz.framework.adapter.web.listener.AppContextInitListener</listener-class>
+	dwz.framework.adapter.web.listener.AppContextInitListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

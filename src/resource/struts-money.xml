@@ -4,7 +4,17 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-
+	<action name="myuser" class="money.myuser.MyUserAction">
+		<result name="list">
+			/WEB-INF/jsp/myuser/MyUserlist.jsp
+		</result>
+		<result name="detail">
+			/WEB-INF/jsp/myuser/MyUserinfo.jsp
+		</result>
+		<result name="editdetail">
+			/WEB-INF/jsp/myuser/MyUseredit.jsp
+		</result>
+	</action>
 	<package name="money" namespace="/money" extends="struts2">
 		<action name="plan" class="money.plan.PlanAction">
 			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
@@ -18,19 +28,10 @@
 				/WEB-INF/jsp/plan/PlanEdit.jsp
 			</result>
 		</action>
-		<!--  
-		<action name="tree" class="money.plan.PlanAction">
-			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
-			<result name="detail">
-				/WEB-INF/jsp/plan/PlanInfo.jsp
-			</result>
-			<result name="query">
-				/WEB-INF/jsp/plan/PlanQuery.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/plan/PlanEdit.jsp
-			</result>
-		</action>-->
+		<!-- <action name="tree" class="money.plan.PlanAction"> <result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result> 
+			<result name="detail"> /WEB-INF/jsp/plan/PlanInfo.jsp </result> <result name="query"> 
+			/WEB-INF/jsp/plan/PlanQuery.jsp </result> <result name="editdetail"> /WEB-INF/jsp/plan/PlanEdit.jsp 
+			</result> </action> -->
 
 		<action name="newmoney" class="money.detail.MoneyAction">
 			<param name="savePath">/upload</param>
@@ -63,15 +64,24 @@
 			</result>
 		</action>
 
-		<action name="tree" class="money.tree.TreeAction"> 
+		<action name="tree" class="money.tree.TreeAction">
 			<result name="tree">
 				/WEB-INF/jsp/common/tree.jsp
 			</result>
 			<result name="demo">/ztree/demo/cn/index.html</result>
 		</action>
-
-		<action name="moneyType"
-			class="money.moneytype.MoneyTypeAction">
+		<action name="param" class="money.param.ParamAction">
+			<result name="list">
+				/WEB-INF/jsp/param/Paramlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/param/Paraminfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/param/Paramedit.jsp
+			</result>
+		</action>
+		<action name="moneyType" class="money.moneytype.MoneyTypeAction">
 			<result name="list">/WEB-INF/jsp/moneytype/list.jsp</result>
 			<result name="detail">
 				/WEB-INF/jsp/moneytype/info.jsp
@@ -80,11 +90,11 @@
 				/WEB-INF/jsp/moneytype/edit.jsp
 			</result>
 		</action>
-		
+
 		<action name="superconsole" class="common.MyJdbcAction">
-			<result name="list">/WEB-INF/jsp/superconsole/MyJsp.jsp</result> 
+			<result name="list">/WEB-INF/jsp/superconsole/MyJsp.jsp</result>
 		</action>
-		
+
 		<action name="question" class="money.question.QuestionAction">
 			<result name="list">/WEB-INF/jsp/question/list.jsp</result>
 			<result name="detail">
@@ -110,7 +120,7 @@
 			</result>
 		</action>
 
-
+<!-- 
 		<action name="myuser" class="money.user.MyUserAction">
 			<result name="list">
 				/WEB-INF/jsp/user/detail/list.jsp
@@ -121,8 +131,20 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/user/detail/edit.jsp
 			</result>
+		</action> -->
+
+		<action name="paramtype" class="money.paramtype.ParamTypeAction">
+			<result name="list">
+				/WEB-INF/jsp/paramtype/ParamTypelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/paramtype/ParamTypeinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/paramtype/ParamTypeedit.jsp
+			</result>
 		</action>
-		
+
 		<action name="diary" class="money.diary.DiaryAction">
 			<result name="list">
 				/WEB-INF/jsp/diary/Diarylist.jsp
@@ -134,20 +156,6 @@
 				/WEB-INF/jsp/diary/Diaryedit.jsp
 			</result>
 		</action>
-		
-		
-		<action name="paramType"
-			class="money.paramtype.ParamTypeAction">
-			<result name="list">
-				/WEB-INF/jsp/paramtype/detail/list.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/paramtype/detail/info.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/paramtype/detail/edit.jsp
-			</result>
-		</action>
 
 		<action name="menu" class="money.menu.MenuAction">
 			<result name="list">/WEB-INF/jsp/menu/list.jsp</result>
@@ -157,16 +165,9 @@
 			</result>
 		</action>
 
-		<action name="param" class="money.params.ParamAction">
-			<result name="list">
-				/WEB-INF/jsp/params/detail/list.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/params/detail/info.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/params/detail/edit.jsp
-			</result>
-		</action>
+		<!-- <action name="param" class="money.params.ParamAction"> <result name="list"> 
+			/WEB-INF/jsp/params/detail/list.jsp </result> <result name="detail"> /WEB-INF/jsp/params/detail/info.jsp 
+			</result> <result name="editdetail"> /WEB-INF/jsp/params/detail/edit.jsp 
+			</result> </action> -->
 	</package>
 </struts>

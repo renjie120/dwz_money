@@ -49,10 +49,10 @@
 		<mapping resource="dwz/persistence/beans/InvCategory.hbm.xml" />
 		<mapping resource="dwz/persistence/beans/InvProduct.hbm.xml" />
 		<mapping resource="hbm/moneyDetail.hbm.xml" />
-		<mapping resource="hbm/params.hbm.xml" />
+		<mapping resource="hbm/param.hbm.xml" />
 		<mapping resource="hbm/paramtype.hbm.xml" />
 		<mapping resource="hbm/plan.hbm.xml" />
-		<mapping resource="hbm/user.hbm.xml" />
+		<mapping resource="hbm/myuser.hbm.xml" />
 		<mapping resource="hbm/menu.hbm.xml" />
 		<mapping resource="hbm/org.hbm.xml" />
 		<mapping resource="hbm/moneytype.hbm.xml" />

@@ -8,10 +8,10 @@ import common.codegenerate.ModelParse;
 
 public class Code {
 	public static void main(String[] agrgs) {
-		// final String file =
-		// "D:\\My Documents\\GitHub\\dwz_money\\code_template\\datamodle.xml";
-		final String file = "F:\\github\\dwz_money\\code_template\\datamodle.xml";
-		String beanName = "Diary"; 
+		 final String file =
+		 "D:\\My Documents\\GitHub\\dwz_money\\code_template\\datamodle.xml";
+//		final String file = "F:\\github\\dwz_money\\code_template\\datamodle.xml";
+		String beanName = "MyUser"; 
 		new Generate("action_code.ftl", beanName, "Action.java") {
 			public Object setData() {
 				ModelParse p = new ModelParse();
@@ -141,7 +141,17 @@ public class Code {
 				return m;
 			}
 		}.make();
+		
+		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt") {
+			public Object setData() {
+				ModelParse p = new ModelParse();
+				p.setFileName(file);
+				Map m = new HashMap();
+				m.put("model", p.parse());
+				return m;
+			}
+		}.make();
 
-		System.out.println("生成完毕");
+		System.out.println("生成完毕:d:\\"+beanName+"\\");
 	}
 }

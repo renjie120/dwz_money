@@ -1,0 +1,8 @@
+<class name="Param" table="params" desc="参数" package="money.param">
+	<id name="paramId" column="parameterID" type="int" desc="参数流水号" width="100"/>
+	<property name="paramType" column="parameterType" type="int" desc="参数类型" query="true" width="100" notnull="true"/> 
+	<property name="paramName" column="parameterName" type="string" desc="参数描述" width="200"/>
+	<property name="paramValue" column="paramvalue" type="int" desc="参数值" query="true" width="100"/> 
+	<property name="usevalue" column="usevalue" type="string" desc="用户自定义值" query="true" width="100"/>
+	<property name="orderId" column="orderId" type="int" desc="排序号"  width="50"/> 
+</class>

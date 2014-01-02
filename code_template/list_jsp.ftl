@@ -75,9 +75,11 @@
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
 				<#list model.attributes as attr> 
+				<#if "${attr.visible}"!='false'>
 				<th width="${attr.width}"    orderField="${attr.name?upper_case}" >
 						${attr.desc} 
 				</th> 
+				</#if>
 				</#list>    
 			</tr>
 		</thead>
@@ -89,9 +91,11 @@
 							type="checkbox">
 					</td>
 					<#list model.attributes as attr>  
+					<#if "${attr.visible}"!='false'>
 					<td>
 						<s:property value="${attr.name}" />
 					</td> 
+					</#if>
 					</#list>   
 				</tr>
 			</s:iterator>

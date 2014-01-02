@@ -7,8 +7,8 @@ import java.util.List;
 
 import money.moneytype.MoneyTypeDao;
 import money.moneytype.MoneyTypeVO;
-import money.params.ParamDao;
-import money.params.ParamVO;
+import money.param.ParamDao;
+import money.param.ParamVO;
 import money.paramtype.ParamTypeDao;
 import money.paramtype.ParamTypeVO;
 
@@ -47,7 +47,7 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 			Collection<ParamTypeVO> newALl = new ArrayList();
 			while(it.hasNext()){
 				ParamTypeVO co = it.next();
-				co.setParameterTypeName(co.getCode());
+				co.setCode(co.getCode());
 				newALl.add(co); 
 			}
 			ans = new ParamSelect(all);

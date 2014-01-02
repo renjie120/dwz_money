@@ -1,40 +1,65 @@
-﻿
-package money.paramtype;
 
+package money.paramtype;
 import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import common.base.ParamSelect;
-
 import dwz.framework.core.business.BusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
-//@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
-public interface ParamTypeManager extends BusinessObjectManager {  
-
+/**
+ * 关于参数类型的业务操作操作接口.
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
+ */ 
+public interface ParamTypeManager  extends BusinessObjectManager {
+	/**
+	 * 根据条件查询分页信息.
+	 * @param criterias 条件
+	 * @param orderField 排序列
+	 * @param startIndex 开始索引
+	 * @param count 总数
+	 * @return
+	 */
 	public Collection<ParamType> searchParamType(Map<ParamTypeSearchFields, Object> criterias,
-			String orderField, int startIndex, int count);  
-	public Integer searchParamTypeNum(Map<ParamTypeSearchFields, Object> criterias); 
-
-	public boolean canDeleteType(Integer id);  
-	
-	@Transactional
-	public void createParamType(ParamType paramType)
-			throws ValidateFieldsException;
-
-	@Transactional
-	public void updateParamType(ParamType paramType) throws ValidateFieldsException;
+			String orderField, int startIndex, int count);
 
 	/**
-	 * 删除参数类型
-	 * @param paramTypeId
-	 * @return 返回删除成功的记录数.
+	 * 查询总数.
+	 * @param criterias 查询条件
+	 * @return
+	 */
+	public Integer searchParamTypeNum(Map<ParamTypeSearchFields, Object> criterias);
+
+	/**
+	 * 保存实体到数据库.
+	 * @param paramtype
+	 * @throws ValidateFieldsException
 	 */
 	@Transactional
-	public int removeParamType(String paramTypeId);
-	
-	public ParamType getParamType(Integer id);
-}
+	public void createParamType(ParamType paramtype) throws ValidateFieldsException;
 
+	/**
+	 * 更新操作.
+	 * @param paramtype
+	 * @throws ValidateFieldsException
+	 */
+	@Transactional
+	public void updateParamType(ParamType paramtype) throws ValidateFieldsException;
+
+	/**
+	 * 删除操作
+	 * @param paramTypeId
+	 */
+	@Transactional
+	public void removeParamTypes(String paramTypeId);
+
+	/**
+	 * 根据主键取值.
+	 * @param paramTypeId
+	 * @return
+	 */
+	public ParamType getParamType(int paramTypeId);
+}

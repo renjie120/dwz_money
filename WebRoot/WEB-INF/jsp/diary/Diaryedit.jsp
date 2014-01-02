@@ -2,8 +2,8 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="money.diary.Diary"%>
-<% 
-	Diary vo = (Diary) request.getAttribute("diaryVo"); 
+<%
+	Diary vo = (Diary) request.getAttribute("diaryVo");
 %>
 <div class="pageContent">
 	<form method="post" action="/money/diary!doUpdate.do"

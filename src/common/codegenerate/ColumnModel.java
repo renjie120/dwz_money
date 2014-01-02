@@ -12,6 +12,16 @@ public class ColumnModel {
 	private String name;
 	// 数据库中的列名
 	private String column;
+	//是否可见.
+	private String visible;
+	public String getVisible() {
+		return visible;
+	}
+
+	public void setVisible(String visible) {
+		this.visible = visible;
+	}
+
 	//非空.
 	private String notnull;
   

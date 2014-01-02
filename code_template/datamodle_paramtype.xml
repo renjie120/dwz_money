@@ -1,0 +1,6 @@
+<class name="ParamType" table="parameter_type" desc="参数类型" package="money.paramtype">
+	<id name="paramTypeId" column="parameter_type_Id" type="int" desc="参数类型流水号" width="100"/>
+	<property name="paramTypeName" column="parameter_type_name" type="string" desc="参数类型" query="true" width="300" notnull="true"/> 
+	<property name="orderId" column="orderId" type="int" desc="排序号" width="80"/>
+	<property name="code" column="code" type="string" desc="参数类型编码" query="true" width="100"/> 
+</class>

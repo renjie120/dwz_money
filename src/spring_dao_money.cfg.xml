@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-
-
+	<bean id="myuserDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.myuser.MyUserDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.myuser.MyUserVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="paramDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.param.ParamDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.param.ParamVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="orgDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.org.OrgDao</value>
@@ -23,7 +42,7 @@
 	<bean id="jdbcTool" class="common.MyJdbcTool">
 		<property name="jdbcTemplate">
 			<ref bean="jdbcTemplate" />
-		</property>  
+		</property>
 	</bean>
 
 
@@ -72,7 +91,19 @@
 			</bean>
 		</property>
 	</bean>
-	
+
+	<bean id="paramtypeDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.paramtype.ParamTypeDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.paramtype.ParamTypeVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
 	<bean id="diaryDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.diary.DiaryDao</value>
@@ -120,28 +151,5 @@
 			</bean>
 		</property>
 	</bean>
-
-	<bean id="myUserDao" parent="daoProxy">
-		<property name="proxyInterfaces">
-			<value>money.user.MyUserDao</value>
-		</property>
-		<property name="target">
-			<bean parent="baseDao">
-				<constructor-arg value="money.user.MyUserVO">
-				</constructor-arg>
-			</bean>
-		</property>
-	</bean>
-
-	<bean id="paramDao" parent="daoProxy">
-		<property name="proxyInterfaces">
-			<value>money.params.ParamDao</value>
-		</property>
-		<property name="target">
-			<bean parent="baseDao">
-				<constructor-arg value="money.params.ParamVO">
-				</constructor-arg>
-			</bean>
-		</property>
-	</bean>
+ 
 </beans>
