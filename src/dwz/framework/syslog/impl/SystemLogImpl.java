@@ -39,7 +39,7 @@ public class SystemLogImpl extends AbstractBusinessObject implements SystemLog {
 		if (user == null && sysLog.getUserId() != null
 				&& sysLog.getUserId().length() > 0) {
 			UserManager uMgr = BusinessFactory.getFactory().getManager(
-					BeanManagerKey.myuserManager);
+					BeanManagerKey.userManager);
 			user = uMgr.getUser(sysLog.getUserId());
 		}
 		return user;

@@ -51,7 +51,7 @@ public class FolderImpl extends AbstractBusinessObject implements Folder {
 	public User getInsertBy() {
 		if (StringUtils.notEmpty(conFolder.getInsertBy())) {
 			UserManager userManager = BusinessFactory.getFactory()
-					.getManager(BeanManagerKey.myuserManager);
+					.getManager(BeanManagerKey.userManager);
 			return userManager.getUser(conFolder.getInsertBy());
 		}
 		return null;

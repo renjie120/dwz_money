@@ -1,20 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version="1.0" encoding="UTF-8" ?> 
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<action name="myuser" class="money.myuser.MyUserAction">
-		<result name="list">
-			/WEB-INF/jsp/myuser/MyUserlist.jsp
-		</result>
-		<result name="detail">
-			/WEB-INF/jsp/myuser/MyUserinfo.jsp
-		</result>
-		<result name="editdetail">
-			/WEB-INF/jsp/myuser/MyUseredit.jsp
-		</result>
-	</action>
+
 	<package name="money" namespace="/money" extends="struts2">
 		<action name="plan" class="money.plan.PlanAction">
 			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
@@ -26,6 +15,17 @@
 			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/plan/PlanEdit.jsp
+			</result>
+		</action>
+		<action name="myuser" class="money.myuser.MyUserAction">
+			<result name="list">
+				/WEB-INF/jsp/myuser/MyUserlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/myuser/MyUserinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/myuser/MyUseredit.jsp
 			</result>
 		</action>
 		<!-- <action name="tree" class="money.plan.PlanAction"> <result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result> 
@@ -120,18 +120,10 @@
 			</result>
 		</action>
 
-<!-- 
-		<action name="myuser" class="money.user.MyUserAction">
-			<result name="list">
-				/WEB-INF/jsp/user/detail/list.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/user/detail/info.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/user/detail/edit.jsp
-			</result>
-		</action> -->
+		<!-- <action name="myuser" class="money.user.MyUserAction"> <result name="list"> 
+			/WEB-INF/jsp/user/detail/list.jsp </result> <result name="detail"> /WEB-INF/jsp/user/detail/info.jsp 
+			</result> <result name="editdetail"> /WEB-INF/jsp/user/detail/edit.jsp </result> 
+			</action> -->
 
 		<action name="paramtype" class="money.paramtype.ParamTypeAction">
 			<result name="list">

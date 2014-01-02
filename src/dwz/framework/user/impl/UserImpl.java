@@ -138,7 +138,7 @@ public class UserImpl extends AbstractBusinessObject implements User {
 
 	public User getInsertBy() {
 		UserManager uMgr = BusinessFactory.getFactory().getManager(
-				BeanManagerKey.myuserManager);
+				BeanManagerKey.userManager);
 		return uMgr.getUser(sysUser.getInsertBy());
 	}
 

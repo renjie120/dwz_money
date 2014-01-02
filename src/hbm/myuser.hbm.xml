@@ -30,6 +30,6 @@
 		<![CDATA[update MyUserVO set password=? where loginId = ?]]>
 	</query>
 	<query name="money.myuser.MyUserDao.findByLoginId">
-		<![CDATA[select userId from MyUserVO as userVO where loginId = ? and password = ?]]>
+		<![CDATA[select useId from MyUserVO as userVO where loginId = ? and password = ?]]>
 	</query>
 </hibernate-mapping>

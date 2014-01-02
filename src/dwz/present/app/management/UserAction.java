@@ -34,7 +34,7 @@ public class UserAction extends BaseAction {
 	private String userName;
 	private UserStatus userStatus;
 	private UserType userType = UserType.PERSON;
-	UserManager uMgr = bf.getManager(BeanManagerKey.myuserManager);
+	UserManager uMgr = bf.getManager(BeanManagerKey.userManager);
 	private User user = uMgr.newUser("", userType);
 
 	private Map<UserSearchFields, String> getCriterias() {

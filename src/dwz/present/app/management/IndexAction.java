@@ -29,7 +29,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 	}
 
 	public String updPwd() {
-		UserManager uMgr = bf.getManager(BeanManagerKey.myuserManager);
+		UserManager uMgr = bf.getManager(BeanManagerKey.userManager);
 		User user = getAppContext().getUser();
 		user.setPassword(newPassword);
 		if (!password.equals(user.getPassword())) {
