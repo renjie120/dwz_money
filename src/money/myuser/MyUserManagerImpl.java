@@ -1,5 +1,5 @@
-
 package money.myuser;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,10 +10,9 @@ import dwz.framework.core.exception.ValidateFieldsException;
 
 /**
  * 关于用户信息表的业务操作实现类.
- * @author www(水清)
- * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
- * http://www.iteye.com
- */ 
+ * 
+ * @author www(水清) 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名. http://www.iteye.com
+ */
 public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		MyUserManager {
 
@@ -28,7 +27,9 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 	/**
 	 * 查询总数.
-	 * @param criterias 查询条件
+	 * 
+	 * @param criterias
+	 *            查询条件
 	 * @return
 	 */
 	public Integer searchMyUserNum(Map<MyUserSearchFields, Object> criterias) {
@@ -45,14 +46,20 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 	/**
 	 * 根据条件查询分页信息.
-	 * @param criterias 条件
-	 * @param orderField 排序列
-	 * @param startIndex 开始索引
-	 * @param count 总数
+	 * 
+	 * @param criterias
+	 *            条件
+	 * @param orderField
+	 *            排序列
+	 * @param startIndex
+	 *            开始索引
+	 * @param count
+	 *            总数
 	 * @return
 	 */
-	public Collection<MyUser> searchMyUser(Map<MyUserSearchFields, Object> criterias,
-			String orderField, int startIndex, int count) {
+	public Collection<MyUser> searchMyUser(
+			Map<MyUserSearchFields, Object> criterias, String orderField,
+			int startIndex, int count) {
 		ArrayList<MyUser> eaList = new ArrayList<MyUser>();
 		if (criterias == null)
 			return eaList;
@@ -66,7 +73,7 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 			return eaList;
 
 		for (MyUserVO po : voList) {
-			eaList.add(new  MyUserImpl(po));
+			eaList.add(new MyUserImpl(po));
 		}
 
 		return eaList;
@@ -77,7 +84,8 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count(distinct myuser) "
-						: "select distinct myuser ").append("from MyUserVO as myuser ");
+						: "select distinct myuser ").append(
+				"from MyUserVO as myuser ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -86,71 +94,71 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 					.entrySet()) {
 				MyUserSearchFields fd = entry.getKey();
 				switch (fd) {
-					case USEID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.useId = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case USEID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.useId = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case USERNAME:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.userName like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case USERNAME:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.userName like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case PASSWORD:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.password like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case PASSWORD:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.password like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case LOGINID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.loginId like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case LOGINID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.loginId like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case ORGID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.orgId = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case ORGID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.orgId = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case EMAIL:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.email like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case EMAIL:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.email like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case PHONE:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.phone like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case PHONE:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.phone like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case MOBILE:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.mobile like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case MOBILE:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.mobile like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case USERTYPE:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.userType like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case USERTYPE:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.userType like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case ADDRESS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.address like ? ");
-						argList.add(entry.getValue());
-						count++;
+				case ADDRESS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.address like ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case ORDERID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  myuser.orderId = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case ORDERID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  myuser.orderId = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
 				default:
 					break;
@@ -167,41 +175,41 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		}
 
 		switch (orderBy) {
-			case USEID:
-				 sb.append(" order by myuser.useId");
+		case USEID:
+			sb.append(" order by myuser.useId");
 			break;
-			case USERNAME:
-				 sb.append(" order by myuser.userName");
+		case USERNAME:
+			sb.append(" order by myuser.userName");
 			break;
-			case PASSWORD:
-				 sb.append(" order by myuser.password");
+		case PASSWORD:
+			sb.append(" order by myuser.password");
 			break;
-			case LOGINID:
-				 sb.append(" order by myuser.loginId");
+		case LOGINID:
+			sb.append(" order by myuser.loginId");
 			break;
-			case ORGID:
-				 sb.append(" order by myuser.orgId");
+		case ORGID:
+			sb.append(" order by myuser.orgId");
 			break;
-			case EMAIL:
-				 sb.append(" order by myuser.email");
+		case EMAIL:
+			sb.append(" order by myuser.email");
 			break;
-			case PHONE:
-				 sb.append(" order by myuser.phone");
+		case PHONE:
+			sb.append(" order by myuser.phone");
 			break;
-			case MOBILE:
-				 sb.append(" order by myuser.mobile");
+		case MOBILE:
+			sb.append(" order by myuser.mobile");
 			break;
-			case USERTYPE:
-				 sb.append(" order by myuser.userType");
+		case USERTYPE:
+			sb.append(" order by myuser.userType");
 			break;
-			case ADDRESS:
-				 sb.append(" order by myuser.address");
+		case ADDRESS:
+			sb.append(" order by myuser.address");
 			break;
-			case ORDERID:
-				 sb.append(" order by myuser.orderId");
+		case ORDERID:
+			sb.append(" order by myuser.orderId");
 			break;
-			default:
-				break;
+		default:
+			break;
 		}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
@@ -235,6 +243,11 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		MyUserVO myuser = myusers.toArray(new MyUserVO[myusers.size()])[0];
 
 		return new MyUserImpl(myuser);
+	}
+
+	@Override
+	public void updatePassword(String pass, String userId) {
+		this.myuserdao.updateAllPasswd(pass, userId);
 	}
 
 }

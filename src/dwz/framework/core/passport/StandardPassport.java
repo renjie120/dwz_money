@@ -22,7 +22,7 @@ public class StandardPassport extends Passport {
 			String appPassword, String appUserType) throws AuthenticationException{ 
 		
 		Collection<MyUserVO> ids = null;
-		MyUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.myUserDao);
+		MyUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.myuserDao);
 		
 		ids = userDao.findByLoginId2(appUserName); 
 		if (ids == null || ids.size() < 1) {

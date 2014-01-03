@@ -12,6 +12,24 @@ public class ColumnModel {
 	private String name;
 	// 数据库中的列名
 	private String column;
+	private String textarea;
+	private String selectType;
+	public String getSelectType() {
+		return selectType;
+	}
+
+	public void setSelectType(String selectType) {
+		this.selectType = selectType;
+	}
+
+	public String getTextarea() {
+		return textarea;
+	}
+
+	public void setTextarea(String textarea) {
+		this.textarea = textarea;
+	}
+
 	//是否可见.
 	private String visible;
 	public String getVisible() {

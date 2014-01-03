@@ -3,14 +3,14 @@
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="${model.packageName}.${model.className}"%>
 <% 
-	${model.className} vo = (${model.className}) request.getAttribute("${classarg}Vo"); 
+	${model.className} vo = (${model.className}) request.getAttribute("vo"); 
 %>
 <div class="pageContent">
 	<form method="post" action="/money/${nm}!doUpdate.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<input type='hidden' name="${model.keyName}"
-			value="<s:property value="${classarg}Vo.${model.keyName}"/>">
+			value="<s:property value="vo.${model.keyName}"/>">
 		<div class="pageFormContent" layoutH="57"> 
 			<#list model.attributes as attr> 
 				<#if '${attr.name}'!='${model.keyName}'>
@@ -19,10 +19,18 @@
 							${attr.desc}:
 						</label>
 						<#if '${attr.type}'='date'>
-							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"  value="<s:property value="${classarg}Vo.${attr.name}"/>" />
+							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"  value="<s:property value="vo.${attr.name}"/>" />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
-							<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"  value="<s:property value="${classarg}Vo.${attr.name}"/>" />
+							<#if '${attr.textarea}'='true'>
+								<textarea class="<#if "${attr.notnull}"='true'>required</#if>" name="${attr.name}" cols="30" rows="2"><s:property value="vo.${attr.name}"/></textarea>
+							<#else>
+								<#if '${attr.selectType}'!=''>
+									<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" selectedValue="<s:property value='vo.${attr.name}'/>"/>									
+								<#else>
+									<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"  value="<s:property value="vo.${attr.name}"/>" />
+								</#if>
+							</#if>							
 						</#if>
 					</div>
 				</#if>

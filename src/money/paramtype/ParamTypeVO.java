@@ -92,6 +92,6 @@ public class ParamTypeVO implements Serializable,SelectAble {
 	}
 
 	public String getOptionName() { 
-		return this.getParamTypeName();
+		return this.getCode();
 	}
 }

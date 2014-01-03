@@ -29,12 +29,13 @@
 				<input name="url" class="textInput  " size="30" type="text"
 					value="<s:property value="menuVo.url"/>" />
 			</div>
+			<!--  
 			<div class="unit">
 				<label>
 					菜单指向:
 				</label>
 				<my:newselect tagName="target"  paraType="menutarget" defaultValue="<%=target%>"  />   
-			</div>
+			</div>-->
 			<div class="unit">
 				<label>
 					父级菜单:

@@ -57,9 +57,11 @@ public class ModelParse {
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
 				config.setName(DomUtil.getAttribute(child, "name"));
 				config.setWidth(DomUtil.getAttribute(child, "width"));
+				config.setTextarea(DomUtil.getAttribute(child, "textarea"));
 				config.setVisible(DomUtil.getAttribute(child, "visible"));
 				config.setColumn(DomUtil.getAttribute(child, "column"));
 				config.setType(DomUtil.getAttribute(child, "type"));
+				config.setSelectType(DomUtil.getAttribute(child, "selectType"));
 				config.setNotnull(DomUtil.getAttribute(child, "notnull"));
 				config.setClas(DomUtil.getAttribute(child, "class"));
 				config.setLength(DomUtil.getAttribute(child, "length")); 

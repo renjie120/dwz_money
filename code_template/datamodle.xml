@@ -7,7 +7,7 @@
 	<property name="email" column="email" type="string" desc="邮件"  width="50"/> 
 	<property name="phone" column="phone" type="string" desc="座机"  width="50"/>
 	<property name="mobile" column="mobile" type="string" desc="手机"  width="50"/>
-	<property name="userType" column="usertype" type="string" desc="用户类型"  width="50"/>
-	<property name="address" column="address" type="string" desc="地址"  width="50"/>
+	<property name="userType" column="usertype" type="string" desc="用户类型"  width="50" selectType="questionSort"/>
+	<property name="address" column="address" type="string" desc="地址"  width="50" textarea="true"/>
 	<property name="orderId" column="orderId" type="int" desc="排序号"  width="50"/> 
 </class>

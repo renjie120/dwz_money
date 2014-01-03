@@ -16,7 +16,15 @@
 							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
-							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"   />
+							<#if '${attr.textarea}'='true'>
+								<textarea class="<#if "${attr.notnull}"='true'>required</#if>" name="${attr.name}" cols="30" rows="2"></textarea>
+							<#else>
+								<#if '${attr.selectType}'!=''>
+									<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" />
+								<#else>
+									<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"   />
+								</#if>
+							</#if>
 						</#if>
 					</div>
 				</#if>

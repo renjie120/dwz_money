@@ -19,12 +19,13 @@
 				</label>
 				<input name="url" class="textInput  " size="30" type="text" />
 			</div>
+			<!--  
 			<div class="unit">
 				<label>
 					菜单指向:
 				</label>
 				<my:newselect tagName="target"  paraType="menutarget"  />  
-			</div> 
+			</div> -->
 			<div class="unit">
 				<label>
 					菜单级别:
@@ -52,8 +53,7 @@
 					菜单页编码:
 				</label>
 				<input name="relId" class="textInput  " size="30" type="text" />
-			</div>
-
+			</div> 
 		</div>
 		<div class="formBar">
 			<ul>

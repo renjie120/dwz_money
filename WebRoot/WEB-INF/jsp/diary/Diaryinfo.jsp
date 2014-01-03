@@ -10,8 +10,8 @@
 						<label>
 							日志内容:
 						</label>
-							<input name="diaryContent" class="textInput required" size="30" type="text"   />
-					</div>
+						<textarea  name="diaryContent" class="required"  cols="30" rows="3"></textarea>
+  					</div>
 					 <div class="unit">
 						<label>
 							开始时间:

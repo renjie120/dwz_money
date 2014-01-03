@@ -24,7 +24,7 @@ public class ${bignm}Action extends BaseAction {
 	//业务接口对象.
 	${bignm}Manager pMgr = bf.getManager(BeanManagerKey.${classarg}Manager);
 	//业务实体对象
-	private ${bignm} ${classarg}Vo;
+	private ${bignm} vo;
 	//当前页数
 	private int page = 1;
 	//每页显示数量
@@ -55,7 +55,7 @@ public class ${bignm}Action extends BaseAction {
 	}
 
 	public String beforeUpdate() {
-		${classarg}Vo = pMgr.get${bignm}(${model.keyName});
+		vo = pMgr.get${bignm}(${model.keyName});
 		return "editdetail";
 	}
 
@@ -182,13 +182,13 @@ public class ${bignm}Action extends BaseAction {
 		return criterias;
 	}
 
-	public ${bignm} get${bignm}Vo() {
-		return ${classarg}Vo;
+	public ${bignm} getVo() {
+		return vo;
 	}
 
-	public void set${bignm}Vo(${bignm} ${classarg}Vo) {
-		this.${classarg}Vo = ${classarg}Vo;
-	}
+	public void setVo(${bignm} vo) {
+		this.vo = vo;
+	} 
   
   	<@allGetAndSet nm=model.attributes />
 }

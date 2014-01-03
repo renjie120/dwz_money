@@ -41,7 +41,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
 		return ajaxForwardSuccess(getText("msg.operation.success"));
-	}
+	} 
 
 	public String getPassword() {
 		return password;

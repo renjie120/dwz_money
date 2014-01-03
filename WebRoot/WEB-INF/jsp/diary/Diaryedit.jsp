@@ -16,7 +16,7 @@
 						<label>
 							日志内容:
 						</label>
-							<input name="diaryContent" class="textInput  required" size="30" type="text"  value="<s:property value="diaryVo.diaryContent"/>" />
+						<textarea  name="diaryContent" class="required"  cols="30" rows="3"><s:property value="diaryVo.diaryContent"/></textarea>
 					</div>
 					 <div class="unit">
 						<label>

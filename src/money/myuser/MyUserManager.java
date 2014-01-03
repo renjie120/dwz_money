@@ -50,6 +50,15 @@ public interface MyUserManager  extends BusinessObjectManager {
 	public void updateMyUser(MyUser myuser) throws ValidateFieldsException;
 
 	/**
+	 * 更新密码.
+	 * @param userId
+	 * @param pass
+	 * @throws ValidateFieldsException
+	 */
+	@Transactional
+	public void updatePassword(String pass, String userId) ;
+
+	/**
 	 * 删除操作
 	 * @param useId
 	 */
