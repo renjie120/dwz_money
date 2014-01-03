@@ -49,16 +49,16 @@
 		<ul class="toolBar">
 			<li>
 				<a class="add" href="/money/menu!beforeAdd.do" target="dialog" mask="true"
-					title="添加菜单"><span>添加</span> </a>
+				 rel="page2"  title="添加菜单"><span>添加</span> </a>
 			</li>
 			<li>
 				<a class="delete" href="/money/menu!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
-			<li>
-				<a class="edit" href="/money/menu!beforeUpdate.do?menuId={menuId}" mask="true"
-					target="dialog" title="修改菜单"><span>修改</span> </a>
+			<li><!-- target="dialog" -->
+				<a class="edit" href="/money/menu!beforeUpdate.do?menuId={menuId}" mask="true" 
+				 title="修改菜单"><span>修改</span> </a>
 			</li>
 			<li>
 				<a class="icon" href="/money/menu!export.do" target="dwzExport"

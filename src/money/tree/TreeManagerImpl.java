@@ -81,7 +81,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 	}
 
 	public String getMenuTree() {
-		if (CacheManager.getCacheInfo("menuTree") == null) {
+		//if (CacheManager.getCacheInfo("menuTree") == null) {
 			Tree tree = new Tree("0", "菜单树"); 
 			LinkedList<TreeNode> allP = new LinkedList();
 			allP.add(tree.getRoot());
@@ -93,7 +93,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 						new Object[] { nd.getId() });
 				if (totalCount > 0) {
 					List child = jdbc.queryForList(
-							"select * from menu_t where parentid=? ",
+							"select menuid,menuname from menu_t where parentid=? ",
 							new Object[] { nd.getId() });
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
 						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
@@ -113,8 +113,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			CacheManager.putCache("menuTree", c);
 
 			return ans;
-		} else {
-			return (String) CacheManager.getCacheInfo("menuTree").getValue();
-		}
+//		} else {
+//			return (String) CacheManager.getCacheInfo("menuTree").getValue();
+//		}
 	}
 }

@@ -36,7 +36,7 @@
 				<label>
 					父级菜单:
 				</label> 
-				<input class="required" name="moneyTypeName" type="text" readOnly="true"/> 
+				<input   name="moneyTypeName" type="text" readOnly="true"/> 
 				<input  name="moneyType" type="hidden"/> 
 				<a class="btnLook" href="/money/tree!menuTree.do"
 				 lookupGroup="obj"  lookupToPks="true" 
