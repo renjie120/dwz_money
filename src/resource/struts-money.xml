@@ -21,6 +21,9 @@
 			<result name="list">
 				/WEB-INF/jsp/myuser/MyUserlist.jsp
 			</result>
+			<result name="gridtree">
+				/WEB-INF/jsp/myuser/MyGridTree.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/myuser/MyUserinfo.jsp
 			</result>

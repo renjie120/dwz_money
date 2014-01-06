@@ -4,14 +4,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
 
 import querygridtree.bo.QueryGridTreeBO;
 import querygridtree.data.GridTreeVO;
@@ -19,19 +13,17 @@ import testGridTree.GridTreeUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.factory.BusinessFactory;
 import dwz.present.BaseAction;
 
 /**
- * ²éÑ¯±í¸ñÊ÷Ê¾Àı.
+ * æŸ¥è¯¢è¡¨æ ¼æ ‘ç¤ºä¾‹.
  * @author lsq
  * 
  */
 public class GridTreeAction extends BaseAction implements
 		ModelDriven<GridTreeVO> {
 	
-	// Ã¿Ò³ĞĞÊı
+	// æ¯é¡µè¡Œæ•°
 	private final Log logger = LogFactory.getLog(getClass());
 	private static int DEFAULT_PAGE_SIZE = 1;
 	private GridTreeVO gridTreeVO = new GridTreeVO();
@@ -42,50 +34,50 @@ public class GridTreeAction extends BaseAction implements
 	}
  
 	/**
-	 * ³õÊ¼»¯²éÑ¯²Ëµ¥À¸µÄÊı¾İ.
+	 * åˆå§‹åŒ–æŸ¥è¯¢èœå•æ çš„æ•°æ®.
 	 * @return
 	 */
 	public String initGridTree() {
 		List list = new ArrayList();
-		// ½á¹ûĞĞÊı
+		// ç»“æœè¡Œæ•°
 		int totalNum = 0;
 		int[] rowStartEnd;
 		int len = 0;
 		try {
 			/*
 			totalNum = dao.getFirstLevelCount(); 
-			// µ÷ÓÃ¹¤¾ßÀàµÄ·½·¨¼ÆËãÆğÊ¼ĞĞºÍÖÕÖ¹ĞĞ£¨ÎªÇ°¿ªºÍºó¿ªµÄ£©¡£
+			// è°ƒç”¨å·¥å…·ç±»çš„æ–¹æ³•è®¡ç®—èµ·å§‹è¡Œå’Œç»ˆæ­¢è¡Œï¼ˆä¸ºå‰å¼€å’Œåå¼€çš„ï¼‰ã€‚
 			rowStartEnd = GridTreeUtil.getStartAndEndInfo(request, totalNum,
 					DEFAULT_PAGE_SIZE);
 			list = dao.getList(rowStartEnd[0], rowStartEnd[1]);
 
-			// µ÷ÓÃ¹¤¾ßÀàµÄ·½·¨µÃµ½json×Ö·û´®¡£
+			// è°ƒç”¨å·¥å…·ç±»çš„æ–¹æ³•å¾—åˆ°jsonå­—ç¬¦ä¸²ã€‚
 			String jsonStr = GridTreeUtil.getJsonStr(list, request);
 			*/
 			
 			
 			StringBuffer buf  =new StringBuffer();
-			//µÚÒ»²½:µÚÒ»²ãµÄ×ÜĞĞÊı.
+			//ç¬¬ä¸€æ­¥:ç¬¬ä¸€å±‚çš„æ€»è¡Œæ•°.
 			totalNum = 10;
-			//µÚ¶ş²½:ÏÔÊ¾µÄÆğÊ¼ĞĞ,ºÍ½áÊøĞĞ.
-			//ÔÚµã»÷·­Ò³°´Å¥µÄÊ±ºò,»á´«µİgtstart²ÎÊıµ½ºóÌ¨.
+			//ç¬¬äºŒæ­¥:æ˜¾ç¤ºçš„èµ·å§‹è¡Œ,å’Œç»“æŸè¡Œ.
+			//åœ¨ç‚¹å‡»ç¿»é¡µæŒ‰é’®çš„æ—¶å€™,ä¼šä¼ é€’gtstartå‚æ•°åˆ°åå°.
 			rowStartEnd = GridTreeUtil.getStartAndEndInfo(request, totalNum,
 					DEFAULT_PAGE_SIZE);	
-			//µÚÈı²½:²éÑ¯list--demoÊ¡ÂÔ.
+			//ç¬¬ä¸‰æ­¥:æŸ¥è¯¢list--demoçœç•¥.
 			
-			//µÚËÄ²½:ĞÎ³Éjson´®.------ÏÂÃæÊÇÄ£ÄâµÄjson
+			//ç¬¬å››æ­¥:å½¢æˆjsonä¸².------ä¸‹é¢æ˜¯æ¨¡æ‹Ÿçš„json
 			int n = 1;
 			if (request.getParameter("gtpage") != null)  
 				n = Integer.parseInt(request.getParameter("gtpage"));
-			String page  ="--À´×ÔµÚ"+n+"Ò³";	
+			String page  ="--æ¥è‡ªç¬¬"+n+"é¡µ";	
 			buf.append("{total:"+ request.getAttribute("gtcount") + ",page:"+ request.getAttribute("gtpage")+",");
-			buf.append(" data:[{\"disid\":\"10\",\"disparentId\":\"\",\"disname\":\"ºş±±"+page+"\",\"isLeaf\":\"1\"},"); 
-			buf.append(" {\"disid\":\"11\",\"disparentId\":\"\",\"disname\":\"¹í³Ç¿µ°ÍÊ²"+page+"\",\"isLeaf\":\"0\"},      ");	
-			buf.append(" {\"disid\":\"12\",\"disparentId\":\"\",\"disname\":\"Ìì½ò"+page+"\",\"isLeaf\":\"1\"}]} ");
+			buf.append(" data:[{\"disid\":\"10\",\"disparentId\":\"\",\"disname\":\"æ¹–åŒ—"+page+"\",\"isLeaf\":\"1\"},"); 
+			buf.append(" {\"disid\":\"11\",\"disparentId\":\"\",\"disname\":\"é¬¼åŸåº·å·´ä»€"+page+"\",\"isLeaf\":\"0\"},      ");	
+			buf.append(" {\"disid\":\"12\",\"disparentId\":\"\",\"disname\":\"å¤©æ´¥"+page+"\",\"isLeaf\":\"1\"}]} ");
 
 			String jsonStr = buf.toString();
 			response.setContentType("text/html; charset=UTF-8");
-			System.out.println("json´®:" + jsonStr);
+			System.out.println("jsonä¸²:" + jsonStr);
 			PrintWriter out = response.getWriter();
 			out.println(jsonStr); 
 		} catch (Exception e) {
@@ -95,7 +87,7 @@ public class GridTreeAction extends BaseAction implements
 	}
 
 	/**
-	 * ÀÁ¼ÓÔØÏÔÊ¾×Ó½Úµã.
+	 * æ‡’åŠ è½½æ˜¾ç¤ºå­èŠ‚ç‚¹.
 	 * @return
 	 */
 	public String lazyLoad() {   
@@ -104,24 +96,24 @@ public class GridTreeAction extends BaseAction implements
 		List list = new ArrayList();		
 		try {
 			/*
-			//²éÑ¯×Ó½Úµã¼¯ºÏ
+			//æŸ¥è¯¢å­èŠ‚ç‚¹é›†åˆ
 			list = dao.getListByParent(parentId);
-			// µ÷ÓÃ¹¤¾ßÀàµÄ·½·¨µÃµ½json×Ö·û´®¡£
+			// è°ƒç”¨å·¥å…·ç±»çš„æ–¹æ³•å¾—åˆ°jsonå­—ç¬¦ä¸²ã€‚
 			String jsonStr = GridTreeUtil.getJsonStr(list);
 			*/
 			StringBuffer buf  =new StringBuffer();
-			String page  ="--ÊÇ"+parentId+"µÄº¢×Ó...";	
+			String page  ="--æ˜¯"+parentId+"çš„å­©å­...";	
 			buf.append("[");
-			buf.append("{\"disid\":\"10"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"º¢×Ó10"+page+"\",\"isLeaf\":\"1\"},");
-			buf.append(" {\"disid\":\"12"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"º¢×Ó12"+page+"\",\"isLeaf\":\"0\"},  ");	
-			buf.append(" {\"disid\":\"13"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"º¢×Ó13"+page+"\",\"isLeaf\":\"0\"}, ");
-			buf.append("{\"disid\":\"14"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"º¢×Ó14"+page+"\",\"isLeaf\":\"1\"},");
-			buf.append(" {\"disid\":\"15"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"º¢×Ó15"+page+"\",\"isLeaf\":\"0\"} ");	
+			buf.append("{\"disid\":\"10"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"å­©å­10"+page+"\",\"isLeaf\":\"1\"},");
+			buf.append(" {\"disid\":\"12"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"å­©å­12"+page+"\",\"isLeaf\":\"0\"},  ");	
+			buf.append(" {\"disid\":\"13"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"å­©å­13"+page+"\",\"isLeaf\":\"0\"}, ");
+			buf.append("{\"disid\":\"14"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"å­©å­14"+page+"\",\"isLeaf\":\"1\"},");
+			buf.append(" {\"disid\":\"15"+parentId+"\",\"disparentId\":\""+parentId+"\",\"disname\":\"å­©å­15"+page+"\",\"isLeaf\":\"0\"} ");	
 			buf.append("]");
 			
 			String jsonStr = buf.toString();
 			response.setContentType("text/html; charset=UTF-8");
-			System.out.println("ÀÁ¼ÓÔØ×Ó´®:"+jsonStr);
+			System.out.println("æ‡’åŠ è½½å­ä¸²:"+jsonStr);
 			PrintWriter out = response.getWriter();
 			out.println(jsonStr);
 		} catch (Exception e) {

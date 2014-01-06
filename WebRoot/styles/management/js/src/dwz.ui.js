@@ -303,11 +303,13 @@ function initUI(_box){
 			}
 		});     
 	}
+	
+	
 	// 这里放其他第三方jQuery插件... 
 	//下面对表格树进行处理.
-	if ($('#newtableTree', $p).size()>0) {  
+	if ($('#newtableTree', $p).size()>0) { 
 		//计算得到表格树的高度..不采用设置的高度!!
-		var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-64;    
+		var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-44;
 		var GridColumnType = [{
 	        header: '标示列',
 	        headerIndex: 'disid',
@@ -322,20 +324,20 @@ function initUI(_box){
 	        header: '上级标示',
 	        headerIndex: 'disparentId',
 	        width: '400'
-	    }];
+	    }]; 
 		var content = {
 			columnModel : GridColumnType,
 			dataUrl : appPath + "/gridtree/gridTree!initGridTree.do",
 			lazyLoadUrl : appPath + "/gridtree/gridTree!lazyLoad.do",
 			idColumn : 'disid',//id所在的列,一般是主键(不一定要显示出来)
 			parentColumn : 'disparentId', //父亲列id
-			closeImg : appPath+'/styles/gridtree/demo/images/minus.gif',//父级节点的关闭图标
-			openImg : appPath+'/styles/gridtree/demo/images/plus.gif',//父级节点的打开图标
-			lazyLoadImg : appPath+'/styles/gridtree/demo/images/plus2.gif',//懒加载时显示的图标
-			blankImg : appPath+'/styles/gridtree/demo/images/blank.gif',//空白节点
-			noparentImg : appPath+'/styles/gridtree/demo/images/tv-item.gif',//树叶节点的图标
-			lastLeafImg : appPath+'/styles/gridtree/demo/images/tv-item-last.gif',//一层里面最后一个树叶节点的图标
-			morePageImg : appPath+'/styles/gridtree/demo/images/morePage.gif',//多层次分页的图标  added on 20101212 
+			closeImg : appPath+'/gridTree/images/minus.gif',//父级节点的关闭图标
+			openImg : appPath+'/gridTree/images/plus.gif',//父级节点的打开图标
+			lazyLoadImg : appPath+'/gridTree/images/plus2.gif',//懒加载时显示的图标
+			blankImg : appPath+'/gridTree/images/blank.gif',//空白节点
+			noparentImg : appPath+'/gridTree/images/tv-item.gif',//树叶节点的图标
+			lastLeafImg : appPath+'/gridTree/images/tv-item-last.gif',//一层里面最后一个树叶节点的图标
+			morePageImg : appPath+'/gridTree/images/morePage.gif',//多层次分页的图标  added on 20101212 
 			pageSize : 1,
 			height:gridTreeHeight+'px',
 			pageBar : true,   
@@ -359,7 +361,8 @@ function initUI(_box){
 			afterAjax:function(){},
 			lazy : true,//使用懒加载模式 
 			leafColumn : 'isLeaf' 
-		};   
-		$('#newtableTree',$p).gridTree(content);  
+		};  
+		$('#newtableTree',$p).gridTree(content);   
+		//window.parent.onresizeend = gridRessetSize();
 	}
 }

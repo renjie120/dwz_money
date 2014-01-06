@@ -144,6 +144,10 @@ public class MyUserAction extends BaseAction {
 	public String beforeQuery() {
 		return "query";
 	}
+	
+	public String MyGridTree() {
+		return "gridtree";
+	}
 
 	public String export() {
 		response.setContentType("Application/excel");
@@ -253,12 +257,12 @@ public class MyUserAction extends BaseAction {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	}
+	} 
 
 	public long getCount() {
 		return count;
 	}
-
+	
 	public void setCount(long count) {
 		this.count = count;
 	}

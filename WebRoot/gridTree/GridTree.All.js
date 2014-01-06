@@ -22,13 +22,13 @@
             tableId: null,
             title: '', 
             exchangeColor: true,
-            closeImg: './images/minus.gif',
-            openImg: './images/plus.gif',
-            lazyLoadImg: './images/plus2.gif',
-            blankImg: './images/blank.gif',
-            noparentImg: './images/tv-item.gif',
-            lastLeafImg: './images/tv-item-last.gif',
-            morePageImg: './images/morePage.gif',
+            closeImg: 'images/minus.gif',
+            openImg: 'images/plus.gif',
+            lazyLoadImg: 'images/plus2.gif',
+            blankImg: 'images/blank.gif',
+            noparentImg: 'images/tv-item.gif',
+            lastLeafImg: 'images/tv-item-last.gif',
+            morePageImg: 'images/morePage.gif',
             pageBarId: 'pageBarTable',
             countCellWd: 100,
             pageSize: 10,
@@ -2169,7 +2169,7 @@
 		});
         g._tool_Div = $("<div cellspacing=0 cellpadding=0 width='100%' height=30 bgcolor=B8D0D6></div>");//.append(testButton);//.append(testButton2);  
         g._title_table = $("<div id='_title_Div' class='gridThead'  ></div>").append($('<div class="myhDivBox"></div>').append(g._addTitleHead()));
-        g._title_Div = $("<div id='_header_Div' class='gridHeader'></div>").append(g._title_table);
+        g._title_Div = $("<div id='_header_Div' class='gridHeader' style='overflow:hidden'></div>").append(g._title_table);
         g._content_div = $('<div id="_content_div" class="gridTbody"></div>').height(p.height).scroll(function() {
             g.scroll(); 
         });
@@ -2184,9 +2184,9 @@
 
         }
         elct.innerHTML = '';
-        //添加等待条
-        $('<div class="showprogress" id="showmsg"><div id="_centerMsg" class="centerMsg" align="top"><img src="' + p.lazyLoadImg + '">正在加载,请稍候!</div></div>').appendTo(elct);
-        g.allTreeDiv.appendTo(elct).show();  
+        //添加等待条(dwz模式下面去掉这个。)---有待优化
+       // $('<div class="showprogress" id="showmsg"><div id="_centerMsg" class="centerMsg" align="top"><img src="' + p.lazyLoadImg + '">正在加载,请稍候!</div></div>').appendTo(elct);
+        g.allTreeDiv.appendTo(elct).show();   
 		//得到实际的列宽数组.
 		g._getColumnWidthArr(); 
         if (p.data != null) {

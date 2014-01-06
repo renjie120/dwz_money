@@ -36,9 +36,9 @@ $(document).ready(function() {
         checkOption: 'multi',
         //1:出现单选按钮,2:出现多选按钮,其他:不出现选择按钮
         rowCount: true,
-        expandColumnNm: 'disparentId',
-        countColumnNm: 'disparentId',
-        checkColumnNm: 'disparentId',
+        //expandColumnNm: 'disparentId',
+        //countColumnNm: 'disparentId',
+        checkColumnNm: null,//'disparentId',
         //好用...
         onLazyLoadSuccess: function(gt) { //alert('懒加载执行完了..');
         },

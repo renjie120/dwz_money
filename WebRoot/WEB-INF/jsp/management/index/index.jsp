@@ -23,7 +23,11 @@
 	type="text/css" />
 <link href="/styles/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
-<link href="/styles/gridtree/demo/gridtree.css" rel="stylesheet"
+<link href="/gridTree/core.css" rel="stylesheet"
+	type="text/css" />
+<link href="/gridTree/style.css" rel="stylesheet"
+	type="text/css" />
+<link href="/gridTree/gridtree.css" rel="stylesheet"
 	type="text/css" />
 <script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery-1.4.4.min.js"
@@ -50,8 +54,8 @@
 <script src="/styles/jquery.form.js" type="text/javascript"></script>
 
 <!--  下面引入表格树 -->
-<script src="/styles/gridtree/demo/hashMap.js" type="text/javascript"></script>
-<script src="/styles/gridtree/demo/GridTree.d.js" type="text/javascript"></script>
+<script src="/gridTree/hashMap.js" type="text/javascript"></script>
+<script src="/gridTree/GridTree.All.js" type="text/javascript"></script>
 
 <script src="/styles/management/js/src/dwz.core.js"
 	type="text/javascript"></script>
@@ -122,7 +126,7 @@
 	type="text/css">
 	<script type="text/javascript" src="/ztree/js/jquery.ztree.core-3.0.js"></script>
 
-	<script type="text/javascript">
+	<script type="text/javascript"> 
 		$(function() {
 			DWZ.init("/styles/management/dwz.frag.xml", {
 				loginUrl : "/management/index!login.do",
@@ -190,6 +194,9 @@
 								<ul>
 									<li><a href="/commonGridTreeIndex.jsp" target="a"
 										rel="flexiGridNav2">普通表格树(推荐)</a>
+									</li>
+									<li><a href="/money/myuser!MyGridTree.do" target="navTab"
+										rel="MyGridTree">dwz表格树</a>
 									</li>
 									<li><a href="/gridTree/myApi.html" target="b"
 										rel="flexiGridNav2">配置说明</a>
