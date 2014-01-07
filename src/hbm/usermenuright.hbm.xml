@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.role.UserMenuRightVO" table="user_menu_right"> 
+		<property name="menuId" column="menuId" type="int" />
+		<property name="userId" column="userId" type="int" />
+	</class>
+
+	<query name="money.role.UserMenuRightDao.findRecordByUserId">
+		<![CDATA[from UserMenuRightVO as userMenuRightDao where userId = ?]]>
+	</query>
+</hibernate-mapping>

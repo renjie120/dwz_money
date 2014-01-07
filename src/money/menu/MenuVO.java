@@ -1,8 +1,6 @@
 
 package money.menu;
 
-import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 import java.io.Serializable;
 /**
  * 关于菜单信息表的实体bean.

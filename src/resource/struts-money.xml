@@ -5,6 +5,22 @@
 <struts>
 
 	<package name="money" namespace="/money" extends="struts2">
+		<action name="map" class="money.baidu.MapAction">
+			<result name="detail">
+				/WEB-INF/jsp/baidu/BaiduMap.jsp
+			</result> 
+			<result name="sum">
+				/WEB-INF/jsp/baidu/SumBaiduMap.jsp
+			</result>
+		</action>
+		<action name="usermenuright" class="money.role.UserMenuRightAction">
+			<result name="menulist">
+				/WEB-INF/jsp/role/UserMenuRightlist.jsp
+			</result>
+			<result name="rolepage">
+				/WEB-INF/jsp/role/UserMenuRightlist.jsp
+			</result>
+		</action>
 		<action name="plan" class="money.plan.PlanAction">
 			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
 			<result name="detail">

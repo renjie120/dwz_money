@@ -7,7 +7,7 @@
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
 		type="hidden" name="orderDirection" value="${param.orderDirection}" />
 </form>
-<div class="pageHeader">
+<div class="pageHeader"> 
 	<form onsubmit="return navTabSearch(this);"
 		action="/money/menu!query.do" method="post">
 		<div class="searchBar">

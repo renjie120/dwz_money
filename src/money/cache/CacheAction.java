@@ -14,12 +14,7 @@ import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.present.BaseAction;
 
-/**
- * 缂揿瓨
- * 
- * @author lsq
- * 
- */
+ 
 public class CacheAction extends BaseAction {
 	/**
 	 * 

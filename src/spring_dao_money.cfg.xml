@@ -16,6 +16,17 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="usermenurightDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.role.UserMenuRightDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.role.UserMenuRightVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="paramDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.param.ParamDao</value>
@@ -151,5 +162,5 @@
 			</bean>
 		</property>
 	</bean>
- 
+
 </beans>
