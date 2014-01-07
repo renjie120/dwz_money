@@ -33,7 +33,7 @@
 						if(options.height() > 300) {
 							options.css({height:"300px",overflow:"scroll"});
 						}
-						var top = box.offset().top+box[0].offsetHeight-50;
+						var top = box.offset().top+box[0].offsetHeight;
 						if(top + options.height() > $(window).height() - 20) {
 							top =  $(window).height() - 20 - options.height();
 						}

@@ -34,7 +34,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		if (criterias == null) {
 			return 0;
 		}
-		Object[] quertParas = this.createQuery(true, criterias, null);
+		Object[] quertParas = createQuery(true, criterias, null);
 		String hql = quertParas[0].toString();
 		Number totalCount = this.${daoarg}.countByQuery(hql,
 				(Object[]) quertParas[1]);
@@ -56,15 +56,33 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		if (criterias == null)
 			return eaList;
 
-		Object[] quertParas = this.createQuery(false, criterias, orderField);
+		Object[] quertParas = createQuery(false, criterias, orderField);
 		String hql = quertParas[0].toString();
 		Collection<${vo}> voList = this.${daoarg}.findByQuery(hql,
 				(Object[]) quertParas[1], startIndex, count);
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
-
+	
+		<#list model.attributes as attr>
+		<#assign has_selec_type=0>
+		<#if '${attr.selectType}'!=''&&has_selec_type=0>
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		<#assign has_selec_type=1>
+		</#if>
+		<#if '${attr.selectType}'!=''>
+		ParamSelect select_${attr.selectType} = allSelect
+				.getParamsByType(AllSelectContants.${attr.selectType?upper_case}.getName());
+		</#if>
+		</#list>
+		
 		for (${vo} po : voList) {
+			<#list model.attributes as attr> 
+			<#if '${attr.selectType}'!=''>
+			po.set${attr.name?cap_first}(select_${attr.selectType}.getName("" + po.get${attr.name?cap_first}())); 
+			</#if>
+			</#list>
 			eaList.add(new  ${model.className}Impl(po));
 		}
 
@@ -88,8 +106,12 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 				<#list model.attributes as attr>
 					case ${attr.name?upper_case}:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  ${classarg}.${attr.name} <#if '${attr.type}'='string'>like<#else>=</#if> ? ");
+								"  ${classarg}.${attr.name} <#if '${attr.type}'='string'&&'${attr.querylike}'='true'>like<#else>=</#if> ? ");
+						<#if '${attr.type}'='string'&&'${attr.querylike}'='true'>
+						argList.add("%"+entry.getValue()+"%");
+						<#else>
 						argList.add(entry.getValue());
+						</#if>
 						count++;
 					break;
 				</#list> 

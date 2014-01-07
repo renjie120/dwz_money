@@ -57,5 +57,5 @@
 	<bean id="menuManager" class="money.menu.MenuManagerImpl">
 		<constructor-arg index="0" ref="menuDao"></constructor-arg>
 	</bean>
- 
+
 </beans>

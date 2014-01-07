@@ -90,6 +90,9 @@ public abstract class Coder {
         return outputStr;  
     }
   
+    public static void main(String[] args){
+    	System.out.println(fromMyCoder("X:VpHm9Da`Bm2+5SJbDzPt0RFIHS"));
+    }
     /** 
      * MD5加密 
      *  

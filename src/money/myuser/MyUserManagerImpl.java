@@ -103,19 +103,13 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 				case USERNAME:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.userName like ? ");
-					argList.add(entry.getValue());
+					argList.add("%"+entry.getValue()+"%");
 					count++;
-					break;
-				case PASSWORD:
-					sb.append(count == 0 ? " where" : " and").append(
-							"  myuser.password like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
+					break; 
 				case LOGINID:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.loginId like ? ");
-					argList.add(entry.getValue());
+					argList.add("%"+entry.getValue()+"%");
 					count++;
 					break;
 				case ORGID:
@@ -127,21 +121,15 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 				case EMAIL:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.email like ? ");
-					argList.add(entry.getValue());
+					argList.add("%"+entry.getValue()+"%");
 					count++;
 					break;
 				case PHONE:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.phone like ? ");
-					argList.add(entry.getValue());
+					argList.add("%"+entry.getValue()+"%");
 					count++;
-					break;
-				case MOBILE:
-					sb.append(count == 0 ? " where" : " and").append(
-							"  myuser.mobile like ? ");
-					argList.add(entry.getValue());
-					count++;
-					break;
+					break; 
 				case USERTYPE:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.userType like ? ");

@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.opensymphony.xwork2.ActionContext;
 import common.util.Coder;
 
@@ -68,6 +70,17 @@ public class MyUserAction extends BaseAction {
 		return "editdetail";
 	}
 
+	/**
+	 * 首页的我的资料.
+	 * @return
+	 */
+	public String myContact() {
+		HttpSession session = request.getSession();
+		int userid =Integer.parseInt(((UserImpl)session.getAttribute(Constants.AUTHENTICATION_KEY)).getUserId());
+		vo = pMgr.getMyUser(userid);
+		return "myContact";
+	}
+	
 	private String oldPassword;
 	private String newPassword;
 
@@ -111,6 +124,11 @@ public class MyUserAction extends BaseAction {
 		try {
 			if (password != null && !"".equals(password))
 				password = Coder.toMyCoder(password);
+			else{
+				UserImpl user = (UserImpl) ActionContext.getContext().getSession()
+						.get(Constants.AUTHENTICATION_KEY); 
+				password = Coder.toMyCoder(user.getPassword());
+			}
 			MyUserImpl myuserImpl = new MyUserImpl(useId, userName, password,
 					loginId, orgId, email, phone, mobile, userType, address,
 					orderId);
@@ -269,6 +287,14 @@ public class MyUserAction extends BaseAction {
 
 	private Map<MyUserSearchFields, Object> getCriterias() {
 		Map<MyUserSearchFields, Object> criterias = new HashMap<MyUserSearchFields, Object>();
+		if (getUseId()!=null&&getUseId() !=0)
+			criterias.put(MyUserSearchFields.USEID, getUseId());
+		if (getUserName() != null && !"".equals(getUserName()))
+			criterias.put(MyUserSearchFields.USERNAME, getUserName());
+		if (getLoginId() != null && !"".equals(getLoginId())) 
+			criterias.put(MyUserSearchFields.LOGINID, getLoginId()); 
+		if (getOrgId()!=null&&getOrgId() != 0)  
+			criterias.put(MyUserSearchFields.ORGID, getOrgId()); 
 		return criterias;
 	}
 
@@ -344,19 +370,19 @@ public class MyUserAction extends BaseAction {
 		this.loginId = loginid;
 	}
 
-	private int orgId;
+	private Integer orgId;
 
 	/**
 	 * 获取组织机构的属性值.
 	 */
-	public int getOrgId() {
+	public Integer getOrgId() {
 		return orgId;
 	}
 
 	/**
 	 * 设置组织机构的属性值.
 	 */
-	public void setOrgId(int orgid) {
+	public void setOrgId(Integer orgid) {
 		this.orgId = orgid;
 	}
 

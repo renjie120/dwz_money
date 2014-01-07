@@ -514,7 +514,7 @@ body { overflow:hidden;}
 .formBar { clear:both; padding:0 5px; height:30px; padding-top:5px; border-style:solid; border-width:1px 0 0 0;}
 .formBar ul { float:right;}
 .formBar li { float:left; margin-left:5px;}
-.divider { clear:both; display:block; overflow:hidden; text-indent:-1000px; width:auto; height:1px; padding:4px 0 0 0; margin-bottom:5px; border-style:dotted; border-width:0 0 1px 0;}
+.divider { clear:both; display:block;  text-indent:-1000px; width:auto; height:1px; padding:4px 0 0 0; margin-bottom:5px; border-style:dotted; border-width:0 0 1px 0;}
 
 /* Pages dialog */
 .dialog .pageHeader { border-style:solid; border-width:1px;margin:0}
@@ -522,6 +522,7 @@ body { overflow:hidden;}
 .dialog .pageFormContent, .dialog .viewInfo { border-style:solid; border-width:1px 0 0 0;}
 .dialog .formBar { border-style:solid; border-width:1px 0;}
 
+.myinnerTree { position: absolute; z-index: 1002; display:none; padding:4px; border-style:solid; border-width:1px 2px 2px 1px; background:#fff; border-color:gray; }
 
 .combox { float:left; margin-right:3px; background-position:100% -25px;}
 .combox select { display:none}

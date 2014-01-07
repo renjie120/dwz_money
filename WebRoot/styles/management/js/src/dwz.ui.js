@@ -12,7 +12,7 @@ function initEnv() {
 	}
 
 	$(window).resize(function(){
-		initLayout();
+		initLayout(); 
 		$(this).trigger("resizeGrid");
 	});
 
@@ -52,8 +52,8 @@ function initLayout(){
 	$("#taskbar").css({top: iContentH + $("#header").height() + 5, width:$(window).width()});
  
 	//下面对表格树进行控制高度自适应.
-	//var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-64;  
-	//$('#newtableTree').resetHeight(gridTreeHeight);      
+	 var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-56;  
+	 $('#newtableTree').resetHeight(gridTreeHeight);      
 }
 
 function initUI(_box){
@@ -307,13 +307,13 @@ function initUI(_box){
 	
 	// 这里放其他第三方jQuery插件... 
 	//下面对表格树进行处理.
-	if ($('#newtableTree', $p).size()>0) { 
+	if ($('#newtableTree', $p).size()>0) {   
 		//计算得到表格树的高度..不采用设置的高度!!
-		var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-44;
+		var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-56;
 		var GridColumnType = [{
 	        header: '标示列',
 	        headerIndex: 'disid',
-	        width: '400'
+	        width: '100'
 	    },
 	    {
 	        header: '名称',
@@ -323,7 +323,7 @@ function initUI(_box){
 	    {
 	        header: '上级标示',
 	        headerIndex: 'disparentId',
-	        width: '400'
+	        width: '100'
 	    }]; 
 		var content = {
 			columnModel : GridColumnType,
@@ -349,6 +349,9 @@ function initUI(_box){
 				});
 				return false;
 			}}], 
+			onSuccess:function(){
+				 //$('div.gridThead').find('th.center').css('border','1px'));
+			},
 			rowCount:true,
 			tableId : 'testTable',//表格树的id
 			checkOption : 'multi',  

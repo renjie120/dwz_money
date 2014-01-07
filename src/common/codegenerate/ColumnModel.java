@@ -10,6 +10,24 @@
 public class ColumnModel {
 	// VO中的属性名
 	private String name;
+	private String noedit;
+	private String querylike;
+	public String getQuerylike() {
+		return querylike;
+	}
+
+	public void setQuerylike(String querylike) {
+		this.querylike = querylike;
+	}
+
+	public String getNoedit() {
+		return noedit;
+	}
+
+	public void setNoedit(String noedit) {
+		this.noedit = noedit;
+	}
+
 	// 数据库中的列名
 	private String column;
 	private String textarea;
@@ -38,6 +56,14 @@ public class ColumnModel {
 
 	public void setVisible(String visible) {
 		this.visible = visible;
+	}
+	private String query;
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	//非空.

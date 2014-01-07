@@ -14,15 +14,14 @@
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
-					<td>
-						菜单名:
-						<input name="menuName" class="textInput" size="30" type="text" />
-					</td>
-					<td>
-						菜单级别:
-						<input name="level" class="textInput" size="30" type="text" />
-					</td>
-
+					<td> 
+						日志内容
+								<input name="diaryContent" class="textInput" size="30" type="text"   />
+					</td> 
+					<td> 
+						日志类型
+								<input name="diaryType" class="textInput" size="30" type="text"   />
+					</td> 
 				</tr>
 			</table>
 			<div class="subBar">
@@ -50,7 +49,7 @@
 		<ul class="toolBar">
 			<li>
 				<a class="add" href="/money/diary!beforeAdd.do" target="dialog" mask="true"
-					title="添加菜单"><span>添加</span> </a>
+					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
 				<a class="delete" href="/money/diary!doDelete.do" postType="string"
@@ -77,7 +76,7 @@
 				<th width="100"    orderField="DIARYID" >
 						日志id 
 				</th> 
-				<th width="300"    orderField="DIARYCONTENT" >
+				<th width="800"    orderField="DIARYCONTENT" >
 						日志内容 
 				</th> 
 				<th width="80"    orderField="DIARYTIME" >

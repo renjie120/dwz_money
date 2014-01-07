@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%><%@ include
-	file="/include.inc.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/include.inc.jsp"%> 
+<%@ page import="common.tree.Tree"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -10,7 +11,7 @@
 	String path = request.getContextPath();
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
-	response.setDateHeader("Expires", 0);
+	response.setDateHeader("Expires", 0); 
 %>
 <script type="text/javascript"> 
 		var appPath = "<%=path%>
@@ -23,12 +24,8 @@
 	type="text/css" />
 <link href="/styles/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
-<link href="/gridTree/core.css" rel="stylesheet"
-	type="text/css" />
-<link href="/gridTree/style.css" rel="stylesheet"
-	type="text/css" />
 <link href="/gridTree/gridtree.css" rel="stylesheet"
-	type="text/css" />
+	type="text/css" /> 
 <script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
@@ -122,9 +119,9 @@
 
 
 <!-- 下面引入ZTree -->
-<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css"
+<link rel="stylesheet" href="/ztree2/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
-	<script type="text/javascript" src="/ztree/js/jquery.ztree.core-3.0.js"></script>
+	<script type="text/javascript" src="/ztree2/js/jquery.ztree.core-3.5.js"></script>
 
 	<script type="text/javascript"> 
 		$(function() {
@@ -158,7 +155,7 @@
 					alt="点击这里给我发消息" title="点击这里给我发消息">
 				</a>
 				<ul class="nav">
-					<li><a href="/management/user!editContext.do" target="dialog"
+					<li><a href="/money/myuser!myContact.do" target="dialog"
 						mask="true">我的资料</a>
 					</li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
@@ -182,140 +179,9 @@
 					<h2>系统演示</h2>
 					<div>收缩</div>
 				</div>
-				<div class="accordion" fillSpace="sideBar">
-					<div class="accordionHeader">
-						<h2>
-							<span>Folder</span>业务系统
-						</h2>
-					</div>
-					<div class="accordionContent">
-						<ul class="tree treeFolder expand">
-							<li><a href="#">GridTree2.0展示</a>
-								<ul>
-									<li><a href="/commonGridTreeIndex.jsp" target="a"
-										rel="flexiGridNav2">普通表格树(推荐)</a>
-									</li>
-									<li><a href="/money/myuser!MyGridTree.do" target="navTab"
-										rel="MyGridTree">dwz表格树</a>
-									</li>
-									<li><a href="/gridTree/myApi.html" target="b"
-										rel="flexiGridNav2">配置说明</a>
-									</li>
-									<li><a href="/gridTree/myMethod.html" target="c"
-										rel="flexiGridNav2">API文档</a>
-									</li>
-								</ul>
-							</li>
-							<li><a href="#">基本信息列表</a>
-								<ul>
-									<li><a href="/money/menu!query.do" target="navTab"
-										rel="menulist">菜单列表</a>
-									</li>
-									<li><a href="/money/newmoney!query.do" target="navTab"
-										rel="moneylist">收支列表</a>
-									</li>
-									<li><a href="/money/question!query.do" target="navTab"
-										rel="questionlist">问题列表</a>
-									</li>
-									<li><a href="/money/plan!query.do" target="navTab"
-										rel="questionlist">计划与执行</a>
-									</li>
-								</ul>
-							</li>
-							<li><a href="#">报表展示</a>
-								<ul>
-									<li><a href="/money/newmoney!report.do" target="navTab"
-										rel="moneyReport" external="true">收支相关报表</a>
-									</li>
-									<li><a href="/money/question!report.do" target="navTab"
-										rel="paramstypelist" external="true">问题相关报表</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<div class="accordionHeader">
-						<h2>
-							<span>Folder</span>系统维护
-						</h2>
-					</div>
-					<div class="accordionContent">
-						<ul class="tree treeFolder">
-							<li><a href="/money/paramtype!query.do" target="navTab"
-								rel="paramstypelist2">新参数类型列表</a>
-							</li>
-							<li><a href="/money/param!query.do" target="navTab"
-								rel="paramslist2">新参数列表</a>
-							</li>
-							<li><a href="/money/org!query.do" target="navTab"
-								rel="orglist">组织机构列表</a>
-							</li>
-							<li><a href="/money/diary!query.do" target="navTab"
-								rel="orglist">日志列表</a>
-							</li>
-							<li><a href="/money/cache!query.do" target="navTab"
-								rel="paramstypelist">缓存列表</a>
-							</li>
-							<li><a href="/money/moneyType!query.do" target="navTab"
-								rel="userlist">金额类型列表</a>
-							</li>
-							<li><a href="/money/myuser!query.do" target="navTab"
-								rel="userlist">用户列表</a>
-							</li>
-						</ul>
-					</div>
-					<%
-						if (isAdmin) {
-					%>
-					<div class="accordionHeader">
-						<h2>
-							<span>Folder</span>演示系统
-						</h2>
-					</div>
-					<div class="accordionContent">
-						<ul class="tree treeFolder">
-							<li><a href="http://docs.fusioncharts.com/free/"
-								target="new">fusionChartFree文档</a>
-							</li>
-							<li><a href="/money/superconsole!init.do" target="navTab"
-								rel="superconsole">超级控制台</a>
-							</li>
-							<li><a href="/demoDwz/dwz-ria/index.html" target="navTab32"
-								rel="flexiGridNav3">DWZ演示</a>
-							</li>
-							<li><a href="http://j-ui.com" target="navTab31"
-								rel="flexiGridNav3">DWZ官网</a>
-							</li>
-							<li><a href="http://58asp.com/" target="new">控制台</a>
-							</li>
-							<li><a href="/source/DwzTreeUtil!seeJava.do" target="navTab"
-								rel="flexiGridNav">java代码</a>
-							</li>
-							<li><a href="/source/editPwd!seeJsp.do" target="navTab"
-								rel="flexiGridNav">jsp代码</a>
-							</li>
-							<li><a href="/typechangedemo/saveuser!initUser.do"
-								target="navTab" rel="flexiGridNav">类型转换</a>
-							</li>
-							<li><a href="/typechangedemo/saveuser2!initUser.do"
-								target="navTab" rel="flexiGridNav">类型转换2</a>
-							</li>
-							<li><a href="/upload/test!init.do" target="navTab"
-								rel="flexiGridNav">文件上传</a>
-							</li>
-							<li><a href="/upload/test2!init.do" target="navTab"
-								rel="flexiGridNav">文件上传2</a>
-							</li>
-							<li><a href="/upload/test2!testOgnl.do" target="navTab"
-								rel="flexiGridNav">测试OGNL表达式</a>
-							</li>
-						</ul>
-					</div>
-					<%
-						}
-					%>
-				</div>
-
+				<div class="accordion" fillSpace="sideBar"> 
+					${request.allMenu}  
+				</div>  
 			</div>
 		</div>
 		<div id="container">
@@ -353,17 +219,7 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80">
-							<p>
-								<label> 用户名: </label> <span class="unit">${contextUser.userName}</span>
-							</p>
-							<p>
-								<label> 电话: </label> <span class="unit">${contextUser.phone}</span>
-							</p>
-							<p>
-								<label> 邮件: </label> <span class="unit">${contextUser.email}</span>
-							</p>
-							<div class="divider"></div>
+						<div class="pageFormContent" layoutH="-80"> 
 							<h1>网站地图</h1>
 							<div class="unit">
 								<a href="/money/question!query.do" target="navTab"

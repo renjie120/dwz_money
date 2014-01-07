@@ -2,7 +2,7 @@
 
 public enum AllSelectContants {
 	QUESTION_SORT("questionSort"), 
-	MENU_LEVEL("menulevel"), 
+	MENULEVEL("menulevel"), 
 	PLAN_STATUS("planstatus"),
 	PLAN_TYPE("plantype"),
 	MENU_TARGET("menutarget"),  

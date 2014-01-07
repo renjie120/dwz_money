@@ -17,19 +17,23 @@ public class Tree implements ITree {
 	public Tree(String treeId) {
 		this.treeId = treeId;
 		root = new TreeNode(treeId);
+		root.level = 0;
 	}
 	
 	public Tree(String treeId,String treeName) {
 		this.treeId = treeId; 
 		root = new TreeNode(treeId,treeName);
+		root.level = 0;
 	}
 
 	public void addChild(TreeNode node) {
+		node.level = this.root.level+1;
 		root.addChild(node);
 	}
 
-	public void setRoot(TreeNode root) {
+	public void setRoot(TreeNode root) { 
 		this.root = root;
+		this.root.level = 0;
 	}
 
 	/**
@@ -111,8 +115,11 @@ public class Tree implements ITree {
 		final StringBuffer buf = new StringBuffer();
 		StringBuffer ans = new StringBuffer("[");
 	    travelTree(new ITreeNodeTravel() {
-			public void travel(TreeNode node) {
-				buf.append("{'id':'" + node.getId() + "','pId':'"+ node.getParent() + "','name':'" + node.getName() + "'},");
+			public void travel(TreeNode node) { 
+				if("true".equals(node.open))
+					buf.append("{'id':'" + node.getId() + "',level:"+node.level+",open:'true','pId':'"+ node.getParent() + "','name':'" + node.getName() + "'},");
+				else
+					buf.append("{'id':'" + node.getId() + "',level:"+node.level+",'pId':'"+ node.getParent() + "','name':'" + node.getName() + "'},");
 			}
 		});
 	    ans.append(buf.deleteCharAt(buf.lastIndexOf(",")));
@@ -124,30 +131,100 @@ public class Tree implements ITree {
 		TreeNode node1 = new TreeNode("1", "中国");
 		TreeNode node2 = new TreeNode("2", "湖北");
 		TreeNode node3 = new TreeNode("3", "湖南");
-		TreeNode node4 = new TreeNode("4", "四川");
-		TreeNode node5 = new TreeNode("5", "北京");
-		TreeNode node6 = new TreeNode("6", "上海");
+		TreeNode node4 = new TreeNode("4", "长沙");
+//		TreeNode node5 = new TreeNode("5", "北京");
+//		TreeNode node6 = new TreeNode("6", "上海");
 		TreeNode node21 = new TreeNode("2.1", "石首"); 
-		node1.addChild(node2);
-		node1.addChild(node3);
-		node1.addChild(node4);
-		node1.addChild(node5);
-		node1.addChild(node6);
-		node2.addChild(node21);
+		TreeNode node22= new TreeNode("2.2", "监利"); 
+		
+		TreeNode node_1 = new TreeNode("A1", "美国");
+		TreeNode node_1_1 = new TreeNode("A2", "加州");
+		TreeNode node_1_1_1 = new TreeNode("A3", "某市");
+		TreeNode node_1_1_2 = new TreeNode("A4", "某市2");
+		TreeNode node_1_2 = new TreeNode("A22", "加州1");
+		TreeNode node_1_2_1 = new TreeNode("A32", "某市1");
+		TreeNode node_1_2_2 = new TreeNode("A42", "某市22");
 		tree.addChild(node1);
+		tree.addChild(node_1);
+		node_1.addChild(node_1_1);
+		node_1_1.addChild(node_1_1_1);
+		node_1_1.addChild(node_1_1_2);
+		
+		node_1.addChild(node_1_2);
+		node_1_2.addChild(node_1_2_1);
+		node_1_2.addChild(node_1_2_2);
+		node1.addChild(node2);
+		node2.addChild(node21);
+		node2.addChild(node22);
+		node1.addChild(node3);
+		node3.addChild(node4);
+//		node1.addChild(node4);
+//		node1.addChild(node5);
+//		node1.addChild(node6);
+		
+		
 //		System.out.println(tree.getRoot());
 //		System.out.println(tree.getAllIds());
 //		System.out.println(tree.getRoot().getChild().size());
-
-		final StringBuffer buf = new StringBuffer();
-		tree.travelTree(new ITreeNodeTravel() {
-			public void travel(TreeNode node) {
-				buf.append(node.getId() + ",,," + node.getName()+"\n");
-			}
-		});
-		System.out.println(tree.toZTreeJson());
+ 
+//		System.out.println(tree.toZTreeJson());
+		
+		System.out.println(tree.getDeepTree());
 	}
 
+	public String getNodeStr(TreeNode node,int lastLevel){
+		if(node.level==1){
+			int _temp = lastLevel-node.level;
+			String ans = "";
+			while(_temp-->0){
+				ans+= "</li> </ul>";
+			}
+			if(lastLevel!=0)
+				ans+="</div>";
+			ans+= "<div class='accordionHeader'> <h2> <span>Folder</span>"+node.getName()+" </h2> </div> ";
+			return ans;
+		}else{
+			if(lastLevel<node.level){
+				if(node.level==2){
+					return "<div class='accordionContent'> <ul class='tree treeFolder expand'> <li><a href='#'>"+node.getName()+" </a>";
+				}else{ 
+					return " <ul> <li><a href='"+node.getUrl()+"' target='"+(node.target==null||"null".equals(node.target)?"navTab":node.target)+"' rel='"+node.relId+"'>"+node.getName()+"</a> ";
+				}
+			}else if(lastLevel>node.level){
+				int _temp = lastLevel-node.level;
+				String ans = "";
+				while(_temp-->0){
+					ans+= "</li> </ul>";
+				}
+				return ans+"</li> <li><a href='#'>"+node.getName()+"</a>";
+			}else{
+				 return "</li> <li><a href='"+node.getUrl()+"' target='"+(node.target==null||"null".equals(node.target)?"navTab":node.target)+"' rel='"+node.relId+"'>"+node.getName()+"</a>";
+			}
+		} 
+	}
+	public String getDeepTree(){
+		StringBuffer ans = new StringBuffer();
+		LinkedList<TreeNode> allNodes = new LinkedList<TreeNode>();
+		allNodes.addAll(root.getChild());
+		int lastLevel = 0;
+		while(!allNodes.isEmpty()){
+			TreeNode node = allNodes.removeFirst();
+			ans.append(getNodeStr(node,lastLevel));
+			lastLevel  = node.level;
+			//添加全部的孩子节点到堆栈中.
+			if(node.getChild()!=null&&node.getChild().size()>0){
+				int size = node.getChild().size(); 
+				for(int i=size-1;i>=0;i--) {
+					allNodes.addFirst( node.getChild().get(i));
+				}
+			} 
+		} 
+		while(lastLevel-->1){
+			ans.append("</li> </ul>");
+		}
+		ans.append("</div>");
+		return ans.toString();
+	}
 	public String getTreeId() {
 		return treeId;
 	}

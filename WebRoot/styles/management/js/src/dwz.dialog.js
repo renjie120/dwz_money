@@ -19,7 +19,7 @@
 					type:"POST", url:url, data:op.data, callback:function(response){
 						jDContent.find("[layoutH]").layoutH(jDContent);
 						$(".pageContent", dialog).width($(dialog).width()-14);
-						$(":button.close", dialog).click(function(){
+						$(":button.close", dialog).click(function(){ 
 							$.pdialog.close(dialog);
 							return false;
 						});
@@ -45,7 +45,7 @@
 					jDContent.loadUrl(url, {}, function(){
 						jDContent.find("[layoutH]").layoutH(jDContent);
 						$(".pageContent", dialog).width($(dialog).width()-14);
-						$("button.close").click(function(){
+						$("button.close").click(function(){ 
 							$.pdialog.close(dialog);
 							return false;
 						});
@@ -58,7 +58,9 @@
 				dialog = $(">.dialog:last-child", "body");
 				dialog.data("id",dlgid);
 				dialog.data("url",url);
-				if(options.close) dialog.data("close",options.close);
+				if(options.close){ 
+					dialog.data("close",options.close); 
+				}
 				if(options.param) dialog.data("param",options.param);
 				($.fn.bgiframe && dialog.bgiframe());
 				
@@ -74,12 +76,18 @@
 					dialog.jresize();
 				if(op.drawable)
 				 	dialog.dialogDrag();
-				$("a.close", dialog).click(function(event){ 
+				$("a.close", dialog).click(function(event){   
+					if(typeof myOperation!='undefined'){
+						myOperation();
+					}
 					$.pdialog.close(dialog);
 					return false;
 				});
 				if (op.maxable) {
-					$("a.maximize", dialog).show().click(function(event){
+					$("a.maximize", dialog).show().click(function(event){ 
+						if(typeof myOperation!='undefined'){
+							myOperation();
+						}
 						$.pdialog.switchDialog(dialog);
 						$.pdialog.maxsize(dialog);
 						dialog.jresize("destroy").dialogDrag("destroy");
@@ -94,7 +102,10 @@
 					return false;
 				});
 				if (op.minable) {
-					$("a.minimize", dialog).show().click(function(event){
+					$("a.minimize", dialog).show().click(function(event){ 
+						if(typeof myOperation!='undefined'){
+							myOperation();
+						}
 						$.pdialog.minimize(dialog);
 						return false;
 					});
@@ -123,7 +134,7 @@
 				jDContent.loadUrl(url, {}, function(){
 					jDContent.find("[layoutH]").layoutH(jDContent);
 					$(".pageContent", dialog).width($(dialog).width()-14);
-					$("button.close").click(function(){
+					$("button.close").click(function(){ 
 						$.pdialog.close(dialog);
 						return false;
 					});
@@ -261,7 +272,7 @@
 			}
 			$(dialog).css({left:oleft,width:width,top:otop,height:height});
 			$(".dialogContent", dialog).css("width", (width-12) + "px");
-			$(".pageContent", dialog).css("width", (width-14) + "px");
+			$(".pageContent", dialog).css("width", (width-14) + "px"); 
 			if (target != "w" && target != "e") {
 				var content = $(".dialogContent", dialog);
 				content.css({height:height - $(".dialogHeader", dialog).outerHeight() - $(".dialogFooter", dialog).outerHeight() - 6});
@@ -272,7 +283,7 @@
 			
 			$(window).trigger("resizeGrid");
 		},
-		close:function(dialog) {
+		close:function(dialog) { 
 			if(typeof dialog == 'string') dialog = $("body").data(dialog);
 			var close = dialog.data("close");
 			var go = true;
@@ -300,7 +311,7 @@
 			$("body").removeData($(dialog).data("id"));
 			$(dialog).remove();
 		},
-		closeCurrent:function(){
+		closeCurrent:function(){ 
 			this.close($.pdialog._current);
 		},
 		checkTimeout:function(){
@@ -321,7 +332,7 @@
 			var iContentH = $(window).height() - 34;
 			$(dialog).css({top:"0px",left:"0px",width:iContentW+"px",height:iContentH+"px"});
 			$.pdialog._resizeContent(dialog,iContentW,iContentH);
-		},
+		}, 
 		restore:function(dialog) {
 			var original = $(dialog).data("original");
 			var dwidth = parseInt(original.width);
@@ -331,7 +342,10 @@
 				left:original.left,
 				width:dwidth,
 				height:dheight
-			});
+			}); 
+			if(typeof myOperation!='undefined'){
+				myOperation();
+			}
 			$.pdialog._resizeContent(dialog,dwidth,dheight);
 			$("a.maximize",dialog).show();
 			$("a.restore",dialog).hide();

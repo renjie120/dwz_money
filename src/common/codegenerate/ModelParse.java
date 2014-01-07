@@ -53,17 +53,35 @@ public class ModelParse {
 					model.setKeyType(DomUtil.getAttribute(child, "type"));
 				} else
 					config.setIskey("false");
+				//节点类型
 				config.setNodeType(child.getNodeName());
+				//节点汉字注释
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
+				//是否要检索
+				config.setQuery(DomUtil.getAttribute(child, "query")); 
+				//列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
+				//是否模糊匹配
+				config.setQuerylike(DomUtil.getAttribute(child, "querylike"));
+				//显示在list.jsp里面的列宽度
 				config.setWidth(DomUtil.getAttribute(child, "width"));
+				//是否是文本域
 				config.setTextarea(DomUtil.getAttribute(child, "textarea"));
+				//是否在list.jsp里面列表中显示出来
 				config.setVisible(DomUtil.getAttribute(child, "visible"));
+				//对应数据库中的列名
 				config.setColumn(DomUtil.getAttribute(child, "column"));
+				//类型
 				config.setType(DomUtil.getAttribute(child, "type"));
+				//是否是业务字典
 				config.setSelectType(DomUtil.getAttribute(child, "selectType"));
+				//是否必填字段
 				config.setNotnull(DomUtil.getAttribute(child, "notnull"));
+				//是否在edit.jsp中可以编辑
+				config.setNoedit(DomUtil.getAttribute(child, "noedit"));
+				//对应的样式
 				config.setClas(DomUtil.getAttribute(child, "class"));
+				//在数据库里面的字段长度.
 				config.setLength(DomUtil.getAttribute(child, "length")); 
 				attributes.add(config);
 			}

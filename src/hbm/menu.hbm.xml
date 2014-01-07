@@ -1,23 +1,22 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
 	<class name="money.menu.MenuVO" table="menu_t">
-		<id name="menuId" column="menuid" type="int">
+		<id name="menuId" column="menuId" type="int">
 			<generator class="increment"></generator>
 		</id>
-		<property name="target" column="target"  type="string" />
-		<property name="menuName" column="menuname" />
-		<property name="url" column="url" type="string"/>
-		<property name="parentId" column="parentid" type="int"/>
-		<property name="level" column="level" type="string"/>
-		<property name="orderId" column="orderid" type="int" />
+		<property name="target" column="target" type="string" />
+		<property name="menuName" column="menuName" type="string" />
+		<property name="parentId" column="parentId" type="string" />
+		<property name="orderId" column="orderId" type="int" />
+		<property name="url" column="url" type="string" />
+		<property name="level" column="level" type="string" />
 		<property name="relId" column="relId" type="string" />
 	</class>
 
 	<query name="money.menu.MenuDao.findRecordById">
-		<![CDATA[from MenuVO as menuVO where menuId = ?]]>
+		<![CDATA[from MenuVO as menuDao where menuId = ?]]>
 	</query>
 </hibernate-mapping>

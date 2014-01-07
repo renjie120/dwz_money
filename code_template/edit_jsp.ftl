@@ -23,12 +23,12 @@
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
 							<#if '${attr.textarea}'='true'>
-								<textarea class="<#if "${attr.notnull}"='true'>required</#if>" name="${attr.name}" cols="30" rows="2"><s:property value="vo.${attr.name}"/></textarea>
+								<textarea  <#if "${attr.noedit}"='true'>readonly='true'</#if> class="<#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" name="${attr.name}" cols="30" rows="2"><s:property value="vo.${attr.name}"/></textarea>
 							<#else>
 								<#if '${attr.selectType}'!=''>
-									<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" selectedValue="<s:property value='vo.${attr.name}'/>"/>									
+									<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" selectedValue="<%=vo.get${attr.name?cap_first}() %>"/>									
 								<#else>
-									<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'>required</#if>" size="30" type="text"  value="<s:property value="vo.${attr.name}"/>" />
+									<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if> size="30" type="text"  value="<s:property value="vo.${attr.name}"/>" />
 								</#if>
 							</#if>							
 						</#if>

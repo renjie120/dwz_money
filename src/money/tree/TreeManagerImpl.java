@@ -15,7 +15,6 @@ import common.MyJdbcTool;
 import common.base.TreeTool;
 import common.cache.Cache;
 import common.cache.CacheManager;
-import common.tree.ITree;
 import common.tree.Tree;
 import common.tree.TreeNode;
 
@@ -53,10 +52,10 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 			Iterator<MoneyTypeVO> it = firstlevel.iterator();
 			while (it.hasNext()) {
-				MoneyTypeVO vo = it.next(); 
-				List c =  this.moneyTypeDao.findChildCount( vo.getTypeCode() );
-				if(c!=null&&c.size()>0){ 
-					int totalCount = Integer.parseInt(""+c.get(0)); 
+				MoneyTypeVO vo = it.next();
+				List c = this.moneyTypeDao.findChildCount(vo.getTypeCode());
+				if (c != null && c.size() > 0) {
+					int totalCount = Integer.parseInt("" + c.get(0));
 					if (totalCount > 0) {
 						Collection<MoneyTypeVO> child = this.moneyTypeDao
 								.findChildren(vo.getTypeCode());
@@ -79,10 +78,17 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 					.getValue();
 		}
 	}
+ 
+	
+	public String getMenuTree() { 
+		return  initMenuCache().toZTreeJson();
+	}
 
-	public String getMenuTree() {
-		//if (CacheManager.getCacheInfo("menuTree") == null) {
-			Tree tree = new Tree("0", "菜单树"); 
+	@Override
+	public Tree initMenuCache() {
+		Tree tree = null;
+		if (CacheManager.getCacheInfo("menuTree") == null) {
+			tree = new Tree("0", "菜单树");
 			LinkedList<TreeNode> allP = new LinkedList();
 			allP.add(tree.getRoot());
 
@@ -92,29 +98,33 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 						"select count(1) from menu_t where parentid=?",
 						new Object[] { nd.getId() });
 				if (totalCount > 0) {
-					List child = jdbc.queryForList(
-							"select menuid,menuname from menu_t where parentid=? ",
-							new Object[] { nd.getId() });
+					List child = jdbc
+							.queryForList(
+									"select menuid,menuname,url,relId,target from menu_t where parentid=? ",
+									new Object[] { nd.getId() });
+					nd.open = "true";
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
 						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-						TreeNode _nd = new TreeNode(_objs.getValue(1) + "", _objs.getValue(2) + "");
+						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
+								_objs.getValue(1) + "");
+						_nd.level = nd.level+1;
+						_nd.setUrl(""+_objs.getValue(2));
+						_nd.relId = ""+_objs.getValue(3);
+						_nd.target =  ""+_objs.getValue(4);
 						nd.addChild(_nd);
 						allP.add(_nd);
 					}
-				} 
+				}
 			} while (allP.size() > 0);
-
-			String ans = tree.toZTreeJson();
-
+			
 			Cache c = new Cache();
 			c.setKey("menuTree");
-			c.setValue(ans);
+			c.setValue(tree);
 			c.setName("菜单树");
 			CacheManager.putCache("menuTree", c);
-
-			return ans;
-//		} else {
-//			return (String) CacheManager.getCacheInfo("menuTree").getValue();
-//		}
-	}
+		} else {
+			tree  =(Tree)CacheManager.getCacheInfo("menuTree").getValue();
+		} 
+		return tree;
+	} 
 }

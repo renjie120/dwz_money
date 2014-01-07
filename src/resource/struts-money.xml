@@ -27,6 +27,9 @@
 			<result name="detail">
 				/WEB-INF/jsp/myuser/MyUserinfo.jsp
 			</result>
+			<result name="myContact">
+				/WEB-INF/jsp/management/user/editContext.jsp
+			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/myuser/MyUseredit.jsp
 			</result>
@@ -153,10 +156,14 @@
 		</action>
 
 		<action name="menu" class="money.menu.MenuAction">
-			<result name="list">/WEB-INF/jsp/menu/list.jsp</result>
-			<result name="detail">/WEB-INF/jsp/menu/info.jsp</result>
+			<result name="list">
+				/WEB-INF/jsp/menu/Menulist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/menu/Menuinfo.jsp
+			</result>
 			<result name="editdetail">
-				/WEB-INF/jsp/menu/edit.jsp
+				/WEB-INF/jsp/menu/Menuedit.jsp
 			</result>
 		</action>
 

@@ -73,7 +73,7 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100">
+				<th width="60">
 					流水号
 				</th>
 				<th width="100" orderField="PLANDATE" class="desc">
@@ -91,7 +91,7 @@
 				<th width="100" orderField="REALENDDATE" class="desc">
 					实际结束时间
 				</th>
-				<th width="100" orderField="PLANDESC" class="desc">
+				<th width="200" orderField="PLANDESC" class="desc">
 					计划描述
 				</th>
 				<th width="100" orderField="PLANTYPE" class="desc">

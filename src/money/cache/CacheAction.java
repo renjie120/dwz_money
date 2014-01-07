@@ -67,6 +67,9 @@ public class CacheAction extends BaseAction {
 		//初始化金额树.
 		TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
 		tMgr.getMoneyTypeTree();  
+		
+		//初始化业务菜单缓存.
+		tMgr.initMenuCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 

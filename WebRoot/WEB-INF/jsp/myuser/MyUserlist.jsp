@@ -14,15 +14,22 @@
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
-					<td>
-						菜单名:
-						<input name="menuName" class="textInput" size="30" type="text" />
-					</td>
-					<td>
-						菜单级别:
-						<input name="level" class="textInput" size="30" type="text" />
-					</td>
-
+					<td> 
+						用户流水号
+								<input name="useId" class="textInput" size="30" type="text"   />
+					</td> 
+					<td> 
+						用户名
+								<input name="userName" class="textInput" size="30" type="text"   />
+					</td> 
+					<td> 
+						登陆号
+								<input name="loginId" class="textInput" size="30" type="text"   />
+					</td> 
+					<td> 
+						组织机构
+								<input name="orgId" class="textInput" size="30" type="text"   />
+					</td> 
 				</tr>
 			</table>
 			<div class="subBar">
@@ -50,7 +57,7 @@
 		<ul class="toolBar">
 			<li>
 				<a class="add" href="/money/myuser!beforeAdd.do" target="dialog" mask="true"
-					title="添加菜单"><span>添加</span> </a>
+					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
 				<a class="delete" href="/money/myuser!doDelete.do" postType="string"

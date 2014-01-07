@@ -17,6 +17,6 @@ function onClick(event, treeId, treeNode, clickFlag) {
 	<%} 
 	else if("menu".equals(treeType)) //菜单树
 	{%>
-		<ul id="treeDemo" class="ztree" height='300'  url='/money/tree!getMenuTree.do'></ul>
+		<ul id="treeDemo" class="ztree expand" height='300'  url='/money/tree!getMenuTree.do'></ul>
 	<%} %>
 </div>

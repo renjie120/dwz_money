@@ -7,7 +7,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">
-			com.p6spy.engine.spy.P6DataSource
+			com.mysql.jdbc.Driver
 		</property>
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect

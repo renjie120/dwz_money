@@ -1317,7 +1317,7 @@
                 }
                 if (p.rowCount&&p._countColumnIndex==-2) {
 					var jcdiv = $('<div class="gridCol"></div>').html(p.countColumnDesc).width(p.countCellWd);
-                    $("<th>").attr('id', 'countCell').addClass('center').addClass('countCell').width(p.countCellWd).append(jcdiv).appendTo(newRow);
+                    $("<th>").attr('id', 'countCell').addClass('centerCell').addClass('countCell').width(p.countCellWd).append(jcdiv).appendTo(newRow);
 
                 }
                 var i = 0;
@@ -1346,7 +1346,7 @@
                     if ((p.checkOption == 'multi' && p.allCheck) && p._checkColumnIndex == ii) {
                         jcdiv.prepend(checkAllButton); 
                     }
-					j_cell.addClass('center').attr('id', oneColumn.headerIndex).append(jcdiv).appendTo(newRow);
+					j_cell.addClass('centerCell').attr('id', oneColumn.headerIndex).append(jcdiv).appendTo(newRow);
                     headColumns.push(oneColumn.headerIndex);
                 }
 				 
@@ -1380,7 +1380,7 @@
                 var msgCell = document.createElement("div");
                 $(msgCell).attr('id', '_pagebar_msgCell').addClass('pages').width(200).html(['<span>每页</span><span><select ', ' id="_changePageSizeSel"><option value="5">5</option><option value="10" selected>10</option>', '<option value="20">20</option><option value="40">40</option><option value="100">100</option></select></span><span>条</span>', "<span id='msgCell'>当前第", pagingInfo.currentPage, "页/总共", pagingInfo.pagesCount, "页</span>"].join('')).appendTo(div);
                 var pagesDiv = document.createElement("div");
-                $(pagesDiv).attr('id', '_pagebar_pagesdiv').addClass('pagination2').html('<ul> <li class="j-first disabled"> <a style="display: none;" class="first pgb" href="javascript:;"><span>首页</span></a> <span class="first"><span>首页</span></span> </li> <li class="j-prev disabled"> <a style="display: none;" class="previous pgb" href="javascript:;"><span>上一页</span></a> <span class="previous"><span>上一页</span></span> </li> <li class="j-next"> <a style="display: block;" class="next pgb" href="javascript:;"><span>下一页</span></a> <span style="display: none;" class="next"><span>下一页</span></span> </li> <li class="j-last"> <a style="display: block;" class="pgb last" href="javascript:;"><span>末页</span></a> <span style="display: none;" class="last"><span>末页</span></span> </li> <li class="jumpto"><input class="textInput" size="4" value="1" type="text"><input class="goto"  type="button"></li> </ul>'); 
+                $(pagesDiv).attr('id', '_pagebar_pagesdiv').addClass('pagination2').html('<ul> <li class="j-first disabled"> <a style="display: none;" class="first pgb" href="javascript:;"><span>首页</span></a> <span class="first"><span>首页</span></span> </li> <li class="j-prev disabled"> <a style="display: none;" class="previous pgb" href="javascript:;"><span>上一页</span></a> <span class="previous"><span>上一页</span></span> </li> <li class="j-next"> <a   class="next pgb" href="javascript:;"><span>下一页</span></a> <span style="display: none;" class="next"><span>下一页</span></span> </li> <li class="j-last"> <a  class="pgb last" href="javascript:;"><span>末页</span></a> <span style="display: none;" class="last"><span>末页</span></span> </li> <li class="jumpto"><input class="textInput" size="4" value="1" type="text"><input class="goto"  type="button"></li> </ul>'); 
                 div.appendChild(pagesDiv);
 
             },
@@ -2185,7 +2185,7 @@
         }
         elct.innerHTML = '';
         //添加等待条(dwz模式下面去掉这个。)---有待优化
-       // $('<div class="showprogress" id="showmsg"><div id="_centerMsg" class="centerMsg" align="top"><img src="' + p.lazyLoadImg + '">正在加载,请稍候!</div></div>').appendTo(elct);
+        // $('<div class="showprogress" id="showmsg"><div id="_centerMsg" class="centerMsg" align="top"><img src="' + p.lazyLoadImg + '">正在加载,请稍候!</div></div>').appendTo(elct);
         g.allTreeDiv.appendTo(elct).show();   
 		//得到实际的列宽数组.
 		g._getColumnWidthArr(); 

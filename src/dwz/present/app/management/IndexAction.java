@@ -1,6 +1,9 @@
 ﻿package dwz.present.app.management;
 
+import money.tree.TreeManager;
+
 import com.opensymphony.xwork2.ModelDriven;
+import common.tree.Tree;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -14,10 +17,14 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 	private UiModel model;
 	private String password;
 	private String newPassword;
-
+	private TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
 	public String index() {
 		UiModel model = new UiModel(); 
 		setModel(model);
+		TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
+		//得到菜单树
+		Tree t = tMgr.initMenuCache();
+		request.setAttribute("allMenu", t.getDeepTree());
 		return INPUT;
 	}
 	

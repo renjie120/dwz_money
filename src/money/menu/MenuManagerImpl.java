@@ -1,5 +1,5 @@
-﻿package money.menu;
 
+package money.menu;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,48 +14,70 @@ import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
+/**
+ * 关于菜单信息表的业务操作实现类.
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
+ */ 
 public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		MenuManager {
 
-	private MenuDao menuDao = null;
+	private MenuDao menudao = null;
 
-	public MenuManagerImpl(MenuDao menuDao) {
-		this.menuDao = menuDao;
+	/**
+	 * 构造函数.
+	 */
+	public MenuManagerImpl(MenuDao menudao) {
+		this.menudao = menudao;
 	}
 
+	/**
+	 * 查询总数.
+	 * @param criterias 查询条件
+	 * @return
+	 */
 	public Integer searchMenuNum(Map<MenuSearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
 		}
-		Object[] quertParas = this.createQuery(true, criterias, null);
+		Object[] quertParas = createQuery(true, criterias, null);
 		String hql = quertParas[0].toString();
-		Number totalCount = this.menuDao.countByQuery(hql,
+		Number totalCount = this.menudao.countByQuery(hql,
 				(Object[]) quertParas[1]);
 
 		return totalCount.intValue();
 	}
 
+	/**
+	 * 根据条件查询分页信息.
+	 * @param criterias 条件
+	 * @param orderField 排序列
+	 * @param startIndex 开始索引
+	 * @param count 总数
+	 * @return
+	 */
 	public Collection<Menu> searchMenu(Map<MenuSearchFields, Object> criterias,
 			String orderField, int startIndex, int count) {
 		ArrayList<Menu> eaList = new ArrayList<Menu>();
 		if (criterias == null)
 			return eaList;
 
-		Object[] quertParas = this.createQuery(false, criterias, orderField);
+		Object[] quertParas = createQuery(false, criterias, orderField);
 		String hql = quertParas[0].toString();
-		Collection<MenuVO> voList = this.menuDao.findByQuery(hql,
+		Collection<MenuVO> voList = this.menudao.findByQuery(hql,
 				(Object[]) quertParas[1], startIndex, count);
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
-
-		AllSelect allSelect = (AllSelect)SpringContextUtil.getBean(BeanManagerKey.allSelectManager.toString());
-		ParamSelect select1 = allSelect.getParamsByType(AllSelectContants.MENU_LEVEL.getName());
-		ParamSelect select2 = allSelect.getParamsByType(AllSelectContants.MENU_TARGET.getName());
+		
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select1 = allSelect
+				.getParamsByType(AllSelectContants.MENULEVEL.getName());
 		for (MenuVO po : voList) {
-			po.setLevel(select1.getName(""+po.getLevel()));
-			po.setTarget(select2.getName(""+po.getTarget()));
-			eaList.add(new MenuImpl(po));
+			po.setLevel(select1.getName("" + po.getLevel()));
+			eaList.add(new  MenuImpl(po));
 		}
 
 		return eaList;
@@ -66,8 +88,7 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count(distinct menu) "
-						: "select distinct menu ").append(
-				"from MenuVO as menu ");
+						: "select distinct menu ").append("from MenuVO as menu ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -76,53 +97,53 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 					.entrySet()) {
 				MenuSearchFields fd = entry.getKey();
 				switch (fd) {
-				case MENUID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.menuId =? ");
-					argList.add(entry.getValue());
-					count++;
+					case MENUID:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.menuId = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case MENUNAME:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.menuName like ? ");
-					argList.add(entry.getValue());
-					count++;
+					case TARGET:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.target = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case URL:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.url like ? ");
-					argList.add(entry.getValue());
-					count++;
+					case MENUNAME:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.menuName like ? ");
+						argList.add("%"+entry.getValue()+"%");
+						count++;
 					break;
-				case TARGET:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.target like ? ");
-					argList.add(entry.getValue());
-					count++;
+					case PARENTID:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.parentId = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case PARENTID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.parentId =? ");
-					argList.add(entry.getValue());
-					count++;
+					case ORDERID:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.orderId = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case LEVEL:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.level like ? ");
-					argList.add(entry.getValue());
-					count++;
+					case URL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.url = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case ORDERID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.orderId =? ");
-					argList.add(entry.getValue());
-					count++;
+					case LEVEL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.level = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
-				case RELID:
-					sb.append(count == 0 ? " where" : " and").append(
-							" menu.relId like ? ");
-					argList.add(entry.getValue());
-					count++;
+					case RELID:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.relId = ? ");
+						argList.add(entry.getValue());
+						count++;
 					break;
 				default:
 					break;
@@ -139,69 +160,46 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		}
 
 		switch (orderBy) {
-		case MENUID:
-			sb.append(" order by menu.menuId");
+			case MENUID:
+				 sb.append(" order by menu.menuId");
 			break;
-		case MENUID_DESC:
-			sb.append(" order by menu.menuId desc");
+			case TARGET:
+				 sb.append(" order by menu.target");
 			break;
-		case MENUNAME:
-			sb.append(" order by menu.menuName");
+			case MENUNAME:
+				 sb.append(" order by menu.menuName");
 			break;
-		case MENUNAME_DESC:
-			sb.append(" order by menu.menuName desc");
+			case PARENTID:
+				 sb.append(" order by menu.parentId");
 			break;
-		case URL:
-			sb.append(" order by menu.url");
+			case ORDERID:
+				 sb.append(" order by menu.orderId");
 			break;
-		case URL_DESC:
-			sb.append(" order by menu.url desc");
+			case URL:
+				 sb.append(" order by menu.url");
 			break;
-		case TARGET:
-			sb.append(" order by menu.target");
+			case LEVEL:
+				 sb.append(" order by menu.level");
 			break;
-		case TARGET_DESC:
-			sb.append(" order by menu.target desc");
+			case RELID:
+				 sb.append(" order by menu.relId");
 			break;
-		case PARENTID:
-			sb.append(" order by menu.parentId");
-			break;
-		case PARENTID_DESC:
-			sb.append(" order by menu.parentId desc");
-			break;
-		case LEVEL:
-			sb.append(" order by menu.level");
-			break;
-		case LEVEL_DESC:
-			sb.append(" order by menu.level desc");
-			break;
-		case ORDERID:
-			sb.append(" order by menu.orderId");
-			break;
-		case ORDERID_DESC:
-			sb.append(" order by menu.orderId desc");
-			break;
-		case RELID:
-			sb.append(" order by menu.relId");
-			break;
-		case RELID_DESC:
-			sb.append(" order by menu.relId desc");
-			break;
-
+			default:
+				break;
 		}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
 	public void createMenu(Menu menu) throws ValidateFieldsException {
 		MenuImpl menuImpl = (MenuImpl) menu;
-		this.menuDao.insert(menuImpl.getMenuVO());
+		this.menudao.insert(menuImpl.getMenuVO());
 	}
 
-	public void removeMenu(String menuIds) {
-		String[] idArr = menuIds.split(",");
+	public void removeMenus(String ids) {
+		String[] idArr = ids.split(",");
 		for (String s : idArr) {
-			MenuVO vo = this.menuDao.findByPrimaryKey(Integer.parseInt(s));
-			this.menuDao.delete(vo);
+			MenuVO vo = this.menudao.findByPrimaryKey(Integer.parseInt(s));
+			this.menudao.delete(vo);
 		}
 	}
 
@@ -209,11 +207,11 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		MenuImpl menuImpl = (MenuImpl) menu;
 
 		MenuVO po = menuImpl.getMenuVO();
-		this.menuDao.update(po);
+		this.menudao.update(po);
 	}
 
-	public Menu getMenu(Integer id) {
-		Collection<MenuVO> menus = this.menuDao.findRecordById(id);
+	public Menu getMenu(int id) {
+		Collection<MenuVO> menus = this.menudao.findRecordById(id);
 
 		if (menus == null || menus.size() < 1)
 			return null;

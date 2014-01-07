@@ -179,6 +179,27 @@ public class ${bignm}Action extends BaseAction {
 
 	private Map<${bignm}SearchFields, Object> getCriterias() {
 		Map<${bignm}SearchFields, Object> criterias = new HashMap<${bignm}SearchFields, Object>();
+		<#list model.attributes as attr>  
+		<#if "${attr.query}"='true'>
+		 	<#if '${attr.type}'='int'||'${attr.type}'='double'||'${attr.type}'='float'>
+			if (get${attr.name?cap_first}()!=null&&get${attr.name?cap_first}() !=0)
+				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, get${attr.name?cap_first}()); 
+			<#else>
+			 	<#if '${attr.type}'='string'>
+			 	<#if '${attr.selectType}'=''>
+			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}()))
+				<#else>
+			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}())&&!"-1".equals(get${attr.name?cap_first}())&&!"-2".equals(get${attr.name?cap_first}()))
+				</#if>
+				<#if '${attr.querylike}'='true'>
+				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, "%"+get${attr.name?cap_first}()+"%"); 
+				<#else>
+			 	criterias.put(${bignm}SearchFields.${attr.name?upper_case},  get${attr.name?cap_first}());
+				</#if>
+				</#if> 
+			</#if> 
+		</#if>
+		</#list>  
 		return criterias;
 	}
 

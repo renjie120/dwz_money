@@ -95,7 +95,7 @@ public class DiaryManagerImpl extends AbstractBusinessObjectManager implements
 					case DIARYCONTENT:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  diary.diaryContent like ? ");
-						argList.add(entry.getValue());
+						argList.add("%"+entry.getValue()+"%");
 						count++;
 					break;
 					case DIARYTIME:
@@ -106,7 +106,7 @@ public class DiaryManagerImpl extends AbstractBusinessObjectManager implements
 					break;
 					case DIARYTYPE:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  diary.diaryType like ? ");
+								"  diary.diaryType = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;

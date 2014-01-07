@@ -1,33 +1,46 @@
-﻿package money.menu;
+
+package money.menu;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
-import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
 
+/**
+ * 关于菜单信息表的Action操作类.
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
+ */ 
 public class MenuAction extends BaseAction {
 	/**
-	 * 
+	 *  序列化对象.
 	 */
 	private static final long serialVersionUID = 1L;
-	MenuManager pMgr = bf.getManager(BeanManagerKey.menuManager); 
-	private Menu menuVo;
-
-	public String beforeAdd() { 
+	//业务接口对象.
+	MenuManager pMgr = bf.getManager(BeanManagerKey.menuManager);
+	//业务实体对象
+	private Menu vo;
+	//当前页数
+	private int page = 1;
+	//每页显示数量
+	private int pageSize = 50;
+	//总页数
+	private long count;
+	
+	public String beforeAdd() {
 		return "detail";
 	}
 
 	public String doAdd() {
 		try {
-			MenuImpl menuImpl = new MenuImpl(menuName, url, target, parentId,
-					level, orderId, relId);
+			MenuImpl menuImpl = new MenuImpl(target ,menuName ,parentId ,orderId ,url ,level ,relId );
 			pMgr.createMenu(menuImpl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -39,34 +52,28 @@ public class MenuAction extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
-		pMgr.removeMenu(ids);
+		pMgr.removeMenus(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
-	public String beforeUpdate() { 
-		menuVo = pMgr.getMenu(menuId);
+	public String beforeUpdate() {
+		vo = pMgr.getMenu(menuId);
 		return "editdetail";
 	}
 
 	public String doUpdate() {
 		try {
-			MenuImpl menuImpl = new MenuImpl(menuId, menuName, url, target,
-					parentId, level, orderId, relId);
+			MenuImpl menuImpl = new MenuImpl( menuId , target , menuName , parentId , orderId , url , level , relId );
 			pMgr.updateMenu(menuImpl);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
 		writeToPage(response,getText("msg.operation.success"));
 		return null;
-	}
-
-	private int page = 1;
-	private int pageSize = 50;
-	private long count;
-
+	} 
+	
 	public enum ExportFiled {
-		MENUNAME("菜单名"), URL("链接"), TARGET("菜单指向"), PARENTID("父级菜单"), LEVEL(
-				"菜单级别"), ORDERID("排序号"), RELID("菜单页编码");
+		  MENUID("菜单流水号"),  TARGET("目标"),  MENUNAME("菜单名称"),  PARENTID("上级菜单"),  ORDERID("排序号"),  URL("连接"),  LEVEL("菜单级别"),  RELID("关联id");
 		private String str;
 
 		ExportFiled(String str) {
@@ -78,19 +85,21 @@ public class MenuAction extends BaseAction {
 		}
 	}
 
+	public String beforeQuery() {
+		return "query";
+	}
+
 	public String export() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("菜单列表.xls");
-		response.addHeader("Content-Disposition",
-				"attachment;filename="+fileNameString);
+		response.addHeader("Content-Disposition","attachment;filename=MenuList.xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<MenuSearchFields, Object> criterias = getCriterias();
 
-		Collection<Menu> menuList = pMgr.searchMenu(criterias,
-				realOrderField(), startIndex, numPerPage);
+		Collection<Menu> menuList = pMgr.searchMenu(criterias, realOrderField(),
+				startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
 		int rowIndex = 0;
@@ -105,28 +114,30 @@ public class MenuAction extends BaseAction {
 
 			for (ExportFiled filed : ExportFiled.values()) {
 				switch (filed) {
-				case MENUNAME:
-					e.setCell(filed.ordinal(), menu.getMenuName());
+					case MENUID:
+						 e.setCell(filed.ordinal(), menu.getMenuId()); 
 					break;
-				case URL:
-					e.setCell(filed.ordinal(), menu.getUrl());
+					case TARGET:
+						 e.setCell(filed.ordinal(), menu.getTarget()); 
 					break;
-				case TARGET:
-					e.setCell(filed.ordinal(), menu.getTarget());
+					case MENUNAME:
+						 e.setCell(filed.ordinal(), menu.getMenuName()); 
 					break;
-				case PARENTID:
-					e.setCell(filed.ordinal(), menu.getParentId());
+					case PARENTID:
+						 e.setCell(filed.ordinal(), menu.getParentId()); 
 					break;
-				case LEVEL:
-					e.setCell(filed.ordinal(), menu.getLevel());
+					case ORDERID:
+						 e.setCell(filed.ordinal(), menu.getOrderId()); 
 					break;
-				case ORDERID:
-					e.setCell(filed.ordinal(), menu.getOrderId());
+					case URL:
+						 e.setCell(filed.ordinal(), menu.getUrl()); 
 					break;
-				case RELID:
-					e.setCell(filed.ordinal(), menu.getRelId());
+					case LEVEL:
+						 e.setCell(filed.ordinal(), menu.getLevel()); 
 					break;
-
+					case RELID:
+						 e.setCell(filed.ordinal(), menu.getRelId()); 
+					break;
 				default:
 					break;
 				}
@@ -144,13 +155,17 @@ public class MenuAction extends BaseAction {
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<MenuSearchFields, Object> criterias = getCriterias();
 
-		Collection<Menu> moneyList = pMgr.searchMenu(criterias,
-				realOrderField(), startIndex, numPerPage);
+		Collection<Menu> moneyList = pMgr.searchMenu(criterias, realOrderField(),
+				startIndex, numPerPage);
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
-		request.setAttribute("totalCount", pMgr.searchMenuNum(criterias)); 
-		ActionContext.getContext().put("list", moneyList); 
+		int count = pMgr.searchMenuNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
 		return "list";
 	}
 
@@ -184,103 +199,135 @@ public class MenuAction extends BaseAction {
 
 	private Map<MenuSearchFields, Object> getCriterias() {
 		Map<MenuSearchFields, Object> criterias = new HashMap<MenuSearchFields, Object>();
+			if (getMenuId()!=null&&getMenuId() !=0)
+				criterias.put(MenuSearchFields.MENUID, getMenuId()); 
+			if (getMenuName()!=null&&!"".equals(getMenuName()))
+				criterias.put(MenuSearchFields.MENUNAME, "%"+getMenuName()+"%"); 
+			if (getParentId()!=null&&!"".equals(getParentId()))
+			 	criterias.put(MenuSearchFields.PARENTID,  getParentId());
+			if (getLevel()!=null&&!"".equals(getLevel())&&!"-2".equals(getLevel())&&!"-1".equals(getLevel()))
+			 	criterias.put(MenuSearchFields.LEVEL,  getLevel());
 		return criterias;
 	}
 
-	public Menu getMenuVo() {
-		return menuVo;
+	public Menu getVo() {
+		return vo;
 	}
 
-	public void setMenuVo(Menu menuVo) {
-		this.menuVo = menuVo;
-	}
-
-	public Menu getMoneyVo() {
-		return menuVo;
-	}
-
-	public void setMoneyVo(Menu menuVo) {
-		this.menuVo = menuVo;
-	}
-
-	private int menuId;
-
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
-	}
-
-	public int getMenuId() {
-		return menuId;
-	}
-
-	private String menuName;
-
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
-	public String getMenuName() {
-		return menuName;
-	}
-
-	private String url;
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	private String target;
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
-	public String getTarget() {
-		return target;
-	}
-
-	private int parentId;
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-
-	public int getParentId() {
-		return parentId;
-	}
-
-	private String level;
-
-	public void setLevel(String level) {
-		this.level = level;
-	}
-
-	public String getLevel() {
-		return level;
-	}
-
-	private int orderId;
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
-	public int getOrderId() {
-		return orderId;
-	}
-
-	private String relId;
-
-	public void setRelId(String relId) {
-		this.relId = relId;
-	}
-
-	public String getRelId() {
-		return relId;
-	}
-
+	public void setVo(Menu vo) {
+		this.vo = vo;
+	} 
+  
+	private Integer menuId; 
+ 	/**
+ 	 * 获取菜单流水号的属性值.
+ 	 */
+ 	public Integer getMenuId(){
+ 		return menuId;
+ 	}
+ 	
+ 	/**
+ 	 * 设置菜单流水号的属性值.
+ 	 */
+ 	public void setMenuId(Integer menuid){
+ 		this.menuId = menuid;
+ 	}
+	private String target; 
+ 	/**
+ 	 * 获取目标的属性值.
+ 	 */
+ 	public String getTarget(){
+ 		return target;
+ 	}
+ 	
+ 	/**
+ 	 * 设置目标的属性值.
+ 	 */
+ 	public void setTarget(String target){
+ 		this.target = target;
+ 	}
+	private String menuName; 
+ 	/**
+ 	 * 获取菜单名称的属性值.
+ 	 */
+ 	public String getMenuName(){
+ 		return menuName;
+ 	}
+ 	
+ 	/**
+ 	 * 设置菜单名称的属性值.
+ 	 */
+ 	public void setMenuName(String menuname){
+ 		this.menuName = menuname;
+ 	}
+	private String parentId; 
+ 	/**
+ 	 * 获取上级菜单的属性值.
+ 	 */
+ 	public String getParentId(){
+ 		return parentId;
+ 	}
+ 	
+ 	/**
+ 	 * 设置上级菜单的属性值.
+ 	 */
+ 	public void setParentId(String parentid){
+ 		this.parentId = parentid;
+ 	}
+	private int orderId; 
+ 	/**
+ 	 * 获取排序号的属性值.
+ 	 */
+ 	public int getOrderId(){
+ 		return orderId;
+ 	}
+ 	
+ 	/**
+ 	 * 设置排序号的属性值.
+ 	 */
+ 	public void setOrderId(int orderid){
+ 		this.orderId = orderid;
+ 	}
+	private String url; 
+ 	/**
+ 	 * 获取连接的属性值.
+ 	 */
+ 	public String getUrl(){
+ 		return url;
+ 	}
+ 	
+ 	/**
+ 	 * 设置连接的属性值.
+ 	 */
+ 	public void setUrl(String url){
+ 		this.url = url;
+ 	}
+	private String level; 
+ 	/**
+ 	 * 获取菜单级别的属性值.
+ 	 */
+ 	public String getLevel(){
+ 		return level;
+ 	}
+ 	
+ 	/**
+ 	 * 设置菜单级别的属性值.
+ 	 */
+ 	public void setLevel(String level){
+ 		this.level = level;
+ 	}
+	private String relId; 
+ 	/**
+ 	 * 获取关联id的属性值.
+ 	 */
+ 	public String getRelId(){
+ 		return relId;
+ 	}
+ 	
+ 	/**
+ 	 * 设置关联id的属性值.
+ 	 */
+ 	public void setRelId(String relid){
+ 		this.relId = relid;
+ 	}
 }

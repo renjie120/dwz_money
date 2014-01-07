@@ -54,7 +54,7 @@
 					selector:".dialogHeader",
 					stop: this.stop,
 					event:event
-				});
+				}); 
 				return false;
 		},
 		stop:function(){
@@ -63,6 +63,9 @@
 			$(dialog).css({left:$(sh).css("left"),top:$(sh).css("top")});
 			$.pdialog.attachShadow(dialog);
 			$(sh).hide();
+			if(typeof myOperation!='undefined'){
+				myOperation();
+			}
 		}
 	}
 })(jQuery);

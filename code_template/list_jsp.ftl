@@ -14,15 +14,23 @@
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
-					<td>
-						菜单名:
-						<input name="menuName" class="textInput" size="30" type="text" />
-					</td>
-					<td>
-						菜单级别:
-						<input name="level" class="textInput" size="30" type="text" />
-					</td>
-
+					<#list model.attributes as attr>  
+					<#if "${attr.query}"='true'>
+					<td> 
+						${attr.desc}</td><td>
+						<#if '${attr.type}'='date'>
+							<input type="text" name="${attr.name}" class="date" size="30" />
+							<a class="inputDateButton" href="javascript:;">选择</a>
+						<#else>
+						 	<#if '${attr.selectType}'!=''>
+								<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" />
+							<#else>
+								<input name="${attr.name}" class="textInput" size="30" type="text"   />
+							</#if> 
+						</#if>
+					</td> 
+					</#if>
+					</#list>    
 				</tr>
 			</table>
 			<div class="subBar">
@@ -50,7 +58,7 @@
 		<ul class="toolBar">
 			<li>
 				<a class="add" href="/money/${nm}!beforeAdd.do" target="dialog" mask="true"
-					title="添加菜单"><span>添加</span> </a>
+					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
 				<a class="delete" href="/money/${nm}!doDelete.do" postType="string"

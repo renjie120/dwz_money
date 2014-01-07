@@ -14,6 +14,10 @@ public class TreeNode implements ITree {
 	private String parent;
 	private String url;
 	private String other;
+	public String target;
+	public int level; 
+	public String relId;
+	public String open; 
 	private List<TreeNode> child;
 
 	public TreeNode(String id) {
@@ -76,6 +80,7 @@ public class TreeNode implements ITree {
 			child = new ArrayList<TreeNode>();
 		}
 		node.setParent(id);
+		node.level = this.level+1;
 		child.add(node);
 	}
 
@@ -88,7 +93,7 @@ public class TreeNode implements ITree {
 	}
 
 	public String toString() {
-		return "id:" + this.getId() + ";name:" + this.getName() + ";parent:"
+		return "id:" + this.getId() + ";name:" + this.getName() + ";level:" + this.level + ";parent:"
 				+ this.getParent() + ";\n";
 	}
 }

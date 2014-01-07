@@ -17,4 +17,10 @@ public interface TreeManager extends BusinessObjectManager {
 	 */
 	public String getMenuTree();
 	
+	/**
+	 * 得到菜单树形的缓存.
+	 * @return
+	 */
+	public common.tree.Tree initMenuCache();
+	
 }

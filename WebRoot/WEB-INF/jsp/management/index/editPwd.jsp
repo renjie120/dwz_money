@@ -1,22 +1,31 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%><%@ include file="/include.inc.jsp"%>
+  <script type="text/javascript">
+  <!--
+	 DWZ.ajaxError = function(xhr, ajaxOptions, thrownError){
+		 alertMsg.correct(xhr.responseText) ;
+		 //关闭当前dialog页面.
+		 $.pdialog.closeCurrent();
+	}
 
+  //-->
+  </script>
 <div class="pageContent">
 <form method="post" action="/money/myuser!changePwd.do" class="required-validate pageForm" onsubmit="return validateCallback(this, dialogAjaxDone);">
 	<div class="pageFormContent" layouth="57">
 		<p>
 			<label>
 				<s:text name="form.pwd"/>
-			</label><input type="password" name="oldPassword" class="required"/>
+			</label><input type="password" name="oldPassword" class="required" value="111111"/>
 		</p>
 		<p>
 			<label>
 				<s:text name="form.newPwd"/>
-			</label><input type="password" name="newPassword" id="newPassword" class="required"/>
+			</label><input type="password" name="newPassword" id="newPassword" class="required" value="111111"/>
 		</p>
 		<p>
 			<label>
 				<s:text name="form.confirmPwd"/>
-			</label><input type="password" name="rPassword" class="required" equalTo="#newPassword"/>
+			</label><input type="password" name="rPassword" class="required" equalTo="#newPassword" value="111111"/>
 		</p>
 	</div>
 	<div class="formBar">

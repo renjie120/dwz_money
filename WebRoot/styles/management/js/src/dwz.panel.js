@@ -22,11 +22,12 @@
 				
 				var defaultH = $panel.attr("defH")?$panel.attr("defH"):0;
 				var minH = $panel.attr("minH")?$panel.attr("minH"):0;
-				if (close) 
+				if (close) {
 					$content.css({
 						height: "0px",
 						display: "none"
-					});
+					}); 
+				}
 				else {
 					$content.css("height","auto");
 					if (defaultH > 0) 
