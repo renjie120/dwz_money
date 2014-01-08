@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
-<%@ include file="/include.inc.jsp"%>
+<%@ include file="/include.inc.jsp"%> 
+<script src="/js/org_inuser.js" type="text/javascript" />
 <%@ page import="money.myuser.MyUser"%>
 <%
 	MyUser vo = (MyUser) request.getAttribute("vo");
@@ -23,8 +24,10 @@
 					value="<s:property value="vo.loginId"/>" />
 			</div>
 			<div class="unit">
-				<label> 组织机构: </label> <input name="orgId" class="textInput  "
-					size="30" type="text" value="<s:property value="vo.orgId"/>" />
+				<label> 组织机构: </label>  
+				<input name="orgId" id="orgId" type="hidden" value='<s:property value="vo.orgId"/>'  /> 
+			 	<input name="orgName" size="30" id="orgName" type="text" readonly="true"  class="required"
+					onclick="showOrgMenu(); return false;" value='<s:property value="vo.orgName"/>' />  
 			</div>
 			<div class="unit">
 				<label> 邮件: </label> <input name="email" class="textInput  "

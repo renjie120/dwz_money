@@ -1,6 +1,6 @@
-
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
-<%@ include file="/include.inc.jsp"%> 
+<%@ include file="/include.inc.jsp"%>
+<script src="/js/org_inuser.js" type="text/javascript" />
 <div class="pageContent">
 	<form method="post" action="/money/myuser!doAdd.do"
 		class="pageForm required-validate"
@@ -28,7 +28,9 @@
 						<label>
 							组织机构:
 						</label>
-							<input name="orgId" class="textInput " size="30" type="text"   />
+						<input name="orgId" id="orgId" type="hidden"    /> 
+			 			<input name="orgName" size="30" id="orgName" type="text" readonly="true"  class="required"
+					onclick="showOrgMenu(); return false;"  />   
 					</div>
 					 <div class="unit">
 						<label>

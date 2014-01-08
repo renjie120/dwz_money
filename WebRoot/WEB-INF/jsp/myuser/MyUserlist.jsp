@@ -130,7 +130,7 @@
 						<s:property value="loginId" />
 					</td> 
 					<td>
-						<s:property value="orgId" />
+						<s:property value="orgName" />
 					</td> 
 					<td>
 						<s:property value="email" />

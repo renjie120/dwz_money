@@ -1,3 +1,6 @@
+
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ include file="/include.inc.jsp"%>
 <style type="text/css">
 ul.rightTools {
 	float: right;
@@ -9,8 +12,7 @@ ul.rightTools li {
 	display: block;
 	margin-left: 5px
 }
-</style>
-
+</style> 
 <div class="pageContent" style="padding:5px">
 	<div class="tabs">
 		<div class="tabsHeader">
@@ -28,11 +30,11 @@ ul.rightTools li {
 				</ul>
 			</div>
 		</div>
-		<div class="tabsContent">
-			<div> 
-				<div layoutH="146"
-					style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
-					<ul class="tree treeFolder">
+		<div class="tabsContent" style="height:400px">
+			<div  > 
+				<div layoutH="500"
+					style="float:left; display:block; height:400px;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
+					<ul class="tree treeFolder" style='height:400px'>
 						<li><a href="javascript">实验室检测</a>
 							<ul>
 								<li><a href="demo/pagination/list1.html" target="ajax"
@@ -68,8 +70,7 @@ ul.rightTools li {
 		<div class="tabsFooter">
 			<div class="tabsFooterContent"></div>
 		</div>
-	</div>
-
+	</div> 
 </div>
 
 

@@ -24,3 +24,4 @@ function onClick(event, treeId, treeNode, clickFlag) {
 		<ul id="treeDemo" class="ztree expand" height='300'  url='/money/tree!getOrgTree.do'></ul>
 	<%} %>
 </div>
+ 

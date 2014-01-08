@@ -17,6 +17,15 @@ public class MyUserVO implements Serializable {
 
 	}
 	
+	private String orgName;
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
 	public MyUserVO( int useId , String userName , String password , String loginId , int orgId , String email , String phone , String mobile , String userType , String address , int orderId ) {
 		 this.useId = useId;
 		 this.userName = userName;
@@ -29,6 +38,21 @@ public class MyUserVO implements Serializable {
 		 this.userType = userType;
 		 this.address = address;
 		 this.orderId = orderId;
+	}
+	
+	public MyUserVO( int useId , String userName , String password , String loginId , int orgId , String email , String phone , String mobile , String userType , String address , int orderId ,String orgName) {
+		 this.useId = useId;
+		 this.userName = userName;
+		 this.password = password;
+		 this.loginId = loginId;
+		 this.orgId = orgId;
+		 this.email = email;
+		 this.phone = phone;
+		 this.mobile = mobile;
+		 this.userType = userType;
+		 this.address = address;
+		 this.orderId = orderId;
+		 this.orgName = orgName;
 	}
 	
 	public MyUserVO(String userName ,String password ,String loginId ,int orgId ,String email ,String phone ,String mobile ,String userType ,String address ,int orderId ) {

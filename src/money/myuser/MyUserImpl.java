@@ -105,5 +105,10 @@ public class MyUserImpl implements MyUser {
  	public  int   getOrderId(){
  		return this.myuserVO.getOrderId();
  	}
+
+	@Override
+	public String getOrgName() {
+		return this.myuserVO.getOrgName();
+	}
  
 }

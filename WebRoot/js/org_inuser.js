@@ -30,8 +30,8 @@ function onClick(e, treeId, treeNode) {
 		v = v.substring(0, v.length - 1);
 	if (v2.length > 0)
 		v2 = v2.substring(0, v2.length - 1);
-	$("#parentName").attr("value", v);
-	$("#parentOrg").attr("value", v2);
+	$("#orgName").attr("value", v);
+	$("#orgId").attr("value", v2);
 	hideMenu();
 }
 
@@ -39,7 +39,7 @@ function showOrgMenu() {
 	$.get("/money/tree!getOrgTree.do", function(data) {
 		eval("var json=" + data);
 		$.fn.zTree.init($("#treeDemo"), setting, json);
-		var cityObj = $("#parentName");
+		var cityObj = $("#orgName");
 		var cityOffset = cityObj.offset();
 		$("#menuContent").css({
 			left : cityOffset.left + "px",

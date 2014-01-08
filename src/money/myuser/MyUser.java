@@ -14,6 +14,8 @@ public interface MyUser extends BusinessObject {
  	 * 获取用户流水号的属性值.
  	 */
  	public  Integer   getUseId();
+ 	
+ 	public String getOrgName();
  	/**
  	 * 获取用户名的属性值.
  	 */

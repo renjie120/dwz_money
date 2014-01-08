@@ -83,9 +83,10 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 			Map<MyUserSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count(distinct myuser) "
-						: "select distinct myuser ").append(
-				"from MyUserVO as myuser ");
+				useCount ? "select count( myuser) "
+						: "select new MyUserVO(myuser.useId , myuser.userName , myuser.password , myuser.loginId , myuser.orgId , myuser.email , " +
+								"myuser.phone , myuser.mobile , myuser.userType , myuser.address , myuser.orderId ,orgVo.orgName)  ").append(
+				"from MyUserVO as myuser,OrgVO as orgVo ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -155,6 +156,9 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
+		}else{
+			sb.append(count == 0 ? " where " : " and").append(
+					"  myuser.orgId=orgVo.orgId ");
 		}
 
 		MyUserOrderByFields orderBy = MyUserOrderByFields.USEID_DESC;
