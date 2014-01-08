@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
+import common.cache.CacheEnum;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -42,6 +43,7 @@ public class MenuAction extends BaseAction {
 		try {
 			MenuImpl menuImpl = new MenuImpl(target ,menuName ,parentId ,orderId ,url ,level ,relId );
 			pMgr.createMenu(menuImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.MENUTREE.getName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -53,6 +55,7 @@ public class MenuAction extends BaseAction {
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeMenus(ids);
+		common.cache.CacheManager.clearOnly(CacheEnum.MENUTREE.getName());
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -65,6 +68,7 @@ public class MenuAction extends BaseAction {
 		try {
 			MenuImpl menuImpl = new MenuImpl( menuId , target , menuName , parentId , orderId , url , level , relId );
 			pMgr.updateMenu(menuImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.MENUTREE.getName());
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

@@ -100,11 +100,9 @@ public class CacheManagerImpl extends AbstractBusinessObjectManager implements
 	}
 
 	public void removeCache(String snos) {
-		String[] idArr = snos.split(",");
-		System.out.println("snos;;;;"+snos);
+		String[] idArr = snos.split(","); 
 		for (String s : idArr) {
 			Collection<CacheVO> list = this.cacheDao.findRecordByCacheId(s);
-			System.out.println("list.size()="+list.size());
 			for(CacheVO vo :list){
 				this.cacheDao.delete(vo);
 				//从缓存中删除指定的缓存！

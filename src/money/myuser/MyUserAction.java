@@ -125,14 +125,19 @@ public class MyUserAction extends BaseAction {
 			if (password != null && !"".equals(password))
 				password = Coder.toMyCoder(password);
 			else{
-				UserImpl user = (UserImpl) ActionContext.getContext().getSession()
-						.get(Constants.AUTHENTICATION_KEY); 
-				password = Coder.toMyCoder(user.getPassword());
+				MyUser u = pMgr.getMyUser(useId); 
+				password = u.getPassword(); 
 			}
 			MyUserImpl myuserImpl = new MyUserImpl(useId, userName, password,
 					loginId, orgId, email, phone, mobile, userType, address,
 					orderId);
 			pMgr.updateMyUser(myuserImpl);
+			//从session中取得当前登录人
+			UserImpl user = (UserImpl) ActionContext.getContext().getSession()
+					.get(Constants.AUTHENTICATION_KEY); 
+			if(user.getUserId().equals(useId)){
+				user.setPassword(Coder.fromMyCoder(password)); 
+			}
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());

@@ -16,7 +16,7 @@ import dwz.framework.core.factory.BusinessFactory;
  * @author wblishq
  *
  */
-public class CacheManager {
+public class CacheManager { 
 	private static HashMap cacheMap = new HashMap();
 
 	// 单实例构造方法

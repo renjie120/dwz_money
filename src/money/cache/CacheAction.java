@@ -65,6 +65,8 @@ public class CacheAction extends BaseAction {
 		
 		//初始化业务菜单缓存.
 		tMgr.initMenuCache();
+		
+		tMgr.initOrgCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 

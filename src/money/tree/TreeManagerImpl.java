@@ -77,8 +77,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			return (String) CacheManager.getCacheInfo("moneyTypeTree")
 					.getValue();
 		}
-	}
- 
+	} 
 	
 	public String getMenuTree() { 
 		return  initMenuCache().toZTreeJson();
@@ -124,6 +123,51 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			CacheManager.putCache("menuTree", c);
 		} else {
 			tree  =(Tree)CacheManager.getCacheInfo("menuTree").getValue();
+		} 
+		return tree;
+	}
+
+	@Override
+	public String getOrgTree() {
+		return  initOrgCache().toZTreeJson();
+	}
+
+	@Override
+	public Tree initOrgCache() {
+		Tree tree = null;
+		if (CacheManager.getCacheInfo("orgTree") == null) {
+			tree = new Tree("0", "组织机构树");
+			LinkedList<TreeNode> allP = new LinkedList();
+			allP.add(tree.getRoot());
+
+			do {
+				TreeNode nd = allP.poll();
+				int totalCount = jdbc.queryForInt(
+						"select count(1) from organization_t where parentorg=?",
+						new Object[] { nd.getId() });
+				if (totalCount > 0) {
+					List child = jdbc
+							.queryForList(
+									"select id,orgname  from organization_t where parentorg=? ",
+									new Object[] { nd.getId() });
+					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
+						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
+								_objs.getValue(1) + "");
+						_nd.level = nd.level+1; 
+						nd.addChild(_nd);
+						allP.add(_nd);
+					}
+				}
+			} while (allP.size() > 0);
+			
+			Cache c = new Cache();
+			c.setKey("orgTree");
+			c.setValue(tree);
+			c.setName("组织机构树");
+			CacheManager.putCache("orgTree", c);
+		} else {
+			tree  =(Tree)CacheManager.getCacheInfo("orgTree").getValue();
 		} 
 		return tree;
 	} 

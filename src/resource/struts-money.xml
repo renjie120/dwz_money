@@ -15,7 +15,7 @@
 		</action>
 		<action name="usermenuright" class="money.role.UserMenuRightAction">
 			<result name="menulist">
-				/WEB-INF/jsp/role/UserMenuRightlist.jsp
+				/WEB-INF/jsp/role/Menulist.jsp
 			</result>
 			<result name="rolepage">
 				/WEB-INF/jsp/role/UserMenuRightlist.jsp

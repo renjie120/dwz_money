@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
-<%@ include file="/include.inc.jsp"%>
+<%@ include file="/include.inc.jsp"%> 
+<script src="/js/org.js" type="text/javascript" />
 <div class="pageContent">
 	<form method="post" action="/money/org!doUpdate.do"
 		class="pageForm required-validate"
@@ -25,8 +26,9 @@
 				<label>
 					父组织:
 				</label>
-				<input name="parentOrg" class="textInput  " size="30" type="text"
-					value="<s:property value="orgVo.parentOrg"/>" />
+				 <input name="parentOrg" id="parentOrg" type="hidden" value="<s:property value="orgVo.parentOrg"/>"  /> 
+			 	<input name="parentName" size="30" id="parentName" type="text" readonly="true"  class="required"
+					onclick="showOrgMenu(); return false;" />  
 			</div>  
 		</div>
 		<div class="formBar">

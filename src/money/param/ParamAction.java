@@ -4,8 +4,10 @@ package money.param;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Date;
-import com.opensymphony.xwork2.ActionContext; 
+
+import com.opensymphony.xwork2.ActionContext;
+import common.cache.CacheEnum;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
@@ -41,6 +43,7 @@ public class ParamAction extends BaseAction {
 		try {
 			ParamImpl paramImpl = new ParamImpl(paramType ,paramName ,paramValue ,usevalue ,orderId );
 			pMgr.createParam(paramImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.ALLPARAMTYPECODE.getName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -51,7 +54,8 @@ public class ParamAction extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
-		pMgr.removeParams(ids);
+		pMgr.removeParams(ids); 
+		common.cache.CacheManager.clearOnly(CacheEnum.ALLPARAMTYPECODE.getName());
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -63,7 +67,8 @@ public class ParamAction extends BaseAction {
 	public String doUpdate() {
 		try {
 			ParamImpl paramImpl = new ParamImpl( paramId , paramType , paramName , paramValue , usevalue , orderId );
-			pMgr.updateParam(paramImpl);
+			pMgr.updateParam(paramImpl); 
+			common.cache.CacheManager.clearOnly(CacheEnum.ALLPARAMTYPECODE.getName());
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

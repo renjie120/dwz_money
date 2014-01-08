@@ -93,8 +93,8 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			Map<${model.className}SearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count(distinct ${classarg}) "
-						: "select distinct ${classarg} ").append("from ${vo} as ${classarg} ");
+				useCount ? "select count( ${classarg}) "
+						: "select  ${classarg} ").append("from ${vo} as ${classarg} ");
 
 		int count = 0;
 		List argList = new ArrayList();

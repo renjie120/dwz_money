@@ -54,8 +54,8 @@ public class OrgManagerImpl extends AbstractBusinessObjectManager implements
 			Map<OrgSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count(distinct org) "
-						: "select distinct org ").append("from OrgVO as org ");
+				useCount ? "select count( org) "
+						: "select  org ").append("from OrgVO as org ");
 
 		int count = 0;
 		List argList = new ArrayList();

@@ -27,9 +27,21 @@ public class TreeAction extends BaseAction {
 		return "tree";
 	}
 	
+	public String orgTree(){ 
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		request.setAttribute("treeType", "org");
+		return "tree";
+	}
+	
 	public String getMoneyTypeTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getMoneyTypeTree());
+		return null;
+	}
+	
+	public String getOrgTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getOrgTree());
 		return null;
 	}
 	

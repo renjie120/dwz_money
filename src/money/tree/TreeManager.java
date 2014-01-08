@@ -18,9 +18,20 @@ public interface TreeManager extends BusinessObjectManager {
 	public String getMenuTree();
 	
 	/**
+	 * 组织机构树的json串.
+	 * @return
+	 */
+	public String getOrgTree();
+	
+	/**
 	 * 得到菜单树形的缓存.
 	 * @return
 	 */
 	public common.tree.Tree initMenuCache();
 	
+	/**
+	 * 得到组织机构树形的缓存.
+	 * @return
+	 */
+	public common.tree.Tree initOrgCache();
 }

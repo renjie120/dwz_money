@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
+import common.cache.CacheEnum;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -17,8 +18,7 @@ public class OrgAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 	OrgManager pMgr = bf.getManager(BeanManagerKey.orgManager);
-	private Org orgVo;
-
+	private Org orgVo; 
 	public String beforeAdd() {
 		return "detail";
 	}
@@ -28,6 +28,7 @@ public class OrgAction extends BaseAction {
 			OrgImpl orgImpl = new OrgImpl(orgName, orderCode, parentOrg,
 					orderId);
 			pMgr.createOrg(orgImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.ORGTREE.getName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -39,6 +40,7 @@ public class OrgAction extends BaseAction {
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeOrg(ids);
+		common.cache.CacheManager.clearOnly(CacheEnum.ORGTREE.getName());
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -52,6 +54,7 @@ public class OrgAction extends BaseAction {
 			OrgImpl orgImpl = new OrgImpl(orgId, orgName, orderCode, parentOrg,
 					orderId);
 			pMgr.updateOrg(orgImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.ORGTREE.getName());
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

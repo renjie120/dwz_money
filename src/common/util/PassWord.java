@@ -154,11 +154,11 @@ public class PassWord {
 	}
 
 	public static void main(String args[]) {
-		String str1 = PassWord.encode("123456fhsjdf");
-		String str2 = PassWord.encode("123456fhsjdf");
+		String str1 = PassWord.encode("SpZZ[l3Ub /WQrU-");
+		String str2 = PassWord.encode("SpZZ[l3Ub /WQrU-");
 		System.out.println(str1);
 		System.out.println(str2);
-		System.out.println(PassWord.decode(str1));
+		System.out.println(PassWord.decode("MjIyMjIy"));
 		System.out.println(PassWord.decode(str2));
 	}
 

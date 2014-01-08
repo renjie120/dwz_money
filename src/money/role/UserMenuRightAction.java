@@ -32,10 +32,7 @@ public class UserMenuRightAction extends BaseAction {
 	private int pageSize = 50;
 	//总页数
 	private long count;
-	
-	public String beforeAdd() {
-		return "detail";
-	}
+	 
 
 	public String doAdd() {
 		try {
@@ -54,11 +51,7 @@ public class UserMenuRightAction extends BaseAction {
 		pMgr.removeUserMenuRights(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
-
-	public String beforeUpdate() {
-		vo = pMgr.getUserMenuRight(menuId);
-		return "editdetail";
-	}
+ 
 
 	public String doUpdate() {
 		try {
@@ -70,65 +63,11 @@ public class UserMenuRightAction extends BaseAction {
 		writeToPage(response,getText("msg.operation.success"));
 		return null;
 	} 
-	
-	public enum ExportFiled {
-		  MENUID("菜单id"),  USERID("用户id");
-		private String str;
-
-		ExportFiled(String str) {
-			this.str = str;
-		}
-
-		public String getName() {
-			return this.str;
-		}
-	}
-
+	 
 	public String beforeQuery() {
 		return "query";
 	}
-
-	public String export() {
-		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=UserMenuRightList.xls");
-
-		int pageNum = getPageNum();
-		int numPerPage = getNumPerPage();
-		int startIndex = (pageNum - 1) * numPerPage;
-		Map<UserMenuRightSearchFields, Object> criterias = getCriterias();
-
-		Collection<UserMenuRight> usermenurightList = pMgr.searchUserMenuRight(criterias, realOrderField(),
-				startIndex, numPerPage);
-
-		XlsExport e = new XlsExport();
-		int rowIndex = 0;
-
-		e.createRow(rowIndex++);
-		for (ExportFiled filed : ExportFiled.values()) {
-			e.setCell(filed.ordinal(), filed.getName());
-		}
-
-		for (UserMenuRight usermenuright : usermenurightList) {
-			e.createRow(rowIndex++);
-
-			for (ExportFiled filed : ExportFiled.values()) {
-				switch (filed) {
-					case MENUID:
-						 e.setCell(filed.ordinal(), usermenuright.getMenuId()); 
-					break;
-					case USERID:
-						 e.setCell(filed.ordinal(), usermenuright.getUserId()); 
-					break;
-				default:
-					break;
-				}
-
-			}
-		}
-
-		e.exportXls(response);
-		return null;
-	}
+ 
 
 	public String query() {
 		int pageNum = getPageNum();
@@ -154,8 +93,12 @@ public class UserMenuRightAction extends BaseAction {
 		return "list";
 	}
 	
+	/**
+	 * 初始化权限管理界面，进入主菜单.
+	 * @return
+	 */
 	public String init() {
-		return "list";
+		return "rolepage";
 	}
 
 	public int getPage() {

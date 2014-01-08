@@ -13,7 +13,8 @@ function initEnv() {
 
 	$(window).resize(function(){
 		initLayout(); 
-		$(this).trigger("resizeGrid");
+		$(this).trigger("resizeGrid"); 
+		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
 	});
 
 	var ajaxbg = $("#background,#progressBar");
@@ -53,7 +54,7 @@ function initLayout(){
  
 	//下面对表格树进行控制高度自适应.
 	 var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-56;  
-	 $('#newtableTree').resetHeight(gridTreeHeight);      
+	 $('#newtableTree').resetHeight(gridTreeHeight);    
 }
 
 function initUI(_box){
@@ -304,7 +305,9 @@ function initUI(_box){
 		});     
 	}
 	
-	
+	if($('#baiduMap:visible').size()>0){
+		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
+	}
 	// 这里放其他第三方jQuery插件... 
 	//下面对表格树进行处理.
 	if ($('#newtableTree', $p).size()>0) {   

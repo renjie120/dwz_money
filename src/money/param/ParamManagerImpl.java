@@ -76,8 +76,8 @@ public class ParamManagerImpl extends AbstractBusinessObjectManager implements
 			Map<ParamSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count(distinct param) "
-						: "select distinct param ").append("from ParamVO as param ");
+				useCount ? "select count( param) "
+						: "select  param ").append("from ParamVO as param ");
 
 		int count = 0;
 		List argList = new ArrayList();

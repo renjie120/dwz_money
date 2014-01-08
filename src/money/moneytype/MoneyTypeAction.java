@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
+import common.cache.CacheEnum;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -38,6 +39,8 @@ public class MoneyTypeAction extends BaseAction {
 			MoneyTypeImpl moneyTypeImpl = new MoneyTypeImpl(moneyTypeDesc,
 					moneyType, parentCode, typeCode, orderId);
 			pMgr.createMoneyType(moneyTypeImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPE.getName());
+			common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPETREE.getName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -53,6 +56,8 @@ public class MoneyTypeAction extends BaseAction {
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeMoneyType(ids);
+		common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPE.getName());
+		common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPETREE.getName());
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -76,6 +81,8 @@ public class MoneyTypeAction extends BaseAction {
 			MoneyTypeImpl moneyTypeImpl = new MoneyTypeImpl(moenyTypeSno,
 					moneyTypeDesc, moneyType, parentCode, typeCode, orderId);
 			pMgr.updateMoneyType(moneyTypeImpl);
+			common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPE.getName());
+			common.cache.CacheManager.clearOnly(CacheEnum.MONEYTYPETREE.getName());
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="money.myuser.MyUserVO" table="user_t">
+	<class name="money.myuser.MyUserVO" table="user_t" dynamic-insert="true" dynamic-update="true">
 		<id name="useId" column="id" type="int">
 			<generator class="increment"></generator>
 		</id>
@@ -28,7 +28,7 @@
 	</query>
 	<query name="money.myuser.MyUserDao.updateAllPasswd">
 		<![CDATA[update MyUserVO set password=? where userName = ?]]>
-	</query>
+	</query> 
 	<query name="money.myuser.MyUserDao.findByLoginId">
 		<![CDATA[select useId from MyUserVO as userVO where loginId = ? and password = ?]]>
 	</query>
