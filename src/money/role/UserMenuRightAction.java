@@ -96,7 +96,7 @@ public class UserMenuRightAction extends BaseAction {
 	 * 初始化权限管理界面，进入主菜单.
 	 * @return
 	 */
-	public String init() {
+	public String init() { 
 		return "rolepage";
 	}
 

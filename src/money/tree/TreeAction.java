@@ -45,6 +45,22 @@ public class TreeAction extends BaseAction {
 		return null;
 	}
 	
+	public String getOrgWithPeopleTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getOrgWithPeopleTree(id));
+		return null;
+	}
+	
+	private String id; 
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getMenuTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getMenuTree());

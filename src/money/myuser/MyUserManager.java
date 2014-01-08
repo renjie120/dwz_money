@@ -33,6 +33,7 @@ public interface MyUserManager  extends BusinessObjectManager {
 	 */
 	public Integer searchMyUserNum(Map<MyUserSearchFields, Object> criterias);
 
+	public MyUser getSimpleMyUser(int id) ;
 	/**
 	 * 保存实体到数据库.
 	 * @param myuser

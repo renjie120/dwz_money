@@ -15,6 +15,7 @@ public class TreeNode implements ITree {
 	private String url;
 	private String other;
 	public String target;
+	public boolean isParent;
 	public int level; 
 	public String relId;
 	public String open; 

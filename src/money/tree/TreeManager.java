@@ -24,6 +24,12 @@ public interface TreeManager extends BusinessObjectManager {
 	public String getOrgTree();
 	
 	/**
+	 * 人员组织机构树
+	 * @return
+	 */
+	public String getOrgWithPeopleTree(String pid); 
+	
+	/**
 	 * 得到菜单树形的缓存.
 	 * @return
 	 */
