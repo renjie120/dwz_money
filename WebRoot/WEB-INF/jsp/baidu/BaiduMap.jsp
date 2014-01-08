@@ -23,6 +23,6 @@ map.addControl(new BMap.ScaleControl());                    // 添加比例尺�
 map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
 map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
- 
+ //map.centerAndZoom("上海",15);
 //map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
 </script>
