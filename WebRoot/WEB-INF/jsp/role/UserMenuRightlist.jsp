@@ -66,7 +66,7 @@ ul.rightTools li {
 		</div>
 		<div class="tabsContent" style="height:400px">
 			<div>
-				<div class="zTreeDemoBackground left" style="width:200px;">
+				<div class="zTreeDemoBackground left" style="float:left; display:block; height:400px;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
 					<ul id="treeDemo" class="ztree" height='300' lazy="true"></ul>
 				</div>
 
