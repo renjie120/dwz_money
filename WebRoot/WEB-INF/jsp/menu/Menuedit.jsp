@@ -17,7 +17,7 @@
 						<label>
 							菜单名称:
 						</label>
-									<input name="menuName" class="textInput  "  size="30" type="text"  value="<s:property value="vo.menuName"/>" />
+						<input name="menuName" class="textInput  "  size="30" type="text"  value="<s:property value="vo.menuName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -25,7 +25,7 @@
 						</label>
 						<input name="parentId" id="parentId" type="hidden" value="<s:property value="vo.parentId"/>"/> 
 						<input name="parentName" size="30" id="parentName" type="text" readonly="true"
-							onclick="showMenu(); return false;" /> 
+							onclick="showMenu(); return false;" value="<s:property value="vo.parentName"/>"/> 
 					</div>
 					 <div class="unit">
 						<label>

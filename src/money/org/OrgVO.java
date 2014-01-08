@@ -9,6 +9,16 @@ public class OrgVO implements Serializable {
 
 	}
 
+	private String parentOrgName;
+
+	public String getParentOrgName() {
+		return parentOrgName;
+	}
+
+	public void setParentOrgName(String parentOrgName) {
+		this.parentOrgName = parentOrgName;
+	}
+
 	public OrgVO(int orgId, String orgName, String orderCode, String parentOrg,
 			String orderId) {
 		this.orgId = orgId;
@@ -17,6 +27,16 @@ public class OrgVO implements Serializable {
 		this.parentOrg = parentOrg;
 		this.orderId = orderId;
 
+	}
+
+	public OrgVO(int orgId, String orgName, String orderCode, String parentOrg,
+			String orderId, String parentOrgName) {
+		this.orgId = orgId;
+		this.orgName = orgName;
+		this.orderCode = orderCode;
+		this.parentOrg = parentOrg;
+		this.orderId = orderId;
+		this.parentOrgName = parentOrgName;
 	}
 
 	public OrgVO(String orgName, String orderCode, String parentOrg,
@@ -76,5 +96,5 @@ public class OrgVO implements Serializable {
 
 	public String getOrderId() {
 		return orderId;
-	} 
+	}
 }

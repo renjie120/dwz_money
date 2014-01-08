@@ -17,6 +17,6 @@
 	</class>
 
 	<query name="money.menu.MenuDao.findRecordById">
-		<![CDATA[from MenuVO as menuDao where menuId = ?]]>
+		<![CDATA[select new MenuVO(menuDao.menuId ,  menuDao.target ,  menuDao.menuName ,  menuDao.parentId ,  menuDao.orderId ,  menuDao.url ,  menuDao.level ,  menuDao.relId ,  menuDao2.menuName ) from MenuVO as menuDao,MenuVO as menuDao2 where menuDao.parentId=menuDao2.menuId and menuDao.menuId = ?]]>
 	</query>
 </hibernate-mapping>

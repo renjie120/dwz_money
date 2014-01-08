@@ -52,4 +52,9 @@ public class OrgImpl implements Org {
 		return this.orgVO.getOrderId();
 	}
 
+	@Override
+	public String getParentOrgName() {
+		return this.orgVO.getParentOrgName();
+	}
+
 }

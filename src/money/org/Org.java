@@ -16,4 +16,6 @@ public interface Org extends BusinessObject {
 
 	public String getOrderId();
 
+	public String getParentOrgName();
+
 }

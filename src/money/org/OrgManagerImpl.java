@@ -55,7 +55,7 @@ public class OrgManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count( org) "
-						: "select  org ").append("from OrgVO as org ");
+						: "select new OrgVO(org.orgId,org.orgName,org.orderCode,org2.orgName,org.orderId)  ").append("from OrgVO as org ,OrgVO as org2 ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -101,6 +101,9 @@ public class OrgManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
+		}else{
+			sb.append(count == 0 ? " where " : " and").append(
+					"  org.parentOrg=org2.orgId ");
 		}
 
 		OrgOrderByFields orderBy = OrgOrderByFields.ORGID_DESC;

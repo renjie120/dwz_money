@@ -14,6 +14,6 @@
 	</class>
 
 	<query name="money.org.OrgDao.findRecordById">
-		<![CDATA[from OrgVO as orgVO where orgId = ?]]>
+		<![CDATA[select new OrgVO(org.orgId,org.orgName,org.orderCode,org.parentOrg,org.orderId,org2.orgName)  from OrgVO as org,OrgVO as org2 where org.parentOrg= org2.orgId and org.orgId = ?]]>
 	</query>
 </hibernate-mapping>

@@ -28,7 +28,7 @@
 				</label>
 				 <input name="parentOrg" id="parentOrg" type="hidden" value="<s:property value="orgVo.parentOrg"/>"  /> 
 			 	<input name="parentName" size="30" id="parentName" type="text" readonly="true"  class="required"
-					onclick="showOrgMenu(); return false;" />  
+					onclick="showOrgMenu(); return false;" value="<s:property value="orgVo.parentOrgName"/>" />  
 			</div>  
 		</div>
 		<div class="formBar">

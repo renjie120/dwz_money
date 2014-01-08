@@ -88,7 +88,7 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count( menu) "
-						: "select  menu ").append("from MenuVO as menu ");
+						: "select  new MenuVO(menu.menuId,menu.target,menu.menuName,menu2.menuName,menu.orderId,menu.url,menu.level,menu.relId) ").append("from MenuVO as menu ,MenuVO as menu2 ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -152,6 +152,9 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
+		}else{
+			sb.append(count == 0 ? " where " : " and").append(
+					"  menu.parentId=menu2.menuId ");
 		}
 
 		MenuOrderByFields orderBy = MenuOrderByFields.MENUID_DESC;
