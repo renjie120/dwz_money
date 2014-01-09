@@ -16,7 +16,7 @@
 						<label>
 							角色名称:
 						</label>
-									<input name="roleName" class="textInput " size="30" type="text"   />
+									<input name="roleName" class="textInput required" size="30" type="text"   />
 					</div>
 		</div>
 		<div class="formBar">
