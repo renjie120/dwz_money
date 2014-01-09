@@ -1,0 +1,5 @@
+<class name="Role" table="role_t" desc="角色信息" package="money.rolemanager"> 
+	<id name="roleId" column="id" type="int" desc="角色id" width="10" visible="false" noedit="true"/>  
+	<property name="roleDesc" column="roledesc" type="string" desc="角色描述 "  width="100"    />
+	<property name="roleName" column="rolename" type="string" desc="角色名称"  notnull="true" query="true" querylike='true' width="100"  />
+</class>

@@ -22,7 +22,7 @@
 						<label>
 							角色名称:
 						</label>
-									<input name="roleName" class="textInput  "  size="30" type="text"  value="<s:property value="vo.roleName"/>" />
+									<input name="roleName" class="textInput  required"  size="30" type="text"  value="<s:property value="vo.roleName"/>" />
 					</div>
 		</div>
 		<div class="formBar">

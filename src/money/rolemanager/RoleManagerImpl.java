@@ -101,8 +101,8 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 					break;
 					case ROLENAME:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  role.roleName = ? ");
-						argList.add(entry.getValue());
+								"  role.roleName like ? ");
+						argList.add("%"+entry.getValue()+"%");
 						count++;
 					break;
 				default:

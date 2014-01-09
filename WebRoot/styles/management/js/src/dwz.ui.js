@@ -316,6 +316,20 @@ function initUI(_box){
 							onClick: onClick
 						}
 					}; 
+					
+					if($tree.attr('checkable')=='true'){ 
+						setting = {
+								check:{enable: true },
+								data: { 
+									simpleData: {
+										enable: true
+									}
+								},
+								callback: { 
+									onClick: onClick
+								}
+							};  
+					}
 					$.fn.zTree.init($tree, setting, zNodes); 
 					$tree.height($tree.attr('height')).css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
 				}

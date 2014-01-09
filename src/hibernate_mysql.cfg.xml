@@ -50,6 +50,7 @@
 		<mapping resource="hbm/org.hbm.xml" />
 		<mapping resource="hbm/role.hbm.xml" />
 		<mapping resource="hbm/moneytype.hbm.xml" />
+		<mapping resource="hbm/rolewithmenu.hbm.xml" />
 		<mapping resource="hbm/question.hbm.xml" />
 		<mapping resource="hbm/cache.hbm.xml" />
 		<mapping resource="hbm/diary.hbm.xml" />

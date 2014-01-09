@@ -2,24 +2,23 @@
 package money.rolemanager;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
- * 关于角色信息的业务类接口
+ * 关于角色拥有的菜单权限的业务类接口
  * @author www(水清)
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public interface Role extends BusinessObject {  
+public interface RoleWithMenu extends BusinessObject {  
  	/**
  	 * 获取角色id的属性值.
  	 */
- 	public  Integer   getRoleId();
+ 	public  Integer   getId();
  	/**
- 	 * 获取角色描述 的属性值.
+ 	 * 获取角色id 的属性值.
  	 */
- 	public  String   getRoleDesc();
+ 	public  int   getRoleId();
  	/**
- 	 * 获取角色名称的属性值.
+ 	 * 获取菜单id的属性值.
  	 */
- 	public  String   getRoleName();
+ 	public  int   getMenuId();
 }

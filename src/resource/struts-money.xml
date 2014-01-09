@@ -15,6 +15,9 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/role/Roleedit.jsp
 			</result>
+			<result name="roleMenuTree">
+				/WEB-INF/jsp/role/tree.jsp
+			</result> 
 		</action>
 		<action name="map" class="money.baidu.MapAction">
 			<result name="detail">

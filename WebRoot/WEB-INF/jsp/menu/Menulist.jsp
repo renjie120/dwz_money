@@ -69,11 +69,9 @@
 	<table class="table" layoutH="-138">
 		<thead>
 			<tr>
-				<s:if test="#request.hascheckbox=='true'">
-					<th width="30"><input type="checkbox" group="ids"
-						class="checkboxCtrl">
-					</th>
-				</s:if>
+				<th width="30"><input type="checkbox" group="ids"
+					class="checkboxCtrl">
+				</th>
 				<th width="100" orderField="MENUID">菜单流水号</th>
 				<th width="140" orderField="MENUNAME">菜单名称</th>
 				<th width="100" orderField="PARENTID">上级菜单</th>
@@ -84,16 +82,10 @@
 		</thead>
 		<tbody>
 			<s:iterator value="list" var="haha" status="stu">
-				<tr target="menuId" rel="<s:property value="menuId" />">
-					<s:if test="%{checked=='true'}">
-						<td><input name="ids" value="<s:property value="menuId" />" checked
-							type="checkbox">
-						</td>
-					</s:if>
-					<s:else>
-						<td><input name="ids" value="<s:property value="menuId" />" type="checkbox">
-						</td>
-					</s:else>
+				<tr target="menuId" rel="<s:property value="menuId" />"> 
+					<td><input name="ids" value="<s:property value="menuId" />"
+						type="checkbox">
+					</td>
 					<td><s:property value="menuId" />
 					</td>
 					<td><s:property value="menuName" />

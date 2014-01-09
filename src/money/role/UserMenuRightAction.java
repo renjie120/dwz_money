@@ -27,8 +27,6 @@ public class UserMenuRightAction extends BaseAction {
 	private int menuId;
 	private Integer id;
 
-	 
-
 	public String doAdd() {
 		String ids = request.getParameter("ids");
 		String userId = request.getParameter("userId");

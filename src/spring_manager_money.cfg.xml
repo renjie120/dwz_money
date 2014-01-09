@@ -5,6 +5,9 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">
+		<constructor-arg index="0" ref="rolewithmenuDao"></constructor-arg>
+	</bean>
 	<bean id="myuserManager" class="money.myuser.MyUserManagerImpl">
 		<constructor-arg index="0" ref="myuserDao"></constructor-arg>
 	</bean>
@@ -36,6 +39,7 @@
 
 	<bean id="treeManager" class="money.tree.TreeManagerImpl">
 		<constructor-arg index="0" ref="moneyTypeDao"></constructor-arg>
+		<constructor-arg index="1" ref="rolewithmenuDao"></constructor-arg>
 		<property name="jdbc">
 			<ref bean="jdbcTool" />
 		</property>

@@ -1,6 +1,8 @@
 
 package money.rolemanager;
 
+import dwz.framework.core.business.BusinessObject;
+import java.util.Date;
 import java.io.Serializable;
 /**
  * 关于角色信息的实体bean.

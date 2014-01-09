@@ -18,6 +18,7 @@ public class TreeNode implements ITree {
 	public boolean isParent;
 	public int level; 
 	public String relId;
+	public boolean isChecked;
 	public String open; 
 	private List<TreeNode> child;
 

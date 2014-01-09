@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.Set;
 
 import money.moneytype.MoneyTypeDao;
 import money.moneytype.MoneyTypeVO;
-import money.role.UserMenuRightManager;
+import money.rolemanager.RoleWithMenuDao;
+import money.rolemanager.RoleWithMenuVO;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 
@@ -17,19 +19,22 @@ import common.MyJdbcTool;
 import common.base.TreeTool;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.tree.ITreeNodeTravel;
 import common.tree.Tree;
 import common.tree.TreeNode;
 
-import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 
 public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		TreeManager {
 
 	private MoneyTypeDao moneyTypeDao = null;
+	private RoleWithMenuDao roleWithMenuDao = null;
 
-	public TreeManagerImpl(MoneyTypeDao moneyTypeDao) {
+	public TreeManagerImpl(MoneyTypeDao moneyTypeDao,
+			RoleWithMenuDao roleWithMenuDao) {
 		this.moneyTypeDao = moneyTypeDao;
+		this.roleWithMenuDao = roleWithMenuDao;
 	}
 
 	private MyJdbcTool jdbc;
@@ -239,14 +244,15 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 		do {
 			TreeNode nd = allP.poll();
-			int totalCount = jdbc.queryForInt(
-					"select count(distinct t1.menuid) from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=?",
-					new Object[] { nd.getId(),userId});
+			int totalCount = jdbc
+					.queryForInt(
+							"select count(distinct t1.menuid) from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=?",
+							new Object[] { nd.getId(), userId });
 			if (totalCount > 0) {
 				List child = jdbc
 						.queryForList(
 								"select distinct t1.menuid,menuname,url,relId,target from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=? ",
-								new Object[] { nd.getId(),userId });
+								new Object[] { nd.getId(), userId });
 				nd.open = "true";
 				for (int ii = 0, jj = child.size(); ii < jj; ii++) {
 					ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
@@ -265,4 +271,27 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		return tree;
 	}
 
+	@Override
+	public String getRoleMenuTree(int roleId) {
+		Tree menuTree = initMenuCache();
+		Collection<RoleWithMenuVO> set = roleWithMenuDao
+				.findRecordByRoleId(roleId);
+		Set<Integer> allHaveRightMenu = new HashSet<Integer>();
+		if (set != null && set.size() > 0)
+			for (RoleWithMenuVO vo : set) {
+				allHaveRightMenu.add(vo.getMenuId());
+			}
+		final Set<Integer> allMenus = allHaveRightMenu;
+		menuTree.travelTree(new ITreeNodeTravel(){ 
+			@Override
+			public void travel(TreeNode node) {
+				if (allMenus.contains(node.getId())) {
+					node.isChecked = true;
+				} else
+					node.isChecked = false;
+			} 
+		});
+		 
+		return menuTree.toZTreeJson();
+	}
 }

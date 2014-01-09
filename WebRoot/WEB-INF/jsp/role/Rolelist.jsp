@@ -13,6 +13,10 @@
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
+					<td>角色名称</td>
+					<td><input name="roleName" class="textInput" size="30"
+						type="text" />
+					</td>
 				</tr>
 			</table>
 			<div class="subBar">
@@ -74,9 +78,9 @@
 					</td>
 					<td><s:property value="roleName" />
 					</td>
-					<td><a class="myAddbutton"  href="/money/role!updateMenuWithRole.do?roleId={roleId}"
-						target="dialog" mask="true"><span>授予菜单权限</span> </a>
-					</td>
+					<td><a class="myAddbutton"
+						href="/money/role!updateMenuWithRole.do?roleId=<s:property value="roleId" />"
+						target="dialog" mask="true"><span>授予菜单权限</span> </a></td> 
 				</tr>
 			</s:iterator>
 		</tbody>

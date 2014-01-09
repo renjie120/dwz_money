@@ -1,7 +1,5 @@
 ﻿package money.tree;
 
-import java.util.Set;
-
 import dwz.framework.core.business.BusinessObjectManager;
 
 //@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
@@ -12,6 +10,12 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public String getMoneyTypeTree();
+	
+	/**
+	 * 得到角色有权限的菜单树 .
+	 * @return
+	 */
+	public String getRoleMenuTree(int roleId);
 	
 	/**
 	 * 查询菜单树的json串.
@@ -37,6 +41,11 @@ public interface TreeManager extends BusinessObjectManager {
 	 */
 	public common.tree.Tree initMenuCache();
 	
+	/**
+	 * 得到用户有权限的菜单树形.
+	 * @param userId
+	 * @return
+	 */
 	public common.tree.Tree initMenuWithRight(String userId);
 	
 	/**
