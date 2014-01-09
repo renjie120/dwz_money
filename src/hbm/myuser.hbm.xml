@@ -22,7 +22,11 @@
 	<query name="money.myuser.MyUserDao.findRecordById">
 		<![CDATA[select new MyUserVO(myuser.useId , myuser.userName , myuser.password , myuser.loginId , myuser.orgId , myuser.email , 
 		 myuser.phone , myuser.mobile , myuser.userType , myuser.address , myuser.orderId 
-		 ,orgVo.orgName) from MyUserVO as myuser,OrgVO as orgVo where myuser.orgId= orgVo.orgId and myuser.useId = ?]]>
+		 ,orgVo.orgName) from MyUserVO as myuser,OrgVO as orgVo where myuser.orgId = orgVo.orgId and myuser.useId = ?]]>
+	</query>
+	
+	<query name="money.myuser.MyUserDao.findRecordById2">
+		<![CDATA[from MyUserVO as userVO where useId = ?]]>
 	</query>
 
 	<query name="money.myuser.MyUserDao.findByLoginId2">

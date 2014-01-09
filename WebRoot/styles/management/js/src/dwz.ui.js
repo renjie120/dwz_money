@@ -282,27 +282,32 @@ function initUI(_box){
 	//加载zTree!!
 	if ($('.ztree', $p).size()>0) {
 		var $tree = $(".ztree"); 
-		$.ajax({
-			type:'post',
-			url:$tree.attr('url'),
-			success:function(msg){ 
-			eval("var zNodes ="+msg);
-				var setting = {
-					data: {
-						key: {  
+		if($tree.attr('lazy')!='true'){
+			//不是懒加载树
+			$.ajax({
+				type:'post',
+				url:$tree.attr('url'),
+				success:function(msg){ 
+				eval("var zNodes ="+msg);
+					var setting = {
+						data: {
+							key: {  
+							},
+							simpleData: {
+								enable: true
+							}
 						},
-						simpleData: {
-							enable: true
+						callback: { 
+							onClick: onClick
 						}
-					},
-					callback: { 
-						onClick: onClick
-					}
-				}; 
-				$.fn.zTree.init($tree, setting, zNodes); 
-				$tree.height($tree.attr('height')).css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
-			}
-		});     
+					}; 
+					$.fn.zTree.init($tree, setting, zNodes); 
+					$tree.height($tree.attr('height')).css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
+				}
+			}); 
+		}else{ 
+			$.fn.zTree.init($("#treeDemo"), setting);
+		}
 	}
 	
 	if($('#baiduMap:visible').size()>0){

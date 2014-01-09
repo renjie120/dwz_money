@@ -77,10 +77,10 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			return (String) CacheManager.getCacheInfo("moneyTypeTree")
 					.getValue();
 		}
-	} 
-	
-	public String getMenuTree() { 
-		return  initMenuCache().toZTreeJson();
+	}
+
+	public String getMenuTree() {
+		return initMenuCache().toZTreeJson();
 	}
 
 	@Override
@@ -106,30 +106,30 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
 						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
 								_objs.getValue(1) + "");
-						_nd.level = nd.level+1;
-						_nd.setUrl(""+_objs.getValue(2));
-						_nd.relId = ""+_objs.getValue(3);
-						_nd.target =  ""+_objs.getValue(4);
+						_nd.level = nd.level + 1;
+						_nd.setUrl("" + _objs.getValue(2));
+						_nd.relId = "" + _objs.getValue(3);
+						_nd.target = "" + _objs.getValue(4);
 						nd.addChild(_nd);
 						allP.add(_nd);
 					}
 				}
 			} while (allP.size() > 0);
-			
+
 			Cache c = new Cache();
 			c.setKey("menuTree");
 			c.setValue(tree);
 			c.setName("菜单树");
 			CacheManager.putCache("menuTree", c);
 		} else {
-			tree  =(Tree)CacheManager.getCacheInfo("menuTree").getValue();
-		} 
+			tree = (Tree) CacheManager.getCacheInfo("menuTree").getValue();
+		}
 		return tree;
 	}
 
 	@Override
 	public String getOrgTree() {
-		return  initOrgCache().toZTreeJson();
+		return initOrgCache().toZTreeJson();
 	}
 
 	@Override
@@ -142,9 +142,10 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 			do {
 				TreeNode nd = allP.poll();
-				int totalCount = jdbc.queryForInt(
-						"select count(1) from organization_t where parentorg=?",
-						new Object[] { nd.getId() });
+				int totalCount = jdbc
+						.queryForInt(
+								"select count(1) from organization_t where parentorg=?",
+								new Object[] { nd.getId() });
 				if (totalCount > 0) {
 					List child = jdbc
 							.queryForList(
@@ -154,21 +155,76 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
 						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
 								_objs.getValue(1) + "");
-						_nd.level = nd.level+1; 
+						_nd.level = nd.level + 1;
 						nd.addChild(_nd);
 						allP.add(_nd);
 					}
 				}
 			} while (allP.size() > 0);
-			
+
 			Cache c = new Cache();
 			c.setKey("orgTree");
 			c.setValue(tree);
 			c.setName("组织机构树");
 			CacheManager.putCache("orgTree", c);
 		} else {
-			tree  =(Tree)CacheManager.getCacheInfo("orgTree").getValue();
-		} 
+			tree = (Tree) CacheManager.getCacheInfo("orgTree").getValue();
+		}
 		return tree;
-	} 
+	}
+
+	@Override
+	public String getOrgWithPeopleTree(String pid) {
+		return toZTreeJson(initOrgWithPeopleTree(pid));
+	}
+
+	private String toZTreeJson(List<TreeNode> nodes) {
+		StringBuilder buil = new StringBuilder();
+		buil.append("[");
+		if (nodes != null && nodes.size() > 0) {
+			int j = 0, z = nodes.size();
+			for (TreeNode nd : nodes) {
+				buil.append("{id:'");
+				buil.append(nd.getId());
+				buil.append("',name:'");
+				buil.append(nd.getName());
+				buil.append("',isParent:");
+				buil.append(nd.isParent);
+				buil.append("}");
+				if (j++ < z)
+					buil.append(",");
+			}
+		}
+		buil.append("]");
+		return buil.toString();
+	}
+
+	public List<TreeNode> initOrgWithPeopleTree(String pid) {
+		List<TreeNode> ans = new ArrayList<TreeNode>();
+		if(pid==null)
+			pid = "0";
+		List child = jdbc.queryForList(
+				"select id,orgname  from organization_t where parentorg=? ",
+				new Object[] { pid });
+		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+			ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
+			TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
+					_objs.getValue(1) + "");
+			_nd.isParent = true;
+			ans.add(_nd);
+		}
+
+		child = jdbc.queryForList(
+				"select id,username  from user_t where orgid=? ",
+				new Object[] { pid });
+		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+			ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
+			TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
+					_objs.getValue(1) + "");
+			_nd.isParent = false;
+			ans.add(_nd);
+		}
+		return ans;
+	}
+
 }

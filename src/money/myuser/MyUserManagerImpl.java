@@ -236,6 +236,17 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 		return new MyUserImpl(myuser);
 	}
+	
+	public MyUser getSimpleMyUser(int id) {
+		Collection<MyUserVO> myusers = this.myuserdao.findRecordById2(id);
+
+		if (myusers == null || myusers.size() < 1)
+			return null;
+
+		MyUserVO myuser = myusers.toArray(new MyUserVO[myusers.size()])[0];
+
+		return new MyUserImpl(myuser);
+	}
 
 	@Override
 	public void updatePassword(String pass, String userId) {

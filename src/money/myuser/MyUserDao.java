@@ -14,6 +14,8 @@ public interface MyUserDao extends BaseDao<MyUserVO, Integer> {
 	 * 根据主键查询全部集合.
 	 */
 	public Collection<MyUserVO> findRecordById(int useId);
+	
+	public Collection<MyUserVO> findRecordById2(int useId);
 
 	/**
 	 * 查询全部集合.

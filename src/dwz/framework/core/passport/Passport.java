@@ -68,7 +68,7 @@ public abstract class Passport {
 		} else {
 			MyUserManager uMgr = BusinessFactory.getFactory().getManager(
 					BeanManagerKey.myuserManager);
-			MyUser  user = uMgr.getMyUser(userId);  
+			MyUser  user = uMgr.getSimpleMyUser(userId);  
 			session.setAttribute(Constants.AUTHENTICATION_KEY, new UserImpl(convertUser(user))); 
 		}
 	}
