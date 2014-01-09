@@ -2,6 +2,7 @@
 package money.role;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,12 +55,12 @@ public interface UserMenuRightManager  extends BusinessObjectManager {
 	 * @param menuId
 	 */
 	@Transactional
-	public void removeUserMenuRights(String menuId);
+	public void addUserMenuRights(String menuId,String userId);
 
 	/**
 	 * 根据主键取值.
 	 * @param menuId
 	 * @return
 	 */
-	public UserMenuRight getUserMenuRight(int menuId);
+	public Set<Integer> getMenuIdsByUserId(int menuId);
 }

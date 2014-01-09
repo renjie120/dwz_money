@@ -8,5 +8,5 @@ package money.menu;
  * http://www.iteye.com
  */
 public enum MenuSearchFields { 
- MENUID , TARGET , MENUNAME , PARENTID , ORDERID , URL , LEVEL , RELID 
+ MENUID , TARGET , MENUNAME , PARENTID , ORDERID , URL , LEVEL , RELID ,USERID
 }

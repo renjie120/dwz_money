@@ -1,5 +1,7 @@
 ﻿package money.tree;
 
+import java.util.Set;
+
 import dwz.framework.core.business.BusinessObjectManager;
 
 //@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
@@ -34,6 +36,8 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public common.tree.Tree initMenuCache();
+	
+	public common.tree.Tree initMenuWithRight(String userId);
 	
 	/**
 	 * 得到组织机构树形的缓存.

@@ -1,15 +1,19 @@
 ﻿package dwz.present.app.management;
 
+import money.role.UserMenuRightManager;
 import money.tree.TreeManager;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import common.tree.Tree;
 
 import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.el.ServerInfo;
 import dwz.framework.user.User;
 import dwz.framework.user.UserManager;
+import dwz.framework.user.impl.UserImpl;
 import dwz.present.BaseAction;
 import dwz.present.UiModel;
 
@@ -18,12 +22,16 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 	private String password;
 	private String newPassword;
 	private TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
+	private UserMenuRightManager userMenuMgr = bf
+			.getManager(BeanManagerKey.usermenurightManager);
 	public String index() {
 		UiModel model = new UiModel(); 
 		setModel(model);
 		TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
+		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
+				 .get(Constants.AUTHENTICATION_KEY);   
 		//得到菜单树
-		Tree t = tMgr.initMenuCache();
+		Tree t = tMgr.initMenuWithRight(user.getUserId()); 
 		request.setAttribute("allMenu", t.getDeepTree());
 		return INPUT;
 	}

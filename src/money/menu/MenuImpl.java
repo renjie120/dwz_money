@@ -1,14 +1,15 @@
 package money.menu;
 
+import common.base.CheckAble;
+
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 
 /**
  * 关于菜单信息表的业务实体类.
  * 
  * @author www(水清) 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名. http://www.iteye.com
  */
-public class MenuImpl implements Menu {
+public class MenuImpl implements Menu,CheckAble {
 	private MenuVO menuVO = null;
 	private static final long serialVersionUID = 1L;
 
@@ -102,6 +103,11 @@ public class MenuImpl implements Menu {
 	@Override
 	public String getParentName() {
 		return this.menuVO.getParentName();
+	}
+
+	@Override
+	public String getChecked() { 
+		return this.menuVO.getChecked(); 
 	}
 
 }

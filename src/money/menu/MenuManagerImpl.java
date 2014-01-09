@@ -81,8 +81,8 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		}
 
 		return eaList;
-	}
-
+	} 
+	
 	private Object[] createQuery(boolean useCount,
 			Map<MenuSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();

@@ -28,9 +28,9 @@ public interface UserMenuRightDao extends BaseDao<UserMenuRightVO, Integer> {
 	public Collection<UserMenuRightVO> findParmByType(int paramType);  
 
 	/**
-	 * 根据主键删除数据.
+	 * 根据用户删除下面的全部权限..
 	 */
-	public void deleteAllById(int menuId);
+	public void deleteAllByUserId(int userId);
 
 	/**
 	 * 根据主键更新数据.

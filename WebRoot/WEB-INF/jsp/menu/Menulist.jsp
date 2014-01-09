@@ -7,7 +7,7 @@
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
 		type="hidden" name="orderDirection" value="${param.orderDirection}" />
 </form>
-<div class="pageHeader"> 
+<div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
 		action="/money/menu!query.do" method="post">
 		<div class="searchBar">
@@ -15,13 +15,16 @@
 				<tr>
 					<td>菜单流水号</td>
 					<td><input name="menuId" class="textInput" size="30"
-						type="text" /></td>
+						type="text" />
+					</td>
 					<td>菜单名称</td>
 					<td><input name="menuName" class="textInput" size="30"
-						type="text" /></td>
+						type="text" />
+					</td>
 					<td>菜单级别</td>
 					<td><my:newselect tagName="level" paraType="menulevel"
-							width="100" allSelected="true" /></td>
+							width="100" allSelected="true" />
+					</td>
 				</tr>
 			</table>
 			<div class="subBar">
@@ -31,9 +34,11 @@
 							<div class="buttonContent">
 								<button type="submit">检索</button>
 							</div>
-						</div></li>
+						</div>
+					</li>
 					<li><a class="button" href="/money/menu!beforeQuery.do"
-						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a></li>
+						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -43,24 +48,32 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li><a class="add" href="/money/menu!beforeAdd.do"
-				target="dialog" mask="true" title="添加"><span>添加</span> </a></li>
+				target="dialog" mask="true" title="添加"><span>添加</span> </a>
+			</li>
 			<li><a class="delete" href="/money/menu!doDelete.do"
 				postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
-			</a></li>
+			</a>
+			</li>
 			<li><a class="edit"
 				href="/money/menu!beforeUpdate.do?menuId={menuId}" mask="true"
-				target="dialog" title="修改"><span>修改</span> </a></li>
+				target="dialog" title="修改"><span>修改</span> </a>
+			</li>
 			<li><a class="icon" href="/money/menu!export.do"
 				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
-			</a></li>
+			</a>
+			</li>
 
 		</ul>
 	</div>
+	<s:set var="hascheckbox" value="checked" scope="request" />
 	<table class="table" layoutH="-138">
 		<thead>
 			<tr>
-				<th width="30"><input type="checkbox" group="ids"
-					class="checkboxCtrl"></th>
+				<s:if test="#request.hascheckbox=='true'">
+					<th width="30"><input type="checkbox" group="ids"
+						class="checkboxCtrl">
+					</th>
+				</s:if>
 				<th width="100" orderField="MENUID">菜单流水号</th>
 				<th width="140" orderField="MENUNAME">菜单名称</th>
 				<th width="100" orderField="PARENTID">上级菜单</th>
@@ -70,16 +83,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			<s:iterator value="list" status="stu">
+			<s:iterator value="list" var="haha" status="stu">
 				<tr target="menuId" rel="<s:property value="menuId" />">
-					<td><input name="ids" value="<s:property value="menuId" />"
-						type="checkbox"></td>
-					<td><s:property value="menuId" /></td>
-					<td><s:property value="menuName" /></td>
-					<td><s:property value="parentId" /></td>
-					<td><s:property value="url" /></td>
-					<td><s:property value="level" /></td>
-					<td><s:property value="relId" /></td>
+					<s:if test="%{checked=='true'}">
+						<td><input name="ids" value="<s:property value="menuId" />" checked
+							type="checkbox">
+						</td>
+					</s:if>
+					<s:else>
+						<td><input name="ids" value="<s:property value="menuId" />" type="checkbox">
+						</td>
+					</s:else>
+					<td><s:property value="menuId" />
+					</td>
+					<td><s:property value="menuName" />
+					</td>
+					<td><s:property value="parentId" />
+					</td>
+					<td><s:property value="url" />
+					</td>
+					<td><s:property value="level" />
+					</td>
+					<td><s:property value="relId" />
+					</td>
 				</tr>
 			</s:iterator>
 		</tbody>

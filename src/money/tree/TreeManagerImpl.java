@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import money.moneytype.MoneyTypeDao;
 import money.moneytype.MoneyTypeVO;
+import money.role.UserMenuRightManager;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 
@@ -18,6 +20,7 @@ import common.cache.CacheManager;
 import common.tree.Tree;
 import common.tree.TreeNode;
 
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 
 public class TreeManagerImpl extends AbstractBusinessObjectManager implements
@@ -201,7 +204,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 	public List<TreeNode> initOrgWithPeopleTree(String pid) {
 		List<TreeNode> ans = new ArrayList<TreeNode>();
-		if(pid==null)
+		if (pid == null)
 			pid = "0";
 		List child = jdbc.queryForList(
 				"select id,orgname  from organization_t where parentorg=? ",
@@ -225,6 +228,41 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			ans.add(_nd);
 		}
 		return ans;
+	}
+
+	@Override
+	public Tree initMenuWithRight(String userId) {
+		Tree tree = null;
+		tree = new Tree("0", "菜单树");
+		LinkedList<TreeNode> allP = new LinkedList();
+		allP.add(tree.getRoot());
+
+		do {
+			TreeNode nd = allP.poll();
+			int totalCount = jdbc.queryForInt(
+					"select count(distinct t1.menuid) from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=?",
+					new Object[] { nd.getId(),userId});
+			if (totalCount > 0) {
+				List child = jdbc
+						.queryForList(
+								"select distinct t1.menuid,menuname,url,relId,target from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=? ",
+								new Object[] { nd.getId(),userId });
+				nd.open = "true";
+				for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+					ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
+					TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
+							_objs.getValue(1) + "");
+					_nd.level = nd.level + 1;
+					_nd.setUrl("" + _objs.getValue(2));
+					_nd.relId = "" + _objs.getValue(3);
+					_nd.target = "" + _objs.getValue(4);
+					nd.addChild(_nd);
+					allP.add(_nd);
+				}
+			}
+		} while (allP.size() > 0);
+
+		return tree;
 	}
 
 }

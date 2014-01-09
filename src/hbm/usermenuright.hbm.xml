@@ -3,12 +3,17 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="money.role.UserMenuRightVO" table="user_menu_right"> 
+	<class name="money.role.UserMenuRightVO" table="user_menu_right">
+		<id name="id" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
 		<property name="menuId" column="menuId" type="int" />
 		<property name="userId" column="userId" type="int" />
 	</class>
-
 	<query name="money.role.UserMenuRightDao.findRecordByUserId">
 		<![CDATA[from UserMenuRightVO as userMenuRightDao where userId = ?]]>
+	</query>
+	<query name="money.role.UserMenuRightDao.deleteAllByUserId">
+		<![CDATA[delete from UserMenuRightVO as userMenuRightDao where userId = ?]]>
 	</query>
 </hibernate-mapping>

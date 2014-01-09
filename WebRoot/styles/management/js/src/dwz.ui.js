@@ -44,6 +44,9 @@ function initEnv() {
 	}, 10);
 
 } 
+/**
+ * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
+ */
 function initLayout(){
 	var iContentW = $(window).width() - (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34; 
@@ -54,7 +57,19 @@ function initLayout(){
  
 	//下面对表格树进行控制高度自适应.
 	 var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-56;  
-	 $('#newtableTree').resetHeight(gridTreeHeight);    
+	 $('#newtableTree').resetHeight(gridTreeHeight);
+	 
+	 initMyUI();
+}
+
+function initMyUI(){
+	//专门针对用户权限控制的样式控制. 
+	if($('div[autoHeight]').size()>0){ 
+		 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
+		 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
+		 $('div[autoHeight]').height(_height-15);
+		 $('div.zTreeDemoBackground[autoHeight]').height(_height-25);
+	 }
 }
 
 function initUI(_box){
@@ -310,6 +325,8 @@ function initUI(_box){
 		}
 	}
 	
+	
+	
 	if($('#baiduMap:visible').size()>0){
 		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
 	}
@@ -376,4 +393,7 @@ function initUI(_box){
 		$('#newtableTree',$p).gridTree(content);   
 		//window.parent.onresizeend = gridRessetSize();
 	}
+	
+	//个性化的样式修改.
+	initMyUI();
 }

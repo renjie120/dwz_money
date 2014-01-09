@@ -202,10 +202,16 @@ public class Tree implements ITree {
 			}
 		} 
 	}
+	
+	/**
+	 * 返回树形的dwz 菜单形式.
+	 * @return
+	 */
 	public String getDeepTree(){
 		StringBuffer ans = new StringBuffer();
 		LinkedList<TreeNode> allNodes = new LinkedList<TreeNode>();
-		allNodes.addAll(root.getChild());
+		if(root.getChild()!=null)
+			allNodes.addAll(root.getChild());
 		int lastLevel = 0;
 		while(!allNodes.isEmpty()){
 			TreeNode node = allNodes.removeFirst();

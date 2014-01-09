@@ -36,8 +36,9 @@ ul.rightTools li {
 		if (v.length > 0)
 			v = v.substring(0, v.length - 1);
 		if (v2.length > 0)
-			v2 = v2.substring(0, v2.length - 1);
-			alert(v+"----"+v2); 
+			v2 = v2.substring(0, v2.length - 1); 
+		$('#jbsxBox').loadUrl("/money/menu!queryByUser.do?userId="+v2, {}, function(){ 
+		});
 	}
 
 	function filter(treeId, parentNode, childNodes) {
@@ -51,7 +52,7 @@ ul.rightTools li {
 //-->
 </script>
 <div class="pageContent" style="padding:5px">
-	<div class="tabs">
+	<div class="tabs" id="layout">
 		<div class="tabsHeader">
 			<div class="tabsHeaderContent">
 				<ul>
@@ -64,10 +65,11 @@ ul.rightTools li {
 				</ul>
 			</div>
 		</div>
-		<div class="tabsContent" style="height:400px">
+		<div class="tabsContent" style="border:1px #BAD1D7 solid;" autoHeight>
 			<div>
-				<div class="zTreeDemoBackground left" style="float:left; display:block; height:400px;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
-					<ul id="treeDemo" class="ztree" height='300' lazy="true"></ul>
+				<div class="zTreeDemoBackground left" style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
+				autoHeight>
+					<ul id="treeDemo" class="ztree"  lazy="true"></ul>
 				</div>
 
 				<div id="jbsxBox" class="unitBox" style="margin-left:246px;">
@@ -75,17 +77,11 @@ ul.rightTools li {
 				</div>
 			</div>
 
-			<div>病人处方</div>
+			<div>用户角色分配（暂时是空白）</div>
 
-			<div>病人服药情况</div>
-
-			<div>基线调查</div>
-
-			<div>随访</div>
-		</div>
-		<div class="tabsFooter">
-			<div class="tabsFooterContent"></div>
-		</div>
+			<div>角色菜单权限（暂时是空白）</div>
+ 
+		</div> 
 	</div>
 </div>
 

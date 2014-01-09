@@ -181,6 +181,9 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/menu/Menuedit.jsp
 			</result>
+			<result name="role_menu_list">
+				/WEB-INF/jsp/role/Menulist.jsp
+			</result>
 		</action>
 
 		<!-- <action name="param" class="money.params.ParamAction"> <result name="list"> 

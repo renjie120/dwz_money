@@ -31,3 +31,5 @@ spring_manager_money.cfg.xml
 		</bean>
 	</property>
 </bean>
+
+hibernate_mysql.cfg.xml
