@@ -14,7 +14,7 @@
 
 spring_manager_money.cfg.xml
 <bean id="${nm}Manager"
-	class="money.${nm}.${bignm}ManagerImpl">
+	class="${model.packageName}.${bignm}ManagerImpl">
 	<constructor-arg index="0" ref="${nm}Dao"></constructor-arg>
 </bean>
 
@@ -22,11 +22,11 @@ spring_manager_money.cfg.xml
 
 <bean id="${nm}Dao" parent="daoProxy">
 	<property name="proxyInterfaces">
-		<value>money.${nm}.${bignm}Dao</value>
+		<value>${model.packageName}.${bignm}Dao</value>
 	</property>
 	<property name="target">
 		<bean parent="baseDao">
-			<constructor-arg value="money.${nm}.${bignm}VO">
+			<constructor-arg value="${model.packageName}.${bignm}VO">
 			</constructor-arg>
 		</bean>
 	</property>

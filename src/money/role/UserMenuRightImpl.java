@@ -1,7 +1,6 @@
 package money.role;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 
 /**
  * 关于用户菜单权限信息的业务实体类.

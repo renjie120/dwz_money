@@ -1,10 +1,6 @@
 package money.role;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.present.BaseAction;
 
 /**
@@ -28,6 +24,8 @@ public class UserMenuRightAction extends BaseAction {
 	private int pageSize = 50;
 	// 总页数
 	private long count;
+	private int menuId;
+	private Integer id;
 
 	 
 
@@ -36,27 +34,7 @@ public class UserMenuRightAction extends BaseAction {
 		String userId = request.getParameter("userId");
 		pMgr.addUserMenuRights(ids,userId);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
-	}
-
-	public String doUpdate() {
-		try {
-			UserMenuRightImpl usermenurightImpl = new UserMenuRightImpl(menuId,
-					userId);
-			pMgr.updateUserMenuRight(usermenurightImpl);
-		} catch (ValidateFieldsException e) {
-			e.printStackTrace();
-		}
-		writeToPage(response, getText("msg.operation.success"));
-		return null;
-	}
-
-	public String beforeQuery() {
-		return "query";
-	}
-
-	public String reQuery() {
-		return "list";
-	}
+	} 
 
 	public String menulist() {
 		return "menulist";
@@ -94,11 +72,7 @@ public class UserMenuRightAction extends BaseAction {
 	public void setCount(long count) {
 		this.count = count;
 	}
-
-	private Map<UserMenuRightSearchFields, Object> getCriterias() {
-		Map<UserMenuRightSearchFields, Object> criterias = new HashMap<UserMenuRightSearchFields, Object>();
-		return criterias;
-	}
+ 
 
 	public UserMenuRight getVo() {
 		return vo;
@@ -108,9 +82,7 @@ public class UserMenuRightAction extends BaseAction {
 		this.vo = vo;
 	}
 
-	private int menuId;
-	private Integer id;
-
+	
 	/**
 	 * 获取菜单id的属性值.
 	 */

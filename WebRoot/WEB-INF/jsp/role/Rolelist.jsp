@@ -1,17 +1,7 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<script type="text/javascript">
-<!--
-function navTabSearch(form, navTabId){
-	var $form = $(form);
-	if (form[DWZ.pageInfo.pageNum]) form[DWZ.pageInfo.pageNum].value = 1;
-	navTab.reload($form.attr('action'), {data: $form.serializeArray(), navTabId:navTabId});
-	return false;
-}
-//-->
-</script>
-<form id="pagerForm" method="post" action="/money/usermenuright!init.do">
+<form id="pagerForm" method="post" action="/money/role!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" /> <input
 		type="hidden" name="numPerPage" value="${numPerPage}" /> <input
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
@@ -19,15 +9,10 @@ function navTabSearch(form, navTabId){
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
-		action="/money/menu!queryByUser.do?userId=<%=request.getParameter("userId")%>"
-		method="post">
+		action="/money/role!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
-				<tr> 
-					<td>菜单名称</td>
-					<td><input name="menuName" class="textInput" size="30"
-						type="text" />
-					</td> 
+				<tr>
 				</tr>
 			</table>
 			<div class="subBar">
@@ -39,6 +24,9 @@ function navTabSearch(form, navTabId){
 							</div>
 						</div>
 					</li>
+					<li><a class="button" href="/money/role!beforeQuery.do"
+						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -47,10 +35,22 @@ function navTabSearch(form, navTabId){
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add"
-				href="/money/usermenuright!doAdd.do?userId=<%=request.getParameter("userId")%>"
-				postType="string" target="selectedTodo" rel="ids"><span>授权</span>
-			</a></li>
+			<li><a class="add" href="/money/role!beforeAdd.do"
+				target="dialog" mask="true" title="添加"><span>添加</span> </a>
+			</li>
+			<li><a class="delete" href="/money/role!doDelete.do"
+				postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+			</a>
+			</li>
+			<li><a class="edit"
+				href="/money/role!beforeUpdate.do?roleId={roleId}" mask="true"
+				target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<li><a class="icon" href="/money/role!export.do"
+				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
+			</a>
+			</li>
+
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">
@@ -59,38 +59,23 @@ function navTabSearch(form, navTabId){
 				<th width="30"><input type="checkbox" group="ids"
 					class="checkboxCtrl">
 				</th>
-				<th width="100" orderField="MENUID">菜单流水号</th>
-				<th width="140" orderField="MENUNAME">菜单名称</th>
-				<th width="100" orderField="PARENTID">上级菜单</th>
-				<th width="240" orderField="URL">连接</th>
-				<th width="100" orderField="LEVEL">菜单级别</th>
-				<th width="100" orderField="LEVEL">菜单编码</th>
+				<th width="100" orderField="ROLEDESC">角色描述</th>
+				<th width="100" orderField="ROLENAME">角色名称</th>
+				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<s:iterator value="list" var="haha" status="stu">
-				<tr target="menuId" rel="<s:property value="menuId" />">
-					<s:if test="%{checked=='true'}">
-						<td><input name="ids" value="<s:property value="menuId" />"
-							checked type="checkbox">
-						</td>
-					</s:if>
-					<s:else>
-						<td><input name="ids" value="<s:property value="menuId" />"
-							type="checkbox">
-						</td>
-					</s:else>
-					<td><s:property value="menuId" />
+			<s:iterator value="list" status="stu">
+				<tr target="roleId" rel="<s:property value="roleId" />">
+					<td><input name="ids" value="<s:property value="roleId" />"
+						type="checkbox">
 					</td>
-					<td><s:property value="menuName" />
+					<td><s:property value="roleDesc" />
 					</td>
-					<td><s:property value="parentId" />
+					<td><s:property value="roleName" />
 					</td>
-					<td><s:property value="url" />
-					</td>
-					<td><s:property value="level" />
-					</td>
-					<td><s:property value="relId" />
+					<td><a class="myAddbutton"  href="/money/role!updateMenuWithRole.do?roleId={roleId}"
+						target="dialog" mask="true"><span>授予菜单权限</span> </a>
 					</td>
 				</tr>
 			</s:iterator>

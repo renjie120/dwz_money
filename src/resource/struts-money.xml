@@ -5,10 +5,21 @@
 <struts>
 
 	<package name="money" namespace="/money" extends="struts2">
+		<action name="role" class="money.rolemanager.RoleAction">
+			<result name="list">
+				/WEB-INF/jsp/role/Rolelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/role/Roleinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/role/Roleedit.jsp
+			</result>
+		</action>
 		<action name="map" class="money.baidu.MapAction">
 			<result name="detail">
 				/WEB-INF/jsp/baidu/BaiduMap.jsp
-			</result> 
+			</result>
 			<result name="sum">
 				/WEB-INF/jsp/baidu/SumBaiduMap.jsp
 			</result>

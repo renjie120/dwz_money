@@ -12,7 +12,7 @@ public class Code {
 //		 "D:\\My Documents\\GitHub\\dwz_money\\code_template\\datamodle.xml";
 //		final String file = "F:\\github\\dwz_money\\code_template\\datamodle.xml";
 		final String file = "D:\\github\\dwz_money\\code_template\\datamodle.xml";
-		String beanName = "UserMenuRight"; 
+		String beanName = "Role"; 
 		new Generate("action_code.ftl", beanName, "Action.java") {
 			public Object setData() {
 				ModelParse p = new ModelParse();

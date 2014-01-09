@@ -241,8 +241,8 @@ a:hover {text-decoration:underline;}
 .panelBar li.hover a { background-position:100% -150px;}
 
 .panelBar .toolBar li, .panelBar .toolBar li.hover { padding:0 0 0 5px; background-position:0 -100px;}
-.panelBar .toolBar a, .panelBar .toolBar li.hover a { float:left; display:block; overflow:hidden; padding:0 5px 0 0; text-decoration:none; background-position:100% -150px;}
-.panelBar .toolBar span, .panelBar .toolBar li.hover span { float:left; display:block; overflow:hidden; height:23px; padding:0 0 0 20px; line-height:23px; cursor:pointer;}
+.panelBar .toolBar a, .panelBar .toolBar li.hover a ,a.myAddbutton{ float:left; display:block; overflow:hidden; padding:0 5px 0 0; text-decoration:none; background-position:100% -150px;}
+.panelBar .toolBar span, .panelBar .toolBar li.hover span,a.myAddbutton span{ float:left; display:block; overflow:hidden; height:23px; padding:0 0 0 20px; line-height:23px; cursor:pointer;}
 
 .panelBar .toolBar a.add span { background-position:0 -696px;}
 .panelBar .toolBar a.delete span { background-position:0 -746px;}

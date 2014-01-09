@@ -8,6 +8,9 @@
 	<bean id="myuserManager" class="money.myuser.MyUserManagerImpl">
 		<constructor-arg index="0" ref="myuserDao"></constructor-arg>
 	</bean>
+	<bean id="roleManager" class="money.rolemanager.RoleManagerImpl">
+		<constructor-arg index="0" ref="roleDao"></constructor-arg>
+	</bean>
 	<bean id="usermenurightManager" class="money.role.UserMenuRightManagerImpl">
 		<constructor-arg index="0" ref="usermenurightDao"></constructor-arg>
 	</bean>

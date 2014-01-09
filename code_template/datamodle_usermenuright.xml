@@ -1,0 +1,4 @@
+<class name="UserMenuRight" table="user_menu_right" desc="用户菜单权限信息" package="money.role"> 
+	<id name="menuId" column="menuId" type="int" desc="菜单id" width="10" visible="false" noedit="true"/>  
+	<property name="userId" column="userId" type="int" desc="用户id" width="10" visible="false" noedit="true"/>
+</class>

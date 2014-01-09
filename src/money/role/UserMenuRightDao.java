@@ -17,23 +17,9 @@ public interface UserMenuRightDao extends BaseDao<UserMenuRightVO, Integer> {
 	 */
 	public Collection<UserMenuRightVO> findRecordByUserId(int uiserId); 
 	
-	/**
-	 * 查询全部集合.
-	 */
-	public Collection<UserMenuRightVO> findAll(); 
-	
-	/**
-	 * 根据条件查询全部集合.
-	 */
-	public Collection<UserMenuRightVO> findParmByType(int paramType);  
-
-	/**
+	 	/**
 	 * 根据用户删除下面的全部权限..
 	 */
-	public void deleteAllByUserId(int userId);
-
-	/**
-	 * 根据主键更新数据.
-	 */
-	public void updateAllaccessUserMenuRightVO(UserMenuRightVO vo, int menuId);
+	public void deleteAllByUserId(int userId); 
+ 
 }

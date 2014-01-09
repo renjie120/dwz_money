@@ -11,13 +11,13 @@
 		</property>
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
-		</property> 
+		</property>
 		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/dwz4j</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">987425</property> 
+		<property name="connection.password">987425</property>
 		<property name="show_sql">false</property>
 
-		<!-- C3P0连接池设定-->
+		<!-- C3P0连接池设定 -->
 
 		<property name="hibernate.connection.provider_class">
 			org.hibernate.connection.C3P0ConnectionProvider
@@ -48,6 +48,7 @@
 		<mapping resource="hbm/myuser.hbm.xml" />
 		<mapping resource="hbm/menu.hbm.xml" />
 		<mapping resource="hbm/org.hbm.xml" />
+		<mapping resource="hbm/role.hbm.xml" />
 		<mapping resource="hbm/moneytype.hbm.xml" />
 		<mapping resource="hbm/question.hbm.xml" />
 		<mapping resource="hbm/cache.hbm.xml" />

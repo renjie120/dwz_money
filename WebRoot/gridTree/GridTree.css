@@ -44,13 +44,15 @@ li.j-last{
 .gridTree .gridTbody td div { display:block; overflow:hidden; height:21px; white-space:nowrap; line-height:21px;}
 .gridTree .gridTbody td div a{line-height:21px;}
  
-.panelBar,
+.panelBar,a.myAddbutton,
 .toolBar li.hover, .toolBar li.hover a, .toolBar li.hover span, .toolBar span,
 .pagination2, .pagination2 li.hover, .pagination2 li.hover a, .pagination2 li span,
 .pagination2 li.disabled span span,
 .panelBar .line, .pagination2 li.jumpto, .pagination2 li.jumpto { background:url(./images/dwz/grid.png) repeat-x;}
 
-
+a.myAddbutton{
+ 	background-position:0 -696px;
+}
 .panelBar { border-color:#b8d0d6; background-color:#efefef;}
 
 .gridTree .gridHeader { background:#EEE;}
