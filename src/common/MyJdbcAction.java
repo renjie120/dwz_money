@@ -34,6 +34,45 @@ public class MyJdbcAction extends BaseAction {
 		return "list";
 	}
 
+	private String moneyStr;
+
+	public String getMoneyStr() {
+		return moneyStr;
+	}
+
+	public void setMoneyStr(String moneyStr) {
+		this.moneyStr = moneyStr;
+	}
+
+	public String importMoney() throws Exception {
+		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		PlatformTransactionManager transactionManager = (DataSourceTransactionManager) SpringContextUtil
+				.getBean("jdbcTm");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setTimeout(50);
+		TransactionStatus status = transactionManager.getTransaction(def);
+		if(moneyStr!=null){
+			String[] moneys = moneyStr.split("\\$;");
+			for(String m:moneys){
+			String[] strs = m.split("\\$,");
+			String sqlsql = "insert into money_detail_t(money_time,money,money_type,money_desc ) values("
+					+"'"+strs[0]+"',"+strs[1]+",'"+strs[2]+"','"+("0".equals(strs[3])?"":strs[3])+"')";
+			try {
+				jdbcDaoTest.exeSql(sqlsql);
+			} catch (Exception ex) {
+				transactionManager.rollback(status);
+				System.out.println("出现异常了，回滚了！！");
+				throw ex;
+			}
+			} 
+		}
+		transactionManager.commit(status);
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
+
 	public String exeSqlAction() throws Exception {
 		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
 				.getBean("jdbcTool");
