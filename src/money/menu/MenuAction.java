@@ -1,5 +1,6 @@
 package money.menu;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -170,6 +171,19 @@ public class MenuAction extends BaseAction {
 		this.userId = userId;
 	}
 
+	private String getUrlParam(String str) {
+		try {
+			if (str != null && !"".equals(str)){ 
+				return new String(str.getBytes("iso8859_1"),"UTF-8");
+			}
+			else
+				return "";
+		} catch (UnsupportedEncodingException e) {
+			log.error("ParameterAction---getUrlParam:字符转换出现异常,出现了不可识别的乱码.");
+			return str;
+		}
+	}
+
 	/**
 	 * 查询人员
 	 * 
@@ -179,6 +193,7 @@ public class MenuAction extends BaseAction {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
+
 		Map<MenuSearchFields, Object> criterias = getCriterias();
 		Set<Integer> rights = userMenuMgr.getMenuIdsByUserId(Integer
 				.parseInt(userId));
@@ -191,14 +206,14 @@ public class MenuAction extends BaseAction {
 		request.setAttribute("totalCount", count);
 		if (count > 0)
 			for (Menu m : moneyList) {
-				if(rights.contains(m.getMenuId())){
-					MenuImpl vo = (MenuImpl)m;
+				if (rights.contains(m.getMenuId())) {
+					MenuImpl vo = (MenuImpl) m;
 					vo.getMenuVO().setChecked("true");
-				}else{
-					MenuImpl vo = (MenuImpl)m;
+				} else {
+					MenuImpl vo = (MenuImpl) m;
 					vo.getMenuVO().setChecked("false");
 				}
-					
+
 			}
 		ActionContext.getContext().put("list", moneyList);
 		ActionContext.getContext().put("userId", userId);
@@ -259,11 +274,13 @@ public class MenuAction extends BaseAction {
 	}
 
 	private Map<MenuSearchFields, Object> getCriterias() {
+		String menuName = getMenuName();
+		menuName = getUrlParam(menuName);
 		Map<MenuSearchFields, Object> criterias = new HashMap<MenuSearchFields, Object>();
 		if (getMenuId() != null && getMenuId() != 0)
 			criterias.put(MenuSearchFields.MENUID, getMenuId());
-		if (getMenuName() != null && !"".equals(getMenuName()))
-			criterias.put(MenuSearchFields.MENUNAME, "%" + getMenuName() + "%");
+		if (menuName != null && !"".equals(menuName))
+			criterias.put(MenuSearchFields.MENUNAME, "%" + menuName + "%");
 		if (getParentId() != null && !"".equals(getParentId()))
 			criterias.put(MenuSearchFields.PARENTID, getParentId());
 		if (getLevel() != null && !"".equals(getLevel())

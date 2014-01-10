@@ -151,6 +151,8 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 			}
 
 		if (useCount) {
+			sb.append(count == 0 ? " where " : " and ").append(
+					"  menu.parentId=menu2.menuId ");
 			return new Object[] { sb.toString(), argList.toArray() };
 		}else{
 			sb.append(count == 0 ? " where " : " and").append(

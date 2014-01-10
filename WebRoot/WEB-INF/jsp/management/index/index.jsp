@@ -122,7 +122,7 @@
 <link rel="stylesheet" href="/ztree2/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
 	<script type="text/javascript" src="/ztree2/js/jquery.ztree.core-3.5.js"></script>
-
+<script type="text/javascript" src="/ztree2/js/jquery.ztree.excheck-3.5.js"></script>
 	<script type="text/javascript"> 
 		$(function() {
 			DWZ.init("/styles/management/dwz.frag.xml", {

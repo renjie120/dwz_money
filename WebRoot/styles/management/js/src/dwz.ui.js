@@ -62,12 +62,15 @@ function initLayout(){
 	 initMyUI();
 }
 
+/**
+ * 可以在自定义的jsp里面再查询修正某些样式...
+ */
 function initMyUI(){
 	//专门针对用户权限控制的样式控制. 
 	if($('div[autoHeight]').size()>0){ 
 		 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
 		 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
-		 $('div[autoHeight]').height(_height-15);
+		 $('div[autoHeight].tabsContent').height(_height-15);
 		 $('div.zTreeDemoBackground[autoHeight]').height(_height-25);
 	 }
 }
@@ -317,7 +320,7 @@ function initUI(_box){
 						}
 					}; 
 					
-					if($tree.attr('checkable')=='true'){ 
+					if($tree.attr('checkable')=='true'){  
 						setting = {
 								check:{enable: true },
 								data: { 
@@ -331,7 +334,13 @@ function initUI(_box){
 							};  
 					}
 					$.fn.zTree.init($tree, setting, zNodes); 
-					$tree.height($tree.attr('height')).css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
+					if($tree.attr('height')!=null)
+						$tree.height($tree.attr('height'));
+					if($tree.attr('noScroll')!='true')
+						$tree.css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
+					else{
+						$tree.css('backgroundColor','white').css('overflow','hidden');
+					}
 				}
 			}); 
 		}else{ 

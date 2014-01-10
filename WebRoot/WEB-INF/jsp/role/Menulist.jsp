@@ -1,4 +1,4 @@
-
+﻿
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <script type="text/javascript">
@@ -6,19 +6,23 @@
 function navTabSearch(form, navTabId){
 	var $form = $(form);
 	if (form[DWZ.pageInfo.pageNum]) form[DWZ.pageInfo.pageNum].value = 1;
-	navTab.reload($form.attr('action'), {data: $form.serializeArray(), navTabId:navTabId});
+	navTab.reload($form.attr('action'), {data: $form.serializeArray(), navTabId:navTabId},function(){
+		//initLayout();
+	});
 	return false;
 }
+
+ 
 //-->
 </script>
-<form id="pagerForm" method="post" action="/money/usermenuright!init.do">
+<form id="pagerForm" method="post" action="/money/menu!queryByUser.do?userId=<%=request.getParameter("userId")%>">
 	<input type="hidden" name="pageNum" value="${pageNum}" /> <input
 		type="hidden" name="numPerPage" value="${numPerPage}" /> <input
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
 		type="hidden" name="orderDirection" value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
-	<form onsubmit="return navTabSearch(this);"
+	<form onsubmit="return refreshSelf(this);"
 		action="/money/menu!queryByUser.do?userId=<%=request.getParameter("userId")%>"
 		method="post">
 		<div class="searchBar">
@@ -44,7 +48,7 @@ function navTabSearch(form, navTabId){
 		</div>
 	</form>
 </div>
-<div class="pageContent">
+<div class="pageContent"  id='tbtb'>
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li><a class="add"
@@ -53,7 +57,7 @@ function navTabSearch(form, navTabId){
 			</a></li>
 		</ul>
 	</div>
-	<table class="table" layoutH="-138">
+	<table class="table" layoutH="-138" id="tableArea">
 		<thead>
 			<tr>
 				<th width="30"><input type="checkbox" group="ids"
@@ -118,4 +122,3 @@ function navTabSearch(form, navTabId){
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>
-

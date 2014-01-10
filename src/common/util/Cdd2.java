@@ -15,8 +15,9 @@ public class Cdd2 {
 	static int w;//3-编码时数组除以3余下的数
 
 	static char[] source;
-
-	//static String  = "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=";
+	
+	public static String DJPHttp="qC8lS#^P2m$v3Yuo4ZWK4ZSK4#SPOsLKTDLn2s8dOt0vSC8DqNod6tLmpM00p#lo4#kv4i&cSsLnqN%I6k$s5iBv7lkt2k7u3$7J4#$m79lu7m3u2i3l4lL!4#X#3m!%37==";
+	public static String  KEY= "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=";
 
 	private static char[] strToChars(String str) {
 		try {
@@ -56,7 +57,7 @@ public class Cdd2 {
 		list.add(1);
 		list.add("c");
 		list.add((int)'a');
-		String mima = c.strToBase64Str("你好","B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
+		String mima = c.strToBase64Str("http://192.168.67.47/center/decryptFile?userId=145959&serial=A6909CE7-D80D-413A-8C38-347EA48C30E1","B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
 		System.out.println(mima); 
 		try {
 			System.out.println(c.strFromAsBase64Str(mima, "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/="));

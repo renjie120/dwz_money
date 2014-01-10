@@ -196,6 +196,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				buil.append(nd.getId());
 				buil.append("',name:'");
 				buil.append(nd.getName());
+				if(nd.isChecked)
+					buil.append("',checked:true");
 				buil.append("',isParent:");
 				buil.append(nd.isParent);
 				buil.append("}");
