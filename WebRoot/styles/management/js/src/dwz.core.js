@@ -62,7 +62,7 @@ var DWZ = {
 			alert("Http status: " + xhr.status + " " + xhr.statusText + "\najaxOptions: " + ajaxOptions + "\nthrownError:"+thrownError + "\n" +xhr.responseText);
 		}
 	},
-	ajaxDone:function(json){
+	ajaxDone:function(json){ 
 		if (json.statusCode === undefined && json.message === undefined) { // for iframeCallback
 			if (alertMsg) return alertMsg.error(json);
 			else return alert(json);
@@ -175,18 +175,23 @@ var DWZ = {
 			return this.each(function(){
 				var $this = $(this);
 				if (! $refBox) $refBox = $this.parents("div.layoutBox:first");
-				var iRefH = $refBox.height(); 
+				var iRefH = $refBox.height();  
 				var iLayoutH = parseInt($this.attr("layoutH"));
 				var iH = iRefH - iLayoutH > 50 ? iRefH - iLayoutH : 50;  
-				 if(iLayoutH<0){
+				//如果没有设置过使用高度 
+				if(iLayoutH<0&&!$this.attr('setHeight')){
 					var gridTreeHeight = $("#container .tabsPageContent").height()+iLayoutH;    
 					$this.height(gridTreeHeight).css("overflow","auto"); 
 				}
 				else{ 
 					if ($this.isTag("table")) {  
 							$this.removeAttr("layoutH").wrap('<div layoutH="'+iLayoutH+'" style="overflow:auto;height:'+iH+'px"></div>');
-					} else {
-						$this.height(iH).css("overflow","auto");
+					} else {  
+						 if($this.attr('setHeight')=='true'){
+							 $this.height(iLayoutH).css("overflow","auto");
+						}
+						else
+							$this.height(iH).css("overflow","auto");
 					} 
 				 }
 			});

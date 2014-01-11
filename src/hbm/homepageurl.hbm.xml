@@ -1,0 +1,20 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.homepage.HomePageUrlVO" table="homepageurl">
+		<id name="urlId" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="urlDesc" column="urldesc" type="string" />
+				<property name="url" column="url" type="string" />
+				<property name="orderId" column="orderid" type="int" />
+				<property name="typeId" column="typeid" type="int" />
+	</class>
+
+	<query name="money.homepage.HomePageUrlDao.findRecordById">
+		<![CDATA[from HomePageUrlVO as homePageUrlDao where urlId = ?]]>
+	</query>
+</hibernate-mapping>

@@ -44,6 +44,7 @@
 		<mapping resource="hbm/param.hbm.xml" />
 		<mapping resource="hbm/paramtype.hbm.xml" />
 		<mapping resource="hbm/usermenuright.hbm.xml" />
+		<mapping resource="hbm/homepageurl.hbm.xml" />
 		<mapping resource="hbm/plan.hbm.xml" />
 		<mapping resource="hbm/myuser.hbm.xml" />
 		<mapping resource="hbm/menu.hbm.xml" />

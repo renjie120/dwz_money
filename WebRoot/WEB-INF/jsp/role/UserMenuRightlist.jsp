@@ -26,24 +26,33 @@ ul.rightTools li {
 		}
 	};
 
-	function onClick(e, treeId, treeNode) {
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
+	function onClick(e, treeId, treeNode) {  
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
 				.getSelectedNodes(), v = "", v2 = "";
-		for ( var i = 0, l = nodes.length; i < l; i++) {
-			v += nodes[i].name + ",";
-			v2 += nodes[i].id + ",";
-		}
-		if (v.length > 0)
-			v = v.substring(0, v.length - 1);
-		if (v2.length > 0)
-			v2 = v2.substring(0, v2.length - 1);
-		$this = $('#jbsxBox');
-		var wdt = $this.parent().width() - $('#treeDemo').width() - 28;
-		$this.height($('#' + $this.attr('relHeight')).height()).width(wdt)
-				.loadUrl("/money/menu!queryByUser.do?userId=" + v2, {},
-						function() {
-
-						});
+			if(nodes.length>0&&!nodes[0].isParent){
+				for ( var i = 0, l = nodes.length; i < l; i++) {
+					v += nodes[i].name + ",";
+					v2 += nodes[i].id + ",";
+				}
+				if (v.length > 0)
+					v = v.substring(0, v.length - 1);
+				if (v2.length > 0)
+					v2 = v2.substring(0, v2.length - 1);
+				$this = $('#jbsxBox');
+				var wdt = $this.parent().width() - $('#treeDemo').width() - 28;
+				$this.height($('#' + $this.attr('relHeight')).height()).width(wdt)
+						.loadUrl("/money/menu!queryByUser.do?userId=" + v2, {},
+								function() {  
+									var _b = $('#tableArea');
+									var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
+									var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-_b.attr('modifyHeight');
+									_b.height(__int); 
+								}); 
+			}else{
+				//nodes.expand();
+				zTree.expandNode(nodes[0]);
+				//alert('请选择孩子节点');
+			}
 	}
 
 	function filter(treeId, parentNode, childNodes) {
@@ -54,30 +63,47 @@ ul.rightTools li {
 		}
 		return childNodes;
 	}
-	function initMyUI(){   
+	
+	function resizeGrid(){
+		$this = $('#jbsxBox'); 
+		var wdt = $this.parents().width() - $('#treeDemo').width() - 28;
+		$this.width(wdt);
+		$this.find('div.gridScroller').wdt(wdt+"px");
+	}
+	function initMyUI(){    
 		//专门针对用户权限控制的样式控制. 
 		if($('div[autoHeight]').size()>0){ 
 			 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
-			 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
-			// $('div[autoHeight].tabsContent').height(_height-15);
+			 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height(); 
 			 $('div.zTreeDemoBackground[autoHeight]').height(_height-30);
 		 }
 	 
-		$this = $('#jbsxBox');
-		var wdt = $this.parent().width() - $('#treeDemo').width() - 28;
-		$this.height($('#' + $this.attr('relHeight')).height()).width(wdt);
+		$this = $('#jbsxBox'); 
+		var wdt = $this.parents().width() - $('#treeDemo').width() - 28;
+		var hgt = $('#' + $this.attr('relHeight')).height();
+		$this.height(hgt).width(wdt);
+		$('#tbtb').height(hgt-55); 
+		   
+		
+		//找到嵌入的子页面里面的table，没有对应的table ID的！！因为生成表格的时候，会自动把全部属性重新组装一遍！
+		var _b = $this.find('.gridScroller');
+		var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
+		var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-_b.attr('modifyHeight');
+		_b.height(__int);  
+		_b.width(wdt);
 	}
 	
 	//在子页面里面刷新子页面自己.
 	function refreshSelf(obj) {
-		$form = $(obj);
+		$form = $(obj); 
 		//$("#jbsxBox").reload($form.attr('action'), {data: $form.serializeArray()},function(){});
 		$("#jbsxBox").loadUrl($form.attr('action'), {
-			"menuName" : $('input[name=menuName]').val()
+			"menuName" : escape($('input[name=menuName]').val())
 		}, function() { 
 		});
 		return false;
 	}
+	  
 //-->
 </script>
 <div class="pageContent" style="padding:5px" >
@@ -104,7 +130,7 @@ ul.rightTools li {
 				</div>
 
 				<div id="jbsxBox" class="unitBox" relHeight='userMenuRight'
-					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;">
+					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;">
 					<!--#include virtual="list1.html" -->
 				</div>
 			</div>

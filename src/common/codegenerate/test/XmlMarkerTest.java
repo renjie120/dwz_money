@@ -18,19 +18,19 @@ import common.codegenerate.Generate;
 public class XmlMarkerTest {
 	public static void main(String[] agrgs) {
 		Writer out = new OutputStreamWriter(System.out);
-		new Generate("book.ftl", out) {
-			public Object setData() {
-				Map m = new HashMap();
-				try {
-					m.put("doc", freemarker.ext.dom.NodeModel.parse(new File(
-							"F:\\github\\dwz_money\\template\\data.xml")));
-					// "D:\\My Documents\\GitHub\\dwz_money\\template\\data.xml")));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return m;
-			}
-		}.make();
+//		new Generate("book.ftl", out) {
+//			public Object setData() {
+//				Map m = new HashMap();
+//				try {
+//					m.put("doc", freemarker.ext.dom.NodeModel.parse(new File(
+//							"F:\\github\\dwz_money\\template\\data.xml")));
+//					// "D:\\My Documents\\GitHub\\dwz_money\\template\\data.xml")));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return m;
+//			}
+//		}.make();
 		System.out.println("\n\n生成完毕");
 	}
 }

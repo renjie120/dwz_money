@@ -13,7 +13,7 @@
 			var jbar = this;
 			var sbar = $(op.sideBar2, jbar);
 			var bar = $(op.sideBar, jbar);
-			$(op.toggleBut, bar).click(function(){
+			$(op.toggleBut, bar).click(function(){ 
 				DWZ.ui.sbar = false;
 				$(op.splitBar).hide();
 				var sbarwidth = sbar.cssv("left") + sbar.outerWidth();
@@ -55,7 +55,7 @@
 				sbar.animate({left: -25}, 200, function(){				
 					bar.show();
 				});
-				bar.animate({left: 5}, 800, function(){
+				bar.animate({left: 5}, 800, function(){ 
 					$(op.splitBar).show();
 					$(op.toggleBut, bar).show();					
 					var cleft = 5 + bar.outerWidth() + $(op.splitBar).outerWidth();

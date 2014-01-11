@@ -1,0 +1,5 @@
+<class name="RoleWithMenu" table="role_menu_right" desc="角色拥有的菜单权限" package="money.rolemanager"> 
+	<id name="id" column="id" type="int" desc="角色id" width="10" visible="false" noedit="true"/>  
+	<property name="roleId" column="roleId" type="string" desc="角色id "  width="100"    />
+	<property name="menuId" column="menuId" type="string" desc="菜单id"   width="100"  />
+</class>

@@ -274,8 +274,7 @@ public class MenuAction extends BaseAction {
 	}
 
 	private Map<MenuSearchFields, Object> getCriterias() {
-		String menuName = getMenuName();
-		menuName = getUrlParam(menuName);
+		String menuName = getMenuName(); 
 		Map<MenuSearchFields, Object> criterias = new HashMap<MenuSearchFields, Object>();
 		if (getMenuId() != null && getMenuId() != 0)
 			criterias.put(MenuSearchFields.MENUID, getMenuId());

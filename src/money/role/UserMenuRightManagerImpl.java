@@ -27,13 +27,15 @@ public class UserMenuRightManagerImpl extends AbstractBusinessObjectManager
 	}
   
 	public void addUserMenuRights(String ids,String user) {
-		String[] idArr = ids.split(",");
 		int userId = Integer.parseInt(user);
 		this.usermenurightdao.deleteAllByUserId(userId);
-		for (String s : idArr) {
-			int menuId = Integer.parseInt(s);
-			UserMenuRightVO right = new UserMenuRightVO(menuId,userId); 
-			this.usermenurightdao.insert(right);
+		if(!"".equals(ids)){
+			String[] idArr = ids.split(",");
+			for (String s : idArr) {
+				int menuId = Integer.parseInt(s);
+				UserMenuRightVO right = new UserMenuRightVO(menuId,userId); 
+				this.usermenurightdao.insert(right);
+			}
 		}
 	}
  

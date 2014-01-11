@@ -160,16 +160,15 @@ function _iframeResponse(iframe, callback) {
  * "message":"操作失败"} {"statusCode":"301", "message":"会话超时"}
  * 
  */
-function navTabAjaxDone(json) {
+function navTabAjaxDone(json) { 
 	DWZ.ajaxDone(json);
 
-	if (json.statusCode == DWZ.statusCode.ok) {
+	if (json.statusCode == DWZ.statusCode.ok) { 
 		if (json.navTabId) { // 把指定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的
 			navTab.reloadFlag(json.navTabId);
-		} else { // 重新载入当前navTab页面
+		} else { // 重新载入当前navTab页面 
 			navTabPageBreak({}, json.rel);
-		}
-
+		} 
 		if ("closeCurrent" == json.callbackType) {
 			setTimeout(function() {
 						navTab.closeCurrentTab();
@@ -290,7 +289,7 @@ function _getPagerForm($parent, args) {
  * pagerForm参数 {pageNum:"n", numPerPage:"n", orderField:"xxx",
  * orderDirection:""} callback: 加载完成回调函数
  */
-function dwzPageBreak(options) {
+function dwzPageBreak(options) { 
 	var op = $.extend({
 				targetType : "navTab",
 				rel : "",
@@ -303,32 +302,43 @@ function dwzPageBreak(options) {
 				callback : null
 			}, options);
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab
-			.getCurrentPanel();
-
-	if (op.rel) {
-		var $box = $parent.find("#" + op.rel);
-		var form = _getPagerForm($box, op.data);
+			.getCurrentPanel();    
+	if (op.rel) {  
+		var $box = $parent.find("#" + op.rel); 
+		var form = _getPagerForm($box, op.data); 
 		if (form) {
 			$box.ajaxUrl({
 						type : "POST",
 						url : $(form).attr("action"),
 						data : $(form).serializeArray(),
-						callback : function() {
-							$box.find("[layoutH]").layoutH();
+						callback : function() {  
+							var _b = $box.find("[layoutH]");
+							var _setHeight = _b.attr('setHeight'); 
+							//alert('分页之后修改ui');
+							if(_setHeight=='true'){ 
+								//修正高度的属性.
+								var m = _b.attr('modifyHeight'); 
+								if(m==null||m==''||isNaN(m))
+									m = 0;
+								var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
+								var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-m;
+								_b.height(__int); 
+							}
+							else
+								_b.layoutH();
 						}
 					});
 		}
-	} else {
+	} else { 
 		var form = _getPagerForm($parent, op.data);
-		var params = $(form).serializeArray();
-
+		var params = $(form).serializeArray(); 
 		if (op.targetType == "dialog") {
 			if (form)
 				$.pdialog.reload($(form).attr("action"), {
 							data : params,
 							callback : ops.callback
 						});
-		} else {
+		} else { 
 			if (form)
 				navTab.reload($(form).attr("action"), {
 							data : params,

@@ -10,6 +10,8 @@
 			var aStyles = [];
 			var $tc = $table.parent().addClass("j-resizeGrid"); // table parent container
 			var layoutH = $(this).attr("layoutH");
+			var modifyHeight = $(this).attr("modifyHeight");
+			var setHeight = $(this).attr("setHeight");
 
 			var oldThs = $table.find("thead>tr:last-child").find("th");
 
@@ -43,7 +45,9 @@
 
 			var tbody = $grid.find(">tbody");
 			var layoutStr = layoutH ? " layoutH='" + layoutH + "'" : ""; 
-			tbody.wrap("<div class='gridScroller'" + layoutStr + " style='width:" + $tc.width() + "px;'><div class='gridTbody'><table style='width:" + (tlength - 20) + "px;'></table></div></div>");
+			var modifyHeightStr = modifyHeight ? " modifyHeight='" + modifyHeight + "'" : "";
+			var setHeightStr = setHeight ? " setHeight='" + setHeight + "'" : ""; 
+			tbody.wrap("<div class='gridScroller'" + layoutStr +modifyHeightStr+ setHeightStr+" style='width:" + $tc.width() + "px;'><div class='gridTbody'><table style='width:" + (tlength - 20) + "px;'></table></div></div>");
 			var ftr = $(">tr:first-child", tbody);
 			var $trs = tbody.find('>tr');
 			
@@ -144,7 +148,7 @@
 				});
 			});
 		
-			function _resizeGrid(){
+			function _resizeGrid(){  
 				$("div.j-resizeGrid").each(function(){
 					var width = $(this).innerWidth();
 					if (width){

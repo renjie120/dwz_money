@@ -11,7 +11,7 @@ function initEnv() {
 		window.setInterval("CollectGarbage();", 10000);
 	}
 
-	$(window).resize(function(){
+	$(window).resize(function(){ 
 		initLayout(); 
 		$(this).trigger("resizeGrid"); 
 		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
@@ -65,9 +65,9 @@ function initLayout(){
 /**
  * 可以在自定义的jsp里面再查询修正某些样式...
  */
-function initMyUI(){
+function initMyUI(){ 
 	//专门针对用户权限控制的样式控制. 
-	if($('div[autoHeight]').size()>0){ 
+	if($('div[autoHeight]').size()>0){  
 		 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
 		 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
 		 $('div[autoHeight].tabsContent').height(_height-15);

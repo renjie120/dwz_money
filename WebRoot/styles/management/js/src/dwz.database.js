@@ -343,28 +343,27 @@
 			}
 		},
 		
-		selectedTodo: function(){
-			
+		selectedTodo: function(){ 
 			function _getIds(selectedIds, targetType){
 				var ids = "";
-				var $box = targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel();
+				var $box = targetType == "dialog" ? $.pdialog.getCurrent() : navTab.getCurrentPanel(); 
 				$box.find("input:checked").filter("[name='"+selectedIds+"']").each(function(i){
 					var val = $(this).val();
 					ids += i==0 ? val : ","+val;
-				});
+				});  
 				return ids;
 			}
 			return this.each(function(){
 				var $this = $(this);
 				var selectedIds = $this.attr("rel") || "ids";
 				var postType = $this.attr("postType") || "map";
-
-				$this.click(function(){
-					var ids = _getIds(selectedIds, $this.attr("targetType"));
-					if (!ids) {
+				
+				$this.click(function(){ 
+					var ids = _getIds(selectedIds, $this.attr("targetType")); 
+					if (!ids&&$this.attr('alownotcheck')!='true') {
 						alertMsg.error($this.attr("warn") || DWZ.msg("alertSelectMsg"));
 						return false;
-					}
+					} 
 					function _doPost(){
 						$.ajax({
 							type:'POST', url:$this.attr('href'), dataType:'json', cache: false,
@@ -379,11 +378,17 @@
 									return _data;
 								}
 							}(),
-							success: navTabAjaxDone,
+							success: function(json){ 
+								var _target = $this.attr('refreshtarget'); 
+								if(_target&&_target!=null){ 
+									json.rel = _target; 
+								}
+								navTabAjaxDone(json);
+							},
 							error: DWZ.ajaxError
 						});
 					} 
-					var title = $this.attr("title");
+					var title = $this.attr("title"); 
 					if (title) {
 						alertMsg.confirm(title, {okCall: _doPost});
 					} else {
