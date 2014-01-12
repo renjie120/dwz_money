@@ -4,6 +4,8 @@
 ###代码相关
 * 前台：jquery,dwz
 * 后台：spring+struts2+hibernate  
+* 代码生成器:根据xml生成增删改查导出模块
+* 适配于dwz框架的GridTree版本
 
 
 ###功能模块
