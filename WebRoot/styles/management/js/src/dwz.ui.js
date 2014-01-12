@@ -299,54 +299,56 @@ function initUI(_box){
 	if ($.fn.pagerForm) $("form[rel=pagerForm]", $p).pagerForm({parentBox:$p});
 	
 	//加载zTree!!
-	if ($('.ztree', $p).size()>0) {
-		var $tree = $(".ztree", $p);  
-		if($tree.attr('lazy')!='true'){
-			//不是懒加载树
-			$.ajax({
-				type:'post',
-				url:$tree.attr('url'),
-				success:function(msg){ 
-				eval("var zNodes ="+msg);
-					var setting = {
-						data: {
-							key: {  
-							},
-							simpleData: {
-								enable: true
-							}
-						},
-						callback: { 
-							onClick: onClick
-						}
-					}; 
-					
-					if($tree.attr('checkable')=='true'){  
-						setting = {
-								check:{enable: true },
-								data: { 
-									simpleData: {
-										enable: true
-									}
+	if ($('.ztree', $p).size()>0) { 
+		$(".ztree", $p).each(function(){ 
+			var $tree = $(this);   
+			if($tree.attr('lazy')!='true'){
+				//不是懒加载树
+				$.ajax({
+					type:'post',
+					url:$tree.attr('url'),
+					success:function(msg){ 
+					eval("var zNodes ="+msg);
+						var setting = {
+							data: {
+								key: {  
 								},
-								callback: { 
-									onClick: onClick
+								simpleData: {
+									enable: true
 								}
-							};  
+							},
+							callback: { 
+								onClick: onClick
+							}
+						}; 
+						
+						if($tree.attr('checkable')=='true'){  
+							setting = {
+									check:{enable: true },
+									data: { 
+										simpleData: {
+											enable: true
+										}
+									},
+									callback: { 
+										onClick: onClick
+									}
+								};  
+						}
+						$.fn.zTree.init($tree, setting, zNodes); 
+						if($tree.attr('height')!=null)
+							$tree.height($tree.attr('height'));
+						if($tree.attr('noScroll')!='true')
+							$tree.css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
+						else{
+							$tree.css('backgroundColor','white').css('overflow','hidden');
+						}
 					}
-					$.fn.zTree.init($tree, setting, zNodes); 
-					if($tree.attr('height')!=null)
-						$tree.height($tree.attr('height'));
-					if($tree.attr('noScroll')!='true')
-						$tree.css('backgroundColor','white').css('overflowX','hidden').css('overflowY','scroll');
-					else{
-						$tree.css('backgroundColor','white').css('overflow','hidden');
-					}
-				}
-			}); 
-		}else{  
-			$.fn.zTree.init($tree, setting);
-		}
+				}); 
+			}else{  
+				$.fn.zTree.init($tree, setting);
+			}
+		}); 
 	}
 	
 	

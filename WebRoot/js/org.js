@@ -48,6 +48,11 @@ function showOrgMenu() {
 		$("body").bind("mousedown", onBodyDown);
 	});
 }
+
+function showOrgMenu3() {
+	$("#treeDemo2").loadUrl("/money/role!updateMenuWithRole.do?roleId=2",{},function(){
+	});  
+} 
 function hideMenu() {
 	$("#menuContent").fadeOut("fast");
 	$("body").unbind("mousedown", onBodyDown);

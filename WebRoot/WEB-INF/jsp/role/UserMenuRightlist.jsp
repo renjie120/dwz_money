@@ -26,7 +26,7 @@ ul.rightTools li {
 		}
 	};
 
-	function onClick(e, treeId, treeNode) {  
+	function onClick(e, treeId, treeNode) { 
 			var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
 				.getSelectedNodes(), v = "", v2 = "";
 			if(nodes.length>0&&!nodes[0].isParent){
@@ -129,7 +129,7 @@ ul.rightTools li {
 				<div class="zTreeDemoBackground left" id='userMenuRight'
 					style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
 					autoHeight>
-					<ul id="treeDemo" class="ztree" lazy="true"></ul>
+					<ul id="userMenuRight_menutree" class="ztree" lazy="true"></ul>
 				</div>
 
 				<div id="jbsxBox" class="unitBox" relHeight='userMenuRight'
