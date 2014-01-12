@@ -184,4 +184,21 @@ public class HomePageUrlManagerImpl extends AbstractBusinessObjectManager implem
 		return new HomePageUrlImpl(homepageurl);
 	}
 
+	@Override
+	public Collection<HomePageUrl> searchAllHomePageUrl() {
+		// TODO Auto-generated method stub
+		Collection<HomePageUrlVO> homepageurls  = this.homepageurldao.findAll();
+		ArrayList<HomePageUrl> eaList = new ArrayList<HomePageUrl>();
+			
+		if (homepageurls == null || homepageurls.size() < 1)
+			return null;
+
+		
+		for (HomePageUrlVO po : homepageurls) {
+			eaList.add(new  HomePageUrlImpl(po));
+		}
+
+		return eaList;
+	}
+
 }

@@ -2,7 +2,6 @@
 package money.homepage;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
  * 关于首页url的业务类接口
  * @author www(水清)

@@ -4,7 +4,7 @@
 	String roleId = (String) request.getAttribute("roleId");
 %>
 <script type="text/javascript">
-<!--
+<!-- 
 	function onClick(event, treeId, treeNode, clickFlag) {
 		var treeObj = $.fn.zTree.getZTreeObj(treeId);
 		var node = treeObj.getNodeByTId(treeNode.tId);
@@ -13,6 +13,9 @@
 			'moneyType' : node.id,
 			'moneyTypeName' : treeNode.name
 		})
+	}
+	function treeType(){
+		return 'common';
 	}
 //-->
 </script>

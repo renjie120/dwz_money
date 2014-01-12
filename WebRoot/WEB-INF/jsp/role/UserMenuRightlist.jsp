@@ -95,7 +95,7 @@ ul.rightTools li {
 	
 	//在子页面里面刷新子页面自己.
 	function refreshSelf(obj) {
-		$form = $(obj); 
+		$form = $(obj);  
 		//$("#jbsxBox").reload($form.attr('action'), {data: $form.serializeArray()},function(){});
 		$("#jbsxBox").loadUrl($form.attr('action'), {
 			"menuName" : escape($('input[name=menuName]').val())
@@ -104,6 +104,9 @@ ul.rightTools li {
 		return false;
 	}
 	  
+	 function treeType(){
+		return 'lazy';
+	}
 //-->
 </script>
 <div class="pageContent" style="padding:5px" >

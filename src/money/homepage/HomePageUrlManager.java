@@ -27,6 +27,12 @@ public interface HomePageUrlManager  extends BusinessObjectManager {
 			String orderField, int startIndex, int count);
 
 	/**
+	 * 查询全部的首页连接信息.
+	 * @return
+	 */
+	public Collection<HomePageUrl> searchAllHomePageUrl();
+
+	/**
 	 * 查询总数.
 	 * @param criterias 查询条件
 	 * @return

@@ -190,7 +190,16 @@ public class Tree implements ITree {
 
 		System.out.println(tree.getDeepTree());
 	}
-
+	 
+	private String getNd(TreeNode node){
+		return "<a href='"
+							+ node.getUrl()
+							+ "' target='"
+							+ (node.target == null
+									|| "null".equals(node.target) ? "navTab"
+									: node.target) + "' rel='" + node.relId
+							+ "'>" + node.getName() + "</a> ";
+	}
 	public String getNodeStr(TreeNode node, int lastLevel) {
 		if (node.level == 1) {
 			int _temp = lastLevel - node.level;
@@ -206,16 +215,9 @@ public class Tree implements ITree {
 		} else {
 			if (lastLevel < node.level) {
 				if (node.level == 2) {
-					return "<div class='accordionContent'> <ul class='tree treeFolder expand'> <li><a href='#'>"
-							+ node.getName() + " </a>";
+					return "<div class='accordionContent'> <ul class='tree treeFolder expand'> <li>"+getNd(node);
 				} else {
-					return " <ul> <li><a href='"
-							+ node.getUrl()
-							+ "' target='"
-							+ (node.target == null
-									|| "null".equals(node.target) ? "navTab"
-									: node.target) + "' rel='" + node.relId
-							+ "'>" + node.getName() + "</a> ";
+					return " <ul> <li>"+getNd(node);
 				}
 			} else if (lastLevel > node.level) {
 				int _temp = lastLevel - node.level;
@@ -223,14 +225,9 @@ public class Tree implements ITree {
 				while (_temp-- > 0) {
 					ans += "</li> </ul>";
 				}
-				return ans + "</li> <li><a href='#'>" + node.getName() + "</a>";
+				return ans + "</li> <li>"+getNd(node);
 			} else {
-				return "</li> <li><a href='"
-						+ node.getUrl()
-						+ "' target='"
-						+ (node.target == null || "null".equals(node.target) ? "navTab"
-								: node.target) + "' rel='" + node.relId + "'>"
-						+ node.getName() + "</a>";
+				return "</li> <li>"+getNd(node);
 			}
 		}
 	}

@@ -102,16 +102,16 @@
 						var offset = $.jTableTool.getOffset(th, event).offsetX;
 						if($th.outerWidth() - offset < 5) {
 							$th.css("cursor", "col-resize").mousedown(function(event){
+								var hgt = $.jTableTool.getHeight(th,$grid);
+								console.log("dwz.stable.js...."+hgt);
 								$(".resizeProxy", $grid).show().css({
 									left: $.jTableTool.getRight(th)- $(".gridScroller", $grid).scrollLeft(),
-									top:$.jTableTool.getTop(th),
-									height:$.jTableTool.getHeight(th,$grid),
+									top:$.jTableTool.getTop(th) ,
 									cursor:"col-resize"
 								});
 								$(".resizeMarker", $grid).show().css({
 										left: $.jTableTool.getLeft(th) + 1 - $(".gridScroller", $grid).scrollLeft(),
-										top: $.jTableTool.getTop(th),
-										height:$.jTableTool.getHeight(th,$grid)									
+										top: $.jTableTool.getTop(th) 				
 								});
 								$(".resizeProxy", $grid).jDrag($.extend(options, {scop:true, cellMinW:20, relObj:$(".resizeMarker", $grid)[0],
 										move: "horizontal",

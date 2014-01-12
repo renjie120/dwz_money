@@ -87,7 +87,7 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 			Map<MenuSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count( menu) "
+				useCount ? "select count( menu.menuId) "
 						: "select  new MenuVO(menu.menuId,menu.target,menu.menuName,menu2.menuName,menu.orderId,menu.url,menu.level,menu.relId) ").append("from MenuVO as menu ,MenuVO as menu2 ");
 
 		int count = 0;

@@ -47,7 +47,7 @@ function initEnv() {
 /**
  * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
  */
-function initLayout(){
+function initLayout(){ 
 	var iContentW = $(window).width() - (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34; 
 	$("#container").width(iContentW);
@@ -67,12 +67,13 @@ function initLayout(){
  */
 function initMyUI(){ 
 	//专门针对用户权限控制的样式控制. 
-	if($('div[autoHeight]').size()>0){  
+	/*if($('div[autoHeight]').size()>0){  
+		if(!isNaN($("div.layout").height()-$("div.tabsHeader").height()-5))
 		 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
 		 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
 		 $('div[autoHeight].tabsContent').height(_height-15);
 		 $('div.zTreeDemoBackground[autoHeight]').height(_height-25);
-	 }
+	 }*/
 }
 
 function initUI(_box){
@@ -299,7 +300,7 @@ function initUI(_box){
 	
 	//加载zTree!!
 	if ($('.ztree', $p).size()>0) {
-		var $tree = $(".ztree"); 
+		var $tree = $(".ztree", $p);  
 		if($tree.attr('lazy')!='true'){
 			//不是懒加载树
 			$.ajax({
@@ -343,8 +344,8 @@ function initUI(_box){
 					}
 				}
 			}); 
-		}else{ 
-			$.fn.zTree.init($("#treeDemo"), setting);
+		}else{  
+			$.fn.zTree.init($tree, setting);
 		}
 	}
 	

@@ -15,7 +15,7 @@ public interface HomePageUrlDao extends BaseDao<HomePageUrlVO, Integer> {
 	/**
 	 * 根据主键查询全部集合.
 	 */
-	public Collection<HomePageUrlVO> findRecordById(int urlId); 
+	public Collection<HomePageUrlVO> findRecordById(int urlId);  
 	
 	/**
 	 * 查询全部集合.

@@ -1,17 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/include.inc.jsp"%> 
+<%@ include file="/include.inc.jsp"%>
 <%@ page import="common.tree.Tree"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
-<title><s:text name="ui.title" /></title>
+<title><s:text name="ui.title" />
+</title>
 <%
 	String path = request.getContextPath();
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
-	response.setDateHeader("Expires", 0); 
+	response.setDateHeader("Expires", 0);
 %>
 <script type="text/javascript"> 
 		var appPath = "<%=path%>
@@ -24,8 +25,7 @@
 	type="text/css" />
 <link href="/styles/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
-<link href="/gridTree/gridtree.css" rel="stylesheet"
-	type="text/css" /> 
+<link href="/gridTree/gridtree.css" rel="stylesheet" type="text/css" />
 <script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
@@ -121,8 +121,10 @@
 <!-- 下面引入ZTree -->
 <link rel="stylesheet" href="/ztree2/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
-	<script type="text/javascript" src="/ztree2/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="/ztree2/js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript"
+		src="/ztree2/js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript"
+		src="/ztree2/js/jquery.ztree.excheck-3.5.js"></script>
 	<script type="text/javascript"> 
 		$(function() {
 			DWZ.init("/styles/management/dwz.frag.xml", {
@@ -156,13 +158,10 @@
 				</a>
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
-						mask="true">我的资料</a>
-					</li>
+						mask="true">我的资料</a></li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
-						mask="true">修改密码</a>
-					</li>
-					<li><a href="/passport!logout.do">退出登录</a>
-					</li>
+						mask="true">修改密码</a></li>
+					<li><a href="/passport!logout.do">退出登录</a></li>
 				</ul>
 			</div>
 		</div>
@@ -179,9 +178,8 @@
 					<h2>系统演示</h2>
 					<div>收缩</div>
 				</div>
-				<div class="accordion" fillSpace="sideBar"> 
-					${request.allMenu}  
-				</div>  
+				<div class="accordion" fillSpace="sideBar">${request.allMenu}
+				</div>
 			</div>
 		</div>
 		<div id="container">
@@ -191,8 +189,7 @@
 						<!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
 						<ul class="navTab-tab">
 							<li tabid="main" class="main"><a href="javascript:void(0)"><span><span
-										class="home_icon">My Home</span> </span> </a>
-							</li>
+										class="home_icon">My Home</span> </span> </a></li>
 						</ul>
 					</div>
 					<div class="tabsLeft">left</div>
@@ -202,8 +199,7 @@
 					<div class="tabsMore">more</div>
 				</div>
 				<ul class="tabsMoreList">
-					<li><a href="javascript:void(0)">首页</a>
-					</li>
+					<li><a href="javascript:void(0)">首页</a></li>
 				</ul>
 				<div class="navTab-panel tabsPageContent">
 					<div>
@@ -219,28 +215,15 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80"> 
-							<h1>网站地图</h1>
-							<div class="unit">
-								<a href="/money/question!query.do" target="navTab"
-									rel="questionlist">常规增删改查页面</a>
-							</div>
-							<div class="unit">
-								<a href="/money/newmoney!report.do" target="navTab"
-									rel="moneyReport" external="true">报表展示功能</a>
-							</div>
-							<div class="unit">
-								<a href="/money/myuser!query.do" target="navTab" rel="userlist">用户管理</a>
-							</div>
-							<div class="unit">
-								<a href="/money/menu!query.do" target="navTab" rel="menulist">权限菜单控制</a>
-							</div>
-							<div class="unit">
-								<a href="/money/newmoney!technology.do" target="dialog">使用技术</a>
-							</div>
-							<div class="unit">
-								<a href="/money/newmoney!about.do" target="dialog">系统目标</a>
-							</div>
+						<div class="pageFormContent" layoutH="-80">
+							<h1>收藏文件</h1>
+							<s:iterator value="#request.allHomepage" var="haha" status="stu">
+								<div class="unit">
+									<a href="<s:property value="url" />" target="navTab" rel="relId<s:property value="urlId" />"><s:property
+											value="urlDesc" />
+									</a>
+								</div>
+							</s:iterator>
 						</div>
 					</div>
 				</div>

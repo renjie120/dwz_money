@@ -59,12 +59,12 @@ function navTabSearch(form, navTabId){
 				<tr>
 					<th width="30"><input type="checkbox" group="ids"
 						class="checkboxCtrl"></th>
-					<th width="100" orderField="MENUID">菜单流水号</th>
-					<th width="140" orderField="MENUNAME">菜单名称</th>
-					<th width="100" orderField="PARENTID">上级菜单</th>
-					<th width="240" orderField="URL">连接</th>
-					<th width="100" orderField="LEVEL">菜单级别</th>
-					<th width="100" orderField="LEVEL">菜单编码</th>
+					<th width="100"  >菜单流水号</th>
+					<th width="140"  >菜单名称</th>
+					<th width="100"  >上级菜单</th>
+					<th width="240"  >连接</th>
+					<th width="100"  >菜单级别</th>
+					<th width="100"  >菜单编码</th>
 				</tr>
 			</thead>
 			<tbody>

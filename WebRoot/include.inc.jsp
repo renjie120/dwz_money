@@ -15,7 +15,7 @@
 <%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ page import="dwz.framework.constants.Constants"%>
 <%@ page import="dwz.framework.constants.user.*"%>
-<%@ page import="dwz.framework.user.User"%>
+<%@ page import="dwz.framework.user.User"%> 
 <%
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");

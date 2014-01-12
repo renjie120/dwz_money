@@ -1,5 +1,6 @@
 ﻿package dwz.present.app.management;
 
+import money.homepage.HomePageUrlManager;
 import money.role.UserMenuRightManager;
 import money.tree.TreeManager;
 
@@ -17,27 +18,31 @@ import dwz.framework.user.impl.UserImpl;
 import dwz.present.BaseAction;
 import dwz.present.UiModel;
 
-public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
+public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 	private UiModel model;
 	private String password;
 	private String newPassword;
 	private TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
+	private HomePageUrlManager pMgr = bf
+			.getManager(BeanManagerKey.homepageurlManager);
 	private UserMenuRightManager userMenuMgr = bf
 			.getManager(BeanManagerKey.usermenurightManager);
+
 	public String index() {
-		UiModel model = new UiModel(); 
+		UiModel model = new UiModel();
 		setModel(model);
 		TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
 		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
-				 .get(Constants.AUTHENTICATION_KEY);   
-		//得到菜单树
-		Tree t = tMgr.initMenuWithRight(user.getUserId()); 
+				.get(Constants.AUTHENTICATION_KEY); 
+		// 得到菜单树
+		Tree t = tMgr.initMenuWithRight(user.getUserId());
 		request.setAttribute("allMenu", t.getDeepTree());
+		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
 		return INPUT;
 	}
-	
+
 	public String login() {
-		if (ServerInfo.isAjax(request)){
+		if (ServerInfo.isAjax(request)) {
 			return "loginDialog";
 		}
 		return INPUT;
@@ -56,7 +61,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
 		return ajaxForwardSuccess(getText("msg.operation.success"));
-	} 
+	}
 
 	public String getPassword() {
 		return password;
@@ -74,10 +79,10 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel>   {
 		this.newPassword = newPassword;
 	}
 
-	public UiModel getModel() { 
+	public UiModel getModel() {
 		return model;
-	} 
-	
+	}
+
 	public void setModel(UiModel model) {
 		this.model = model;
 	}
