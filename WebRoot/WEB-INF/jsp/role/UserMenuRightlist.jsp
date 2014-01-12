@@ -27,8 +27,9 @@ ul.rightTools li {
 	};
 
 	function onClick(e, treeId, treeNode) { 
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
+			var zTree = $.fn.zTree.getZTreeObj("userMenuRight_menutree"), nodes = zTree
 				.getSelectedNodes(), v = "", v2 = "";
+			 
 			if(nodes.length>0&&!nodes[0].isParent){
 				for ( var i = 0, l = nodes.length; i < l; i++) {
 					v += nodes[i].name + ",";

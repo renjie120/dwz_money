@@ -301,7 +301,7 @@ function initUI(_box){
 	//加载zTree!!
 	if ($('.ztree', $p).size()>0) { 
 		$(".ztree", $p).each(function(){ 
-			var $tree = $(this);   
+			var $tree = $(this);    
 			if($tree.attr('lazy')!='true'){
 				//不是懒加载树
 				$.ajax({
