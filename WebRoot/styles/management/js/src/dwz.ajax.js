@@ -305,8 +305,7 @@ function dwzPageBreak(options) {
 			.getCurrentPanel();    
 	if (op.rel) {  
 		var $box = $parent.find("#" + op.rel); 
-		var form = _getPagerForm($box, op.data); 
-		alert($box.size());
+		var form = _getPagerForm($box, op.data);  
 		if (form) {
 			$box.ajaxUrl({
 						type : "POST",
