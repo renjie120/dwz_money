@@ -7,8 +7,8 @@
 		<id name="roleId" column="id" type="int">
 			<generator class="increment"></generator>
 		</id>
-				<property name="roleDesc" column="roledesc" type="string" />
-				<property name="roleName" column="rolename" type="string" />
+		<property name="roleDesc" column="roledesc" type="string" />
+		<property name="roleName" column="rolename" type="string" />
 	</class>
 
 	<query name="money.rolemanager.RoleDao.findRecordById">

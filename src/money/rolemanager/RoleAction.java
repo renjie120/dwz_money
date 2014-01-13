@@ -30,6 +30,7 @@ public class RoleAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	// 业务接口对象.
 	RoleManager pMgr = bf.getManager(BeanManagerKey.roleManager);
+	UserRoleRightManager userRoleRightMgr = bf.getManager(BeanManagerKey.userrolerightManager);
 	// 业务实体对象
 	private Role vo;
 	// 当前页数
@@ -38,6 +39,7 @@ public class RoleAction extends BaseAction {
 	private int pageSize = 50;
 	// 总页数
 	private long count;
+	private String userId;
 
 	public String beforeAdd() {
 		return "detail";
@@ -59,16 +61,35 @@ public class RoleAction extends BaseAction {
 
 	/**
 	 * 跳转到角色拥有的菜单树形.
+	 * 
 	 * @return
 	 */
 	public String updateMenuWithRole() {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		request.setAttribute("roleId", ""+roleId);
+		request.setAttribute("roleId", "" + roleId);
 		return "roleMenuTree";
 	}
 
 	/**
+	 * 保存选择的权限
+	 * 
+	 * @return
+	 */
+	public String saveMenuWithRole() {
+		String ids = request.getParameter("ids");
+		String roleId = request.getParameter("roleId");
+		try {
+			pMgr.createRoleWithMenu(Integer.parseInt(roleId), ids);
+		} catch (Exception e) {
+			log.error(e);
+			return ajaxForwardError(e.getLocalizedMessage());
+		}
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
+
+	/**
 	 * 得到角色拥有的菜单权限树.
+	 * 
 	 * @return
 	 */
 	public String getRoleMenuTree() {
@@ -76,7 +97,27 @@ public class RoleAction extends BaseAction {
 		writeToPage(response, tMgr.getRoleMenuTree(roleId));
 		return null;
 	}
+	public String beforeRoleInUser() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<RoleSearchFields, Object> criterias = getCriterias();
 
+		Collection<Role> moneyList = pMgr.searchRole(criterias,
+				realOrderField(), startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchRoleNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount", count);
+		return "addUserRolelist";
+	}
+	
+	
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeRoles(ids);
@@ -114,6 +155,48 @@ public class RoleAction extends BaseAction {
 
 	public String beforeQuery() {
 		return "query";
+	}
+	
+	/**
+	 * 删除一个人拥有的角色权限.
+	 * @return
+	 */
+	public String deleteRoleInUser() {
+		String ids = request.getParameter("ids");
+		userRoleRightMgr.removeUserRoleRights(ids);
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
+	
+	/**
+	 * 查询人员拥有的角色列表.
+	 * @return
+	 */
+	public String queryRoleByUserId() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		int count = pMgr.searchRoleByUser(Integer.parseInt(userId));
+
+		Collection<Role> moneyList = pMgr.searchRoleByUserId(
+				Integer.parseInt(userId), startIndex, count);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("userId", userId);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount", count);
+		return "userRoleList";
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String export() {

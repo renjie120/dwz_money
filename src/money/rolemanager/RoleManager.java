@@ -25,7 +25,24 @@ public interface RoleManager  extends BusinessObjectManager {
 	 */
 	public Collection<Role> searchRole(Map<RoleSearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
-
+ 
+	/**
+	 * 查询一个用户的角色数量.
+	 * @param userId
+	 * @return
+	 */
+	public Integer searchRoleByUser(int userId) ;
+	
+	/**
+	 * 查询一个用户拥有的角色列表.
+	 * @param userId
+	 * @param orderField
+	 * @param startIndex
+	 * @param count
+	 * @return
+	 */
+	public Collection<Role> searchRoleByUserId(int userId,  int startIndex, int count);
+ 
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件
@@ -40,6 +57,9 @@ public interface RoleManager  extends BusinessObjectManager {
 	 */
 	@Transactional
 	public void createRole(Role role) throws ValidateFieldsException;
+	
+	@Transactional
+	public void createRoleWithMenu(int roleId,String menuIds)  ;
 
 	/**
 	 * 更新操作.

@@ -49,6 +49,7 @@
 		<mapping resource="hbm/myuser.hbm.xml" />
 		<mapping resource="hbm/menu.hbm.xml" />
 		<mapping resource="hbm/org.hbm.xml" />
+		<mapping resource="hbm/userroleright.hbm.xml" />
 		<mapping resource="hbm/role.hbm.xml" />
 		<mapping resource="hbm/moneytype.hbm.xml" />
 		<mapping resource="hbm/rolewithmenu.hbm.xml" />

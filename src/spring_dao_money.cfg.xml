@@ -5,6 +5,17 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="userrolerightDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.rolemanager.UserRoleRightDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.rolemanager.UserRoleRightVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean> 
 	<bean id="homepageurlDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.homepage.HomePageUrlDao</value>

@@ -14,7 +14,7 @@ public class RoleWithMenuVO implements Serializable {
 	public RoleWithMenuVO() {
 
 	}
-	
+	 
 	public RoleWithMenuVO( int id , int roleId , int menuId ) {
 		 this.id = id;
 		 this.roleId = roleId;

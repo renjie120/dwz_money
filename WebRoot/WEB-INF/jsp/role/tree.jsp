@@ -13,12 +13,9 @@
 			'moneyType' : node.id,
 			'moneyTypeName' : treeNode.name
 		})
-	}
-	function treeType() {
-		return 'common';
-	}
+	} 
 //-->
-</script> 
-	<ul id="treeDemo" checkable="true" class="ztree"
-		style="overflow:hidden" noScroll="true"
-		url='/money/role!getRoleMenuTree.do?roleId=<%=roleId%>'></ul> 
+</script>
+<ul id="treeDemo" checkable="true" class="ztree" style="overflow:hidden"
+	noScroll="true" url='/money/role!getRoleMenuTree.do?roleId=<%=roleId%>'></ul>
+<input type='hidden' id='checkRoleId' value="<%=roleId%>">

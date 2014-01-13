@@ -8,6 +8,9 @@
 	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">
 		<constructor-arg index="0" ref="rolewithmenuDao"></constructor-arg>
 	</bean>
+	<bean id="userrolerightManager" class="money.rolemanager.UserRoleRightManagerImpl">
+		<constructor-arg index="0" ref="userrolerightDao"></constructor-arg>
+	</bean>
 	<bean id="homepageurlManager" class="money.homepage.HomePageUrlManagerImpl">
 		<constructor-arg index="0" ref="homepageurlDao"></constructor-arg>
 	</bean>
@@ -16,6 +19,7 @@
 	</bean>
 	<bean id="roleManager" class="money.rolemanager.RoleManagerImpl">
 		<constructor-arg index="0" ref="roleDao"></constructor-arg>
+		<constructor-arg index="1" ref="rolewithmenuDao"></constructor-arg>
 	</bean>
 	<bean id="usermenurightManager" class="money.role.UserMenuRightManagerImpl">
 		<constructor-arg index="0" ref="usermenurightDao"></constructor-arg>

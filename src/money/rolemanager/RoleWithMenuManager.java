@@ -1,5 +1,7 @@
 package money.rolemanager;
 
+import java.util.Collection;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import dwz.framework.core.business.BusinessObjectManager;
@@ -30,4 +32,17 @@ public interface RoleWithMenuManager extends BusinessObjectManager {
 	@Transactional
 	public void removeRoleWithMenus(String id);
 
+	/**
+	 * 查询用户有权限的角色.
+	 * @param userId
+	 * @return
+	 */
+	public Collection<Role> searchRolesByUserId(int userId,int startIndex, int count);
+	
+	/**
+	 * 查询用户有权限的角色数量.
+	 * @param userId
+	 * @return
+	 */
+	public Integer searchRoleNumByUserId(int userId);
 }

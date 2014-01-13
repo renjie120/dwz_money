@@ -278,12 +278,12 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		Tree menuTree = initMenuCache();
 		Collection<RoleWithMenuVO> set = roleWithMenuDao
 				.findRecordByRoleId(roleId);
-		Set<Integer> allHaveRightMenu = new HashSet<Integer>();
+		Set<String> allHaveRightMenu = new HashSet<String>();
 		if (set != null && set.size() > 0)
 			for (RoleWithMenuVO vo : set) {
-				allHaveRightMenu.add(vo.getMenuId());
+				allHaveRightMenu.add(""+vo.getMenuId());
 			}
-		final Set<Integer> allMenus = allHaveRightMenu;
+		final Set<String> allMenus = allHaveRightMenu;
 		menuTree.travelTree(new ITreeNodeTravel(){ 
 			@Override
 			public void travel(TreeNode node) {
@@ -294,6 +294,6 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			} 
 		});
 		 
-		return menuTree.toZTreeJson();
+		return menuTree.toZTreeJson(true);
 	}
 }

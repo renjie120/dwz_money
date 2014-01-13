@@ -15,6 +15,8 @@ function initEnv() {
 		initLayout(); 
 		$(this).trigger("resizeGrid"); 
 		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
+		
+		lastLayout();
 	});
 
 	var ajaxbg = $("#background,#progressBar");
@@ -40,7 +42,8 @@ function initEnv() {
 		jTabsPH.find(".tabsLeft").hoverClass("tabsLeftHover");
 		jTabsPH.find(".tabsRight").hoverClass("tabsRightHover");
 		jTabsPH.find(".tabsMore").hoverClass("tabsMoreHover");
-	
+	 
+		lastLayout();
 	}, 10);
 
 } 
@@ -61,19 +64,17 @@ function initLayout(){
 	 
 	 initMyUI();
 }
-
+/**
+ * 在全部结束完成之后再执行一次layout布局修改.
+ * @returns
+ */
+function lastLayout(){
+	
+}
 /**
  * 可以在自定义的jsp里面再查询修正某些样式...
  */
-function initMyUI(){ 
-	//专门针对用户权限控制的样式控制. 
-	/*if($('div[autoHeight]').size()>0){  
-		if(!isNaN($("div.layout").height()-$("div.tabsHeader").height()-5))
-		 $("#container .tabsPageContent").height($("div.layout").height()-$("div.tabsHeader").height()-5);
-		 var _height = $("#container .tabsPageContent").height() - $('#container div.tabsHeaderContent').height();
-		 $('div[autoHeight].tabsContent').height(_height-15);
-		 $('div.zTreeDemoBackground[autoHeight]').height(_height-25);
-	 }*/
+function initMyUI(){   
 }
 
 function initUI(_box){
@@ -275,7 +276,7 @@ function initUI(_box){
 	});
 	
 	$("div.pagination", $p).each(function(){
-		var $this = $(this);
+		var $this = $(this); 
 		$this.pagination({
 			targetType:$this.attr("targetType"),
 			rel:$this.attr("rel"),
@@ -301,7 +302,9 @@ function initUI(_box){
 	//加载zTree!!
 	if ($('.ztree', $p).size()>0) { 
 		$(".ztree", $p).each(function(){ 
-			var $tree = $(this);    
+			var $tree = $(this);   
+			if(!$tree.attr('url'))
+				alert('树形加载失败，缺少url！id：'+$tree.attr('id'));
 			if($tree.attr('lazy')!='true'){
 				//不是懒加载树
 				$.ajax({
@@ -310,9 +313,7 @@ function initUI(_box){
 					success:function(msg){ 
 					eval("var zNodes ="+msg);
 						var setting = {
-							data: {
-								key: {  
-								},
+							data: { 
 								simpleData: {
 									enable: true
 								}
@@ -345,7 +346,19 @@ function initUI(_box){
 						}
 					}
 				}); 
-			}else{  
+			}else{   
+				eval("var autoP = "+$tree.attr('autoParam'));
+				var setting = {
+					async : {
+						enable : true,
+						url : $tree.attr('url'),
+						autoParam : autoP,
+						dataFilter : filter
+					},
+					callback : {
+						onClick : onClick
+					}
+				};
 				$.fn.zTree.init($tree, setting);
 			}
 		}); 

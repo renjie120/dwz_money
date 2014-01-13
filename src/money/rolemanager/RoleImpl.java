@@ -2,7 +2,6 @@
 package money.rolemanager;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
  * 关于角色信息的业务实体类.
  * @author www(水清)

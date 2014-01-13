@@ -300,12 +300,13 @@ function dwzPageBreak(options) {
 					orderDirection : ""
 				},
 				callback : null
-			}, options);
+			}, options); 
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab
 			.getCurrentPanel();    
 	if (op.rel) {  
 		var $box = $parent.find("#" + op.rel); 
 		var form = _getPagerForm($box, op.data); 
+		alert($box.size());
 		if (form) {
 			$box.ajaxUrl({
 						type : "POST",

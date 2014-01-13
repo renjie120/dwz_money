@@ -18,12 +18,13 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 		RoleManager {
 
 	private RoleDao roledao = null;
-
+	private RoleWithMenuDao roleMenuDao = null;
 	/**
 	 * 构造函数.
 	 */
-	public RoleManagerImpl(RoleDao roledao) {
+	public RoleManagerImpl(RoleDao roledao,RoleWithMenuDao roleMenuDao) {
 		this.roledao = roledao;
+		this.roleMenuDao = roleMenuDao;
 	}
 
 	/**
@@ -166,4 +167,49 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 		return new RoleImpl(role);
 	}
 
+	@Override
+	public void createRoleWithMenu(int roleId, String menuIds)  {
+		String[] menuidArr = menuIds.split(","); 
+		roleMenuDao.deleteAllByRoleId(roleId);
+		for(String m:menuidArr){
+			RoleWithMenuVO vo = new RoleWithMenuVO();
+			vo.setRoleId(roleId);
+			vo.setMenuId(Integer.parseInt(m));
+			this.roleMenuDao.insert(vo);
+		}
+	} 
+
+	/**
+	 * 查询用于拥有的角色总数.
+	 * @param criterias 查询条件
+	 * @return
+	 */
+	public Integer searchRoleByUser(int userId) {
+		Integer[] param = new Integer[]{userId};
+		String hql = "select count(vo) from UserRoleRightVO as vo where userId=?";
+		Number totalCount = this.roleMenuDao.countByQuery(hql,
+				(Object[]) param);
+
+		return  totalCount.intValue();
+	}
+
+	@Override
+	public Collection<Role> searchRoleByUserId(int userId,  
+			int startIndex, int count) {
+		ArrayList<Role> eaList = new ArrayList<Role>();
+		 
+		String hql = "select new RoleVO(userVo.id,ov.roleDesc,ov.roleDesc) from RoleVO as ov,UserRoleRightVO as userVo where ov.roleId=userVo.roleId and userVo.userId=?";
+		Collection<RoleVO> voList = this.roledao.findByQuery(hql,
+				(Object[])new Integer[]{userId}, startIndex, count);
+
+		if (voList == null || voList.size() == 0)
+			return eaList;
+	
+		
+		for (RoleVO po : voList) {
+			eaList.add(new  RoleImpl(po));
+		}
+
+		return eaList;
+	}
 }

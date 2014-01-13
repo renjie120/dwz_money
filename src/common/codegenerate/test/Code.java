@@ -25,11 +25,11 @@ public class Code {
 		String beanName = model.getClassName(); 
 		String packageName = model.getPackageName();
 		
-		new Generate("action_code.ftl", beanName, "Action.java",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot,1).make();
+//		new Generate("action_code.ftl", beanName, "Action.java",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot,1).make();
 
 		new Generate("dao_code.ftl", beanName, "Dao.java",packageName) {
 			public Object setData() {
@@ -55,17 +55,17 @@ public class Code {
 			}
 		}.setDirName(javaRoot,1).make();
 
-		new Generate("searchfield_code.ftl", beanName, "SearchFields.java",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot,1).make();
+//		new Generate("searchfield_code.ftl", beanName, "SearchFields.java",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot,1).make();
 
-		new Generate("orderfield_code.ftl", beanName, "OrderByFields.java",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot,1).make();
+//		new Generate("orderfield_code.ftl", beanName, "OrderByFields.java",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot,1).make();
 
 		new Generate("bean_impl_code.ftl", beanName, "Impl.java",packageName) {
 			public Object setData() {
@@ -79,23 +79,23 @@ public class Code {
 			}
 		}.setDirName(javaRoot,1).make();
 
-		new Generate("edit_jsp.ftl", beanName, "edit.jsp",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot,2).make();
-
-		new Generate("info_jsp.ftl", beanName, "info.jsp",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot,2).make();
-
-		new Generate("list_jsp.ftl", beanName ,"list.jsp",packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot,2).make();
+//		new Generate("edit_jsp.ftl", beanName, "edit.jsp",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot,2).make();
+//
+//		new Generate("info_jsp.ftl", beanName, "info.jsp",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot,2).make();
+//
+//		new Generate("list_jsp.ftl", beanName ,"list.jsp",packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot,2).make();
 
 		new Generate("hbm_code.ftl", beanName.toLowerCase(), ".hbm.xml",packageName) {
 			public Object setData() {

@@ -51,7 +51,7 @@
 					var $button = $this.find(":button");
 					$button.click(function(event){
 						var pageNum = $inputBox.val();
-						if (pageNum && pageNum.isPositiveInteger()) {
+						if (pageNum && pageNum.isPositiveInteger()) { 
 							dwzPageBreak({targetType:pc.targetType(), rel:pc.rel(), data: {pageNum:pageNum}});
 						}
 					});

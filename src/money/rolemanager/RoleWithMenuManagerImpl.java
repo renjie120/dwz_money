@@ -1,5 +1,7 @@
 
 package money.rolemanager;
+import java.util.Collection;
+
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -33,5 +35,20 @@ public class RoleWithMenuManagerImpl extends AbstractBusinessObjectManager imple
 			RoleWithMenuVO vo = this.rolewithmenudao.findByPrimaryKey(Integer.parseInt(s));
 			this.rolewithmenudao.delete(vo);
 		}
+	}
+
+
+	@Override
+	public Collection<Role> searchRolesByUserId(int userId, int startIndex,
+			int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Integer searchRoleNumByUserId(int userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}   
 }

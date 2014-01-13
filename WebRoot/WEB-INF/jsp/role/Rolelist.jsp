@@ -1,6 +1,32 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <script src="/js/org.js" type="text/javascript" />
+<script type="text/javascript">
+<!--
+function lastLayout(){   
+	//$('div[myLayoutH]').parent().height(($('div.pageContent:first').height()-50)+'px'); 
+}
+
+/**
+ * 保存角色授权的结果.
+ */
+function saveRole(){
+	var ans = [];
+	$('#treeDemo2').find('span.checkbox_true_full').each(function(){
+		ans.push($(this).next('a').attr('id').replace('treeDemo_','').replace('_a',''));
+	});
+	var selectId = ans.join(',');
+	var checkRoleId =$('#checkRoleId').val(); 
+	 $.ajax({
+		type:'POST', url:'/money/role!saveMenuWithRole.do', 
+		dataType:'json',
+		data: {'ids':selectId,'roleId':checkRoleId},
+		success: DWZ.ajaxDone,
+		error: DWZ.ajaxError
+	}); 
+}
+//-->
+</script>
 <form id="pagerForm" method="post" action="/money/role!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" /> <input
 		type="hidden" name="numPerPage" value="${numPerPage}" /> <input
@@ -104,15 +130,15 @@
 		</div>
 		<div
 			style="width:40%;overflow:hidden;border:1px #BAD1D7 solid;">
-			<div style="overflow:auto;height:300px;">
+			<div style="overflow:auto;height:200px;" myLayoutH="400">
 				<ul id='treeDemo2' />
 			</div>
-			<div class="formBar">
+			<div class="formBar" >
 				<ul>
 					<li>
 						<div class="buttonActive">
 							<div class="buttonContent">
-								<button type="submit">保存</button>
+								<button onclick="saveRole()">保存</button>
 							</div>
 						</div>
 					</li> 
