@@ -50,13 +50,16 @@ public class JPCoder {
 					new FileOutputStream(fullFilename));
 			bufferedOutputStream.write(charts);
 			bufferedOutputStream.close();
+			
+			System.out.println("保存成功!"+"e:\\"+oldFile.getName().replace(".", "_")+".txt");
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args){
-		JPCoder.Coder("d:\\123.doc");
+		JPCoder.Coder("d:\\深入理解Apache_Mina.pdf");
+		
 	}
 
 }

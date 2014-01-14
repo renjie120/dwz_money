@@ -314,7 +314,8 @@ function dwzPageBreak(options) {
 						callback : function() {  
 							var _b = $box.find("[layoutH]");
 							var _setHeight = _b.attr('setHeight'); 
-							//alert('分页之后修改ui');
+							//alert('分页之后修改ui'); 
+							
 							if(_setHeight=='true'){ 
 								//修正高度的属性.
 								var m = _b.attr('modifyHeight'); 
@@ -322,10 +323,10 @@ function dwzPageBreak(options) {
 									m = 0;
 								var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
 								var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-m;
-								_b.height(__int); 
+								$('#tableid').height(300);  
 							}
 							else
-								_b.layoutH();
+								_b.layoutH(); 
 						}
 					});
 		}

@@ -2,7 +2,7 @@
 <%@ include file="/include.inc.jsp"%>
 <script src="/js/org.js" type="text/javascript" />
 <script type="text/javascript">
-	
+	 
 </script>
 <div id='addUserRoleDiv'>
 <form id="pagerForm" method="post" action="/money/role!beforeRoleInUser.do">
@@ -40,7 +40,7 @@
 	</form>
 </div>
 <div class="pageContent">
-	<table class="table" layoutH="138" width="100%">
+	<table class="table" layoutH="110" id="tableid" width="100%" setHeight="true" modifyHeight="500">
 		<thead>
 			<tr>
 				<th width="30"><input type="checkbox" group="ids"
