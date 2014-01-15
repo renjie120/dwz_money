@@ -58,7 +58,7 @@ public class JPCoder {
 	}
 	
 	public static void main(String[] args){
-		JPCoder.Coder("d:\\深入理解Apache_Mina.pdf");
+		JPCoder.Coder("D:\\btn_bg.png");
 		
 	}
 
