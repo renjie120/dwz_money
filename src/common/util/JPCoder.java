@@ -58,7 +58,7 @@ public class JPCoder {
 	}
 	
 	public static void main(String[] args){
-		JPCoder.Coder("D:\\btn_bg.png");
+		JPCoder.Coder("D:\\项目评估.pptx");
 		
 	}
 

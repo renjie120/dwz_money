@@ -15,7 +15,7 @@ body {
 	</head>
 	<body>
 		<div  >
-			<div class="span4"  style="height:300px;width:400px;border:1px #BAD1D7 solid;">
+			<div class="span4"  style="height:300px;width:400px;border:2px #BAD1D7 solid;">
 				<h3>
 					demo系统展示
 				</h3>
@@ -47,9 +47,9 @@ body {
 			</div>
 		</div>
 
-		<hr>
-		<footer> 
-		 
+		
+		<!--  footer> 
+		 <hr>
 		<p >
 			©2012 人杰技术网版权所有 沪ICP备12002847号
 			<script language="javascript" type="text/javascript"
@@ -60,7 +60,7 @@ body {
 					src="http://img.users.51.la/6717157.asp" style="border: none" /> </a>
 		</noscript>
 		</p>
-		</footer>
+		</footer-->
 		</div>
 		<script src="/bootstrap/js/jquery.min.js"></script>
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
