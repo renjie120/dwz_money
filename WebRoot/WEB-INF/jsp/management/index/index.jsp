@@ -233,7 +233,7 @@
 	</div>
 
 	<div id="footer">
-		deppon.com
+		www.thinksafari.com
 		<!--联系方式: <font style="color: red">(qq)1246910068</font>&nbsp;&nbsp;&nbsp;&nbsp;(email)lishuiqing110@163.com&nbsp;&nbsp;&nbsp;&nbsp;
 		人杰工作室(LSQ,SGX)-->
 	</div>
