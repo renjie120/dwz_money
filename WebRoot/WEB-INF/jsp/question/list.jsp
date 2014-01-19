@@ -145,13 +145,13 @@
 				<th  width='100' orderField="QUESTIONDATE" class="asc">
 					发现问题时间
 				</th>
-				<th width='200'>
+				<th width='300'>
 					问题描述
 				</th> 
-				<th width='100'  >
+				<th width='80'  >
 					提问人
 				</th>
-				<th width='100' orderField="STATUS" class="desc">
+				<th width='80' orderField="STATUS" class="desc">
 					问题状态
 				</th>
 				<th width='100'  orderField="CONSOLEDATE" class="asc">

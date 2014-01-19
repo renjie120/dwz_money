@@ -72,6 +72,41 @@ public class MyJdbcAction extends BaseAction {
 		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String importMoneyFromPhone() throws Exception {
+		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		PlatformTransactionManager transactionManager = (DataSourceTransactionManager) SpringContextUtil
+				.getBean("jdbcTm");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setTimeout(50);
+		TransactionStatus status = transactionManager.getTransaction(def);
+		 System.out.println("moneyStr---"+request.getAttribute("moneyStr"));
+		if(moneyStr!=null){
+			String[] moneys = moneyStr.split("\\$;");
+			for(String m:moneys){
+			String[] strs = m.split("\\$,");
+			String sqlsql = "insert into money_detail_t(money_time,money,money_type,money_desc )" +
+					" select '"+strs[0]+"',"+strs[1]+",te.type_code,'"+("0".equals(strs[3])?"":strs[3])+"'"+"  from tally_type_t te where te.tally_type_desc= '"+strs[2]+"'";				 
+			try {
+				jdbcDaoTest.exeSql(sqlsql);
+			} catch (Exception ex) {
+				transactionManager.rollback(status);
+				System.out.println("出现异常了，回滚了！！");
+				throw ex;
+			}
+			} 
+		}
+		transactionManager.commit(status);
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
 
 	public String exeSqlAction() throws Exception {
 		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil

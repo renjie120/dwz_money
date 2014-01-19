@@ -16,7 +16,9 @@
 						<label>
 							参数类型:
 						</label>
-							<input name="paramType" class="textInput  required" size="30" type="text"  value="<s:property value="paramVo.paramType"/>" />
+						<%String temp = vo.getParamType()+""; %>
+						<my:newselect tagName="paramType" idColumn="parameter_type_id" nameColumn="parameter_type_name" tableName="parameter_type" width="100"
+					allSelected="true" selectedValue="<%=temp %>"/>  
 					</div>
 					 <div class="unit">
 						<label>

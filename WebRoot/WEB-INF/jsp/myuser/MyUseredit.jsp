@@ -1,7 +1,25 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
-<script src="/js/org_inuser.js" type="text/javascript" />
+<script src="/js/treeCombox.js" type="text/javascript" />
+<script type="text/javascript">
+	/**
+	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
+	 */
+	function myOperation() {
+		$('#orgName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	$(document).ready(function() {
+		var content = {
+			action : '/money/tree!getOrgTree.do',
+			nameInput : 'orgName',
+			height : '200px',
+			idInput : 'orgId',
+			treeId : "orgInUserTree"
+		};
+		$('#orgName').treeCombox(content);
+	});
+</script>
 <%@ page import="money.myuser.MyUser"%>
 <%
 	MyUser vo = (MyUser) request.getAttribute("vo");

@@ -36,6 +36,24 @@ public class MoneyAction extends BaseAction {
 	MoneyManager mMgr = bf.getManager(BeanManagerKey.moneyManager);
 	private Money moneyVo;
 	private int moneySno;
+	private String year;
+	private String month;
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
 	private double money;
 	private Date moneyTime;
 	private String moneyType;
@@ -319,12 +337,16 @@ public class MoneyAction extends BaseAction {
 
 	private Map<MoneySearchFields, Object> getCriterias() {
 		Map<MoneySearchFields, Object> criterias = new HashMap<MoneySearchFields, Object>();
+		if (CommonUtil.isNotEmpty(year)&&!"-1".equals(year))
+			criterias.put(MoneySearchFields.YEAR, year);
+		if (CommonUtil.isNotEmpty(month)&&!"-1".equals(month))
+			criterias.put(MoneySearchFields.MONTH, month);
 		if (moneyVo == null)
 			return criterias;
 		if (moneyVo.getId() > 0)
 			criterias.put(MoneySearchFields.MONEY_SNO, moneyVo.getId());
 		if (CommonUtil.isNotEmpty(moneyVo.getBookType()))
-			criterias.put(MoneySearchFields.BOOK_TYPE, moneyVo.getBookType());
+			criterias.put(MoneySearchFields.BOOK_TYPE, moneyVo.getBookType()); 
 		if (CommonUtil.isNotEmpty(moneyVo.getMoneyDesc()))
 			criterias.put(MoneySearchFields.MONEY_DESC,
 					"%" + moneyVo.getMoneyDesc() + "%");

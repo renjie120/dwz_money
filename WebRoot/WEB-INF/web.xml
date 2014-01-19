@@ -51,7 +51,7 @@
 		<init-param>
 			<param-name>uri</param-name>
 			<param-value>
-				/upload/download.jsp,/upload/upload.jsp/bootstrap/stock.jsp,/management/index!login.do,/validationCode!,/passport!,/management/syn!doAdd.do
+				/upload/download.jsp,/upload/upload.jsp/bootstrap/stock.jsp,/management/index!login.do,/validationCode!,/passport!,/money/superconsole!importMoneyFromPhone.do,/management/syn!doAdd.do
 			</param-value>
 		</init-param>
 		<init-param>

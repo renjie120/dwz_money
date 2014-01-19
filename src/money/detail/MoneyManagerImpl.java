@@ -5,7 +5,10 @@ import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +20,7 @@ import brightmoon.util.NewJsonUtil;
 import common.base.AllSelect;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
+import common.util.CommonUtil;
 import common.util.DateTool;
 import common.util.NPOIReader;
 
@@ -70,6 +74,57 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		}
 
 		return eaList;
+	}
+
+	public static Date getDate(int year, int month, int day) {
+		GregorianCalendar calendar = new GregorianCalendar(year, month - 1, day);
+		return calendar.getTime();
+	}
+
+	private Date[] getDates(int year, int month) {
+		Date[] times = new Date[2];
+		Date start = getDate(year, month, 1);
+		Date end = null;
+		if (month == 12) {
+			end = getDate(year + 1, 1, 1);
+		} else
+			end = getDate(year, month + 1, 1);
+		times[0] = start;
+		times[1] = end;
+		return times;
+	}
+
+	/**
+	 * 根据年份和月份得到开始和结束时间.
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	private Date[] getDates(String year, String month) {
+		Date[] times = new Date[2];
+		if("null".equals(year)) year = "";
+		if("null".equals(month)) month = "";
+		// 如果有年月就返回制定月份数据
+		if (CommonUtil.isNotEmpty(year) && CommonUtil.isNotEmpty(month)) {
+			return getDates(Integer.parseInt(year), Integer.parseInt(month));
+		}
+		// 如果只有年度，就返回当前年数据
+		else if (CommonUtil.isNotEmpty(year)) {
+			Date start = getDate(Integer.parseInt(year), 1, 1);
+			Date end = getDate(Integer.parseInt(year) + 1, 1, 1);
+			times[0] = start;
+			times[1] = end;
+		}
+		// 默认就返回当前月份数据
+		else {
+			GregorianCalendar ca = new GregorianCalendar();
+			ca.setTime(new Date());
+			int iMonth = ca.get(Calendar.MONTH)+1;
+			int iYear = ca.get(Calendar.YEAR);
+			return getDates(iYear, iMonth);
+		}
+		return times;
 	}
 
 	private Object[] createQuery(boolean useCount,
@@ -133,6 +188,14 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 					break;
 				}
 			}
+		Date[] times = getDates("" + criterias.get(MoneySearchFields.YEAR), ""
+				+ criterias.get(MoneySearchFields.MONTH));
+		sb.append(count == 0 ? " where" : " and")
+				.append(" money.moneyTime>=?  ");
+		argList.add(times[0]);
+		sb.append(" and  money.moneyTime<?  ");
+		argList.add(times[1]);
+
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
@@ -237,13 +300,13 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 
 	String addMoneySql = "insert into money_detail_t( money_time,money,money_type,"
 			+ "money_desc,useful,code)" + " values(   ? ,?,?,?,1,? )";
-	String queryMoneySql = "select money_sno,money_time,money,money_type,money_desc from money_detail_t where code=? limit ?,?" ;
-	String queryMoneyCountSql = "select count(1) from money_detail_t where code=?  " ;
+	String queryMoneySql = "select money_sno,money_time,money,money_type,money_desc from money_detail_t where code=? limit ?,?";
+	String queryMoneyCountSql = "select count(1) from money_detail_t where code=?  ";
 	String updateMoneySql = "update money_detail_t set code = ?  where code=?";
 
 	public static void main(String[] args) {
-		MoneySyn ss = (MoneySyn) JSONObject.toBean(JSONObject
-				.fromObject("{arg1:1}"), MoneySyn.class);
+		MoneySyn ss = (MoneySyn) JSONObject.toBean(
+				JSONObject.fromObject("{arg1:1}"), MoneySyn.class);
 		System.out.println(ss.getArg1());
 	}
 
@@ -268,40 +331,44 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 					momeyVos.add(arg.getArg1());
 					db.updateRecords(addMoneySql, momeyVos);
 				}
-				result = "成功添加数目:"+moneys.length+"!";
+				result = "成功添加数目:" + moneys.length + "!";
 			} else if ("getAllNewMoneys".equals(method)) {
 				List argument = new ArrayList();
 				argument.add(arg.getArg1());
-				argument.add(Integer.parseInt(""+arg.getArg2()));//起始行
-				argument.add(Integer.parseInt(""+arg.getArg3()));//终止行
+				argument.add(Integer.parseInt("" + arg.getArg2()));// 起始行
+				argument.add(Integer.parseInt("" + arg.getArg3()));// 终止行
 				final StringBuffer buf = new StringBuffer("[");
 				db.queryList(queryMoneySql, argument, new DataHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
-						buf.append("{\"money_time\":\"" + rs.getString(2) + "\",");
+						buf.append("{\"money_time\":\"" + rs.getString(2)
+								+ "\",");
 						buf.append("\"money\":\"" + rs.getString(3) + "\",");
-						buf.append("\"money_type\":\"" + rs.getString(4) + "\",");
-						buf.append("\"money_desc\":\"" + rs.getString(5) + "\"},");
+						buf.append("\"money_type\":\"" + rs.getString(4)
+								+ "\",");
+						buf.append("\"money_desc\":\"" + rs.getString(5)
+								+ "\"},");
 					}
 				});
 				if (buf.lastIndexOf(",") != -1)
-					result = buf.deleteCharAt(buf.lastIndexOf(",")).append("]").toString();
+					result = buf.deleteCharAt(buf.lastIndexOf(",")).append("]")
+							.toString();
 				else
 					result = "无记录!";
 			} else if ("queryMoneyCount".equals(method)) {
 				List argument = new ArrayList();
-				argument.add(arg.getArg1());  
+				argument.add(arg.getArg1());
 				int count = db.queryForInt(queryMoneyCountSql, argument);
-				if (count>0)
-					result = ""+count;
+				if (count > 0)
+					result = "" + count;
 				else
 					result = "0";
-			}else if ("updateAllNewMoneys".equals(method)) {
+			} else if ("updateAllNewMoneys".equals(method)) {
 				List argument = new ArrayList();
 				argument.add(arg.getArg1());
 				argument.add(arg.getArg2());
-				if(db.updateRecords(updateMoneySql, argument)>0)
-				 	result = "更新成功!";
+				if (db.updateRecords(updateMoneySql, argument) > 0)
+					result = "更新成功!";
 				else
 					result = "更新失败!";
 			} else {
