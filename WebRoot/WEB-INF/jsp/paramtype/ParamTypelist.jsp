@@ -79,10 +79,7 @@
 				</th> 
 				<th width="300"    orderField="PARAMTYPENAME" >
 						参数类型 
-				</th> 
-				<th width="80"    orderField="ORDERID" >
-						排序号 
-				</th> 
+				</th>  
 				<th width="100"    orderField="CODE" >
 						参数类型编码 
 				</th> 
@@ -100,10 +97,7 @@
 					</td> 
 					<td>
 						<s:property value="paramTypeName" />
-					</td> 
-					<td>
-						<s:property value="orderId" />
-					</td> 
+					</td>  
 					<td>
 						<s:property value="code" />
 					</td> 

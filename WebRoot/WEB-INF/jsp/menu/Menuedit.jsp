@@ -1,7 +1,25 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
-<script src="/js/menu.js" type="text/javascript" />
+<script src="/js/treeCombox.js" type="text/javascript" />
+<script type="text/javascript">
+	/**
+	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
+	 */
+	function myOperation() {
+		$('#parentName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	$(document).ready(function() {
+		var content = {
+			action : '/money/tree!getMenuTree.do',
+			nameInput : 'parentName',
+			height : '200px',
+			idInput : 'parentId',
+			treeId:"menuTree"
+		};
+		$('#parentName').treeCombox(content);
+	});
+</script>
 <%@ page import="money.menu.Menu"%>
 <% 
 	Menu vo = (Menu) request.getAttribute("vo"); 

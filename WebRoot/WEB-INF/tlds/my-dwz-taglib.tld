@@ -311,6 +311,30 @@
             <rtexprvalue>true</rtexprvalue>
             <description><![CDATA[缓存主键id,可以直接转换为下拉菜单。可选!]]></description>
         </attribute>
+         <attribute>
+            <name>tableName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[直接从表中查询下拉菜单。可选!]]></description>
+        </attribute>
+         <attribute>
+            <name>idColumn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[直接从表中查询下拉菜单的id列。可选!]]></description>
+        </attribute>
+        <attribute>
+            <name>nameColumn</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[直接从表中查询下拉菜单的名字列。可选!]]></description>
+        </attribute>
+        <attribute>
+            <name>where</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[直接从表中查询下拉菜单的条件。可选!]]></description>
+        </attribute>
         <attribute>
             <name>tagName</name>
             <required>true</required>

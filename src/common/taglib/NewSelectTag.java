@@ -3,10 +3,14 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.commons.collections.map.ListOrderedMap;
+
+import common.MyJdbcTool;
 import common.base.AllSelect;
 import common.base.ParamSelect;
 import common.base.SelectAble;
@@ -90,6 +94,43 @@ public class NewSelectTag extends TagSupport {
 
 	private String listvalues;
 	private String listtexts;
+	private String tableName;
+	private String idColumn;
+	private String nameColumn;
+	private String where;
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+	public String getIdColumn() {
+		return idColumn;
+	}
+
+	public void setIdColumn(String idColumn) {
+		this.idColumn = idColumn;
+	}
+
+	public String getNameColumn() {
+		return nameColumn;
+	}
+
+	public void setNameColumn(String nameColumn) {
+		this.nameColumn = nameColumn;
+	}
+
+	public String getWhere() {
+		return where;
+	}
+
+	public void setWhere(String where) {
+		this.where = where;
+	}
+
 	/**
 	 * 不能改变
 	 */
@@ -197,18 +238,41 @@ public class NewSelectTag extends TagSupport {
 					selections.add(option);
 				}
 			}
-			//如果设置了paraType就以此为准
-			else if(!CommonUtil.isBlank(paraType)) {
+			// 如果设置了查询数据库就以此为准
+			else if (!CommonUtil.isBlank(tableName)
+					&& !CommonUtil.isBlank(idColumn)
+					&& !CommonUtil.isBlank(nameColumn)) {
 				selections = new ArrayList();
-				AllSelect allSelect = (AllSelect)SpringContextUtil.getBean(BeanManagerKey.allSelectManager.toString());
+				MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+						.getBean("jdbcTool");
+				StringBuffer buf2 = new StringBuffer();
+				buf2.append("select " + idColumn + "," + nameColumn + " from "
+						+ tableName);
+				if (!CommonUtil.isBlank(where))
+					buf2.append(" where " + where);
+				List ans = jdbcDaoTest.queryForList(buf2.toString());
+				if (ans != null && ans.size() > 0)
+					for (Object objs : ans) {
+						ListOrderedMap obj = (ListOrderedMap) objs;
+						SimpleOption option = new SimpleOption();
+						option.setText(obj.getValue(1)  + "");
+						option.setValue(obj.getValue(0) + "");
+						selections.add(option);
+					}
+			}
+			// 如果设置了paraType就以此为准
+			else if (!CommonUtil.isBlank(paraType)) {
+				selections = new ArrayList();
+				AllSelect allSelect = (AllSelect) SpringContextUtil
+						.getBean(BeanManagerKey.allSelectManager.toString());
 				ParamSelect params = allSelect.getParamsByType(paraType);
-				for (int i = 0,j=params.getLength(); i <j ; i++) {
+				for (int i = 0, j = params.getLength(); i < j; i++) {
 					SimpleOption option = new SimpleOption();
 					option.setText(params.getName(i));
 					option.setValue(params.getValue(i));
 					selections.add(option);
-				} 
-			}else {
+				}
+			} else {
 				if (selections == null) {
 					buf.append("<option><value></value></option>");
 				} else {
@@ -366,6 +430,6 @@ public class NewSelectTag extends TagSupport {
 
 	public void setParaType(String paraType) {
 		this.paraType = paraType;
-	} 
+	}
 
 }

@@ -10,7 +10,8 @@
 						<label>
 							参数类型:
 						</label>
-							<input name="paramType" class="textInput required" size="30" type="text"   />
+						<my:newselect tagName="paramType" idColumn="parameter_type_id" nameColumn="parameter_type_name" tableName="parameter_type" width="100"
+					allSelected="true" /> 
 					</div>
 					 <div class="unit">
 						<label>

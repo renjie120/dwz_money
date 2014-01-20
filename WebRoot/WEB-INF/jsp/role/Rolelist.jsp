@@ -129,8 +129,8 @@ function saveRole(){
 			</div>
 		</div>
 		<div
-			style="width:40%;overflow:hidden;border:1px #BAD1D7 solid;">
-			<div style="overflow:auto;height:200px;" myLayoutH="400">
+			style="width:40%;overflow:auto;border:1px #BAD1D7 solid;">
+			<div  style="height:300px;" >
 				<ul id='treeDemo2' />
 			</div>
 			<div class="formBar" >

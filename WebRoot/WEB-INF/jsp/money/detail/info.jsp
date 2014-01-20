@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<script src="/js/treeCombox.js" type="text/javascript" />
 <script type="text/javascript">
 <!-- 
 function test(){  
@@ -12,12 +13,27 @@ function test(){
 	 	 navTab.reloadFlag("moneylist");
 	 });
 }
+
+
+	function myOperation() {
+		$('#moneyTypeName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	$(document).ready(function() {
+		var content = {
+			action : '/money/tree!getMoneyTypeTree.do',
+			nameInput : 'moneyTypeName',
+			height : '200px',
+			idInput : 'moneyType',
+			treeId : "moneyTree"
+		};
+		$('#moneyTypeName').treeCombox(content);
+	});
 //-->
 </script>
 <div class="pageContent">
-	<form method="post" action="/money/newmoney!doAdd.do" id="moneyAddInfo"
+	<form method="post" action="/money/newmoney!doAdd.do" id="moneyAddInfo" onsubmit="return myCallback(this, closeDialogWindow);"
 		class="pageForm required-validate" >
-		<div class="pageFormContent"  layouth='-50'>
+		<div class="pageFormContent"  layouth='57'>
 			<div class="unit">
 				<label>
 					时间：
@@ -35,17 +51,17 @@ function test(){
 				<label>
 					类别：
 				</label> 
-				<input class="required" name="moneyTypeName" type="text" readOnly="true"/> 
-				<input  name="moneyType" type="hidden"/> 
-				<a class="btnLook" href="/money/tree!moneyTypeTree.do"
+				<input class="required" name="moneyTypeName" id="moneyTypeName" type="text" readOnly="true"/> 
+				<input  name="moneyType" type="hidden" id="moneyType"/> 
+				<!--a class="btnLook" href="/money/tree!moneyTypeTree.do"
 				 lookupGroup="obj"  lookupToPks="true" 
-				 lookupPk="moneyType" title='收支类别树'  width='300'></a> 
+				 lookupPk="moneyType" title='收支类别树'  width='300'></a  --> 
 			</div>
 			<div class="unit">
 				<label>
 					描述：
 				</label>
-				<textarea class="editor" name="moneyDesc" rows="15" cols="80"></textarea>
+				<textarea class="editor" name="moneyDesc" rows="5" cols="30"></textarea>
 			</div>
 		</div>
 		<div class="formBar">
@@ -53,9 +69,7 @@ function test(){
 				<li>
 					<div class="buttonActive">
 						<div class="buttonContent">
-							<button type="button" onclick="test()">
-								保存
-							</button>
+							<button type="submit">保存</button>
 						</div>
 					</div>
 				</li>

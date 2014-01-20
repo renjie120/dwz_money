@@ -15,8 +15,7 @@ function initEnv() {
 		initLayout(); 
 		$(this).trigger("resizeGrid"); 
 		$('#baiduMap:visible').height($("#container .tabsPageContent").height()).width($("#container .tabsPageContent").width());
-		
-		lastLayout();
+		 
 	});
 
 	var ajaxbg = $("#background,#progressBar");
@@ -51,6 +50,7 @@ function initEnv() {
  * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
  */
 function initLayout(){  
+	alert(53);
 	var iContentW = $(window).width() - (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34; 
 	$("#container").width(iContentW);
