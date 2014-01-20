@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <script src="/js/org.js" type="text/javascript" />
-<script type="text/javascript">
-<<<<<<< HEAD
+<script type="text/javascript"> 
  function refreshSelf(obj) {
 	$form = $(obj);
 	//$("#jbsxBox").reload($form.attr('action'), {data: $form.serializeArray()},function(){});
@@ -15,10 +14,7 @@
 	
 	function cancelThis(){
 		  $.pdialog.closeCurrent();
-	}
-=======
-	
->>>>>>> f0c60d3cab48c428d4b93168ccc323484fe3833d
+	} 
 </script>
 <div id='addUserRoleDiv'>
 	<form id="pagerForm" method="post"
@@ -28,21 +24,13 @@
 			type="hidden" name="orderField" value="${param.orderField}" /> <input
 			type="hidden" name="orderDirection" value="${param.orderDirection}" />
 	</form>
-	<div class="pageHeader">
-<<<<<<< HEAD
-		<form onsubmit="return refreshSelf(this);"
-=======
-		<form onsubmit="return navTabSearch(this);"
->>>>>>> f0c60d3cab48c428d4b93168ccc323484fe3833d
+	<div class="pageHeader"> 
+		<form onsubmit="return refreshSelf(this);" 
 			action="/money/role!beforeRoleInUser.do" method="post">
 			<div class="searchBar">
 				<table class="searchContent">
-					<tr>
-<<<<<<< HEAD
-						<td>角色名称</td>
-=======
-						<td>角色名称11</td>
->>>>>>> f0c60d3cab48c428d4b93168ccc323484fe3833d
+					<tr> 
+						<td>角色名称</td> 
 						<td><input name="roleName" class="textInput" size="30"
 							type="text" />
 						</td>
@@ -56,18 +44,11 @@
 									<button type="submit">检索</button>
 								</div>
 							</div>
-						</li>
-<<<<<<< HEAD
+						</li> 
 						<li><a class="button" href="#" onclick="checkThis()"><span>选择</span>
 						</a>
 						</li>
-						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span>
-=======
-						<li><a class="button" href="/money/role!beforeQuery.do"><span>保存</span>
-						</a>
-						</li>
-						<li><a class="button" href="/money/role!beforeQuery.do"><span>取消</span>
->>>>>>> f0c60d3cab48c428d4b93168ccc323484fe3833d
+						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span> 
 						</a>
 						</li>
 					</ul>
@@ -75,14 +56,9 @@
 			</div>
 		</form>
 	</div>
-	<div class="pageContent">
-<<<<<<< HEAD
+	<div class="pageContent"> 
 		<table class="table" layoutH="110" id="tableid" width="100%"
-			setHeight="true" modifyHeight="500">
-=======
-		<table class="table" layoutH="150" id="tableid" width="100%"
-			setHeight="true" modifyHeight="450">
->>>>>>> f0c60d3cab48c428d4b93168ccc323484fe3833d
+			setHeight="true" modifyHeight="500"> 
 			<thead>
 				<tr>
 					<th width="30"><input type="checkbox" group="ids"

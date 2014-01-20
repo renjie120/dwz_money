@@ -6,21 +6,32 @@
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
 		type="hidden" name="orderDirection" value="${param.orderDirection}" />
 </form>
-
-<div class="pageHeader">
+<%
+	String year = (String) request.getAttribute("year");
+	String month = (String) request.getAttribute("month");
+	System.out.println(year+",,"+month);
+%>
+<div class="pageHeader" id="moneylist">
 	<form onsubmit="return navTabSearch(this);"
 		action="/money/newmoney!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
 					<td>年度</td>
-					<td><my:newselect tagName="year" width="200" idColumn="paramvalue" nameColumn="parametername" tableName="params" where="parameterType=7"
-							 selectFlag="true" /></td>
+					<td><my:newselect tagName="year" width="200"
+							idColumn="paramvalue" nameColumn="parametername"
+							tableName="params" where="parameterType=7" selectFlag="true"
+							selectedValue="<%=year %>" />
+					</td>
 					<td>月份</td>
 					<td><my:newselect tagName="month" width="200"
-							idColumn="paramvalue" nameColumn="parametername" tableName="params" where="parameterType=8" selectFlag="true" /></td>
+							idColumn="paramvalue" selectedValue="<%=month %>"
+							nameColumn="parametername" tableName="params"
+							where="parameterType=8" selectFlag="true" />
+					</td>
 					<td>分类</td>
-					<td><input type="text" name="keyword" /></td>
+					<td><input type="text" name="keyword" />
+					</td>
 				</tr>
 			</table>
 			<div class="subBar">
@@ -30,7 +41,8 @@
 							<div class="buttonContent">
 								<button type="submit">检索</button>
 							</div>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -40,26 +52,32 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li><a class="add" href="/money/newmoney!beforeAdd.do"
-				target="dialog"  mask="true" title="添加金额信息"><span>添加</span> </a></li>
+				target="dialog" mask="true" title="添加金额信息"><span>添加</span> </a>
+			</li>
 			<li><a class="delete" href="/money/newmoney!doDelete.do"
 				postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
-			</a></li>
+			</a>
+			</li>
 			<li><a class="edit"
 				href="/money/newmoney!beforeUpdate.do?moneySno={moneysno}"
-				target="dialog" mask="true" title="修改金额信息"><span>修改</span> </a></li>
+				target="dialog" mask="true" title="修改金额信息"><span>修改</span> </a>
+			</li>
 			<li class="line">line</li>
 			<li><a class="icon" href="/money/newmoney!export.do"
 				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
-			</a></li>
+			</a>
+			</li>
 			<li><a class="icon" href="/money/newmoney!initImport.do"
-				target="dialog"> <span>从EXCEL导入</span> </a></li>
+				target="dialog"> <span>从EXCEL导入</span> </a>
+			</li>
 		</ul>
 	</div>
 	<table class="table" layoutH='-138'>
 		<thead>
 			<tr>
 				<th width="30"><input type="checkbox" group="ids"
-					class="checkboxCtrl"></th>
+					class="checkboxCtrl">
+				</th>
 				<th width="200" orderField="MONEY_TIME" class="desc">时间</th>
 				<th width="200" orderField="MONEY" class="asc">金额</th>
 				<th width="200" orderField="MONEY_TYPE" class="desc">开支类型</th>
@@ -70,11 +88,16 @@
 			<s:iterator value="list" status="stu">
 				<tr target="moneysno" rel="<s:property value="moneySno" />">
 					<td><input name="ids" value="<s:property value="moneySno" />"
-						type="checkbox"></td>
-					<td><s:property value="moneyTime" /></td>
-					<td><s:property value="money" /></td>
-					<td><s:property value="moneyTypeName" /></td>
-					<td><s:property value="moneyDesc" /></td>
+						type="checkbox">
+					</td>
+					<td><s:property value="moneyTime" />
+					</td>
+					<td><s:property value="money" />
+					</td>
+					<td><s:property value="moneyTypeName" />
+					</td>
+					<td><s:property value="moneyDesc" />
+					</td>
 				</tr>
 			</s:iterator>
 		</tbody>
@@ -98,7 +121,7 @@
 			</select> <span>条，共${totalCount}条</span>
 		</div>
 
-		<div class="pagination" targetType="navTab" totalCount="${totalCount}"
+		<div class="pagination" targetType="navTab" totalCount="${totalCount}"  arglist="year,month"
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>

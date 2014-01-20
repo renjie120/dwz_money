@@ -3,8 +3,10 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ public class MoneyAction extends BaseAction {
 	private int moneySno;
 	private String year;
 	private String month;
+
 	public String getYear() {
 		return year;
 	}
@@ -168,7 +171,7 @@ public class MoneyAction extends BaseAction {
 				return "描述";
 			default:
 				return "";
-			} 
+			}
 		}
 	}
 
@@ -295,11 +298,25 @@ public class MoneyAction extends BaseAction {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
+		GregorianCalendar ca = new GregorianCalendar();
+		ca.setTime(new Date());
+		int iMonth = ca.get(Calendar.MONTH) + 1;
+		System.out.println(request.getParameter("month"));
+		System.out.println("year===="+request.getParameter("year"));
+		System.out.println(month+",,,,,,,,,,,,"+year);
+		int iYear = ca.get(Calendar.YEAR);
+		if (!CommonUtil.isNotEmpty(month) )
+			month = iMonth+"";
+		if (!CommonUtil.isNotEmpty(year)  )
+			year = iYear+"";
+
 		Map<MoneySearchFields, Object> criterias = getCriterias();
 
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
 				realOrderField(), startIndex, numPerPage);
 
+		request.setAttribute("year", year);
+		request.setAttribute("month", month);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
 		request.setAttribute("totalCount", mMgr.searchMoneyNum(criterias));
@@ -337,16 +354,14 @@ public class MoneyAction extends BaseAction {
 
 	private Map<MoneySearchFields, Object> getCriterias() {
 		Map<MoneySearchFields, Object> criterias = new HashMap<MoneySearchFields, Object>();
-		if (CommonUtil.isNotEmpty(year)&&!"-1".equals(year))
-			criterias.put(MoneySearchFields.YEAR, year);
-		if (CommonUtil.isNotEmpty(month)&&!"-1".equals(month))
-			criterias.put(MoneySearchFields.MONTH, month);
+		criterias.put(MoneySearchFields.YEAR, year);
+		criterias.put(MoneySearchFields.MONTH, month);
 		if (moneyVo == null)
 			return criterias;
 		if (moneyVo.getId() > 0)
 			criterias.put(MoneySearchFields.MONEY_SNO, moneyVo.getId());
 		if (CommonUtil.isNotEmpty(moneyVo.getBookType()))
-			criterias.put(MoneySearchFields.BOOK_TYPE, moneyVo.getBookType()); 
+			criterias.put(MoneySearchFields.BOOK_TYPE, moneyVo.getBookType());
 		if (CommonUtil.isNotEmpty(moneyVo.getMoneyDesc()))
 			criterias.put(MoneySearchFields.MONEY_DESC,
 					"%" + moneyVo.getMoneyDesc() + "%");

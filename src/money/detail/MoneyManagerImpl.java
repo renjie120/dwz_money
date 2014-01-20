@@ -103,8 +103,8 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 	 */
 	private Date[] getDates(String year, String month) {
 		Date[] times = new Date[2];
-		if("null".equals(year)) year = "";
-		if("null".equals(month)) month = "";
+		if("-1".equals(year)) year = "";
+		if("-1".equals(month)) month = "";
 		// 如果有年月就返回制定月份数据
 		if (CommonUtil.isNotEmpty(year) && CommonUtil.isNotEmpty(month)) {
 			return getDates(Integer.parseInt(year), Integer.parseInt(month));

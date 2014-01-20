@@ -299,10 +299,11 @@ function dwzPageBreak(options) {
 					orderField : "",
 					orderDirection : ""
 				},
+				arglist:null,//添加一个自定义的列属性，分页的时候添加一些额外的属性.
 				callback : null
 			}, options); 
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab
-			.getCurrentPanel();    
+			.getCurrentPanel();     
 	if (op.rel) {  
 		var $box = $parent.find("#" + op.rel); 
 		var form = _getPagerForm($box, op.data);  
@@ -331,15 +332,26 @@ function dwzPageBreak(options) {
 					});
 		}
 	} else { 
-		var form = _getPagerForm($parent, op.data);
-		var params = $(form).serializeArray(); 
+		var form = _getPagerForm($parent, op.data); 
+		
+		var params = $(form).serializeArray();  
+		//在分页里面添加上额外的参数！
+		if(op.arglist){
+			var _args = op.arglist.split(",");
+			for(var __i=0,__j=_args.length;__i<__j;__i++){  
+				var obj = {};
+				obj.name =_args[__i];
+				obj.value = $('#'+_args[__i]).val();
+				params.push(obj);
+			}
+		} 
 		if (op.targetType == "dialog") {
 			if (form)
 				$.pdialog.reload($(form).attr("action"), {
 							data : params,
 							callback : ops.callback
 						});
-		} else { 
+		} else {  
 			if (form)
 				navTab.reload($(form).attr("action"), {
 							data : params,

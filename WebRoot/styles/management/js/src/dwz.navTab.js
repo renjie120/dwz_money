@@ -295,7 +295,7 @@ var navTab = {
 			if (url) {
 				if ($tab.hasClass("external")) {
 					navTab.openExternal(url, $panel);
-				} else {
+				} else { 
 					$panel.ajaxUrl({
 						type:"POST", url:url, data:op.data, callback:function(response){
 							navTab._loadUrlCallback($panel);

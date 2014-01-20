@@ -28,31 +28,32 @@
 				
 				if (pc.hasPrev()){
 					$first.add($prev).find(">span").hide();
-					_bindEvent($prev, pc.getCurrentPage()-1, pc.targetType(), pc.rel());
-					_bindEvent($first, 1, pc.targetType(), pc.rel());
+					_bindEvent($prev, pc.getCurrentPage()-1, pc.targetType(), pc.rel(),$this.attr('arglist'));
+					_bindEvent($first, 1, pc.targetType(), pc.rel(),$this.attr('arglist'));
 				} else {
 					$first.add($prev).addClass("disabled").find(">a").hide();
 				}
 				
 				if (pc.hasNext()) {
 					$next.add($last).find(">span").hide();
-					_bindEvent($next, pc.getCurrentPage()+1, pc.targetType(), pc.rel());
-					_bindEvent($last, pc.numPages(), pc.targetType(), pc.rel());
+					_bindEvent($next, pc.getCurrentPage()+1, pc.targetType(), pc.rel(),$this.attr('arglist'));
+					_bindEvent($last, pc.numPages(), pc.targetType(), pc.rel(),$this.attr('arglist'));
 				} else {
 					$next.add($last).addClass("disabled").find(">a").hide();
 				}
 	
-				$this.find(setting.nums$).each(function(i){
-					_bindEvent($(this), i+interval.start, pc.targetType(), pc.rel());
+				$this.find(setting.nums$).each(function(i){  
+					_bindEvent($(this), i+interval.start, pc.targetType(), pc.rel(),$this.attr('arglist'));
 				});
-				$this.find(setting.jumpto$).each(function(){
+				$this.find(setting.jumpto$).each(function(){ 
 					var $this = $(this);
 					var $inputBox = $this.find(":text");
+					var $pcpc =$this.parents("div.pagination:first"); 
 					var $button = $this.find(":button");
 					$button.click(function(event){
-						var pageNum = $inputBox.val();
+						var pageNum = $inputBox.val(); 
 						if (pageNum && pageNum.isPositiveInteger()) { 
-							dwzPageBreak({targetType:pc.targetType(), rel:pc.rel(), data: {pageNum:pageNum}});
+							dwzPageBreak({targetType:pc.targetType(), rel:pc.rel(), data: {pageNum:pageNum},arglist:$pcpc.attr('arglist')});
 						}
 					});
 					$inputBox.keyup(function(event){
@@ -61,9 +62,9 @@
 				});
 			});
 			
-			function _bindEvent($target, pageNum, targetType, rel){
-				$target.bind("click", {pageNum:pageNum}, function(event){
-					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum}});
+			function _bindEvent($target, pageNum, targetType, rel,args){
+				$target.bind("click", {pageNum:pageNum}, function(event){ 
+					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum},arglist:args});
 					event.preventDefault();
 				});
 			}
@@ -105,6 +106,7 @@
 			totalCount:0,
 			numPerPage:10,
 			pageNumShown:10,
+			arglist:"",
 			currentPage:1,
 			callback:function(){return false;}
 		}, opts);
@@ -112,7 +114,8 @@
 	
 	$.extend(Pagination.prototype, {
 		targetType:function(){return this.opts.targetType},
-		rel:function(){return this.opts.rel},
+		rel:function(){return this.opts.rel}, 
+		returnThis:function(){return $(this);},
 		numPages:function() {
 			return Math.ceil(this.opts.totalCount/this.opts.numPerPage);
 		},

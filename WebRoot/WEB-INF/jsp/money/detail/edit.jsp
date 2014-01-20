@@ -51,10 +51,10 @@
 					value="<s:property value="moneyVo.money"/>" />
 			</div>
 			<div class="unit">
-				<label> 类别： </label> <input class="required" name="moneyTypeName"
+				<label> 类别： </label> <input class="required" name="moneyTypeName" id="moneyTypeName"
 					readOnly="true" type="text"
 					value="<s:property value="moneyVo.moneyTypeName"/>" /> <input
-					name="moneyType" type="hidden"
+					name="moneyType" 	id="moneyType"  type="hidden"
 					value="<s:property value="moneyVo.moneyType"/>" /> </a>
 			</div>
 			<div class="unit">
