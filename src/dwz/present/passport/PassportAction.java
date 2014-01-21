@@ -49,6 +49,10 @@ public class PassportAction extends BaseAction {
 
 		return INPUT;
 	}
+	
+	public String login2() { 
+		return "login2";
+	}
 
 	public String logout() {
 		Passport passport = Passport.getPassport(request);
@@ -56,7 +60,7 @@ public class PassportAction extends BaseAction {
 		passport.logout(request, response);
 
 		if (backToUrl == null) {
-			backToUrl = "/management/index!login.do";
+			backToUrl = "/passport!login2.do";
 		}
 
 		return SUCCESS;

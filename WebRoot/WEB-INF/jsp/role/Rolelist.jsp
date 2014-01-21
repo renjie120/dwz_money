@@ -52,9 +52,7 @@ function saveRole(){
 							<div class="buttonContent">
 								<button type="submit">检索</button>
 							</div>
-						</div></li>
-					<li><a class="button" href="/money/role!beforeQuery.do"
-						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a></li>
+						</div></li>  
 				</ul>
 			</div>
 		</div>
@@ -130,7 +128,7 @@ function saveRole(){
 			</div>
 		</div>
 		<div
-			style="width:40%;overflow:hidden;border:1px #BAD1D7 solid;"  >
+			style="width:39%;overflow:hidden;border:1px #BAD1D7 solid;"  >
 			<div  style="overflow:auto;" id="childdiv">
 				<ul id='treeDemo2' />
 			</div>

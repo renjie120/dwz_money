@@ -83,6 +83,9 @@
 			<result name="input">
 				/WEB-INF/jsp/management/index/login.jsp
 			</result>
+			<result name="login2">
+				/WEB-INF/jsp/management/index/login.jsp
+			</result>
 		</action>
 
 		<!-- <action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->

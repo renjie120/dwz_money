@@ -1,19 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/include.inc.jsp"%>
+<%@ page import="dwz.framework.constants.Constants"%>
 <%@ page import="common.tree.Tree"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
 <title><s:text name="ui.title" />
-</title>
+</title> 
 <%
 	String path = request.getContextPath();
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
-	response.setDateHeader("Expires", 0);
-%>
+	response.setDateHeader("Expires", 0); 
+ Object obj = session.getAttribute(Constants.AUTHENTICATION_KEY);
+ System.out.println("登陆信息为："+obj);
+  if(obj==null)
+  	response.sendRedirect("/management/index!login.do");
+ %>
 <script type="text/javascript"> 
 		var appPath = "<%=path%>
 	";
@@ -118,6 +123,7 @@
 <script src="/styles/management/js/dwz.regional.zh.js" type="text/javascript"></script> -->
 
 
+
 <!-- 下面引入ZTree -->
 <link rel="stylesheet" href="/ztree2/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
@@ -143,6 +149,16 @@
 		if ($.browser.msie) {
 			window.setInterval("CollectGarbage();", 10000);
 		}
+		
+		function logout(){
+		  $.ajax({
+			  type:'POST', url:'/passport!logout.do',  
+			  success: function(){ 
+			  	location.href="/management/index!login.do";
+			  },
+			  error: DWZ.ajaxError
+		 });
+ 		}
 	</script>
 </head>
 <body scroll="no">
@@ -161,7 +177,7 @@
 						mask="true">我的资料</a></li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
 						mask="true">修改密码</a></li>
-					<li><a href="/passport!logout.do">退出登录</a></li>
+					<li><a href="#" onclick="logout()">退出登录</a></li>
 				</ul>
 			</div>
 		</div>

@@ -178,7 +178,6 @@ var DWZ = {
 				var iRefH = $refBox.height();  
 				var iLayoutH = parseInt($this.attr("layoutH"));
 				var iH = iRefH - iLayoutH > 50 ? iRefH - iLayoutH : 50;   
-				alert('dwz.core---181');
 				//如果没有设置过使用高度 
 				if(iLayoutH<0&&!$this.attr('setHeight')){
 					var gridTreeHeight = $("#container .tabsPageContent").height()+iLayoutH;    
