@@ -14,7 +14,8 @@
 	
 	function mydone(json){
 		DWZ.ajaxDone(json);
-		$.pdialog.closeCurrent();
+		$.pdialog.closeCurrent();  
+		navTabPageBreak({}, 'myUserRoleDiv');
 	}
 	
 	function checkThis(){
@@ -67,7 +68,7 @@
 								</div>
 							</div>
 						</li>
-						<li><a class="button" href="#" onclick="checkThis()"><span>选择</span>
+						<li><a class="button" href="#" onclick="checkThis()"><span>选择并授权</span>
 						</a>
 						</li>
 						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span>
@@ -79,8 +80,8 @@
 		</form>
 	</div>
 	<div class="pageContent">
-		<table class="table" layoutH="110" id="tableid" width="100%"
-			setHeight="true" modifyHeight="500">
+		<table class="table" layoutH="150" id="tableid" width="100%"
+			setHeight="true" configHeight="150">
 			<thead>
 				<tr>
 					<th width="30"><input type="checkbox" group="ids"
@@ -106,8 +107,8 @@
 		</table>
 		<div class="panelBar">
 			<div class="pages">
-				<span>显示</span> <select class="combox" name="numPerPage"
-					onchange="navTabPageBreak({numPerPage:this.value})">
+				<span>显示</span> <select class="combox" name="numPerPage"  
+					onchange="dialogPageBreak({numPerPage:this.value,pageNum:1},'addUserRoleDiv')">
 					<option value="20"
 						<%if ((request.getAttribute("numPerPage") + "").equals("20")) {%>
 						selected <%}%>>20</option>

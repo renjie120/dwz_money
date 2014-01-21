@@ -260,7 +260,7 @@
 		 * @param {Object} dialog
 		 * @param {Object} target
 		 */
-		resizeDialog:function(obj, dialog, target) {
+		resizeDialog:function(obj, dialog, target) { 
 			var oleft = parseInt(obj.style.left);
 			var otop = parseInt(obj.style.top);
 			var height = parseInt(obj.style.height);
@@ -365,7 +365,7 @@
 				$.taskBar.inactive($(dialog).data("id"));
 			});
 		},
-		_resizeContent:function(dialog,width,height) {
+		_resizeContent:function(dialog,width,height) { 
 			var content = $(".dialogContent", dialog);
 			content.css({width:(width-12) + "px",height:height - $(".dialogHeader", dialog).outerHeight() - $(".dialogFooter", dialog).outerHeight() - 6});
 			content.find("[layoutH]").layoutH(content);

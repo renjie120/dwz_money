@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.util.CommonUtil;
+
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -219,6 +221,7 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 	public void createUserWithRole(int userId, String menuIds) {
 		String[] menuidArr = menuIds.split(","); 
 		userRoleDao.deleteAllByUserId(userId);
+		if(CommonUtil.isNotEmpty(menuIds))
 		for(String m:menuidArr){
 			UserRoleRightVO vo = new UserRoleRightVO();
 			vo.setRoleId(Integer.parseInt(m));

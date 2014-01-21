@@ -325,17 +325,22 @@ function dwzPageBreak(options) {
 						data : params,
 						callback : function() {  
 							var _b = $box.find("[layoutH]");
-							var _setHeight = _b.attr('setHeight'); 
-							//alert('分页之后修改ui'); 
+							var _setHeight = _b.attr('setHeight');  
 							
 							if(_setHeight=='true'){ 
-								//修正高度的属性.
-								var m = _b.attr('modifyHeight'); 
-								if(m==null||m==''||isNaN(m))
-									m = 0;
-								var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
-								var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-m;
-								$('#tableid').height(300);  
+								var _configHeight = _b.attr('configHeight');
+								//直接sh
+								if(_configHeight){
+									_b.height(_configHeight);   
+								}else{
+									//修正高度的属性.
+									var m = _b.attr('modifyHeight'); 
+									if(m==null||m==''||isNaN(m))
+										m = 0;
+									var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
+									var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-m; 
+									_b.height(m);   
+								} 
 							}
 							else
 								_b.layoutH(); 
@@ -389,7 +394,7 @@ function navTabPageBreak(args, rel) {
 			arglist:args.arglist
 		});
 	else
-	dwzPageBreak({
+		dwzPageBreak({
 				targetType : "navTab",
 				rel : rel,
 				data : args

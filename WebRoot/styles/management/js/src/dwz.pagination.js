@@ -63,9 +63,9 @@
 			});
 			
 			function _bindEvent($target, pageNum, targetType, rel,args){
-				$target.bind("click", {pageNum:pageNum}, function(event){ 
-					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum},arglist:args});
-					event.preventDefault();
+				$target.bind("click", {pageNum:pageNum}, function(event){  
+					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum},arglist:args});  
+					event.preventDefault(); 
 				});
 			}
 		},

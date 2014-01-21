@@ -49,7 +49,7 @@ function initEnv() {
 /**
  * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
  */
-function initLayout(){   
+function initLayout(){  
 	var iContentW = $(window).width() - (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34; 
 	$("#container").width(iContentW);
@@ -59,8 +59,7 @@ function initLayout(){
  
 	//下面对表格树进行控制高度自适应.
 	 var gridTreeHeight = $("#container .tabsPageContent").height() - $('#container div.pageHeader').height()-56;  
-	 $('#newtableTree').resetHeight(gridTreeHeight);
-	 
+	 $('#newtableTree').resetHeight(gridTreeHeight); 
 	 initMyUI();
 }
 /**
@@ -76,7 +75,7 @@ function lastLayout(){
 function initMyUI(){   
 }
 
-function initUI(_box){
+function initUI(_box){ 
 	var $p = $(_box || document);
 
 	//tables

@@ -3,10 +3,11 @@
 <script src="/js/org.js" type="text/javascript" />
 <script type="text/javascript">
 <!--
-function lastLayout(){   
-	//$('div[myLayoutH]').parent().height(($('div.pageContent:first').height()-50)+'px'); 
+ 
+function initMyUI(){  
+	$('#childdiv').height($('#leftSide').height()-$('#saveBtnDiv').height());  
 }
-
+ 
 /**
  * 保存角色授权的结果.
  */
@@ -61,7 +62,7 @@ function saveRole(){
 </div>
 <div class="pageContent">
 	<div>
-		<div style="width:60%;border:1px #BAD1D7 solid;float:left;">
+		<div style="width:60%;border:1px #BAD1D7 solid;float:left;" id="leftSide">
 			<div class="panelBar">
 				<ul class="toolBar">
 					<li><a class="add" href="/money/role!beforeAdd.do"
@@ -129,18 +130,14 @@ function saveRole(){
 			</div>
 		</div>
 		<div
-			style="width:40%;overflow:auto;border:1px #BAD1D7 solid;">
-			<div  style="height:300px;" >
+			style="width:40%;overflow:hidden;border:1px #BAD1D7 solid;"  >
+			<div  style="overflow:auto;" id="childdiv">
 				<ul id='treeDemo2' />
 			</div>
-			<div class="formBar" >
+			<div class="formBar" id='saveBtnDiv'>
 				<ul>
 					<li>
-						<div class="buttonActive">
-							<div class="buttonContent">
-								<button onclick="saveRole()">保存</button>
-							</div>
-						</div>
+						 <button onclick="saveRole()">保存</button> 
 					</li> 
 				</ul>
 			</div>

@@ -58,7 +58,7 @@ public class JPCoder {
 	}
 	
 	public static void main(String[] args){
-		JPCoder.Coder("D:\\项目评估.pptx");
+		JPCoder.Coder("D:\\寒假小报1.docx");
 		
 	}
 
