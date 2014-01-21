@@ -9,10 +9,10 @@
 				});
 
 			} else {
-				$.addTreeCombox(this, p); 
+				$.addTreeCombox(this, p);
 			}
 
-		}); 
+		});
 	}
 	$.addTreeCombox = function(t, c) {
 		if (t.gt) {
@@ -23,8 +23,8 @@
 			width : '250px',
 			action : null,
 			nameInput : null,
-			idInput : null ,
-			treeId:null,
+			idInput : null,
+			treeId : null,
 		}, c);
 
 		var dbs = {
@@ -47,13 +47,13 @@
 				dbs.hideMenu();
 			},
 			hideMenu : function() {
-				$("#"+c.contentId).fadeOut("fast");
+				$("#" + c.contentId).fadeOut("fast");
 				$("body").unbind("mousedown", dbs.onBodyDown);
 			},
-			onBodyDown : function(event) { 
+			onBodyDown : function(event) {
 				if (!(event.target.id == "menuBtn"
 						|| event.target.id == c.contentId || $(event.target)
-						.parents("#"+c.contentId).length > 0)) {
+						.parents("#" + c.contentId).length > 0)) {
 					dbs.hideMenu();
 				}
 			},
@@ -61,10 +61,10 @@
 				var $this = dbs.obj;
 				$.get(c.action, function(data) {
 					eval("var json=" + data);
-					$.fn.zTree.init($("#"+c.treeId), setting, json);
+					$.fn.zTree.init($("#" + c.treeId), setting, json);
 					var cityObj = $("#" + c.nameInput);
 					var cityOffset = cityObj.offset();
-					$("#"+c.contentId).css({
+					$("#" + c.contentId).css({
 						left : cityOffset.left + "px",
 						top : cityOffset.top + cityObj.outerHeight() + "px"
 					}).slideDown("fast");
@@ -86,13 +86,19 @@
 				onClick : dbs._click
 			}
 		};
-		c.contentId = "_content_"+c.treeId; 
-		$("body").append(
-						"<div id='"+c.contentId+"' class='menuContent myinnerTree' style='display:none; position: absolute;'> "
-								+ "<ul id='"+c.treeId+"' class='ztree' style='margin-top:0;width:"+c.width+";height:"+c.height+";overflow:auto;'></ul> </div>");
+		c.contentId = "_content_" + c.treeId;
+		$("body")
+				.append(
+						"<div id='"
+								+ c.contentId
+								+ "' class='menuContent myinnerTree' style='display:none; position: absolute;'> "
+								+ "<ul id='" + c.treeId
+								+ "' class='ztree' style='margin-top:0;width:"
+								+ c.width + ";height:" + c.height
+								+ ";overflow:auto;'></ul> </div>");
 
 		dbs.obj = $(t);
-		dbs.obj.bind('click',dbs.showTree); 
+		dbs.obj.bind('click', dbs.showTree);
 		t.gt = dbs;
 	};
 

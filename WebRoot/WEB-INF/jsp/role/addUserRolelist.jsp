@@ -12,6 +12,28 @@
 	return false;
 	}
 	
+	function mydone(json){
+		DWZ.ajaxDone(json);
+		$.pdialog.closeCurrent();
+	}
+	
+	function checkThis(){
+	 var ans = [];
+	 var $conetnt = $(".dialogContent", $.pdialog._current);
+		 $conetnt.find('div.gridTbody').find('input[type=checkbox]:checked').each(function(){
+		  ans.push($(this).val());
+		 });
+		 var selectId = ans.join(',');
+		 var userId =$('#myUserRoleDiv_userId').val();
+		  $.ajax({
+		  type:'POST', url:'/money/role!saveUserWithRole.do',
+		  dataType:'json',
+		  data: {'ids':selectId,'userId':userId},
+		  success: mydone,
+		  error: DWZ.ajaxError
+		 });
+	}
+	
 	function cancelThis(){
 		  $.pdialog.closeCurrent();
 	} 
@@ -24,13 +46,13 @@
 			type="hidden" name="orderField" value="${param.orderField}" /> <input
 			type="hidden" name="orderDirection" value="${param.orderDirection}" />
 	</form>
-	<div class="pageHeader"> 
-		<form onsubmit="return refreshSelf(this);" 
+	<div class="pageHeader">
+		<form onsubmit="return refreshSelf(this);"
 			action="/money/role!beforeRoleInUser.do" method="post">
 			<div class="searchBar">
 				<table class="searchContent">
-					<tr> 
-						<td>角色名称</td> 
+					<tr>
+						<td>角色名称</td>
 						<td><input name="roleName" class="textInput" size="30"
 							type="text" />
 						</td>
@@ -44,11 +66,11 @@
 									<button type="submit">检索</button>
 								</div>
 							</div>
-						</li> 
+						</li>
 						<li><a class="button" href="#" onclick="checkThis()"><span>选择</span>
 						</a>
 						</li>
-						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span> 
+						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span>
 						</a>
 						</li>
 					</ul>
@@ -56,9 +78,9 @@
 			</div>
 		</form>
 	</div>
-	<div class="pageContent"> 
+	<div class="pageContent">
 		<table class="table" layoutH="110" id="tableid" width="100%"
-			setHeight="true" modifyHeight="500"> 
+			setHeight="true" modifyHeight="500">
 			<thead>
 				<tr>
 					<th width="30"><input type="checkbox" group="ids"

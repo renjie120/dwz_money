@@ -60,6 +60,9 @@ public interface RoleManager  extends BusinessObjectManager {
 	
 	@Transactional
 	public void createRoleWithMenu(int roleId,String menuIds)  ;
+	
+	@Transactional
+	public void createUserWithRole(int userId,String menuIds)  ;
 
 	/**
 	 * 更新操作.

@@ -300,10 +300,7 @@ public class MoneyAction extends BaseAction {
 		int startIndex = (pageNum - 1) * numPerPage;
 		GregorianCalendar ca = new GregorianCalendar();
 		ca.setTime(new Date());
-		int iMonth = ca.get(Calendar.MONTH) + 1;
-		System.out.println(request.getParameter("month"));
-		System.out.println("year===="+request.getParameter("year"));
-		System.out.println(month+",,,,,,,,,,,,"+year);
+		int iMonth = ca.get(Calendar.MONTH) + 1; 
 		int iYear = ca.get(Calendar.YEAR);
 		if (!CommonUtil.isNotEmpty(month) )
 			month = iMonth+"";

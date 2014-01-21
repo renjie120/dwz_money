@@ -1,4 +1,3 @@
-
 package money.rolemanager;
 
 import java.util.Collection;
@@ -26,7 +25,7 @@ public interface UserRoleRightDao extends BaseDao<UserRoleRightVO, Integer> {
 	/**
 	 * 根据用户id删除数据.
 	 */
-	public void deleteRecordByUserId(int userId);
+	public void deleteAllByUserId(int userId);
 	
 	/**
 	 * 查询总数.

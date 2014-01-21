@@ -15,7 +15,7 @@
 		<![CDATA[from UserRoleRightVO as userRoleRightDao where userId = ?]]>
 	</query>
 
-	<query name="money.rolemanager.UserRoleRightDao.deleteRecordByUserId">
+	<query name="money.rolemanager.UserRoleRightDao.deleteAllByUserId">
 		<![CDATA[delete from UserRoleRightVO where userId = ?]]>
 	</query>
 	

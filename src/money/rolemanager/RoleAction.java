@@ -86,6 +86,18 @@ public class RoleAction extends BaseAction {
 		}
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
+	
+	public String saveUserWithRole() {
+		String ids = request.getParameter("ids");
+		String userId = request.getParameter("userId");
+		try {
+			pMgr.createUserWithRole(Integer.parseInt(userId), ids);
+		} catch (Exception e) {
+			log.error(e);
+			return ajaxForwardError(e.getLocalizedMessage());
+		}
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
 
 	/**
 	 * 得到角色拥有的菜单权限树.

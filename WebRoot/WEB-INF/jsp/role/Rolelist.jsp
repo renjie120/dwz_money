@@ -40,7 +40,7 @@ function saveRole(){
 			<table class="searchContent">
 				<tr>
 					<td>角色名称</td>
-					<td><input name="roleName" class="textInput" size="30"
+					<td><input name="roleName" class="textInput" size="30" id='roleName'
 						type="text" /></td>
 				</tr>
 			</table>
@@ -108,7 +108,7 @@ function saveRole(){
 			<div class="panelBar">
 				<div class="pages">
 					<span>显示</span> <select class="combox" name="numPerPage"
-						onchange="navTabPageBreak({numPerPage:this.value})">
+						onchange="navTabPageBreak({numPerPage:this.value,arglist:'roleName',pageNum:1})">
 						<option value="20"
 							<%if ((request.getAttribute("numPerPage") + "").equals("20")) {%>
 							selected <%}%>>20</option>

@@ -90,7 +90,7 @@ function testConfirmMsg(url, data){
 		<div class="panelBar">
 			<div class="pages">
 				<span>显示</span> <select class="combox" name="numPerPage"
-					onchange="navTabPageBreak({numPerPage:this.value})">
+					onchange="navTabPageBreak({numPerPage:this.value},'myUserRoleDiv')">
 					<option value="20"
 						<%if ((request.getAttribute("numPerPage") + "").equals("20")) {%>
 						selected <%}%>>20</option>

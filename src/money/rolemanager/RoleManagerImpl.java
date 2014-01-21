@@ -19,12 +19,14 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 
 	private RoleDao roledao = null;
 	private RoleWithMenuDao roleMenuDao = null;
+	private UserRoleRightDao userRoleDao = null;
 	/**
 	 * 构造函数.
 	 */
-	public RoleManagerImpl(RoleDao roledao,RoleWithMenuDao roleMenuDao) {
+	public RoleManagerImpl(RoleDao roledao,RoleWithMenuDao roleMenuDao,UserRoleRightDao userRoleDao) {
 		this.roledao = roledao;
 		this.roleMenuDao = roleMenuDao;
+		this.userRoleDao = userRoleDao;
 	}
 
 	/**
@@ -211,5 +213,17 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 		}
 
 		return eaList;
+	}
+
+	@Override
+	public void createUserWithRole(int userId, String menuIds) {
+		String[] menuidArr = menuIds.split(","); 
+		userRoleDao.deleteAllByUserId(userId);
+		for(String m:menuidArr){
+			UserRoleRightVO vo = new UserRoleRightVO();
+			vo.setRoleId(Integer.parseInt(m));
+			vo.setUserId(userId);
+			this.userRoleDao.insert(vo);
+		}
 	}
 }

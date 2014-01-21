@@ -42,7 +42,7 @@
 					$next.add($last).addClass("disabled").find(">a").hide();
 				}
 	
-				$this.find(setting.nums$).each(function(i){  
+				$this.find(setting.nums$).each(function(i){    
 					_bindEvent($(this), i+interval.start, pc.targetType(), pc.rel(),$this.attr('arglist'));
 				});
 				$this.find(setting.jumpto$).each(function(){ 

@@ -303,15 +303,26 @@ function dwzPageBreak(options) {
 				callback : null
 			}, options); 
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab
-			.getCurrentPanel();     
+			.getCurrentPanel();  
 	if (op.rel) {  
 		var $box = $parent.find("#" + op.rel); 
 		var form = _getPagerForm($box, op.data);  
 		if (form) {
+			var params = $(form).serializeArray();  
+			//在分页里面添加上额外的参数！
+			if(op.arglist){
+				var _args = op.arglist.split(",");
+				for(var __i=0,__j=_args.length;__i<__j;__i++){  
+					var obj = {};
+					obj.name =_args[__i];
+					obj.value = $('#'+_args[__i]).val();
+					params.push(obj);
+				}
+			} 
 			$box.ajaxUrl({
 						type : "POST",
 						url : $(form).attr("action"),
-						data : $(form).serializeArray(),
+						data : params,
 						callback : function() {  
 							var _b = $box.find("[layoutH]");
 							var _setHeight = _b.attr('setHeight'); 
@@ -345,11 +356,12 @@ function dwzPageBreak(options) {
 				params.push(obj);
 			}
 		} 
+		 
 		if (op.targetType == "dialog") {
 			if (form)
 				$.pdialog.reload($(form).attr("action"), {
 							data : params,
-							callback : ops.callback
+							callback : op.callback
 						});
 		} else {  
 			if (form)
@@ -368,7 +380,15 @@ function dwzPageBreak(options) {
  * @param rel：
  *            可选 用于局部刷新div id号
  */
-function navTabPageBreak(args, rel) {
+function navTabPageBreak(args, rel) { 
+	if(args.arglist)
+		dwzPageBreak({
+			targetType : "navTab",
+			rel : rel,
+			data : args,
+			arglist:args.arglist
+		});
+	else
 	dwzPageBreak({
 				targetType : "navTab",
 				rel : rel,
@@ -379,11 +399,19 @@ function navTabPageBreak(args, rel) {
  * 处理dialog中的分页和排序 参数同 navTabPageBreak
  */
 function dialogPageBreak(args, rel) {
+	if(args.arglist)
+		dwzPageBreak({
+			targetType : "dialog",
+			rel : rel,
+			data : args,
+			arglist:args.arglist
+		});
+	else
 	dwzPageBreak({
 				targetType : "dialog",
 				rel : rel,
 				data : args
-			});
+			}); 
 }
 
 function ajaxTodo(url, callback) {
