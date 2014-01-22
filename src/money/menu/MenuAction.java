@@ -160,6 +160,67 @@ public class MenuAction extends BaseAction {
 		e.exportXls(response);
 		return null;
 	}
+	
+	public String exportPdf() {
+		response.setContentType("application/pdf");
+		response.addHeader("Content-Disposition",
+				"attachment;filename=MenuList.xls");
+
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<MenuSearchFields, Object> criterias = getCriterias();
+
+		Collection<Menu> menuList = pMgr.searchMenu(criterias,
+				realOrderField(), startIndex, numPerPage);
+
+		XlsExport e = new XlsExport();
+		int rowIndex = 0;
+
+		e.createRow(rowIndex++);
+		for (ExportFiled filed : ExportFiled.values()) {
+			e.setCell(filed.ordinal(), filed.getName());
+		}
+
+		for (Menu menu : menuList) {
+			e.createRow(rowIndex++);
+
+			for (ExportFiled filed : ExportFiled.values()) {
+				switch (filed) {
+				case MENUID:
+					e.setCell(filed.ordinal(), menu.getMenuId());
+					break;
+				case TARGET:
+					e.setCell(filed.ordinal(), menu.getTarget());
+					break;
+				case MENUNAME:
+					e.setCell(filed.ordinal(), menu.getMenuName());
+					break;
+				case PARENTID:
+					e.setCell(filed.ordinal(), menu.getParentId());
+					break;
+				case ORDERID:
+					e.setCell(filed.ordinal(), menu.getOrderId());
+					break;
+				case URL:
+					e.setCell(filed.ordinal(), menu.getUrl());
+					break;
+				case LEVEL:
+					e.setCell(filed.ordinal(), menu.getLevel());
+					break;
+				case RELID:
+					e.setCell(filed.ordinal(), menu.getRelId());
+					break;
+				default:
+					break;
+				}
+
+			}
+		}
+
+		e.exportXls(response);
+		return null;
+	}
 
 	private String userId;
 

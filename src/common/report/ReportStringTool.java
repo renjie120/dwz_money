@@ -8,7 +8,7 @@ import java.util.Map;
 
 import common.util.CommonUtil;
 
-public class ReportTool {
+public class ReportStringTool {
 	/**
 	 * 返回关于统计数量的满足报表的xml语句.
 	 * @param dataList

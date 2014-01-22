@@ -7,12 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
-
 import common.base.SpringContextUtil;
+import common.report.ReportBuilderFactory;
 import common.report.ReportDaoUtil;
-import common.report.ReportTool;
+import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
@@ -32,7 +36,7 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	 */
 	private static final long serialVersionUID = 1L;
 	QuestionManager pMgr = bf.getManager(BeanManagerKey.questionManager);
-	private Question questionVo;
+	private Question questionVo; 
 
 	public String beforeAdd() {
 		return "detail";
@@ -275,8 +279,12 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	public String reportQuestionByStatusXml() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		List ans = util.getCountGroupByOneColumn("question_v", "statusname");
-		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按照状态统计问题数量"));
+		String sql = ReportBuilderFactory.getInstance()
+				.countByColumn("question_v", "statusname").generateSql();
+		writeLog("统计状态的sql语句：：" + sql);
+		List ans = util.getTwoColumnReport(sql);
+		writeToPage(response,
+				ReportStringTool.getSimpleCountXML(ans, "按照状态统计问题数量"));
 		return null;
 	}
 
@@ -288,8 +296,12 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	public String reportQuestionByTypeXml() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		List ans = util.getCountGroupByOneColumn("question_v", "typename");
-		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按照类型统计问题数量"));
+		String sql = ReportBuilderFactory.getInstance()
+				.countByColumn("question_v", "typename").generateSql();
+		writeLog("统计问题分类的sql语句：：" + sql);
+		List ans = util.getTwoColumnReport(sql);
+		writeToPage(response,
+				ReportStringTool.getSimpleCountXML(ans, "按照类型统计问题数量"));
 		return null;
 	}
 

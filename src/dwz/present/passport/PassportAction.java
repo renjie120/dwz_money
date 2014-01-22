@@ -60,9 +60,12 @@ public class PassportAction extends BaseAction {
 		passport.logout(request, response);
 
 		if (backToUrl == null) {
-			backToUrl = "/passport!login2.do";
+			backToUrl = "/management/index!login.do";
 		}
-
+		request.getSession(false);
+//	  	String chk="false";
+//	  	session.putValue("Enter",chk);
+		response.setHeader("refresh","0;URL=/management/index!login.do");
 		return SUCCESS;
 	}
 

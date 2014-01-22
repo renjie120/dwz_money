@@ -325,10 +325,9 @@ function dwzPageBreak(options) {
 						data : params,
 						callback : function() {  
 							var _b = $box.find("[layoutH]");
-							var _setHeight = _b.attr('setHeight');  
-							
+							var _setHeight = _b.attr('setHeight');   
 							if(_setHeight=='true'){ 
-								var _configHeight = _b.attr('configHeight');
+								var _configHeight = _b.attr('configHeight'); 
 								//直接sh
 								if(_configHeight){
 									_b.height(_configHeight);   
@@ -339,7 +338,7 @@ function dwzPageBreak(options) {
 										m = 0;
 									var _pgContaint = _b.parents("div.pageContent:first").parents("div:first"); 
 									var __int = _pgContaint.height()-_pgContaint.find('div.pageHeader:first').height()-m; 
-									_b.height(m);   
+									_b.height(__int);   
 								} 
 							}
 							else

@@ -71,9 +71,9 @@ public class XlsExport {
 			workbook.write(fOut);
 			fOut.flush();
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("³ö´í!", e);
+			throw new RuntimeException("å‡ºé”™!", e);
 		} catch (IOException e) {
-			throw new RuntimeException("³ö´í!", e);
+			throw new RuntimeException("å‡ºé”™!", e);
 		} finally {
 			try {
 				if (fOut != null)
@@ -91,9 +91,9 @@ public class XlsExport {
 			workbook.write(os);
 			os.flush();
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("³ö´í!", e);
+			throw new RuntimeException("å‡ºé”™!", e);
 		} catch (IOException e) {
-			throw new RuntimeException("³ö´í!", e);
+			throw new RuntimeException("å‡ºé”™!", e);
 		} finally {
 			try {
 				if (os != null)

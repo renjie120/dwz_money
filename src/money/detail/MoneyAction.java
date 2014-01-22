@@ -11,12 +11,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import money.question.QuestionAction;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import common.base.SpringContextUtil;
+import common.report.ReportBuilderFactory;
 import common.report.ReportDaoUtil;
-import common.report.ReportTool;
+import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
@@ -300,12 +305,12 @@ public class MoneyAction extends BaseAction {
 		int startIndex = (pageNum - 1) * numPerPage;
 		GregorianCalendar ca = new GregorianCalendar();
 		ca.setTime(new Date());
-		int iMonth = ca.get(Calendar.MONTH) + 1; 
+		int iMonth = ca.get(Calendar.MONTH) + 1;
 		int iYear = ca.get(Calendar.YEAR);
-		if (!CommonUtil.isNotEmpty(month) )
-			month = iMonth+"";
-		if (!CommonUtil.isNotEmpty(year)  )
-			year = iYear+"";
+		if (!CommonUtil.isNotEmpty(month))
+			month = iMonth + "";
+		if (!CommonUtil.isNotEmpty(year))
+			year = iYear + "";
 
 		Map<MoneySearchFields, Object> criterias = getCriterias();
 
@@ -379,9 +384,11 @@ public class MoneyAction extends BaseAction {
 	public String reportCountByType() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		List ans = util
-				.getCountGroupByOneColumn("money_detail_t", "money_type");
-		writeToPage(response, ReportTool.getSimpleCountXML(ans, "按类数量统计"));
+		String sql = ReportBuilderFactory.getInstance()
+				.countByColumn("money_detail_t", "money_type").generateSql();
+		writeLog("按照金额类别统计的sql:" + sql);
+		List ans = util.getTwoColumnReport(sql);
+		writeToPage(response, ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
 		return null;
 	}
 
@@ -396,7 +403,7 @@ public class MoneyAction extends BaseAction {
 		List ans = util.getTribleColumn("money_detail_type_year_v", "money",
 				"tallytype", "year");
 		writeToPage(response,
-				ReportTool.getMultiSeriesReportXML(ans, "年度统计")[2]);
+				ReportStringTool.getMultiSeriesReportXML(ans, "年度统计")[2]);
 		return null;
 	}
 
@@ -411,7 +418,7 @@ public class MoneyAction extends BaseAction {
 		List ans = util.getTribleColumn("money_detail_type_year_month_v",
 				"money", "tallytype", "month", " where year='2011'");
 		writeToPage(response,
-				ReportTool.getMultiSeriesReportXML(ans, "2011年统计数据")[2]);
+				ReportStringTool.getMultiSeriesReportXML(ans, "2011年统计数据")[2]);
 		return null;
 	}
 
@@ -425,7 +432,7 @@ public class MoneyAction extends BaseAction {
 				.getBean("reportUtil");
 		List ans = util.getSumGroupByOneColumn("money_detail_type_v",
 				"tallytype", "money");
-		writeToPage(response, ReportTool.getSimpleSumXML(ans, "按类总数统计"));
+		writeToPage(response, ReportStringTool.getSimpleSumXML(ans, "按类总数统计"));
 		return null;
 	}
 

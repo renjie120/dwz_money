@@ -3,22 +3,20 @@
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="dwz.framework.constants.Constants"%>
 <%@ page import="common.tree.Tree"%>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<html>
+<head> 
 <title><s:text name="ui.title" />
-</title> 
+</title>
 <%
 	String path = request.getContextPath();
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
-	response.setDateHeader("Expires", 0); 
- Object obj = session.getAttribute(Constants.AUTHENTICATION_KEY);
- System.out.println("登陆信息为："+obj);
-  if(obj==null)
-  	response.sendRedirect("/management/index!login.do");
- %>
+	response.setDateHeader("Expires", 0);
+	Object obj = session.getAttribute(Constants.AUTHENTICATION_KEY);
+	System.out.println("登陆信息为：" + obj);
+	if (obj == null)
+		response.sendRedirect("/management/index!login.do");
+%>
 <script type="text/javascript"> 
 		var appPath = "<%=path%>
 	";
@@ -235,9 +233,9 @@
 							<h1>收藏文件</h1>
 							<s:iterator value="#request.allHomepage" var="haha" status="stu">
 								<div class="unit">
-									<a href="<s:property value="url" />" target="navTab" rel="relId<s:property value="urlId" />"><s:property
-											value="urlDesc" />
-									</a>
+									<a href="<s:property value="url" />" target="navTab"
+										rel="relId<s:property value="urlId" />"><s:property
+											value="urlDesc" /> </a>
 								</div>
 							</s:iterator>
 						</div>

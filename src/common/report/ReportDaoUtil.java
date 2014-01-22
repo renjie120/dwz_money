@@ -1,6 +1,5 @@
 ﻿package common.report;
 
-import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,15 +27,11 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 	 *            进行累积计算的维度.
 	 * @return
 	 */
-	public List<ReportSet> getCountGroupByOneColumn(String table, String groupBy) {
-		final String tableString = table;
-		final String groupByString = groupBy;
+	public List<ReportSet> getTwoColumnReport(final String sql) { 
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				Query query = session.createSQLQuery("select count(1),"
-						+ groupByString + " from " + tableString + " group by "
-						+ groupByString);
+					throws HibernateException, SQLException { 
+				Query query = session.createSQLQuery(sql);
 				List ansList = query.list();
 				List result = new ArrayList();
 				if (ansList != null) {
@@ -165,7 +160,7 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 					throws HibernateException, SQLException {
 				Query query = session.createSQLQuery("select " + sumColumnStr
 						+ "," + groupColumnStr + "," + thirdColumnStr
-						+ " from " + tableString + " "+whereCauseStr);
+						+ " from " + tableString + " " + whereCauseStr);
 				List ansList = query.list();
 				List result = new ArrayList();
 				if (ansList != null) {
