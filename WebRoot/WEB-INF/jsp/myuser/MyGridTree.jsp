@@ -17,14 +17,6 @@
 						用户流水号
 								<input name="useId" class="textInput" size="30" type="text"   />
 					</td> 
-					<td> 
-						用户名
-								<input name="userName" class="textInput" size="30" type="text"   />
-					</td> 
-					<td> 
-						登陆号
-								<input name="loginId" class="textInput" size="30" type="text"   />
-					</td>  
 				</tr>
 			</table>
 			<div class="subBar">

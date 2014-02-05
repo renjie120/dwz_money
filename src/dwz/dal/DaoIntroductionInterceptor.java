@@ -1,4 +1,5 @@
 package dwz.dal;
+
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
@@ -10,23 +11,24 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 
 	private static Log log = LogFactory
 			.getLog(DaoIntroductionInterceptor.class);
- 	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-		 
+
+	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
+
 		Class<?> methodClazz = methodInvocation.getMethod().getDeclaringClass();
 
 		if (methodClazz.isAssignableFrom(BaseDao.class)) {
-		 	return methodInvocation.proceed();
+			return methodInvocation.proceed();
 		}
 		BaseDaoImpl baseDao = (BaseDaoImpl) methodInvocation.getThis();
 
-		 String methodName = methodInvocation.getMethod().getName();
-		 Object[] params = methodInvocation.getArguments();
-		 String queryName = getNamedQueryString(methodInvocation.getMethod()); 
+		String methodName = methodInvocation.getMethod().getName();
+		Object[] params = methodInvocation.getArguments();
+		String queryName = getNamedQueryString(methodInvocation.getMethod());
 		if (log.isInfoEnabled()) {
 			log.info("The query name : " + queryName);
 		}
 
-		 if (methodName.startsWith(DaoConstant.DELETE_ALL_PREFIX)
+		if (methodName.startsWith(DaoConstant.DELETE_ALL_PREFIX)
 				|| methodName.startsWith(DaoConstant.UPDATE_ALL_PREFIX)) {
 			if (log.isInfoEnabled()) {
 				log.info("The update or delete method Invoked");
@@ -34,7 +36,7 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 			return baseDao.executeCmd(queryName, params);
 		}
 		if (methodName.startsWith(DaoConstant.FIND_PREFIX)) {
-		 	if (methodName.endsWith(DaoConstant.PAGE_BREAK_SUFFIX)) {
+			if (methodName.endsWith(DaoConstant.PAGE_BREAK_SUFFIX)) {
 				if (params == null || params.length < 2) {
 					throw new java.lang.IllegalArgumentException(
 							"The PageBreak Illegal Argument length < 2");
@@ -49,8 +51,27 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 				int count = ((Integer) params[params.length - 1]).intValue();
 				return baseDao.findCmd(queryName, newParams, startIndex, count);
 			}
-			 return baseDao.findCmd(queryName, params);
-		} 
+			return baseDao.findCmd(queryName, params);
+		}
+		//如果sql名称以commonSql开头就进行调用原始sql进行查询.
+		if (methodName.startsWith(DaoConstant.COMMON_SQL_PREFIX)) {
+			if (params == null || params.length < 2) {
+				throw new java.lang.IllegalArgumentException(
+						"The CommonSQL Illegal Argument length < 2");
+			}
+			queryName = (String)params[0];
+			params = (Object[])params[1];
+			return baseDao.findBySqlQuery(queryName, params);
+		}
+		if (methodName.startsWith(DaoConstant.HIBERNATE_SQL_PREFIX)) {
+			if (params == null || params.length < 2) {
+				throw new java.lang.IllegalArgumentException(
+						"The CommonSQL Illegal Argument length < 2");
+			}
+			queryName = (String)params[0];
+			params = (Object[])params[1];
+			return baseDao.findByQuery(queryName, params);
+		}
 		throw new NoSupportDaoMethodException(
 				"No Support Dao Method Exception, Please Check Method Name rule");
 	}
@@ -58,7 +79,9 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.springframework.aop.DynamicIntroductionAdvice#implementsInterface(java.lang.Class)
+	 * @see
+	 * org.springframework.aop.DynamicIntroductionAdvice#implementsInterface
+	 * (java.lang.Class)
 	 */
 	public boolean implementsInterface(Class clazz) {
 		return clazz.isInterface() && BaseDao.class.isAssignableFrom(clazz);

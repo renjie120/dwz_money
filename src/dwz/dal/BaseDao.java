@@ -26,6 +26,24 @@ public interface BaseDao<T, PK extends java.io.Serializable> {
 	public java.util.Collection<T> findByQuery(final String queryStr,
 			final Object[] params, final int startIndex, final int count);
 
+	/**
+	 * 添加新的查询sql的语句.
+	 * @param queryStr
+	 * @param params
+	 * @return
+	 */
+	public java.util.Collection<T> findBySqlQuery(final String queryStr,
+			final Object[] params);
+	
+	/**
+	 * 自己写hql进行查询的语句.
+	 * @param queryStr
+	 * @param params
+	 * @return
+	 */
+	public java.util.Collection<T> findByQuery(final String queryStr,
+			final Object[] params);
+	
 	public int countAll();
 	
 	public int countByQuery(final String queryStr);

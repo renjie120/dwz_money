@@ -114,7 +114,39 @@ var DWZ = {
 	}
 };
 
-
+function debugObjectInfo(obj){
+    traceObject(obj);
+    
+    function traceObject(obj){ 
+            var str = '';
+            if(obj.tagName&&obj.name&&obj.id)
+            str="<table border='1' width='100%'><tr><td colspan='2' bgcolor='#ffff99'>traceObject 　　tag: &lt;"+obj.tagName+"&gt;　　 name = \""+obj.name+"\" 　　id = \""+obj.id+"\" </td></tr>"; 
+            else{
+                    str="<table border='1' width='100%'>"; 
+            }
+            var key=[]; 
+            for(var i in obj){ 
+                    key.push(i); 
+            } 
+            key.sort(); 
+            for(var i=0;i<key.length;i++){ 
+                    var v= new String(obj[key[i]]).replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
+                    str+="<tr><td valign='top'>"+key[i]+"</td><td>"+v+"</td></tr>"; 
+            } 
+            str=str+"</table>"; 
+            writeMsg(str); 
+    } 
+    function trace(v){ 
+            var str="<table border='1' width='100%'><tr><td bgcolor='#ffff99'>"; 
+            str+=String(v).replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
+            str+="</td></tr></table>"; 
+            writeMsg(str); 
+    } 
+    function writeMsg(s){ 
+            traceWin=window.open("","traceWindow","height=600, width=800,scrollbars=yes"); 
+            traceWin.document.write(s); 
+    } 
+}
 (function($){
 	// DWZ set regional
 	$.setRegional = function(key, value){
@@ -130,8 +162,7 @@ var DWZ = {
 			var $this = $(this);
 			if ($.fn.xheditor) {
 				$("textarea.editor", $this).xheditor(false);
-			}
-			
+			}  
 			$.ajax({
 				type: op.type || 'GET',
 				url: op.url,

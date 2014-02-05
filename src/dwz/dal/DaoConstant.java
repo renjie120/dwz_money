@@ -7,6 +7,16 @@ class DaoConstant {
 
 	public static final String FIND_PREFIX = "find";
 	
+	/**
+	 * 使用普通的sql进行查询.
+	 */
+	public static final String COMMON_SQL_PREFIX = "commonSql";
+	
+	/**
+	 * 自己写hql进行查询.
+	 */
+	public static final String HIBERNATE_SQL_PREFIX = "hibernateSql";
+	
 	public static final String EXECUTE_PREFIX = "execute";
 
 	public static final String DELETE_ALL_PREFIX = "deleteAll";

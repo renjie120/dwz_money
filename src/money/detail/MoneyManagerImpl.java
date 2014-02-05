@@ -103,8 +103,14 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 	 */
 	private Date[] getDates(String year, String month) {
 		Date[] times = new Date[2];
-		if("-1".equals(year)) year = "";
-		if("-1".equals(month)) month = "";
+		if ("-1".equals(year) && "-1".equals(month)) {
+			return null;
+		}
+		if ("-1".equals(year))
+			year = "";
+		if ("-1".equals(month))
+			month = "";
+
 		// 如果有年月就返回制定月份数据
 		if (CommonUtil.isNotEmpty(year) && CommonUtil.isNotEmpty(month)) {
 			return getDates(Integer.parseInt(year), Integer.parseInt(month));
@@ -120,7 +126,7 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		else {
 			GregorianCalendar ca = new GregorianCalendar();
 			ca.setTime(new Date());
-			int iMonth = ca.get(Calendar.MONTH)+1;
+			int iMonth = ca.get(Calendar.MONTH) + 1;
 			int iYear = ca.get(Calendar.YEAR);
 			return getDates(iYear, iMonth);
 		}
@@ -190,12 +196,13 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 			}
 		Date[] times = getDates("" + criterias.get(MoneySearchFields.YEAR), ""
 				+ criterias.get(MoneySearchFields.MONTH));
-		sb.append(count == 0 ? " where" : " and")
-				.append(" money.moneyTime>=?  ");
-		argList.add(times[0]);
-		sb.append(" and  money.moneyTime<?  ");
-		argList.add(times[1]);
-
+		if (times != null) {
+			sb.append(count == 0 ? " where" : " and").append(
+					" money.moneyTime>=?  ");
+			argList.add(times[0]);
+			sb.append(" and  money.moneyTime<?  ");
+			argList.add(times[1]);
+		}
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
@@ -230,6 +237,146 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 			sb.append(" order by money.moneySno desc");
 			break;
 		}
+		return new Object[] { sb.toString(), argList.toArray() };
+	}
+	
+	/**
+	 * 按照金额小类进行分类总额
+	 * @param criterias
+	 * @returnMoneyTypeVO
+	 */
+	private Object[] createQueryByTallyType(
+			Map<MoneySearchFields, Object> criterias) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("select sum( money.money),moneyType ").append(
+				"from MoneyVO as money ");
+
+		int count = 0;
+		List argList = new ArrayList();
+		if (criterias.size() > 0)
+			for (Map.Entry<MoneySearchFields, Object> entry : criterias
+					.entrySet()) {
+				MoneySearchFields fd = entry.getKey();
+				switch (fd) {
+				case MONEY_SNO:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.moneySno=? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case MONEY_TIME:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.moneyTime=? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case MONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.money=? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case MONEY_TYPE:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.moneyType=? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case MONEY_DESC:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.moneyDesc like ? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case SHOP_CARD:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.moneyCard =? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				case BOOK_TYPE:
+					sb.append(count == 0 ? " where" : " and").append(
+							" money.bookType=? ");
+					argList.add(entry.getValue());
+					count++;
+					break;
+				default:
+					break;
+				}
+			}
+		Date[] times = getDates("" + criterias.get(MoneySearchFields.YEAR), ""
+				+ criterias.get(MoneySearchFields.MONTH));
+		if (times != null) {
+			sb.append(count == 0 ? " where" : " and").append(
+					" money.moneyTime>=?  ");
+			argList.add(times[0]);
+			sb.append(" and  money.moneyTime<?  ");
+			argList.add(times[1]);
+		}
+		
+		sb.append(" group by moneyType ");
+		return new Object[] { sb.toString(), argList.toArray() };
+	}
+	
+	/**
+	 * 按照全部的金额大类进行区分.
+	 * @param criterias
+	 * @return
+	 */
+	private Object[] createQueryByMoneyType(
+			Map<MoneySearchFields, Object> criterias) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("select sum( money.money),typeVo.moneyType ").append(
+				"from MoneyVO as money,MoneyTypeVO as typeVo where money.moneyType=typeVo.typeCode ");
+
+		List argList = new ArrayList();
+		if (criterias.size() > 0)
+			for (Map.Entry<MoneySearchFields, Object> entry : criterias
+					.entrySet()) {
+				MoneySearchFields fd = entry.getKey();
+				switch (fd) {
+				case MONEY_SNO:
+					sb.append(" and  money.moneySno=? ");
+					argList.add(entry.getValue());
+					break;
+				case MONEY_TIME:
+					sb.append(" and  money.moneyTime=? ");
+					argList.add(entry.getValue());
+					break;
+				case MONEY:
+					sb.append(" and  money.money=? ");
+					argList.add(entry.getValue());
+					break;
+				case MONEY_TYPE:
+					sb.append(" and  money.moneyType=? ");
+					argList.add(entry.getValue());
+					break;
+				case MONEY_DESC:
+					sb.append(" and  money.moneyDesc like ? ");
+					argList.add(entry.getValue());
+					break;
+				case SHOP_CARD:
+					sb.append(" and  money.moneyCard =? ");
+					argList.add(entry.getValue()); 
+					break;
+				case BOOK_TYPE:
+					sb.append( " and  money.bookType=? ");
+					argList.add(entry.getValue());
+					break;
+				default:
+					break;
+				}
+			}
+		Date[] times = getDates("" + criterias.get(MoneySearchFields.YEAR), ""
+				+ criterias.get(MoneySearchFields.MONTH));
+		if (times != null) {
+			sb.append( " and  money.moneyTime>=?  ");
+			argList.add(times[0]);
+			sb.append(" and  money.moneyTime<?  ");
+			argList.add(times[1]);
+		}
+		
+		sb.append(" group by typeVo.moneyType ");
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
@@ -303,7 +450,7 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 	String queryMoneySql = "select money_sno,money_time,money,money_type,money_desc from money_detail_t where code=? limit ?,?";
 	String queryMoneyCountSql = "select count(1) from money_detail_t where code=?  ";
 	String updateMoneySql = "update money_detail_t set code = ?  where code=?";
-
+	
 	public static void main(String[] args) {
 		MoneySyn ss = (MoneySyn) JSONObject.toBean(
 				JSONObject.fromObject("{arg1:1}"), MoneySyn.class);
@@ -395,5 +542,29 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 			e.printStackTrace();
 			return old;
 		}
+	}
+
+	@Override
+	public ArrayList<Money> searchMoneyByType(Map<MoneySearchFields, Object> criterias) {
+		ArrayList<Money> eaList = new ArrayList<Money>();
+		if (criterias == null)
+			return eaList;
+
+		Object[] quertParas = this.createQueryByMoneyType(criterias);
+		String hql = quertParas[0].toString();
+		// 直接根据hql语句进行查询.
+		Collection<Object[]> voList = this.moneyDao.hibernateSqlFindByType(hql,
+				(Object[]) quertParas[1]);
+
+		if (voList == null || voList.size() == 0)
+			return eaList;
+		for (Object[] po : voList) {
+			MoneyVO vo = new MoneyVO();
+			vo.setMoney(Double.parseDouble(""+po[0]));
+			vo.setMoneyType(po[1]+"");
+			eaList.add(new MoneyImpl(vo));
+		}
+
+		return eaList;
 	}
 }

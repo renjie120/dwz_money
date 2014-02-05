@@ -11,10 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import money.question.QuestionAction;
+import money.rolemanager.RoleImpl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -293,7 +291,42 @@ public class MoneyAction extends BaseAction {
 	private int page = 1;
 	private int pageSize = 50;
 	private long count;
+	private String moneyTypeName;
+	public String getMoneyTypeName() {
+		return moneyTypeName;
+	}
 
+	public void setMoneyTypeName(String moneyTypeName) {
+		this.moneyTypeName = moneyTypeName;
+	}  
+	
+	public String queryByType() { 
+		GregorianCalendar ca = new GregorianCalendar();
+		ca.setTime(new Date());
+		int iMonth = ca.get(Calendar.MONTH) + 1;
+		int iYear = ca.get(Calendar.YEAR);
+		if (!CommonUtil.isNotEmpty(month))
+			month = iMonth + "";
+		if (!CommonUtil.isNotEmpty(year))
+			year = iYear + "";
+
+		Map<MoneySearchFields, Object> criterias = getCriterias(); 
+		
+		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
+		StringBuilder build = new StringBuilder();
+		build.append("{");
+		if(ans!=null&&ans.size()>0){
+			for(Money v:ans){ 
+				build.append("type:'"+v.getMoneyType()+"',");
+				build.append("money:'"+v.getMoney()+"',");
+			}
+			build = build.deleteCharAt(build.lastIndexOf(","));
+		}
+		build.append("}");
+		writeToPage(response, build.toString());
+		return null;
+	}
+	
 	/**
 	 * 查询信息.
 	 * 
@@ -316,9 +349,23 @@ public class MoneyAction extends BaseAction {
 
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
 				realOrderField(), startIndex, numPerPage);
-
+		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
+		double shouru = 0;
+		double zhichu = 0;
+		if(ans!=null&&ans.size()>0){
+			for(Money v:ans){ 
+				if("1".equals(v.getMoneyType()))
+					shouru = v.getMoney(); 
+				else if("2".equals(v.getMoneyType()))
+					zhichu = v.getMoney();  
+			} 
+		}
+		request.setAttribute("zhichu", zhichu);
+		request.setAttribute("shouru", shouru);
 		request.setAttribute("year", year);
 		request.setAttribute("month", month);
+		request.setAttribute("moneyTypeName", moneyTypeName); 
+		request.setAttribute("moneyType", moneyType);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
 		request.setAttribute("totalCount", mMgr.searchMoneyNum(criterias));
@@ -358,6 +405,8 @@ public class MoneyAction extends BaseAction {
 		Map<MoneySearchFields, Object> criterias = new HashMap<MoneySearchFields, Object>();
 		criterias.put(MoneySearchFields.YEAR, year);
 		criterias.put(MoneySearchFields.MONTH, month);
+		if (CommonUtil.isNotEmpty(moneyType))
+			criterias.put(MoneySearchFields.MONEY_TYPE, moneyType);
 		if (moneyVo == null)
 			return criterias;
 		if (moneyVo.getId() > 0)
@@ -388,7 +437,8 @@ public class MoneyAction extends BaseAction {
 				.countByColumn("money_detail_t", "money_type").generateSql();
 		writeLog("按照金额类别统计的sql:" + sql);
 		List ans = util.getTwoColumnReport(sql);
-		writeToPage(response, ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
+		writeToPage(response,
+				ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
 		return null;
 	}
 

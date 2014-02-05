@@ -292,4 +292,45 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 		return countByQuery(countHql);
 	}
 
+	@Override
+	public Collection<T> findBySqlQuery(final String queryStr, final Object[] params) {
+		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+
+				Query query = session.createSQLQuery(queryStr);
+
+				if (params != null && params.length > 0) {
+					for (int i = 0; i < params.length; i++) {
+						query.setParameter(i, params[i]);
+					}
+				}
+				return query.list();
+
+			}
+		});
+		return (List) o;
+	}
+	
+	
+	@Override
+	public Collection<T> findByQuery(final String queryStr,final Object[] params) {
+		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+
+				Query query = session.createQuery(queryStr);
+
+				if (params != null && params.length > 0) {
+					for (int i = 0; i < params.length; i++) {
+						query.setParameter(i, params[i]);
+					}
+				}
+				return query.list();
+
+			}
+		});
+		return (List) o;
+	}
+
 }

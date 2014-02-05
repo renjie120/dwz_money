@@ -28,7 +28,7 @@
 	type="text/css" />
 <link href="/styles/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
-<link href="/gridTree/gridtree.css" rel="stylesheet" type="text/css" />
+<link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
 <script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
