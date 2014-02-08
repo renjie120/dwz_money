@@ -55,22 +55,28 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 		}
 		//如果sql名称以commonSql开头就进行调用原始sql进行查询.
 		if (methodName.startsWith(DaoConstant.COMMON_SQL_PREFIX)) {
-			if (params == null || params.length < 2) {
+			if (params == null || params.length < 1) {
 				throw new java.lang.IllegalArgumentException(
-						"The CommonSQL Illegal Argument length < 2");
+						"The CommonSQL Illegal Argument length < 1");
 			}
 			queryName = (String)params[0];
-			params = (Object[])params[1];
-			return baseDao.findBySqlQuery(queryName, params);
+			if(params.length>1){
+				params = (Object[])params[1];
+				return baseDao.findBySqlQuery(queryName, params);
+			}else
+				return baseDao.findBySqlQuery(queryName, null);
 		}
 		if (methodName.startsWith(DaoConstant.HIBERNATE_SQL_PREFIX)) {
-			if (params == null || params.length < 2) {
+			if (params == null || params.length < 1) {
 				throw new java.lang.IllegalArgumentException(
-						"The CommonSQL Illegal Argument length < 2");
+						"The CommonSQL Illegal Argument length < 1");
 			}
 			queryName = (String)params[0];
-			params = (Object[])params[1];
-			return baseDao.findByQuery(queryName, params);
+			if(params.length>1){
+				params = (Object[])params[1];
+				return baseDao.findByQuery(queryName, params);
+			}else
+				return baseDao.findByQuery(queryName, null);
 		}
 		throw new NoSupportDaoMethodException(
 				"No Support Dao Method Exception, Please Check Method Name rule");

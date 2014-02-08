@@ -392,14 +392,7 @@ function initUI(_box){
 			dataUrl : appPath + "/gridtree/gridTree!initGridTree.do",
 			lazyLoadUrl : appPath + "/gridtree/gridTree!lazyLoad.do",
 			idColumn : 'disid',//id所在的列,一般是主键(不一定要显示出来)
-			parentColumn : 'disparentId', //父亲列id
-			closeImg : appPath+'/gridTree/images/minus.gif',//父级节点的关闭图标
-			openImg : appPath+'/gridTree/images/plus.gif',//父级节点的打开图标
-			lazyLoadImg : appPath+'/gridTree/images/plus2.gif',//懒加载时显示的图标
-			blankImg : appPath+'/gridTree/images/blank.gif',//空白节点
-			noparentImg : appPath+'/gridTree/images/tv-item.gif',//树叶节点的图标
-			lastLeafImg : appPath+'/gridTree/images/tv-item-last.gif',//一层里面最后一个树叶节点的图标
-			morePageImg : appPath+'/gridTree/images/morePage.gif',//多层次分页的图标  added on 20101212 
+			parentColumn : 'disparentId', //父亲列id 
 			pageSize : 1,
 			height:gridTreeHeight+'px',
 			pageBar : true,   

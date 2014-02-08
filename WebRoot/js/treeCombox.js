@@ -18,6 +18,7 @@
 		if (t.gt) {
 			return false;
 		}
+		
 		c = $.extend({
 			height : '300px',
 			width : '250px',
@@ -25,10 +26,12 @@
 			nameInput : null,
 			idInput : null,
 			treeId : null,
+			checkbox:false
 		}, c);
 
 		var dbs = {
 			_click : function(e, treeId, treeNode) {
+				if(!c.checkbox){
 				var zTree = $.fn.zTree.getZTreeObj(c.treeId), nodes = zTree
 						.getSelectedNodes(), v = "", v2 = "";
 				nodes.sort(function compare(a, b) {
@@ -45,6 +48,7 @@
 				$("#" + c.nameInput).attr("value", v);
 				$("#" + c.idInput).attr("value", v2);
 				dbs.hideMenu();
+				}
 			},
 			hideMenu : function() {
 				$("#" + c.contentId).fadeOut("fast");
@@ -61,6 +65,9 @@
 				var $this = dbs.obj;
 				$.get(c.action, function(data) {
 					eval("var json=" + data);
+					if(c.checkbox){
+						setting.check.enable = true;
+					}
 					$.fn.zTree.init($("#" + c.treeId), setting, json);
 					var cityObj = $("#" + c.nameInput);
 					var cityOffset = cityObj.offset();
@@ -82,6 +89,9 @@
 					enable : true
 				}
 			},
+			check: {
+				enable: false
+			},
 			callback : {
 				onClick : dbs._click
 			}
@@ -91,7 +101,7 @@
 				.append(
 						"<div id='"
 								+ c.contentId
-								+ "' class='menuContent myinnerTree' style='display:none; position: absolute;'> "
+								+ "' class='menuContent myinnerTree' style='display:none; position: absolute;'><a href='javascript:_makesure()'>确定</a>  <a href='javascript:_clear()'>清除</a> <a href='javascript:_cancel()'>取消</a>"
 								+ "<ul id='" + c.treeId
 								+ "' class='ztree' style='margin-top:0;width:"
 								+ c.width + ";height:" + c.height
@@ -114,3 +124,11 @@
 		});
 	};
 })(jQuery);
+function _cancel(){
+	
+}
+function _clear(){
+}
+function _makesure(){
+	
+}

@@ -26,6 +26,19 @@ public interface MoneyManager extends BusinessObjectManager {
 	 */
 	public Collection<Money> searchMoneyByType(Map<MoneySearchFields, Object> criterias);
 
+	/**
+	 * 根据年份进行分组统计金额数据.
+	 * @return
+	 */
+	public Collection<Object[]> reportMoneyGroupByYear();
+	
+	/**
+	 * 根据年份，月份进行统计金额数据.
+	 * @param year
+	 * @return
+	 */
+	public Collection<Object[]> reportMoneyGroupByMonth(int year);
+
 	@Transactional
 	public void createMoney(Money money) throws ValidateFieldsException;
 

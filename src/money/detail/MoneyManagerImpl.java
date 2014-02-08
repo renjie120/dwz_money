@@ -30,7 +30,21 @@ import dwz.framework.core.exception.ValidateFieldsException;
 
 public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		MoneyManager {
-
+	String addMoneySql = "insert into money_detail_t( money_time,money,money_type,"
+			+ "money_desc,useful,code)" + " values(   ? ,?,?,?,1,? )";
+	String queryMoneySql = "select money_sno,money_time,money,money_type,money_desc from money_detail_t where code=? limit ?,?";
+	String queryMoneyCountSql = "select count(1) from money_detail_t where code=?  ";
+	String updateMoneySql = "update money_detail_t set code = ?  where code=?";
+	String groupByYear = "select tt.y,sum(tt.money),tt.tp,tt.des from ("
+			+ " select year(t.money_Time) y,t.money,tp.tally_type_sno tp,tp.tally_type_desc des "
+			+ " from money_detail_t as t,tally_type_t as tp,tally_type_t as tp2"
+			+ " where tp2.parent_code= tp.type_code and  t.money_Type = tp2.type_code ) as tt "
+			+ "group by tt.y,tt.tp,tt.des order by tt.y";
+	String groupByMonth = "select tt.y,tt.m,sum(tt.money),tt.tp,tt.des from ("
+			+ "  select year(t.money_Time) y,month(t.money_time) m,t.money,tp.tally_type_sno tp,tp.tally_type_desc des "
+			+ "  from money_detail_t as t,tally_type_t as tp,tally_type_t as tp2"
+			+ "  where tp2.parent_code= tp.type_code and  t.money_Type = tp2.type_code and year(t.money_Time) = ? ) as tt "
+			+ "  group by tt.m,tt.tp,tt.des order by tt.m";
 	private MoneyDao moneyDao = null;
 
 	public MoneyManagerImpl(MoneyDao moneyDao) {
@@ -239,9 +253,10 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
-	
+
 	/**
 	 * 按照金额小类进行分类总额
+	 * 
 	 * @param criterias
 	 * @returnMoneyTypeVO
 	 */
@@ -313,21 +328,22 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 			sb.append(" and  money.moneyTime<?  ");
 			argList.add(times[1]);
 		}
-		
+
 		sb.append(" group by moneyType ");
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
-	
+
 	/**
 	 * 按照全部的金额大类进行区分.
+	 * 
 	 * @param criterias
 	 * @return
 	 */
 	private Object[] createQueryByMoneyType(
 			Map<MoneySearchFields, Object> criterias) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("select sum( money.money),typeVo.moneyType ").append(
-				"from MoneyVO as money,MoneyTypeVO as typeVo where money.moneyType=typeVo.typeCode ");
+		sb.append("select sum( money.money),typeVo.moneyType ")
+				.append("from MoneyVO as money,MoneyTypeVO as typeVo where money.moneyType=typeVo.typeCode ");
 
 		List argList = new ArrayList();
 		if (criterias.size() > 0)
@@ -357,10 +373,10 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 					break;
 				case SHOP_CARD:
 					sb.append(" and  money.moneyCard =? ");
-					argList.add(entry.getValue()); 
+					argList.add(entry.getValue());
 					break;
 				case BOOK_TYPE:
-					sb.append( " and  money.bookType=? ");
+					sb.append(" and  money.bookType=? ");
 					argList.add(entry.getValue());
 					break;
 				default:
@@ -370,12 +386,12 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		Date[] times = getDates("" + criterias.get(MoneySearchFields.YEAR), ""
 				+ criterias.get(MoneySearchFields.MONTH));
 		if (times != null) {
-			sb.append( " and  money.moneyTime>=?  ");
+			sb.append(" and  money.moneyTime>=?  ");
 			argList.add(times[0]);
 			sb.append(" and  money.moneyTime<?  ");
 			argList.add(times[1]);
 		}
-		
+
 		sb.append(" group by typeVo.moneyType ");
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
@@ -445,12 +461,6 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		}
 	}
 
-	String addMoneySql = "insert into money_detail_t( money_time,money,money_type,"
-			+ "money_desc,useful,code)" + " values(   ? ,?,?,?,1,? )";
-	String queryMoneySql = "select money_sno,money_time,money,money_type,money_desc from money_detail_t where code=? limit ?,?";
-	String queryMoneyCountSql = "select count(1) from money_detail_t where code=?  ";
-	String updateMoneySql = "update money_detail_t set code = ?  where code=?";
-	
 	public static void main(String[] args) {
 		MoneySyn ss = (MoneySyn) JSONObject.toBean(
 				JSONObject.fromObject("{arg1:1}"), MoneySyn.class);
@@ -545,7 +555,8 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 	}
 
 	@Override
-	public ArrayList<Money> searchMoneyByType(Map<MoneySearchFields, Object> criterias) {
+	public ArrayList<Money> searchMoneyByType(
+			Map<MoneySearchFields, Object> criterias) {
 		ArrayList<Money> eaList = new ArrayList<Money>();
 		if (criterias == null)
 			return eaList;
@@ -560,11 +571,47 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 			return eaList;
 		for (Object[] po : voList) {
 			MoneyVO vo = new MoneyVO();
-			vo.setMoney(Double.parseDouble(""+po[0]));
-			vo.setMoneyType(po[1]+"");
+			vo.setMoney(Double.parseDouble("" + po[0]));
+			vo.setMoneyType(po[1] + "");
 			eaList.add(new MoneyImpl(vo));
 		}
 
 		return eaList;
+	}
+
+	public ArrayList<Money> searchMoneyByTallyType(
+			Map<MoneySearchFields, Object> criterias) {
+		ArrayList<Money> eaList = new ArrayList<Money>();
+		if (criterias == null)
+			return eaList;
+
+		Object[] quertParas = this.createQueryByTallyType(criterias);
+		String hql = quertParas[0].toString();
+		// 直接根据hql语句进行查询.
+		Collection<Object[]> voList = this.moneyDao.hibernateSqlFindByType(hql,
+				(Object[]) quertParas[1]);
+
+		if (voList == null || voList.size() == 0)
+			return eaList;
+		for (Object[] po : voList) {
+			MoneyVO vo = new MoneyVO();
+			vo.setMoney(Double.parseDouble("" + po[0]));
+			vo.setMoneyType(po[1] + "");
+			eaList.add(new MoneyImpl(vo));
+		}
+
+		return eaList;
+	}
+
+	@Override
+	public Collection<Object[]> reportMoneyGroupByYear() {
+		Collection<Object[]> voList = this.moneyDao.commonSqlGroupByYear(groupByYear);
+		return voList;
+	}
+
+	@Override
+	public Collection<Object[]> reportMoneyGroupByMonth(int year) {
+		Collection<Object[]> voList = this.moneyDao.commonSqlGroupByMonth(groupByMonth,new Object[]{year});
+		return voList;
 	}
 }

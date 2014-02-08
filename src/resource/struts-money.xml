@@ -91,7 +91,10 @@
 			<result name="list">
 				/WEB-INF/jsp/money/detail/list.jsp
 			</result>
-			<result name="detail">
+			<result name="gridTree">
+				/WEB-INF/jsp/money/detail/MoneyGridTree.jsp
+			</result>
+				<result name="detail">
 				/WEB-INF/jsp/money/detail/info.jsp
 			</result>
 			<result name="editdetail">

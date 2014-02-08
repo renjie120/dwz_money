@@ -72,11 +72,14 @@
 		
 		orderBy: function(options){
 			var op = $.extend({ targetType:"navTab", rel:"", asc:"asc", desc:"desc"}, options);
+			var $pcpc =$(this).parents("div.pageContent:first").find("div.pagination:first");
+			//alert($pcpc.html());
 			return this.each(function(){
 				var $this = $(this).css({cursor:"pointer"}).click(function(){
+					//alert("paganization::"+77);					
 					var orderField = $this.attr("orderField");
 					var orderDirection = $this.hasClass(op.asc) ? op.desc : op.asc;
-					dwzPageBreak({targetType:op.targetType, rel:op.rel, data:{orderField: orderField, orderDirection: orderDirection}});
+					dwzPageBreak({targetType:op.targetType, rel:op.rel, data:{orderField: orderField, orderDirection: orderDirection},arglist:$pcpc.attr('arglist')});
 				});
 				
 			});

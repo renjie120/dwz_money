@@ -3,15 +3,16 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
-import money.rolemanager.RoleImpl;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -159,6 +160,104 @@ public class MoneyAction extends BaseAction {
 		return null;
 	}
 
+	private static int DEFAULT_PAGE_SIZE = 10;
+
+	class MoneyReport {
+		private double money;
+		private String moneyType;
+		private String parentType;
+		private String year;
+		private String month;
+	}
+	public String gridTree() {
+		return "gridTree";
+	}
+	public String moneyGridTree() {
+		Collection<Object[]> c = mMgr.reportMoneyGroupByYear();
+		LinkedHashSet<Integer> yearSet = new LinkedHashSet<Integer>();
+		LinkedHashSet<String> typeSet = new LinkedHashSet<String>();
+		HashMap<String, Double> yearAndTypeToMoney = new HashMap<String, Double>();
+		HashMap<String, Double> yearMonthAndTypeToMoney = new HashMap<String, Double>();
+		HashMap<String, String> typeToDesc = new HashMap<String, String>();
+		HashMap<Integer, LinkedHashSet> yearToMonth = new HashMap<Integer, LinkedHashSet>();
+		StringBuffer buf = new StringBuffer();
+		try {
+			Iterator<Object[]> yearIt = c.iterator();
+			
+			if (yearIt != null) {
+				while (yearIt.hasNext()) {
+					Object[] obj = yearIt.next();
+					yearSet.add(Integer.parseInt("" + obj[0]));
+					typeSet.add(""+obj[2]);
+					typeToDesc.put(obj[2] + "", obj[3] + "");
+					yearAndTypeToMoney.put(obj[0] + "-" + obj[2],
+							Double.parseDouble("" + obj[1]));
+				}
+
+				Iterator<Integer> allYearIt = yearSet.iterator();
+				while (allYearIt.hasNext()) {
+					int year = allYearIt.next();
+					Collection<Object[]> c2 = mMgr
+							.reportMoneyGroupByMonth(year);
+					if (c2 != null) {
+						Iterator<Object[]> allMonthIt = c2.iterator();
+						while (allMonthIt.hasNext()) {
+							Object[] monthObject = allMonthIt.next();
+							LinkedHashSet<String> thisYearMonth = (LinkedHashSet<String>) yearToMonth
+									.get(year);
+							if (thisYearMonth == null) {
+								thisYearMonth = new LinkedHashSet<String>();
+								thisYearMonth.add(monthObject[1].toString());
+								yearToMonth.put(year, thisYearMonth);
+							} else {
+								thisYearMonth.add(monthObject[1].toString());
+							}
+							yearMonthAndTypeToMoney.put(monthObject[0] + "-"
+									+ monthObject[1] + "-" + monthObject[3],
+									Double.parseDouble("" + monthObject[2]));
+						}
+					}
+				}
+				
+				buf.append("{total:" + yearSet.size() + ",page:1,data[");
+				allYearIt = yearSet.iterator();
+				while(allYearIt.hasNext()){
+					int year = allYearIt.next();
+					buf.append("{");
+					buf.append("\"time\":"+year+",\"parentTime\":null,");
+					for(String tp:typeSet){
+						Double d = yearAndTypeToMoney.get(year+"-"+tp);
+						buf.append("\"type_"+tp+"\":\""+("null".equals(d)||d==null?"0":d)+"\",");
+						
+					}
+					buf.deleteCharAt(buf.lastIndexOf(","));
+					buf.append("},");
+					LinkedHashSet<String> thisYearMonth = (LinkedHashSet<String>) yearToMonth.get(year);
+					for(String m:thisYearMonth){
+						buf.append("{");
+						buf.append("\"time\":"+m+",\"parentTime\":"+year+",");
+						for(String tp:typeSet){
+							Double d = yearMonthAndTypeToMoney.get(year+"-"+m+"-"+tp);
+							buf.append("\"type_"+tp+"\":\""+(("null".equals(d)||d==null)?"0":d)+"\",");
+						}
+						buf.deleteCharAt(buf.lastIndexOf(","));
+						buf.append("},");
+					}					
+				}
+				buf.deleteCharAt(buf.lastIndexOf(","));
+				buf.append("]}");
+			} 
+			String jsonStr = buf.toString();
+			response.setContentType("text/html; charset=UTF-8");
+			System.out.println("json串:" + jsonStr);
+			PrintWriter out = response.getWriter();
+			out.println(jsonStr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	private static enum ExportFiled {
 		MONEY_TIME, MONEY, MONEY_TYPE, MONEY_DESC;
 		@Override
@@ -292,15 +391,16 @@ public class MoneyAction extends BaseAction {
 	private int pageSize = 50;
 	private long count;
 	private String moneyTypeName;
+
 	public String getMoneyTypeName() {
 		return moneyTypeName;
 	}
 
 	public void setMoneyTypeName(String moneyTypeName) {
 		this.moneyTypeName = moneyTypeName;
-	}  
-	
-	public String queryByType() { 
+	}
+
+	public String queryByType() {
 		GregorianCalendar ca = new GregorianCalendar();
 		ca.setTime(new Date());
 		int iMonth = ca.get(Calendar.MONTH) + 1;
@@ -310,15 +410,15 @@ public class MoneyAction extends BaseAction {
 		if (!CommonUtil.isNotEmpty(year))
 			year = iYear + "";
 
-		Map<MoneySearchFields, Object> criterias = getCriterias(); 
-		
+		Map<MoneySearchFields, Object> criterias = getCriterias();
+
 		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
 		StringBuilder build = new StringBuilder();
 		build.append("{");
-		if(ans!=null&&ans.size()>0){
-			for(Money v:ans){ 
-				build.append("type:'"+v.getMoneyType()+"',");
-				build.append("money:'"+v.getMoney()+"',");
+		if (ans != null && ans.size() > 0) {
+			for (Money v : ans) {
+				build.append("type:'" + v.getMoneyType() + "',");
+				build.append("money:'" + v.getMoney() + "',");
 			}
 			build = build.deleteCharAt(build.lastIndexOf(","));
 		}
@@ -326,7 +426,7 @@ public class MoneyAction extends BaseAction {
 		writeToPage(response, build.toString());
 		return null;
 	}
-	
+
 	/**
 	 * 查询信息.
 	 * 
@@ -349,22 +449,24 @@ public class MoneyAction extends BaseAction {
 
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
 				realOrderField(), startIndex, numPerPage);
+
+		moneyGridTree();
 		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
 		double shouru = 0;
 		double zhichu = 0;
-		if(ans!=null&&ans.size()>0){
-			for(Money v:ans){ 
-				if("1".equals(v.getMoneyType()))
-					shouru = v.getMoney(); 
-				else if("2".equals(v.getMoneyType()))
-					zhichu = v.getMoney();  
-			} 
+		if (ans != null && ans.size() > 0) {
+			for (Money v : ans) {
+				if ("1".equals(v.getMoneyType()))
+					shouru = v.getMoney();
+				else if ("2".equals(v.getMoneyType()))
+					zhichu = v.getMoney();
+			}
 		}
 		request.setAttribute("zhichu", zhichu);
 		request.setAttribute("shouru", shouru);
 		request.setAttribute("year", year);
 		request.setAttribute("month", month);
-		request.setAttribute("moneyTypeName", moneyTypeName); 
+		request.setAttribute("moneyTypeName", moneyTypeName);
 		request.setAttribute("moneyType", moneyType);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);

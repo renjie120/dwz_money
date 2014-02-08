@@ -28,12 +28,21 @@
 			action : '/money/tree!getMoneyTypeTree.do',
 			nameInput : 'moneyTypeName2',
 			height : '200px',
+			checkbox:true,
 			idInput : 'moneyType2',
 			treeId : "moneyTree3"
 		};
 		$('#moneyTypeName2').treeCombox(content);
 		
 	});
+	function _cancel(){
+		$('#moneyTypeName2').hideMenu();
+	}
+	function _clear(){
+		$('#moneyTypeName2').val('');
+		$('#moneyType2').val('');
+		$('#moneyTypeName2').hideMenu();
+	}	
 //-->
 </script>
 <div class="pageHeader" id="moneylist">
