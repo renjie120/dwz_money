@@ -182,8 +182,15 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 					break;
 				case MONEY_TYPE:
 					sb.append(count == 0 ? " where" : " and").append(
-							" money.moneyType=? ");
-					argList.add(entry.getValue());
+							" money.moneyType in ( ");
+					String str = ""+entry.getValue();
+					String[] tps = str.split(",");
+					for(String tp:tps){
+						sb.append("?,");
+						argList.add(tp);
+					}
+					sb = sb.deleteCharAt(sb.lastIndexOf(","));
+					sb.append(")");
 					count++;
 					break;
 				case MONEY_DESC:

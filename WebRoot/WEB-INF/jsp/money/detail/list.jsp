@@ -12,7 +12,7 @@
 	String month = (String) request.getAttribute("month");
 	String moneyType = (String) request.getAttribute("moneyType");
 	String moneyTypeName = (String) request
-			.getAttribute("moneyTypeName");
+			.getAttribute("moneyTypeName"); 
 	if ("null".equals(moneyType) || moneyType == null)
 		moneyType = "";
 	if ("null".equals(moneyTypeName) || moneyTypeName == null)
@@ -28,7 +28,7 @@
 			action : '/money/tree!getMoneyTypeTree.do',
 			nameInput : 'moneyTypeName2',
 			height : '200px',
-			checkbox:true,
+			//checkbox:true,
 			idInput : 'moneyType2',
 			treeId : "moneyTree3"
 		};
@@ -43,6 +43,17 @@
 		$('#moneyType2').val('');
 		$('#moneyTypeName2').hideMenu();
 	}	
+	function _makesure(){				
+		var ans = [];
+		var names = [];
+		$('#moneyTree3').find('span.checkbox_true_full').each(function(){
+			ans.push($(this).next('a').attr('id').replace('moneyTree3_','').replace('_a',''));
+			names.push($(this).next('a').attr('title'));
+		});
+		$("#moneyTypeName2" ).attr("value", names.join(','));
+		$("#moneyType2" ).attr("value", ans.join(','));
+		$('#moneyTypeName2').hideMenu();
+	}
 //-->
 </script>
 <div class="pageHeader" id="moneylist">
