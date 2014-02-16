@@ -6,7 +6,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.IntroductionInterceptor;
-
+											         
 public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 
 	private static Log log = LogFactory

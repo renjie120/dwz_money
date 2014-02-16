@@ -184,11 +184,12 @@ public class GenericDao<T, ID extends Serializable> extends HibernateDaoSupport 
 				PaginationSupport ps = new PaginationSupport(items, totalCount, pageSize, startIndex);
 				return ps;
 			}
-		}, true);
+		});
 	}
 
 	public PaginationSupport findPageByQuery(final String hql, final String countHql, final int pageSize,
 			final int startIndex) {
+		//这里修改了。使用spring3之后，去掉了最后的一个true
 		return (PaginationSupport) getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				long totalCount = ((Long) session.createQuery(countHql).iterate().next()).longValue();
@@ -200,7 +201,7 @@ public class GenericDao<T, ID extends Serializable> extends HibernateDaoSupport 
 				return ps;
 
 			}
-		}, true);
+		});
 	}
 
 	/**

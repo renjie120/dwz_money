@@ -101,6 +101,7 @@
 	<import resource="spring_dao.cfg.xml" />
 	<import resource="spring_manager.cfg.xml" />
 	<import resource="spring_dao_money.cfg.xml" />
+	<import resource="spring_activiti.cfg.xml" />
 	<import resource="spring_manager_money.cfg.xml" />
 
 	<tx:annotation-driven transaction-manager="txManager" />
