@@ -13,16 +13,18 @@
 		<property name="password" value="987425" />
 	</bean>
 
-	<bean id="transactionManager"
+	<bean id="transactionManager2"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="activiti_ds" />
 	</bean>
 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="activiti_ds" />
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionManager" ref="transactionManager2" />
 		<property name="databaseSchemaUpdate" value="true" />
 		<property name="jobExecutorActivate" value="false" />
+		<!-- 自动部署下面的文件 -->
+		<property name="deploymentResources" value="classpath*:/activiti/*.bpmn20.xml" />
 	</bean>
 
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
@@ -41,12 +43,12 @@
 		factory-method="getManagementService" />
 
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager2" />
 
-	<bean id="userBean" class="org.activiti.spring.test.UserBean">
+	<bean id="userBean" class="com.renjie120.hello.UserBean">
 		<property name="runtimeService" ref="runtimeService" />
 	</bean>
 
-	<bean id="printer" class="org.activiti.spring.test.Printer" />
+	<bean id="printer" class="com.renjie120.hello.Printer" />
 
 </beans>
