@@ -16,7 +16,7 @@ public class Cdd2 {
 
 	static char[] source;
 	
-	public static String DJPHttp="qC8lS#^P2m$v3Yuo4ZWK4ZSK4#SPOsLKTDLn2s8dOt0vSC8DqNod6tLmpM00p#lo4#kv4i&cSsLnqN%I6k$s5iBv7lkt2k7u3$7J4#$m79lu7m3u2i3l4lL!4#X#3m!%37==";
+	public static String DJPHttp="qC8lS#^P2s%QS@v&pM!QRsuKOszJ2s4dRb8dSYz&pN4nUM!l8cdIpizrSsLn9N7z3i3Q3ijs0b4dScdXR#lm4iOm5#BQ4i$t5iOQ3ik=";
 	public static String  KEY= "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=";
 
 	private static char[] strToChars(String str) {
@@ -57,7 +57,7 @@ public class Cdd2 {
 		list.add(1);
 		list.add("c");
 		list.add((int)'a');
-		String mima = c.strToBase64Str("http://192.168.67.47/center/decryptFile?userId=145959&serial=A6909CE7-D80D-413A-8C38-347EA48C30E1","B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
+		String mima = c.strToBase64Str("http://app.deppon.com/center/decryptFile?userId=130126&serial=356380051796015","B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
 		System.out.println(mima); 
 		try {
 			System.out.println(c.strFromAsBase64Str(mima, "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/="));
