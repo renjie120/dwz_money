@@ -106,8 +106,8 @@ public class JPCoder {
 					String pth = _dirname.replace(f.getName(), "").replace(
 							panfu, "e");
 					createDir(pth);
-					//saveFile(jiemi(f), pth + "\\", f.getName().replace(".","_"));
-					saveFile(jiemi(f), pth + "\\", f.getName());
+					saveFile(jiemi(f), pth + "\\", f.getName().replace(".","_"));
+					//saveFile(jiemi(f), pth + "\\", f.getName());
 				}
 			}
 		}
@@ -115,7 +115,7 @@ public class JPCoder {
 
 	public static void main(String[] args) {
 		// JPCoder.Coder("D:\\main_mid.png");
-		JPCoder.Coder("d:\\ssss");
+		JPCoder.Coder("d:\\temp1");
 	}
 
 }
