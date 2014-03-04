@@ -8,7 +8,7 @@ import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.collections.map.ListOrderedMap;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import common.MyJdbcTool;
 import common.base.AllSelect;
@@ -253,10 +253,10 @@ public class NewSelectTag extends TagSupport {
 				List ans = jdbcDaoTest.queryForList(buf2.toString());
 				if (ans != null && ans.size() > 0)
 					for (Object objs : ans) {
-						ListOrderedMap obj = (ListOrderedMap) objs;
+						LinkedCaseInsensitiveMap obj = (LinkedCaseInsensitiveMap) objs;
 						SimpleOption option = new SimpleOption();
-						option.setText(obj.getValue(1)  + "");
-						option.setValue(obj.getValue(0) + "");
+						option.setText(obj.get(nameColumn)  + "");
+						option.setValue(obj.get(idColumn) + "");
 						selections.add(option);
 					}
 			}

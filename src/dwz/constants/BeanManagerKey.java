@@ -7,5 +7,6 @@ public enum BeanManagerKey {
 	queryGridTreeBO,moneyManager,allSelectManager,userManager,
 	paramManager,paramtypeManager, moneyTypeManager,
 	menuManager,orgManager,questionManager,diaryManager,myuserManager,
-	usermenurightManager,rolewithmenuManager,homepageurlManager,userrolerightManager
+	usermenurightManager,rolewithmenuManager,homepageurlManager,userrolerightManager,
+	workflowDeploymentManager
 }

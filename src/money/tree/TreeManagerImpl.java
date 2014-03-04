@@ -14,6 +14,7 @@ import money.rolemanager.RoleWithMenuDao;
 import money.rolemanager.RoleWithMenuVO;
 
 import org.apache.commons.collections.map.ListOrderedMap;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import common.MyJdbcTool;
 import common.base.TreeTool;
@@ -111,13 +112,13 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 									new Object[] { nd.getId() });
 					nd.open = "true";
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
-								_objs.getValue(1) + "");
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("menuid")+ "",
+								_objs.get("menuname") + "");
 						_nd.level = nd.level + 1;
-						_nd.setUrl("" + _objs.getValue(2));
-						_nd.relId = "" + _objs.getValue(3);
-						_nd.target = "" + _objs.getValue(4);
+						_nd.setUrl("" + _objs.get("url"));
+						_nd.relId = "" + _objs.get("relId");
+						_nd.target = "" + _objs.get("target");
 						nd.addChild(_nd);
 						allP.add(_nd);
 					}
@@ -160,9 +161,9 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 									"select id,orgname  from organization_t where parentorg=? ",
 									new Object[] { nd.getId() });
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-						ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-						TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
-								_objs.getValue(1) + "");
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("id") + "",
+								_objs.get("orgname") + "");
 						_nd.level = nd.level + 1;
 						nd.addChild(_nd);
 						allP.add(_nd);
@@ -217,9 +218,9 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				"select id,orgname  from organization_t where parentorg=? ",
 				new Object[] { pid });
 		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-			ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-			TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
-					_objs.getValue(1) + "");
+			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+			TreeNode _nd = new TreeNode(_objs.get("id") + "",
+					_objs.get("orgname") + "");
 			_nd.isParent = true;
 			ans.add(_nd);
 		}
@@ -228,9 +229,9 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				"select id,username  from user_t where orgid=? ",
 				new Object[] { pid });
 		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-			ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-			TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
-					_objs.getValue(1) + "");
+			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+			TreeNode _nd = new TreeNode(_objs.get("id") + "",
+					_objs.get("username") + "");
 			_nd.isParent = false;
 			ans.add(_nd);
 		}
@@ -257,13 +258,13 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 								new Object[] { nd.getId(), userId });
 				nd.open = "true";
 				for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-					ListOrderedMap _objs = (ListOrderedMap) child.get(ii);
-					TreeNode _nd = new TreeNode(_objs.getValue(0) + "",
-							_objs.getValue(1) + "");
+					LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);  
+					TreeNode _nd = new TreeNode(_objs.get("menuid") + "",
+							_objs.get("menuname") + "");
 					_nd.level = nd.level + 1;
-					_nd.setUrl("" + _objs.getValue(2));
-					_nd.relId = "" + _objs.getValue(3);
-					_nd.target = "" + _objs.getValue(4);
+					_nd.setUrl("" + _objs.get("url"));
+					_nd.relId = "" + _objs.get("relId");
+					_nd.target = "" + _objs.get("target");
 					nd.addChild(_nd);
 					allP.add(_nd);
 				}
