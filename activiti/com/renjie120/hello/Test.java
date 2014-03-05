@@ -1,7 +1,8 @@
 package com.renjie120.hello;
-
 import org.activiti.engine.RepositoryService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.renjie120.hello.UserBean;
 
 public class Test {
 	public static void main(String[] args) {
