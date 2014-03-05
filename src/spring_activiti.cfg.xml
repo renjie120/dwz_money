@@ -18,11 +18,16 @@
 		<property name="dataSource" ref="activiti_ds" />
 	</bean>
 
+	<tx:annotation-driven transaction-manager="transactionManager2" />
+
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="activiti_ds" />
 		<property name="transactionManager" ref="transactionManager2" />
 		<property name="databaseSchemaUpdate" value="true" />
 		<property name="jobExecutorActivate" value="false" />
+		<!-- 使用uuid主键生成策略<bean id="uuidGenerator" class="org.activiti.engine.impl.persistence.StrongUuidGenerator" 
+			/><property name="idGenerator" ref="uuidGenerator" /> -->
+
 		<!-- 自动部署下面的文件 -->
 		<property name="deploymentResources" value="classpath*:/activiti/*.bpmn20.xml" />
 	</bean>
@@ -41,9 +46,6 @@
 		factory-method="getHistoryService" />
 	<bean id="managementService" factory-bean="processEngine"
 		factory-method="getManagementService" />
-
-
-	<tx:annotation-driven transaction-manager="transactionManager2" />
 
 	<bean id="userBean" class="com.renjie120.hello.UserBean">
 		<property name="runtimeService" ref="runtimeService" />

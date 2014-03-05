@@ -7,4 +7,5 @@
 	<include file="resource/struts-dwz.xml" />
 	<include file="resource/struts-test.xml" />
 	<include file="resource/struts-money.xml" />
+	<include file="resource/struts-activiti.xml" />
 </struts>

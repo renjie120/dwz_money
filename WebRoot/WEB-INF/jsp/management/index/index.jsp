@@ -5,7 +5,8 @@
 <%@ page import="common.tree.Tree"%>
 <html>
 <head> 
-<title><s:text name="ui.title" />
+<!-- s:text name="ui.title" /-->
+<title>流程系统新平台
 </title>
 <%
 	String path = request.getContextPath();

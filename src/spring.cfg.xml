@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
@@ -10,14 +9,13 @@
 	<!-- session factory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="configLocation"
-			value="classpath:hibernate_mysql.cfg.xml">
+		<property name="configLocation" value="classpath:hibernate_mysql.cfg.xml">
 		</property>
 	</bean>
 
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="url">
-			<!-- value>jdbc:mysql://61.152.105.38:3306/hengshi</value-->
+			<!-- value>jdbc:mysql://61.152.105.38:3306/hengshi</value -->
 			<value>jdbc:mysql://localhost:3306/dwz4j</value>
 		</property>
 		<property name="driverClassName">
@@ -40,8 +38,7 @@
 
 
 	<!-- jdbc modle -->
-	<bean id="jdbcTemplate"
-		class="org.springframework.jdbc.core.JdbcTemplate">
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
 			<ref bean="ds" />
 		</property>
@@ -56,8 +53,7 @@
 	</bean>
 
 	<!-- DaoIntroductionInterceptor -->
-	<bean id="daoIntroductionInterceptor"
-		class="dwz.dal.DaoIntroductionInterceptor">
+	<bean id="daoIntroductionInterceptor" class="dwz.dal.DaoIntroductionInterceptor">
 	</bean>
 
 	<bean id="reportUtil" class="common.report.ReportDaoUtil">
@@ -72,8 +68,7 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="daoProxy"
-		class="org.springframework.aop.framework.ProxyFactoryBean"
+	<bean id="daoProxy" class="org.springframework.aop.framework.ProxyFactoryBean"
 		abstract="true">
 		<property name="interceptorNames">
 			<list>
@@ -82,21 +77,16 @@
 		</property>
 	</bean>
 
+	 
+ 
 	<bean id="baseDao" class="dwz.dal.BaseDaoImpl" abstract="true">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<!-- Spring资源国际化 (统一使用String2国际化) -->
-	<!-- 
-		<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames">
-		<list>
-		<value>resource/messages</value>
-		</list>
-		</property>
-		</bean>
-	-->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basenames"> <list> <value>resource/messages</value> </list> 
+		</property> </bean> -->
 
 	<import resource="spring_dao.cfg.xml" />
 	<import resource="spring_manager.cfg.xml" />
@@ -106,19 +96,16 @@
 
 	<tx:annotation-driven transaction-manager="txManager" />
 
-	<bean id="SpringContextUtil"
-		class="common.base.SpringContextUtil">
+	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
 	</bean>
 
-	<bean id="queryGridTreeBO"
-		class="querygridtree.bo.QueryGridTreeBOImpl">
+	<bean id="queryGridTreeBO" class="querygridtree.bo.QueryGridTreeBOImpl">
 		<property name="queryGridTreeDAO">
 			<ref bean="queryGridTreeDAO" />
 		</property>
 	</bean>
 
-	<bean id="queryGridTreeDAO"
-		class="querygridtree.dao.QueryGridTreeDAOImpl">
+	<bean id="queryGridTreeDAO" class="querygridtree.dao.QueryGridTreeDAOImpl">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>

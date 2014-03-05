@@ -10,8 +10,10 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 		HibernateDaoSupport implements BaseDao<T, PK> {
@@ -22,23 +24,40 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 
 	public BaseDaoImpl(Class<T> clazz) {
 		this.clazz = clazz;
-		
-//		System.out.println(getClass().getGenericInterfaces()[0].toString());
-//		Type genType = getClass().getGenericInterfaces()[0];
-//		if (!(genType instanceof ParameterizedType)) {
-//			this.clazz = Object.class;
-//		}
-//		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-//
-//		if (!(params[0] instanceof Class)) {
-//			this.clazz = Object.class;
-//		}
-//		System.out.println(params[0].getClass());
-//		this.clazz = params[0].getClass();
-	}
 
+		// System.out.println(getClass().getGenericInterfaces()[0].toString());
+		// Type genType = getClass().getGenericInterfaces()[0];
+		// if (!(genType instanceof ParameterizedType)) {
+		// this.clazz = Object.class;
+		// }
+		// Type[] params = ((ParameterizedType)
+		// genType).getActualTypeArguments();
+		//
+		// if (!(params[0] instanceof Class)) {
+		// this.clazz = Object.class;
+		// }
+		// System.out.println(params[0].getClass());
+		// this.clazz = params[0].getClass();
+	}
+ 
 	public void insert(T model) {
-		this.getHibernateTemplate().save(model);
+//		Session session = this.getHibernateTemplate().getSessionFactory()
+//				.getCurrentSession();// openSession
+//		Transaction t = null;
+//		try {
+//			t = session.beginTransaction();
+//			session.save(model);
+//			t.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			if (t != null)
+//				t.rollback();
+//		} finally {
+//			//session.close();
+//		}
+
+		 this.getHibernateTemplate().save(model);
+
 	}
 
 	public void insertBatch(final List<T> modelList) {
@@ -293,7 +312,8 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 	}
 
 	@Override
-	public Collection<T> findBySqlQuery(final String queryStr, final Object[] params) {
+	public Collection<T> findBySqlQuery(final String queryStr,
+			final Object[] params) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -311,10 +331,10 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 		});
 		return (List) o;
 	}
-	
-	
+
 	@Override
-	public Collection<T> findByQuery(final String queryStr,final Object[] params) {
+	public Collection<T> findByQuery(final String queryStr,
+			final Object[] params) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {

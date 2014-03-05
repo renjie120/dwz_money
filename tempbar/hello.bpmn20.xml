@@ -1,0 +1,16 @@
+<definitions id="definitions" targetNamespace="Examples"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn">
+
+	<process id="helloProcess">
+
+		<startEvent id="start" />
+		<sequenceFlow id="flow1" sourceRef="start" targetRef="print" />
+
+		<serviceTask id="print" activiti:expression="#{printer.printMessage()}" />
+		<sequenceFlow id="flow2" sourceRef="print" targetRef="end" />
+
+		<endEvent id="end" />
+
+	</process>
+
+</definitions>
