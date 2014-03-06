@@ -2,12 +2,23 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
-<struts> 
-		
+<struts>
+
 	<package name="workflow" namespace="/workflow" extends="struts2">
 		<action name="deployment" class="com.renjie120.workflow.DeploymentAction">
 			<result name="list">
 				/WEB-INF/jsp/workflow/DeploymentLists.jsp
+			</result>
+		</action>
+		<action name="process" class="com.renjie120.workflow.ProcessAction">
+			<result name="allList">
+				/WEB-INF/jsp/workflow/allProcessLists.jsp
+			</result>
+			<result name="runningList">
+				/WEB-INF/jsp/workflow/allRunningProcesses.jsp
+			</result>
+			<result name="historyList">
+				/WEB-INF/jsp/workflow/allFinishedProcess.jsp
 			</result>
 		</action>
 	</package>

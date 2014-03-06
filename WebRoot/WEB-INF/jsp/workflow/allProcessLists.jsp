@@ -1,4 +1,5 @@
-
+<%@page import="com.renjie120.workflow.util.ProcessDefinitionCache,org.activiti.engine.RepositoryService,common.base.SpringContextUtil"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils,org.apache.commons.lang3.ObjectUtils"%>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <form id="pagerForm" method="post" action="/money/homepageurl!query.do">
@@ -63,6 +64,10 @@
 
 		</ul>
 	</div>
+	<%
+	RepositoryService repositoryService = (RepositoryService)SpringContextUtil.getBean("repositoryService");
+	ProcessDefinitionCache.setRepositoryService(repositoryService);
+	%>
 	<table class="table" layoutH="-138">
 		<thead>
 			<tr>
@@ -70,65 +75,35 @@
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
 				<th width="100"     >
-						流程定义id
+						执行ID
 				</th> 
 				<th width="100"     >
-						流程发布id 
+						流程实例ID
 				</th> 
 				<th width="100"     >
-						名称
+						流程定义ID
 				</th> 
 				<th width="100"     >
-						KEY
+						当前节点
 				</th>
 				<th width="100"     >
-						版本号
-				</th> 
-				<th width="100"     >
-						XML
-				</th> 
-				<th width="100"     >
-						图片
-				</th>  
-				<th width="100"     >
-						部署时间
-				</th>  
-				<th width="100"     >
 						是否挂起
-				</th>  
-				<th width="100"     >
-						操作
 				</th>  
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list}" var="stu"> 
-				<c:set var="process" value="${stu[0] }" />
-				<c:set var="deployment" value="${stu[1] }" />
-				<tr target="urlId"  >
-					<td><input type='checkbox' name='deploymentid' value="${process.deploymentId }"></td>
-					<td>${process.id }</td>
+			<c:forEach items="${page.result }" var="process">
+				<tr>
+					<td class='process-id'>${process.id }</td>
 					<td>${process.deploymentId }</td>
-					<td>${process.name }</td>
+					<td class='process-name'>${process.name }</td>
 					<td>${process.key }</td>
 					<td>${process.version }</td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>${process.resourceName }</a></td>
 					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>${process.diagramResourceName }</a></td>
-					<td>${deployment.deploymentTime }</td>
-					<td>${process.suspended} |
-						<c:if test="${process.suspended }">
-							<a href="${ctx }/workflow/process!processActive.do?processDefinitionId=${process.id}">激活</a>
-						</c:if>
-						<c:if test="${!process.suspended }">
-							<a href="${ctx }/workflow/process!processSuspend.do?processDefinitionId=${process.id}">挂起</a>
-						</c:if>
-					</td>
-					<td>
-                        <a href='${ctx }/workflow/deployment!processDelete.do?deploymentId=${process.deploymentId}'>删除</a>
-                        <a href='${ctx }/workflow/process!processDelete.do?deploymentId=${process.deploymentId}'>转换为Model</a>
-                    </td>
+					<td><a class="startup-process">启动</a></td>
 				</tr>
-			</c:forEach>
+			</c:forEach> 
 		</tbody>
 	</table>
 	<div class="panelBar">

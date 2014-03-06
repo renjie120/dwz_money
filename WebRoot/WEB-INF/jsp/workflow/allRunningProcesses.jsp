@@ -1,4 +1,5 @@
-
+<%@page import="com.renjie120.workflow.util.ProcessDefinitionCache,org.activiti.engine.RepositoryService"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils,org.apache.commons.lang3.ObjectUtils"%>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <form id="pagerForm" method="post" action="/money/homepageurl!query.do">
@@ -102,33 +103,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list}" var="stu"> 
-				<c:set var="process" value="${stu[0] }" />
-				<c:set var="deployment" value="${stu[1] }" />
-				<tr target="urlId"  >
-					<td><input type='checkbox' name='deploymentid' value="${process.deploymentId }"></td>
-					<td>${process.id }</td>
-					<td>${process.deploymentId }</td>
-					<td>${process.name }</td>
-					<td>${process.key }</td>
-					<td>${process.version }</td>
-					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>${process.resourceName }</a></td>
-					<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>${process.diagramResourceName }</a></td>
-					<td>${deployment.deploymentTime }</td>
-					<td>${process.suspended} |
-						<c:if test="${process.suspended }">
-							<a href="${ctx }/workflow/process!processActive.do?processDefinitionId=${process.id}">激活</a>
-						</c:if>
-						<c:if test="${!process.suspended }">
-							<a href="${ctx }/workflow/process!processSuspend.do?processDefinitionId=${process.id}">挂起</a>
-						</c:if>
-					</td>
-					<td>
-                        <a href='${ctx }/workflow/deployment!processDelete.do?deploymentId=${process.deploymentId}'>删除</a>
-                        <a href='${ctx }/workflow/process!processDelete.do?deploymentId=${process.deploymentId}'>转换为Model</a>
-                    </td>
-				</tr>
-			</c:forEach>
+			<c:forEach items="${page.result }" var="p">
+		<c:set var="pdid" value="${p.processDefinitionId }" />
+		<c:set var="activityId" value="${p.activityId }" />
+		<tr>
+			<td>${p.id }</td>
+			<td>${p.processInstanceId }</td>
+			<td>${p.processDefinitionId }</td>
+			<td><a class="trace" href='#' pid="${p.id }" title="点击查看流程图"><%=ProcessDefinitionCache.getActivityName(pageContext.getAttribute("pdid").toString(), ObjectUtils.toString(pageContext.getAttribute("activityId"))) %></a></td>
+			<td>${p.suspended }</td>
+		</tr>
+		</c:forEach>
 		</tbody>
 	</table>
 	<div class="panelBar">

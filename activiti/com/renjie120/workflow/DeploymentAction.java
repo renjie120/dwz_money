@@ -17,7 +17,8 @@ public class DeploymentAction extends BaseAction {
 	private RepositoryService repositoryService;
 
 	public String processList() {
-		repositoryService = (RepositoryService)SpringContextUtil.getBean("repositoryService");
+		repositoryService = (RepositoryService) SpringContextUtil
+				.getBean("repositoryService");
 		List<Object[]> objects = new ArrayList<Object[]>();
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
@@ -40,6 +41,27 @@ public class DeploymentAction extends BaseAction {
 		ActionContext.getContext().put("totalCount", count);
 		return "list";
 	}
+
+	private String deploymentId;
+
+	public String getDeploymentId() {
+		return deploymentId;
+	}
+
+	public void setDeploymentId(String deploymentId) {
+		this.deploymentId = deploymentId;
+	}
+ 
+	/**
+	 * 删除流程配置信息.
+	 * @return
+	 */
+	public String processDelete() {
+		repositoryService = (RepositoryService) SpringContextUtil
+				.getBean("repositoryService");
+		repositoryService.deleteDeployment(deploymentId, true);
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	} 
 
 	public RepositoryService getRepositoryService() {
 		return repositoryService;

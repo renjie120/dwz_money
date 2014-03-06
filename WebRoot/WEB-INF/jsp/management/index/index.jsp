@@ -2,14 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="dwz.framework.constants.Constants"%>
-<%@ page import="common.tree.Tree"%>
+<%@ page import="common.tree.Tree"%> 
 <html>
 <head> 
 <!-- s:text name="ui.title" /-->
 <title>流程系统新平台
 </title>
 <%
-	String path = request.getContextPath();
+	String path = "http://127.0.0.1:8081";
+	System.out.println("path==="+path);
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
 	response.setDateHeader("Expires", 0);
@@ -19,10 +20,9 @@
 		response.sendRedirect("/management/index!login.do");
 %>
 <script type="text/javascript"> 
-		var appPath = "<%=path%>
-	";
+		var appPath = "<%=path%>";
 </script>
-
+<base href="http://127.0.0.1:8081"> 
 <link href="/styles/management/themes/default/style.css"
 	rel="stylesheet" type="text/css" />
 <link href="/styles/management/themes/css/core.css" rel="stylesheet"
@@ -30,9 +30,9 @@
 <link href="/styles/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
 <link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
-<script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
+<script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 <script src="/styles/management/js/jquery.cookie.js"
 	type="text/javascript"></script>
 <script src="/styles/management/js/jquery.validate.js"
@@ -139,7 +139,7 @@
 				callback : function() {
 					initEnv();
 					$("#themeList").theme({
-						themeBase : "/styles/management/themes"
+						themeBase : "styles/management/themes"
 					});
 				}
 			});
