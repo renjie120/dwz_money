@@ -86,8 +86,7 @@ var DWZ = {
 		this._set.loginTitle = op.loginTitle;
 		this._set.debug = op.debug;
 		$.extend(DWZ.statusCode, op.statusCode);
-		$.extend(DWZ.pageInfo, op.pageInfo);
-		
+		$.extend(DWZ.pageInfo, op.pageInfo); 
 		jQuery.ajax({
 			type:'GET',
 			url:pageFrag,

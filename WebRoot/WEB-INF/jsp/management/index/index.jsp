@@ -22,7 +22,7 @@
 <script type="text/javascript"> 
 		var appPath = "<%=path%>";
 </script>
-<base href="http://127.0.0.1:8081"> 
+<base href="/"> 
 <link href="/styles/management/themes/default/style.css"
 	rel="stylesheet" type="text/css" />
 <link href="/styles/management/themes/css/core.css" rel="stylesheet"
@@ -144,7 +144,7 @@
 				}
 			});
 		});
-		//清理浏览器内存,只对IE起效,FF不需要
+		//清理浏览器内存,/只对IE起效,FF不需要
 		if ($.browser.msie) {
 			window.setInterval("CollectGarbage();", 10000);
 		}
@@ -164,13 +164,13 @@
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
-				<a class="logo" href="/management/index!index.do">coLogo</a> <a
+				<!--   a class="logo" href="/management/index!index.do">coLogo</a> <a
 					target="_blank"
 					href="http://wpa.qq.com/msgrd?v=3&uin=1246910068&site=qq&menu=yes">
 					<img border="0"
 					src="http://wpa.qq.com/pa?p=2:1246910068:41 &r=0.901225046595993"
 					alt="点击这里给我发消息" title="点击这里给我发消息">
-				</a>
+				</a-->
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
 						mask="true">我的资料</a></li>

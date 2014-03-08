@@ -83,7 +83,8 @@ input.login-field {
 }
 </style>
 <script type="text/javascript">
-	
+	function openFile(url){
+	}
 </script> 
 </head>
 <body>
@@ -119,6 +120,7 @@ input.login-field {
 			</form> 
 		</div>
 	</div>
+	<a onclick="window.demo.clickOnAndroid('/upload/123_fromppt.pdf')">下载测试</a>
  
 
 	<!-- <p ><hr>
