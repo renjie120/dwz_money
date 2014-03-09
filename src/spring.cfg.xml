@@ -13,21 +13,30 @@
 		</property>
 	</bean>
 
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120" />
+		<property name="username" value="renjie120" />
+		<property name="password" value="lsq20140307ZHQ" />
+	</bean>
+
+<!-- 
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="url">
-			<!-- value>jdbc:mysql://61.152.105.38:3306/hengshi</value -->
-			<value>jdbc:mysql://localhost:3306/dwz4j</value>
+			 <value>jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120</value>
 		</property>
 		<property name="driverClassName">
-			<value>com.p6spy.engine.spy.P6SpyDriver</value>
+			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="username">
-			<value>root</value>
+			<value>renjie120</value>
 		</property>
 		<property name="password">
-			<value>987425</value>
+			<value>lsq20140307ZHQ</value>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="jdbcTm"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -77,8 +86,8 @@
 		</property>
 	</bean>
 
-	 
- 
+
+
 	<bean id="baseDao" class="dwz.dal.BaseDaoImpl" abstract="true">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>

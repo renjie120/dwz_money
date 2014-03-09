@@ -8,9 +8,9 @@
 	<bean id="activiti_ds"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/activiti" />
-		<property name="username" value="root" />
-		<property name="password" value="987425" />
+		<property name="url" value="jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120" />
+		<property name="username" value="renjie120" />
+		<property name="password" value="lsq20140307ZHQ" />
 	</bean>
 
 	<bean id="transactionManager2"

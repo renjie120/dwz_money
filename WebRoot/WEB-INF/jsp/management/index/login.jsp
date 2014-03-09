@@ -119,8 +119,7 @@ input.login-field {
 				</table>
 			</form> 
 		</div>
-	</div>
-	<a onclick="window.demo.clickOnAndroid('/upload/123_fromppt.pdf')">下载测试</a>
+	</div> 
  
 
 	<!-- <p ><hr>

@@ -160,7 +160,7 @@
  		}
 	</script>
 </head>
-<body scroll="no">
+<body scroll="no"> 
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">

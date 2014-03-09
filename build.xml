@@ -1,0 +1,85 @@
+<project basedir="." default="publish" name="dwz_money">
+	<target name="init" description="设置初始化打 war 包需要的路径变量">
+		<property name="name" value="dwz_money"/>
+		<property name="src" value="${basedir}/dwz_money/src"/>
+		<property name="lib" value="${basedir}/dwz_money/WebRoot/WEB-INF/lib"/>
+		<property name="webapp" value="${basedir}/dwz_money/WebRoot"/>
+		<property name="packages" value="ant.*"/>
+		
+		<property name="build.src" value="${basedir}/AntBuild/dwz_money/src"/>
+		<property name="build.dest" value="${basedir}/AntBuild/dwz_money/WEB-INF/classes"/>
+		<property name="buildwar.dest" value="${basedir}/AntBuild/dwz_money"/>
+		<property name="build.javadocs" value="${basedir}/AntBuild/doc"/>
+		<property name="jar.dest" value="${basedir}/AntBuild/jar"/>
+		<property name="war.dest" value="${basedir}/AntBuild/war"/>
+		
+		<property name="tomcat.home" value="D:\Program Files\Apache Software Foundation\Tomcat 6.0"/>
+		<property name="j2eelib.dir" value="D:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\data\libraryset\EE_5"/>
+		
+		<path id="classpath">
+			<fileset dir="${j2eelib.dir}">
+				<include name="**/*.jar"/>
+			</fileset>
+			<fileset dir="${lib}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</path>
+	</target>
+	
+	<target name="prepare" depends="init" description="创建打包需要的路径，拷贝源文件到打包路径下">
+		<mkdir dir="${build.src}"/>
+		<mkdir dir="${build.dest}"/>
+		<mkdir dir="${buildwar.dest}"/>
+		<mkdir dir="${jar.dest}"/>
+		<mkdir dir="${war.dest}"/>
+		<copy todir="${build.src}">
+			<fileset dir="${src}"/>
+		</copy>
+		<copy todir="${buildwar.dest}">
+			<fileset dir="${webapp}"/>
+		</copy>
+	</target>
+	
+	<target name="build" depends="prepare" description="编译 java 文件，拷贝 properties 属性配置文件到编译后的路径下">
+		<javac srcdir="${build.src}" destdir="${build.dest}">
+			<classpath refid="classpath"/>
+		</javac>
+		<copy todir="${build.dest}">
+			<fileset dir="${build.src}">
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="antwar" depends="javadoc" description="打 war 包，不将 java 文件打入包内">
+		<delete dir="${build.src}"/>
+		<war warfile="${war.dest}/dwz_money.war" webxml="${buildwar.dest}/WEB-INF/web.xml">
+			<lib dir="${buildwar.dest}/WEB-INF/lib"/>
+			<classes dir="${build.dest}"/>
+			<fileset dir="${buildwar.dest}"/>
+		</war>
+	</target>
+	
+	<!--target name="publish" depends="antwar,clean" description="发布 war 包至 tomcat 目录下">
+		<copy todir="${tomcat.home}/webapps">
+			<fileset dir="${war.dest}">
+				<include name="**/*.war"/>
+			</fileset>
+		</copy>
+	</target-->
+	
+	<target name="javadoc" depends="build" description="生成 java 的 API 帮助文档">
+		<mkdir dir="${build.javadocs}"/>
+		<!--javadoc packagenames="${packages}" sourcepath="${build.src}" destdir="${build.javadocs}" author="true" version="true" use="true" splitindex="true" windowtitle="${name} API" doctitle="${name}">
+			<classpath refid="classpath"/>
+		</javadoc-->
+	</target>
+	
+	<target name="clean" depends="init" description="清除打包用临时文件">
+		<delete dir="${build.src}"/>
+		<delete>
+			<fileset dir="${build.dest}" includes="**/*.classes"/>
+		</delete>
+		<delete dir="${buildwar.dest}"/>
+	</target>
+</project>
