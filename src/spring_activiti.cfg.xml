@@ -7,10 +7,10 @@
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 	<bean id="activiti_ds"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120" />
-		<property name="username" value="renjie120" />
-		<property name="password" value="lsq20140307ZHQ" />
+		<property name="driverClass" value="${driverName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
 	</bean>
 
 	<bean id="transactionManager2"
