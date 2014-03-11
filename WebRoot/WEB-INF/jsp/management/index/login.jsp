@@ -119,9 +119,13 @@ input.login-field {
 				</table>
 			</form> 
 		</div>
+<<<<<<< HEAD
 	</div>
 	<a onclick="window.demo.clickOnAndroid('/upload/123_fromppt.pdf')">下载测试</a>
 	<a href="/upload/123_fromppt.pdf">下载链接</a>
+=======
+	</div> 
+>>>>>>> f17cf1372deb8411b413aaef42967cd07452b4fd
  
 
 	<!-- <p ><hr>

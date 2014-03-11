@@ -285,6 +285,27 @@ function initUI(_box){
 		});
 	});
 	
+	alert($.fn.uploadify);
+	if ($.fn.uploadify) {
+		alert($(":file[uploaderOption]", $p).size());
+		$(":file[uploaderOption]", $p).each(function(){
+			var $this = $(this);
+			var options = {
+				fileObjName: $this.attr("name") || "file",
+				auto: true,
+				multi: true,
+				onUploadError: uploadifyError
+			};
+			
+			var uploaderOption = DWZ.jsonEval($this.attr("uploaderOption"));
+			$.extend(options, uploaderOption);
+
+			DWZ.debug("uploaderOption: "+DWZ.obj2str(uploaderOption));
+			
+			$this.uploadify(options);
+		});
+	}
+	
 	// dwz.ajax.js
 	if ($.fn.ajaxTodo) $("a[target=ajaxTodo]", $p).ajaxTodo($p);
 	if ($.fn.dwzExport) $("a[target=dwzExport]", $p).dwzExport($p);
