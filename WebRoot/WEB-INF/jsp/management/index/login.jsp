@@ -121,6 +121,7 @@ input.login-field {
 		</div>
 	</div>
 	<a onclick="window.demo.clickOnAndroid('/upload/123_fromppt.pdf')">下载测试</a>
+	<a href="/upload/123_fromppt.pdf">下载链接</a>
  
 
 	<!-- <p ><hr>
