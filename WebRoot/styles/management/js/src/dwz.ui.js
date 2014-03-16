@@ -284,10 +284,8 @@ function initUI(_box){
 			currentPage:$this.attr("currentPage")
 		});
 	});
-	
-	alert($.fn.uploadify);
-	if ($.fn.uploadify) {
-		alert($(":file[uploaderOption]", $p).size());
+	 
+	if ($.fn.uploadify) { 
 		$(":file[uploaderOption]", $p).each(function(){
 			var $this = $(this);
 			var options = {

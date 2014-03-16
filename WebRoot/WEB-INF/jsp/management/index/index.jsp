@@ -8,7 +8,7 @@
 <!-- s:text name="ui.title" /-->
 <title>流程系统新平台</title>
 <%
-	String path = "http://127.0.0.1:8081";
+	String path = "http://127.0.0.1:9999";
 	System.out.println("path===" + path);
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
@@ -18,9 +18,8 @@
 	if (obj == null)
 		response.sendRedirect("/management/index!login.do");
 %>
-<script type="text/javascript"> 
-		var appPath = "<%=path%>
-	";
+<script  type="text/javascript"> 
+		var appPath = "<%=path%>";
 </script>
 <base href="/">
 	<link href="/styles/management/themes/default/style.css"
@@ -41,13 +40,13 @@
 		type="text/javascript"></script>
 	<script src="/styles/management/js/jquery.bgiframe.js"
 		type="text/javascript"></script>
+	<!--	
 	<script src="/styles/xheditor/xheditor-1.1.9-zh-cn.min.js"
 		type="text/javascript"></script>
 
 	<link rel="stylesheet" type="text/css"
 		href="/styles/flexigrid_my/css/flexigrid_blue.css" />
-	<script type="text/javascript" src="/styles/flexigrid_my/flexigrid.js"></script>
-
+	<script type="text/javascript" src="/styles/flexigrid_my/flexigrid.js"></script> 
 
 	<!-- 下面是jquery的form插件. -->
 	<script src="/styles/jquery.form.js" type="text/javascript"></script>

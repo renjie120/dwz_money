@@ -27,7 +27,7 @@
 				var selector = $(op.selector, box);
 
 				allSelectBox.push(box.attr("id"));
-				$(op.selector, box).click(function(){
+				$(op.selector, box).click(function(){ 
 					var options = $("#op_"+box.attr("id"));
 					if (options.is(":hidden")) {
 						if(options.height() > 300) {
@@ -42,7 +42,7 @@
 						$(document).click(killAllBox);
 					} else {
 						$(document).unbind("click", killAllBox);
-						killAllBox();
+						killAllBoxkillAllBox();
 					}
 					return false;
 				});
@@ -52,15 +52,14 @@
 		comboxOption: function(selector, box){
 			return this.each(function(){
 				$(">a", this).click(function(){
-					var $this = $(this);
+					 var $this = $(this);
 					$this.parent().parent().find(".selected").removeClass("selected");
 					$this.addClass("selected");
-					selector.text($this.text());
-					
+					selector.text($this.text()); 
 					var $input = $("select", box);
 					if ($input.val() != $this.attr("value")) {
 						$("select", box).val($this.attr("value")).trigger("refChange").trigger("change");
-					}
+					} 
 				});
 			});
 		},
@@ -82,18 +81,16 @@
 				var value= $this.attr("value");
 				var label = $("option[value=" + value + "]",$this).text();
 				var ref = $this.attr("ref");
-				var refUrl = $this.attr("refUrl") || "";
-
+				var refUrl = $this.attr("refUrl") || ""; 
 				var cid = $this.attr("id") || Math.round(Math.random()*10000000);
 				var select = '<div class="combox"><div id="combox_'+ cid +'" class="select"' + (ref?' ref="' + ref + '"' : '') + '>';
 				select += '<a href="javascript:" class="'+$this.attr("class")+'" name="' + name +'" value="' + value + '">' + label +'</a></div></div>';
 				var options = '<ul class="comboxop" id="op_combox_'+ cid +'">';
 				$("option", $this).each(function(){
 					var option = $(this);
-					options +="<li><a class=\""+ (value==option[0].value?"selected":"") +"\" href=\"#\" value=\"" + option[0].value + "\">" + option[0].text + "</a></li>";
+					options +="<li><a class=\""+ (value==option[0].value?"selected":"") +"\" href=\"javascript:return false;\" value=\"" + option[0].value + "\">" + option[0].text + "</a></li>";
 				});
-				options +="</ul>";
-				
+				options +="</ul>"; 
 				$("body").append(options);
 				$this.after(select);
 				$("div.select", $this.next()).comboxSelect().append($this);

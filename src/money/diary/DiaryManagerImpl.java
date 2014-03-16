@@ -122,17 +122,18 @@ public class DiaryManagerImpl extends AbstractBusinessObjectManager implements
 		DiaryOrderByFields orderBy = DiaryOrderByFields.DIARYID_DESC;
 		if (orderField != null && orderField.length() > 0) {
 			orderBy = DiaryOrderByFields.valueOf(orderField);
+		}else{
+			orderBy = DiaryOrderByFields.valueOf(DiaryOrderByFields.DIARYTIME.toString());
 		}
-
 		switch (orderBy) {
 			case DIARYID:
-				 sb.append(" order by diary.diaryId");
+				 sb.append(" order by diary.diaryId desc");
 			break;
 			case DIARYCONTENT:
 				 sb.append(" order by diary.diaryContent");
 			break;
 			case DIARYTIME:
-				 sb.append(" order by diary.diaryTime");
+				 sb.append(" order by diary.diaryTime desc ");
 			break;
 			case DIARYTYPE:
 				 sb.append(" order by diary.diaryType");

@@ -332,6 +332,6 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	public String realOrderField(){
 		if ("desc".equalsIgnoreCase(orderDirection))
 			return orderField+"_DESC";
-		return orderField;
+		return null;
 	}
 }

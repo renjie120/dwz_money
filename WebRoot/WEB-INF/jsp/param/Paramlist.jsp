@@ -38,7 +38,7 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li><a class="add" href="/money/param!beforeAdd.do"
-				target="dialog" mask="true" title="添加菜单"><span>添加</span> </a></li>
+				target="dialog" mask="true" title="添加参数"><span>添加</span> </a></li>
 			<li><a class="delete" href="/money/param!doDelete.do"
 				postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 			</a></li>
