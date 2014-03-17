@@ -28,7 +28,9 @@ public class MyJdbcTool {
 		this.jdbcTemplate = jdbcTemplate;
 	} 
 	public static void main(String[] args)   {
-		 
+		 String str = "123.doc";
+		 String ext=str.substring(str.lastIndexOf(".")).toLowerCase();
+		 System.out.println(ext);
 	}
 
 	/**
