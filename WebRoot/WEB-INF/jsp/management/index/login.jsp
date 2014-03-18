@@ -127,6 +127,5 @@ input.login-field {
 	<div class="foot"  style="text-align:center;"> 备案号:沪ICP备14008685号<br>
 	 © www.thinksafari.com&nbsp;&nbsp;&nbsp;思程工作室版权所有 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000319706'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s5.cnzz.com/z_stat.php%3Fid%3D1000319706%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script> 
 	</div> 
-	</div>
-	<script src="/bootstrap/js/jquery.min.js"></script> 
+	</div> 
 </html>
