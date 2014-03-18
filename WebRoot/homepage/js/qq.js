@@ -6,12 +6,10 @@ document.write("<h2>在线客服</h2>");
 document.write("<ul>");
 document.write("<li class=odd><a target=blank href=tencent://message/?uin=1246910068&Site=思程工作室&Menu=yes><img border='0' SRC=http://wpa.qq.com/pa?p=1:1246910068:1 alt='后台开发'></a></li>");
 document.write("<li><a target=blank href=tencent://message/?uin=408588454&Site=思程工作室&Menu=yes><img border='0' SRC=http://wpa.qq.com/pa?p=1:408588454:1 alt='移动端开发'></a></li>");
-document.write('<tr><td><li><a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&uid=qq418082085&site=cntaobao&s=1&charset=utf-8" ><img border="0" src="http://amos.im.alisoft.com/online.aw?v=2&uid=qq418082085&site=cntaobao&s=1&charset=utf-8" alt="DIVCSS5欢迎您" /></a></li></td></tr>');
-document.write('<tr><td><li><a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&uid=qq418082085&site=cntaobao&s=1&charset=utf-8" ><img border="0" src="http://amos.im.alisoft.com/online.aw?v=2&uid=qq418082085&site=cntaobao&s=1&charset=utf-8" alt="DIVCSS制作欢迎您" /></a></li></td></tr>');
 document.write("</ul>");document.write("</div>");
 document.write("<div class='b'></div>");
 document.write("</div>");
-document.write("<div id='divMenu' onmouseover='OnlineOver();'><img src='./images/qq/qq_1.png' class='press' alt='QQ客服热线'></div>");
+document.write("<div id='divMenu' onmouseover='OnlineOver();'><img src='./img/qq_1.png' class='press' alt='QQ客服热线'></div>");
 document.write("</div>"); 
 //<![CDATA[
 var tips; var theTop = 120/*这是默认高度,越大越往下*/; var old = theTop;

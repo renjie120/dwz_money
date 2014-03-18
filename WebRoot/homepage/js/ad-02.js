@@ -24,11 +24,11 @@
 		this.play	= function()
 				  {
 					collection				= this.items; 
-					/*play();
+					/* play();
 					if(!window.aaaaaa){
 						window.onscroll=play;
 						window.aaaaaa =1;
-					}*/
+					} */
  	                setInterval('play()',50);
 				  }
 		} 
@@ -48,20 +48,17 @@
 				var followObj_x		= (typeof(collection[i].x)=='string'?eval(collection[i].x):collection[i].x);
 				var followObj_y		= (typeof(collection[i].y)=='string'?eval(collection[i].y):collection[i].y); 
 				var $this = $(followObj);
-				var offset = $this.offset();
-				//alert(followObj_x+","+followObj_y+",,"+offset.left);
-				if(offset.left!=(document.documentElement.scrollLeft+followObj_x)) {
+				var offset = $this.offset(); 
+				 if(offset.left!=(document.documentElement.scrollLeft+followObj_x)) {
 					var dx=(document.documentElement.scrollLeft+followObj_x-offset.left)*delta;
 					dx=(dx>0?1:-1)*Math.ceil(Math.abs(dx));
-					$this.css('left',offset.left+dx);
-					//followObj.style.left=followObj.offsetLeft+dx;
+					 $this.css('left',offset.left+dx); 
 					}
-
-				if(offset.top!=(document.documentElement.scrollTop+followObj_y)) {
+				 
+				 if(offset.top!=(document.documentElement.scrollTop+followObj_y)) {
 					var dy=(document.documentElement.scrollTop+followObj_y-offset.top)*delta;
-					dy=(dy>0?1:-1)*Math.ceil(Math.abs(dy));
-					$this.css('top',offset.top+dy);
-//					followObj.style.top=followObj.offsetTop+dy;
+					 dy=(dy>0?1:-1)*Math.ceil(Math.abs(dy)); 
+					 $this.css('top',offset.top+dy); 
 					} 
 				followObj.style.display	= '';
 			}
@@ -74,9 +71,6 @@
 
 	var theFloaters		= new floaters();
 	// 
-	theFloaters.addItem('followDiv1','$("body").width()-106',120,'<a href="http://www.divcss5.com/" target="_blank"><img src="img/ad-01.gif" ></a><br><br><img src="img/close.gif" onClick="closeBanner();">');
-	theFloaters.addItem('followDiv2',6,120,'<a href="http://www.divcss5.com/" target="_blank"><img src="img/ad-01.gif"></a><br><br><img src="img/close.gif" onClick="closeBanner();">');
-	 theFloaters.play();
-	 
-
-//<a href=http://digi.blueidea.com/mms target=_blank><img src=/gg/blueidea/2004/digimms.gif width=100 height=100 border=0></a><a href=/news/game/2004/2363.asp><img src=/gg/computerarts/5000.gif width=100 height=150 border=0></a>
+	//theFloaters.addItem('followDiv1','$("body").width()-106',120,'<a href="http://www.thinksafari.com/" target="_blank"><img src="img/ad-01.gif" ></a><br><br><img src="img/close.gif" onClick="closeBanner();">');
+	//theFloaters.addItem('followDiv2',6,120,'<a href="http://www.thinksafari.com/" target="_blank"><img src="img/ad-01.gif"></a><br><br><img src="img/close.gif" onClick="closeBanner();">');
+	// theFloaters.play();

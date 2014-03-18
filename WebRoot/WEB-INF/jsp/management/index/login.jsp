@@ -59,6 +59,9 @@ input.login-field {
 	border-radius: 4px;
 }
 
+.foot{ background-color:#004594; z-index:999; position:fixed; bottom:0; left:0; width:100%; _position:absolute;color:white;
+ _top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); overflow:visible; }
+ 
 .login-button2 {
 	text-align: center;
 	line-height: 200%;
@@ -118,28 +121,12 @@ input.login-field {
 					</tr>
 				</table>
 			</form> 
-		</div>
-<<<<<<< HEAD
-	</div>
-	<a onclick="window.demo.clickOnAndroid('/upload/123_fromppt.pdf')">下载测试</a>
-	<a href="/upload/123_fromppt.pdf">下载链接</a>
-=======
-	</div> 
->>>>>>> f17cf1372deb8411b413aaef42967cd07452b4fd
+		</div> 
+	</div>  
  
-
-	<!-- <p ><hr>
-		<footer>  
-			©2012 人杰技术网版权所有 沪ICP备12002847号
-			<script language="javascript" type="text/javascript"
-				src="http://js.users.51.la/6717157.js"></script>
-		<noscript>
-			<a href="http://www.51.la/?6717157" target="_blank"><img
-					alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;"
-					src="http://img.users.51.la/6717157.asp" style="border: none" /> </a>
-		</noscript>
-		</p> 
-		</footer> -->
+	<div class="foot"  style="text-align:center;"> 备案号:沪ICP备14008685号<br>
+	 © www.thinksafari.com&nbsp;&nbsp;&nbsp;思程工作室版权所有 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000319706'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s5.cnzz.com/z_stat.php%3Fid%3D1000319706%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script> 
+	</div> 
 	</div>
 	<script src="/bootstrap/js/jquery.min.js"></script> 
 </html>

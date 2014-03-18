@@ -28,7 +28,7 @@ A {
 	RIGHT: 0px; WIDTH: 33px; CURSOR: pointer; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; POSITION: absolute; HEIGHT: 158px; BORDER-BOTTOM-STYLE: none
 }
 .QQbox .Qlist {
-	BACKGROUND: url(../../images/qq/qq_listbg.gif) repeat-y -155px 0px; LEFT: 0px; WIDTH: 145px; POSITION: absolute
+	BACKGROUND: url(../img/qq_listbg.gif) repeat-y -155px 0px; LEFT: 0px; WIDTH: 145px; POSITION: absolute
 }
 .QQbox .Qlist .t {
 	FONT-SIZE: 1px; FLOAT: right; WIDTH: 145px; HEIGHT: 6px
@@ -37,16 +37,16 @@ A {
 	FONT-SIZE: 1px; FLOAT: right; WIDTH: 145px; HEIGHT: 6px
 }
 .QQbox .Qlist .t {
-	BACKGROUND: url(../../images/qq/qq_listbg.gif) no-repeat left 50%
+	BACKGROUND: url(../img/qq_listbg.gif) no-repeat left 50%
 }
 .QQbox .Qlist .b {
-	BACKGROUND: url(../../images/qq/qq_listbg.gif) no-repeat right 50%
+	BACKGROUND: url(../img/qq_listbg.gif) no-repeat right 50%
 }
 .QQbox .Qlist .con {
 	BACKGROUND: #fff; MARGIN: 0px auto; WIDTH: 90%
 }
 .QQbox .Qlist .con H2 {
-	BORDER-RIGHT: #3a708d 1px solid; BORDER-TOP: #3a708d 1px solid; BACKGROUND: url(../../images/qq/qq_listbg.gif) repeat-y -163px 0px; FONT: bold 12px/22px "ËÎÌו"; BORDER-LEFT: #3a708d 1px solid; COLOR: #fff; BORDER-BOTTOM: #3a708d 1px solid; HEIGHT: 22px; TEXT-ALIGN: center
+	BORDER-RIGHT: #3a708d 1px solid; BORDER-TOP: #3a708d 1px solid; BACKGROUND: url(../img/qq_listbg.gif) repeat-y -163px 0px; FONT: bold 12px/22px "ËÎÌו"; BORDER-LEFT: #3a708d 1px solid; COLOR: #fff; BORDER-BOTTOM: #3a708d 1px solid; HEIGHT: 22px; TEXT-ALIGN: center
 }
 .QQbox .Qlist .con UL {
 	

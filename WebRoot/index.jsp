@@ -6,7 +6,8 @@
 	<meta http-equiv="Expires" content="0" />
 
 	<%
-		response.sendRedirect("management/index!index.do");
+		 response.sendRedirect("management/index!index.do");
+		//response.sendRedirect("/homepage/index.html");
 	%>
 </head>
 <body></body>
