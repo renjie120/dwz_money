@@ -12,6 +12,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import common.base.SpringContextUtil;
 import common.report.ReportBuilderFactory;
 import common.report.ReportDaoUtil;
+import common.report.ReportSet;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
@@ -32,7 +33,7 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	 */
 	private static final long serialVersionUID = 1L;
 	QuestionManager pMgr = bf.getManager(BeanManagerKey.questionManager);
-	private Question questionVo; 
+	private Question questionVo;
 
 	public String beforeAdd() {
 		return "detail";
@@ -268,36 +269,47 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	}
 
 	/**
-	 * 按照装状态统计各个问题.
+	 * 根据问题状态进行统计报表
 	 * 
 	 * @return
 	 */
-	public String reportQuestionByStatusXml() {
+	public String reportQuestionCountByStatus() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
 		String sql = ReportBuilderFactory.getInstance()
 				.countByColumn("question_v", "statusname").generateSql();
-		writeLog("统计状态的sql语句：：" + sql);
-		List ans = util.getTwoColumnReport(sql);
-		writeToPage(response,
-				ReportStringTool.getSimpleCountXML(ans, "按照状态统计问题数量"));
+		List<ReportSet> ans = util.getTwoColumnReport(sql);
+		writeToPage(response, ReportStringTool.getJsonArr(ans));
 		return null;
 	}
 
 	/**
-	 * 安装分类统计各个问题.
+	 * 根据问题类型统计报表.
 	 * 
 	 * @return
 	 */
-	public String reportQuestionByTypeXml() {
+	public String reportQuestionCountByType() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
 		String sql = ReportBuilderFactory.getInstance()
 				.countByColumn("question_v", "typename").generateSql();
-		writeLog("统计问题分类的sql语句：：" + sql);
-		List ans = util.getTwoColumnReport(sql);
-		writeToPage(response,
-				ReportStringTool.getSimpleCountXML(ans, "按照类型统计问题数量"));
+		List<ReportSet> ans = util.getTwoColumnReport(sql);
+		writeToPage(response, ReportStringTool.getJsonArr(ans));
+		return null;
+	}
+
+	/**
+	 * 根据问题提问人统计报表.
+	 * 
+	 * @return
+	 */
+	public String reportQuestionCountByPerson() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = ReportBuilderFactory.getInstance()
+				.countByColumn("question_v", "submit").generateSql();
+		List<ReportSet> ans = util.getTwoColumnReport(sql);
+		writeToPage(response, ReportStringTool.getJsonArr(ans));
 		return null;
 	}
 

@@ -10,23 +10,24 @@ import common.util.CommonUtil;
 
 public class ReportStringTool {
 	/**
-	 * 返回关于统计数量的满足报表的xml语句.
-	 * @param dataList
+	 * 返回报表列的数组json串.
+	 * @param ans
 	 * @return
 	 */
-	public static String getSimpleCountXML(List dataList,String title) {
-		StringBuffer buffer = new StringBuffer(
-				"<graph showNamesalPrecision='0'  showNames='1' caption='"+title+"'>");
-		Iterator it = dataList.iterator();
-		while (it.hasNext()) {
-			ReportSet set = (ReportSet) it.next();
-			buffer.append("<set name='" + set.getName() + "' value='"
-					+ set.getCount() + "'/>");
+	public static String getJsonArr(List<ReportSet> ans) {
+		StringBuilder buil = new StringBuilder();
+		if (ans != null) {
+			buil.append("[");
+			for (ReportSet s : ans) {
+				buil.append("['" + s.getName() + "'," + s.getCount() + "],");
+			}
+			buil.deleteCharAt(buil.lastIndexOf(","));
+			buil.append("]");
 		}
-		buffer.append("</graph>");
-		System.out.print(buffer);
-		return buffer.toString();
+		return buil.toString(); 
 	}
+
+	 
 	
 	/**
 	 * 得到三维报表的xml串。
@@ -78,23 +79,5 @@ public class ReportStringTool {
 		String[] ans = new String[]{allGroupColumn.toString(),allThirdColumn.toString(),buffer.toString()};
 		return ans;
 	}
-	
-	/**
-	 * 返回关于统计总数的满足报表的xml语句.
-	 * @param dataList
-	 * @return
-	 */
-	public static String getSimpleSumXML(List dataList,String title) {
-		StringBuffer buffer = new StringBuffer(
-				"<graph showNamesalPrecision='0'  showNames='1' caption='"+title+"'>");
-		Iterator it = dataList.iterator();
-		while (it.hasNext()) {
-			ReportSet set = (ReportSet) it.next();
-			buffer.append("<set name='" + set.getName() + "' value='"
-					+ set.getSum() + "'/>");
-		}
-		buffer.append("</graph>");
-		System.out.print(buffer);
-		return buffer.toString();
-	}
+	 
 }

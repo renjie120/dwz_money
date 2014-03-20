@@ -534,14 +534,14 @@ public class MoneyAction extends BaseAction {
 	 * @return
 	 */
 	public String reportCountByType() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		String sql = ReportBuilderFactory.getInstance()
-				.countByColumn("money_detail_t", "money_type").generateSql();
-		writeLog("按照金额类别统计的sql:" + sql);
-		List ans = util.getTwoColumnReport(sql);
-		writeToPage(response,
-				ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
+//		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+//				.getBean("reportUtil");
+//		String sql = ReportBuilderFactory.getInstance()
+//				.countByColumn("money_detail_t", "money_type").generateSql();
+//		writeLog("按照金额类别统计的sql:" + sql);
+//		List ans = util.getTwoColumnReport(sql);
+//		writeToPage(response,
+//				ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
 		return null;
 	}
 
@@ -581,11 +581,11 @@ public class MoneyAction extends BaseAction {
 	 * @return
 	 */
 	public String reportSumByType() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		List ans = util.getSumGroupByOneColumn("money_detail_type_v",
-				"tallytype", "money");
-		writeToPage(response, ReportStringTool.getSimpleSumXML(ans, "按类总数统计"));
+//		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+//				.getBean("reportUtil");
+//		List ans = util.getSumGroupByOneColumn("money_detail_type_v",
+//				"tallytype", "money");
+//		writeToPage(response, ReportStringTool.getSimpleSumXML(ans, "按类总数统计"));
 		return null;
 	}
 

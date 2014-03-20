@@ -18,8 +18,9 @@
 	if (obj == null)
 		response.sendRedirect("/management/index!login.do");
 %>
-<script  type="text/javascript"> 
-		var appPath = "<%=path%>";
+<script type="text/javascript"> 
+		var appPath = "<%=path%>
+	";
 </script>
 <base href="/">
 	<link href="/styles/management/themes/default/style.css"
@@ -27,11 +28,13 @@
 	<link href="/styles/management/themes/css/core.css" rel="stylesheet"
 		type="text/css" />
 	<link href="/uploadify/css/uploadify.css" rel="stylesheet"
-		type="text/css" /> 
+		type="text/css" />
 	<link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
 	<script src="/styles/management/js/jquery-1.4.4.min.js"
 		type="text/javascript"></script>
 	<script src="/uploadify/scripts/jquery.uploadify.js"
+		type="text/javascript"></script>
+	<script src="/highcharts_3.0.10/js/highcharts.js"
 		type="text/javascript"></script>
 	<script src="/styles/management/js/speedup.js" type="text/javascript"></script>
 	<script src="/styles/management/js/jquery.cookie.js"
@@ -114,7 +117,7 @@
 	<script src="/styles/management/js/src/dwz.history.js"
 		type="text/javascript"></script>
 	<script src="/styles/management/js/src/dwz.combox.js"
-		type="text/javascript"></script> 
+		type="text/javascript"></script>
 
 
 
@@ -161,7 +164,10 @@
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
-				<a target=blank href=tencent://message/?uin=1246910068&Site=思程工作室&Menu=yes><img border='0' SRC=http://wpa.qq.com/pa?p=1:1246910068:1 alt='后台开发'></a>
+				<font style='color:white;' size="12">思程工作室</font> <a target=blank
+					href=tencent://message/?uin=1246910068&Site=思程工作室&Menu=yes><img
+					border='0' SRC=http://wpa.qq.com/pa?p=1:1246910068:1 alt='后台开发'>
+				</a>
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
 						mask="true">我的资料</a>
@@ -226,15 +232,30 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80">
-							<h1>收藏文件</h1>
-							<s:iterator value="#request.allHomepage" var="haha" status="stu">
-								<div class="unit">
-									<a href="<s:property value="url" />" target="navTab"
-										rel="relId<s:property value="urlId" />"><s:property
-											value="urlDesc" /> </a>
-								</div>
-							</s:iterator>
+						<div class="pageFormContent" layoutH="-80"> 
+							<div style='width:140px;float:left;'>
+								<h1>网站快捷键</h1>
+								<s:iterator value="#request.allHomepage" var="haha" status="stu">
+									<div class="unit">
+										<a href="<s:property value="url" />" target="navTab"
+											rel="relId<s:property value="urlId" />"><s:property
+												value="urlDesc" /> </a>
+									</div>
+								</s:iterator>
+							</div>
+							<table cellspacing=0 cellpadding=0 width=1 height=230 bgcolor=008000 style='float:left'><tr><td></table> 
+							<div id="hm_chartdiv1" class="highcharts" type="pie"
+								serialName="问题数量" title='统计报表1'
+								style="width:300px;height:250px;float:left;border:1 red;"
+								url="/money/question!reportQuestionCountByStatus.do"></div>
+							
+							<table cellspacing=0 cellpadding=0 width=1 height=230 bgcolor=008000 style='float:left'><tr><td></table> 
+							
+							<div id="hm_chartdiv2" class="highcharts" type="pie"
+								serialName="问题数量" title='统计报表2'
+								style="width:300px;height:250px;float:left;border:1 red;"
+								url="/money/question!reportQuestionCountByType.do"></div>
+
 						</div>
 					</div>
 				</div>
@@ -243,10 +264,7 @@
 
 	</div>
 
-	<div id="footer">
-		www.thinksafari.com
-		<!--联系方式: <font style="color: red">(qq)1246910068</font>&nbsp;&nbsp;&nbsp;&nbsp;(email)lishuiqing110@163.com&nbsp;&nbsp;&nbsp;&nbsp;
-		人杰工作室(LSQ,SGX)-->
-	</div>
+	<div id="footer">© www.thinksafari.com &nbsp;&nbsp;&nbsp;&nbsp;
+		思程工作室版权所有</div>
 </body>
 </html>

@@ -1,24 +1,18 @@
-<script language="JavaScript" src="/freefusionchart/FusionCharts.js"></script>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<script language="JavaScript" src="/js/report/questionReport.js"></script>
 <div class="pageContent">
-	<div class="pageFormContent" width='300px' layouth='-38'>
-		<div style="width: 1210px; border: 1px solid #000099;">
-			<div id="chartdiv7" style="float: left; border: 1px solid #000099;">
-			</div>
-			<div id="chartdiv8" style="float: left; border: 1px solid #000099;">
-			</div>
-		</div>
-		<script type="text/javascript"> 
-			var myChart7 = new FusionCharts(
-					"/freefusionchart/Charts/FCF_Pie3D.swf", "myChartId2",
-					"400", "400");
-			myChart7.setDataURL("/money/question!reportQuestionByTypeXml.do");
-			myChart7.render("chartdiv7");
+	<div id="chartdiv1" class="highcharts" type="pie" serialName="问题数量"
+		title='按问题状态统计'
+		style="width:300px;height:300px;float:left;border:1 red;"
+		url="/money/question!reportQuestionCountByStatus.do"></div>
 
-			var myChart8 = new FusionCharts(
-					"/freefusionchart/Charts/FCF_Pie3D.swf", "myChartId",
-					"400", "400");
-			myChart8.setDataURL("/money/question!reportQuestionByStatusXml.do");
-			myChart8.render("chartdiv8");
-		</script>
-	</div>
+	<div id="chartdiv2" class="highcharts" type="pie" serialName="问题数量"
+		title='按问题分类统计'
+		style="width:300px;height:300px;float:left;border:1 red;"
+		url="/money/question!reportQuestionCountByType.do"></div>
+		
+	<div id="chartdiv3" class="highcharts" type="pie" serialName="问题数量"
+		title='按问题提问人'
+		style="width:300px;height:300px;float:left;border:1 red;"
+		url="/money/question!reportQuestionCountByPerson.do"></div>
 </div>

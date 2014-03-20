@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!-- session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate_mysql.cfg.xml">
+		</property>
+	</bean>
+
+	<bean id="propertyFileConfigForDB" 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="location"> 
+			<value>classpath:db.properties</value>   
+		</property>
+	</bean> 
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${driverName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean> 
+
+	<!-- jdbc modle -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="ds" />
+		</property>
+	</bean>
+
+	<!-- transaction manager -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- DaoIntroductionInterceptor -->
+	<bean id="daoIntroductionInterceptor" class="dwz.dal.DaoIntroductionInterceptor">
+	</bean>
+
+	<bean id="reportUtil" class="common.report.ReportDaoUtil">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- IntroductionInterception -->
+	<bean id="daoAdvisor"
+		class="org.springframework.aop.support.DefaultIntroductionAdvisor">
+		<constructor-arg>
+			<ref bean="daoIntroductionInterceptor" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="daoProxy" class="org.springframework.aop.framework.ProxyFactoryBean"
+		abstract="true">
+		<property name="interceptorNames">
+			<list>
+				<value>daoAdvisor</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<bean id="baseDao" class="dwz.dal.BaseDaoImpl" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Spring资源国际化 (统一使用String2国际化) -->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basenames"> <list> <value>resource/messages</value> </list> 
+		</property> </bean> -->
+ 
+	<import resource="spring_dao_money.cfg.xml" /> 
+	<import resource="spring_manager_money.cfg.xml" />
+ 
+
+	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
+	</bean>
+
+	<bean id="queryGridTreeBO" class="querygridtree.bo.QueryGridTreeBOImpl">
+		<property name="queryGridTreeDAO">
+			<ref bean="queryGridTreeDAO" />
+		</property>
+	</bean>
+
+	<bean id="queryGridTreeDAO" class="querygridtree.dao.QueryGridTreeDAOImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+</beans>

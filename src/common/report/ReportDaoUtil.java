@@ -17,7 +17,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author renjie120 connect my:(QQ)1246910068
  * 
  */
-public class ReportDaoUtil extends HibernateDaoSupport {
+public class ReportDaoUtil extends HibernateDaoSupport { 
+	
 	/**
 	 * 统计表格里面的某一列的累积个数.
 	 * 
@@ -27,10 +28,10 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 	 *            进行累积计算的维度.
 	 * @return
 	 */
-	public List<ReportSet> getTwoColumnReport(final String sql) { 
+	public List<ReportSet> getTwoColumnReport(final String sql) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException { 
+					throws HibernateException, SQLException {
 				Query query = session.createSQLQuery(sql);
 				List ansList = query.list();
 				List result = new ArrayList();
