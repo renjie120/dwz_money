@@ -13,18 +13,19 @@
 	}
 	
 	function mydone(json){
-		DWZ.ajaxDone(json);
-		$.pdialog.closeCurrent();  
-		navTabPageBreak({}, 'myUserRoleDiv');
+		 DWZ.ajaxDone(json);
+		 $.pdialog.closeCurrent();  
+		 navTabPageBreak({}, 'myUserRoleDiv');
 	}
 	
+	//进行选择角色之后授权
 	function checkThis(){
 	 var ans = [];
 	 var $conetnt = $(".dialogContent", $.pdialog._current);
 		 $conetnt.find('div.gridTbody').find('input[type=checkbox]:checked').each(function(){
 		  ans.push($(this).val());
 		 });
-		 var selectId = ans.join(',');
+		 var selectId = ans.join(','); 
 		 var userId =$('#myUserRoleDiv_userId').val();
 		  $.ajax({
 		  type:'POST', url:'/money/role!saveUserWithRole.do',
@@ -32,7 +33,7 @@
 		  data: {'ids':selectId,'userId':userId},
 		  success: mydone,
 		  error: DWZ.ajaxError
-		 });
+		 }); 
 	}
 	
 	function cancelThis(){
@@ -68,10 +69,10 @@
 								</div>
 							</div>
 						</li>
-						<li><a class="button" href="#" onclick="checkThis()"><span>选择并授权</span>
+						<li><a class="button" href="javascript:return false;" onclick="checkThis()"><span>选择并授权</span>
 						</a>
 						</li>
-						<li><a class="button" href="#" onclick="cancelThis();"><span>取消</span>
+						<li><a class="button" href="javascript:return false;" onclick="cancelThis();"><span>取消</span>
 						</a>
 						</li>
 					</ul>

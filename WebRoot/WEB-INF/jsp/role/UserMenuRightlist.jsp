@@ -47,6 +47,7 @@ ul.rightTools li {
 						_b.height(__int);
 					});
 			}else{ 
+			   //查询显示右边的用户拥有的角色列表
 				var $this = $('#jbsxBox2');
 				$this.find('#myUserRoleDiv_userId').val(v2);
 				var wdt = $this.parent().width() - $('#'+treeId).width() - 15; 
@@ -132,35 +133,11 @@ ul.rightTools li {
 		});
 		return false;
 	}
- 
+ 	//角色管理主界面.
 //-->
 </script>
 <div class="pageContent" style="padding:5px">
-	<div class="tabs" id="layout">
-		<div class="tabsHeader">
-			<div class="tabsHeaderContent">
-				<ul>
-					<li><a href="javascript:;"><span>用户菜单权限</span> </a></li>
-					<li><a href="javascript:;"><span>用户角色分配</span> </a></li>
-					<li><a href="javascript:;"><span>角色菜单权限</span> </a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="tabsContent"
-			style="border:1px #BAD1D7 solid;overflow-x:hidden;" autoHeight>
-			<div>
-				<div class="zTreeDemoBackground left" id='userMenuRight'
-					style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
-					autoHeight> 
-					<ul id="userMenuRight_menutree" class="ztree" lazy="true" url="/money/tree!getOrgWithPeopleTree.do" autoParam="[ 'id', 'name']"></ul>
-				</div>
-
-				<div id="jbsxBox" class="unitBox" relHeight='userMenuRight'
-					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;"> 
-				</div>
-			</div>
-
-			<div>
+	<div>
 				<div class="zTreeDemoBackground left" id='userMenuRight2'
 					style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
 					autoHeight>  
@@ -170,14 +147,20 @@ ul.rightTools li {
 					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;">
 					 
 				</div>
-			</div>
-
-			<div>角色菜单权限（暂时是空白）</div>
-
-		</div>
-	</div>
+			</div> 
 </div>
-
+<!--   li><a href="javascript:;"><span>用户菜单权限</span> </a></li-->
+					<!--  div>
+						<div class="zTreeDemoBackground left" id='userMenuRight'
+							style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
+							autoHeight> 
+							<ul id="userMenuRight_menutree" class="ztree" lazy="true" url="/money/tree!getOrgWithPeopleTree.do" autoParam="[ 'id', 'name']"></ul>
+						</div>
+		
+						<div id="jbsxBox" class="unitBox" relHeight='userMenuRight'
+							style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;"> 
+						</div>
+					</div>-->
 
 
 

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import money.rolemanager.RoleWithMenuVO;
+
 import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.base.ParamSelect;
@@ -197,7 +199,7 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 
 	public void createMenu(Menu menu) throws ValidateFieldsException {
 		MenuImpl menuImpl = (MenuImpl) menu;
-		this.menudao.insert(menuImpl.getMenuVO());
+		this.menudao.insert(menuImpl.getMenuVO()); 
 	}
 
 	public void removeMenus(String ids) {

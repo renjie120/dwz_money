@@ -2,7 +2,7 @@
 
 public enum UserType {
 	
-	ADMIN("Admin"), PERSON("Person");
+	SUPER("Super"), ADMIN("Admin"), PERSON("Person");
 
 	private final String name;
 

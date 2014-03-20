@@ -87,6 +87,14 @@ public class RoleAction extends BaseAction {
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 	
+	/**
+	 * 对用户添加角色.
+	* @Title: saveUserWithRole
+	* @Description: TODO(这里用一句话描述这个方法的作用)
+	* @param @return
+	* @return String
+	* @throws
+	 */
 	public String saveUserWithRole() {
 		String ids = request.getParameter("ids");
 		String userId = request.getParameter("userId");
@@ -109,6 +117,15 @@ public class RoleAction extends BaseAction {
 		writeToPage(response, tMgr.getRoleMenuTree(roleId));
 		return null;
 	}
+	
+	/**
+	 * 添加用户的角色列表.
+	* @Title: beforeRoleInUser
+	* @Description: TODO(这里用一句话描述这个方法的作用)
+	* @param @return
+	* @return String
+	* @throws
+	 */
 	public String beforeRoleInUser() {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();

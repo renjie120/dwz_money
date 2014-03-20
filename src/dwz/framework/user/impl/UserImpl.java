@@ -51,7 +51,16 @@ public class UserImpl extends AbstractBusinessObject implements User {
 	}
 
 	public UserType getUserType() {
-		return UserType.valueOf(this.sysUser.getUserType());
+		// 如果是1，就是超级用户
+		if ("1".equals(this.sysUser.getUserType())) {
+			return UserType.SUPER;
+		}
+		// 2就是管理员.
+		else if ("2".equals(this.sysUser.getUserType()))
+			return UserType.ADMIN;
+		// 其他都是普通用户.
+		else
+			return UserType.PERSON;
 	}
 
 	public void setEmail(String email) {

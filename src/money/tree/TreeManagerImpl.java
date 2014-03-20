@@ -13,7 +13,6 @@ import money.moneytype.MoneyTypeVO;
 import money.rolemanager.RoleWithMenuDao;
 import money.rolemanager.RoleWithMenuVO;
 
-import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import common.MyJdbcTool;
@@ -24,6 +23,7 @@ import common.tree.ITreeNodeTravel;
 import common.tree.Tree;
 import common.tree.TreeNode;
 
+import dwz.framework.constants.user.UserType;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 
 public class TreeManagerImpl extends AbstractBusinessObjectManager implements
@@ -112,8 +112,9 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 									new Object[] { nd.getId() });
 					nd.open = "true";
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
-						TreeNode _nd = new TreeNode(_objs.get("menuid")+ "",
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+								.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("menuid") + "",
 								_objs.get("menuname") + "");
 						_nd.level = nd.level + 1;
 						_nd.setUrl("" + _objs.get("url"));
@@ -161,7 +162,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 									"select id,orgname  from organization_t where parentorg=? ",
 									new Object[] { nd.getId() });
 					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+								.get(ii);
 						TreeNode _nd = new TreeNode(_objs.get("id") + "",
 								_objs.get("orgname") + "");
 						_nd.level = nd.level + 1;
@@ -197,7 +199,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				buil.append(nd.getId());
 				buil.append("',name:'");
 				buil.append(nd.getName());
-				if(nd.isChecked)
+				if (nd.isChecked)
 					buil.append("',checked:true");
 				buil.append("',isParent:");
 				buil.append(nd.isParent);
@@ -218,7 +220,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				"select id,orgname  from organization_t where parentorg=? ",
 				new Object[] { pid });
 		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+					.get(ii);
 			TreeNode _nd = new TreeNode(_objs.get("id") + "",
 					_objs.get("orgname") + "");
 			_nd.isParent = true;
@@ -229,7 +232,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				"select id,username  from user_t where orgid=? ",
 				new Object[] { pid });
 		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);
+			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+					.get(ii);
 			TreeNode _nd = new TreeNode(_objs.get("id") + "",
 					_objs.get("username") + "");
 			_nd.isParent = false;
@@ -239,26 +243,42 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 	}
 
 	@Override
-	public Tree initMenuWithRight(String userId) {
+	public Tree initMenuWithRight(String userId, UserType tp) {
 		Tree tree = null;
 		tree = new Tree("0", "菜单树");
 		LinkedList<TreeNode> allP = new LinkedList();
 		allP.add(tree.getRoot());
-
+		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+		if (UserType.SUPER.equals(tp)) {
+			orgSql = "(select  menuid from menu_t)";
+		}
+		// 查询一个人的角色里面全部的菜单.
+		// select distinct r.menuid from user_role_right t,role_menu_right r
+		// where r.roleid=t.roleid and t.userid = 1;
 		do {
+			// 逐层次查询有权限的菜单
 			TreeNode nd = allP.poll();
 			int totalCount = jdbc
 					.queryForInt(
-							"select count(distinct t1.menuid) from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=?",
-							new Object[] { nd.getId(), userId });
+							"select count(distinct t1.menuid) from menu_t t1,"
+									+ orgSql
+									+ " t2 where t1.menuid=t2.menuid and t1.parentid=?  ",
+							UserType.SUPER.equals(tp) ? new Object[] { nd
+									.getId() } : new Object[] { userId,
+									nd.getId() });
 			if (totalCount > 0) {
 				List child = jdbc
 						.queryForList(
-								"select distinct t1.menuid,menuname,url,relId,target from menu_t t1,user_menu_right t2 where t1.menuid=t2.menuid and t1.parentid=? and t2.userid=? ",
-								new Object[] { nd.getId(), userId });
+								"select distinct t1.menuid,menuname,url,relId,target from menu_t t1,"
+										+ orgSql
+										+ "t2 where t1.menuid=t2.menuid and t1.parentid=?  ",
+								UserType.SUPER.equals(tp) ? new Object[] { nd
+										.getId() } : new Object[] { userId,
+										nd.getId() });
 				nd.open = "true";
 				for (int ii = 0, jj = child.size(); ii < jj; ii++) {
-					LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child.get(ii);  
+					LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+							.get(ii);
 					TreeNode _nd = new TreeNode(_objs.get("menuid") + "",
 							_objs.get("menuname") + "");
 					_nd.level = nd.level + 1;
@@ -282,19 +302,19 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		Set<String> allHaveRightMenu = new HashSet<String>();
 		if (set != null && set.size() > 0)
 			for (RoleWithMenuVO vo : set) {
-				allHaveRightMenu.add(""+vo.getMenuId());
+				allHaveRightMenu.add("" + vo.getMenuId());
 			}
 		final Set<String> allMenus = allHaveRightMenu;
-		menuTree.travelTree(new ITreeNodeTravel(){ 
+		menuTree.travelTree(new ITreeNodeTravel() {
 			@Override
 			public void travel(TreeNode node) {
 				if (allMenus.contains(node.getId())) {
 					node.isChecked = true;
 				} else
 					node.isChecked = false;
-			} 
+			}
 		});
-		 
+
 		return menuTree.toZTreeJson(true);
 	}
 }

@@ -9,14 +9,16 @@ function initMyUI(){
 }
  
 /**
- * 保存角色授权的结果.
+ * 保存菜单到角色授权的结果.
  */
 function saveRole(){
 	var ans = [];
-	$('#treeDemo2').find('span.checkbox_true_full').each(function(){
-		ans.push($(this).next('a').attr('id').replace('treeDemo_','').replace('_a',''));
-	});
-	var selectId = ans.join(',');
+	var treeObj = $.fn.zTree.getZTreeObj("treeDemo"); 
+	var nodes = treeObj.getCheckedNodes(true);
+	 $(nodes).each(function(i){
+	   ans.push(this.id);
+	 });
+	var selectId = ans.join(',');  
 	var checkRoleId =$('#checkRoleId').val(); 
 	 $.ajax({
 		type:'POST', url:'/money/role!saveMenuWithRole.do', 

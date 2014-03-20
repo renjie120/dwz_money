@@ -37,6 +37,7 @@ public class Validator implements IdentityProvider {
 
 	};
 
+	//有效的用户类型.
 	private static final List<UserType> availableTypes = new ArrayList<UserType>();
 
 	static {

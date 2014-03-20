@@ -10,6 +10,7 @@ import common.tree.Tree;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.constants.Constants;
+import dwz.framework.constants.user.UserType;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.el.ServerInfo;
 import dwz.framework.user.User;
@@ -18,6 +19,13 @@ import dwz.framework.user.impl.UserImpl;
 import dwz.present.BaseAction;
 import dwz.present.UiModel;
 
+/**
+ * 登陆
+* @ClassName: IndexAction
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @date 2014-3-19 上午09:12:21
+*
+ */
 public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 	private UiModel model;
 	private String password;
@@ -34,8 +42,9 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
 		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
 				.get(Constants.AUTHENTICATION_KEY); 
+		UserType tp = user.getUserType(); 
 		// 得到菜单树
-		Tree t = tMgr.initMenuWithRight(user.getUserId());
+		Tree t = tMgr.initMenuWithRight(user.getUserId(),user.getUserType());
 		request.setAttribute("allMenu", t.getDeepTree());
 		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
 		return INPUT;

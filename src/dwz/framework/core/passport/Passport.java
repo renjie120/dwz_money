@@ -5,9 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import money.myuser.MyUser;
-import money.myuser.MyUserImpl;
 import money.myuser.MyUserManager;
-import money.myuser.MyUserVO;
 
 import common.util.Coder;
 
@@ -86,11 +84,8 @@ public abstract class Passport {
 		ans.setUserId(myUser.getUseId()+""); 
 		ans.setPassword(Coder.fromMyCoder(myUser.getPassword()));
 		ans.setPhone(myUser.getPhone());
-		ans.setEmail(myUser.getEmail()); 
-		if(myUser.getLoginId().equals("admin"))
-			ans.setUserType("ADMIN");
-		else
-			ans.setUserType("PERSON");
+		ans.setEmail(myUser.getEmail());  
+		ans.setUserType(myUser.getUserType());
 		ans.setUserName(myUser.getUserName());
 		return ans;
 	} 

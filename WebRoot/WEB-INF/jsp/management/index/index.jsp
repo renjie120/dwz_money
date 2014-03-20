@@ -114,10 +114,7 @@
 	<script src="/styles/management/js/src/dwz.history.js"
 		type="text/javascript"></script>
 	<script src="/styles/management/js/src/dwz.combox.js"
-		type="text/javascript"></script>
-	<!-- 
-<script src="/styles/management/js/dwz.min.js" type="text/javascript"></script>
-<script src="/styles/management/js/dwz.regional.zh.js" type="text/javascript"></script> -->
+		type="text/javascript"></script> 
 
 
 
@@ -163,13 +160,7 @@
 	<div id="layout">
 		<div id="header">
 			<div class="headerNav">
-				<!--   a class="logo" href="/management/index!index.do">coLogo</a> <a
-					target="_blank"
-					href="http://wpa.qq.com/msgrd?v=3&uin=1246910068&site=qq&menu=yes">
-					<img border="0"
-					src="http://wpa.qq.com/pa?p=2:1246910068:41 &r=0.901225046595993"
-					alt="点击这里给我发消息" title="点击这里给我发消息">
-				</a-->
+				<a target=blank href=tencent://message/?uin=1246910068&Site=思程工作室&Menu=yes><img border='0' SRC=http://wpa.qq.com/pa?p=1:1246910068:1 alt='后台开发'></a>
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
 						mask="true">我的资料</a>
