@@ -5,6 +5,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.base.AllSelect;
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -68,11 +74,14 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		String hql = quertParas[0].toString();
 		Collection<MyUserVO> voList = this.myuserdao.findByQuery(hql,
 				(Object[]) quertParas[1], startIndex, count);
-
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select1 = allSelect
+				.getParamsByType(AllSelectContants.USER_TYPE.getName()); 
 		if (voList == null || voList.size() == 0)
-			return eaList;
-
+			return eaList; 
 		for (MyUserVO po : voList) {
+			po.setUserTypeName(select1.getName("" + po.getUserType()));
 			eaList.add(new MyUserImpl(po));
 		}
 
@@ -84,9 +93,9 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count( myuser) "
-						: "select new MyUserVO(myuser.useId , myuser.userName , myuser.password , myuser.loginId , myuser.orgId , myuser.email , " +
-								"myuser.phone , myuser.mobile , myuser.userType , myuser.address , myuser.orderId ,orgVo.orgName)  ").append(
-				"from MyUserVO as myuser,OrgVO as orgVo ");
+						: "select new MyUserVO(myuser.useId , myuser.userName , myuser.password , myuser.loginId , myuser.orgId , myuser.email , "
+								+ "myuser.phone , myuser.mobile , myuser.userType , myuser.address , myuser.orderId ,orgVo.orgName)  ")
+				.append("from MyUserVO as myuser,OrgVO as orgVo ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -104,13 +113,13 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 				case USERNAME:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.userName like ? ");
-					argList.add("%"+entry.getValue()+"%");
+					argList.add("%" + entry.getValue() + "%");
 					count++;
-					break; 
+					break;
 				case LOGINID:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.loginId like ? ");
-					argList.add("%"+entry.getValue()+"%");
+					argList.add("%" + entry.getValue() + "%");
 					count++;
 					break;
 				case ORGID:
@@ -122,15 +131,15 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 				case EMAIL:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.email like ? ");
-					argList.add("%"+entry.getValue()+"%");
+					argList.add("%" + entry.getValue() + "%");
 					count++;
 					break;
 				case PHONE:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.phone like ? ");
-					argList.add("%"+entry.getValue()+"%");
+					argList.add("%" + entry.getValue() + "%");
 					count++;
-					break; 
+					break;
 				case USERTYPE:
 					sb.append(count == 0 ? " where" : " and").append(
 							"  myuser.userType like ? ");
@@ -156,7 +165,7 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (useCount) {
 			return new Object[] { sb.toString(), argList.toArray() };
-		}else{
+		} else {
 			sb.append(count == 0 ? " where " : " and").append(
 					"  myuser.orgId=orgVo.orgId ");
 		}
@@ -236,7 +245,7 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 
 		return new MyUserImpl(myuser);
 	}
-	
+
 	public MyUser getSimpleMyUser(int id) {
 		Collection<MyUserVO> myusers = this.myuserdao.findRecordById2(id);
 

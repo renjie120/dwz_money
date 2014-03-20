@@ -48,6 +48,8 @@ public interface MyUser extends BusinessObject {
  	 * 获取用户类型的属性值.
  	 */
  	public  String   getUserType();
+ 	
+ 	public  String   getUserTypeName();
  	/**
  	 * 获取地址的属性值.
  	 */

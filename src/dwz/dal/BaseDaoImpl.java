@@ -10,10 +10,8 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
 
 public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 		HibernateDaoSupport implements BaseDao<T, PK> {
@@ -351,6 +349,6 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 			}
 		});
 		return (List) o;
-	}
+	} 
 
 }

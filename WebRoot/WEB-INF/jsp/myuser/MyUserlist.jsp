@@ -141,8 +141,8 @@
 					<td>
 						<s:property value="mobile" />
 					</td> 
-					<td>
-						<s:property value="userType" />
+					<td> 
+						<s:property value="userTypeName" />
 					</td> 
 					<td>
 						<s:property value="address" />

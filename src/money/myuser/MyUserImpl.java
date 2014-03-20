@@ -110,5 +110,10 @@ public class MyUserImpl implements MyUser {
 	public String getOrgName() {
 		return this.myuserVO.getOrgName();
 	}
+
+	@Override
+	public String getUserTypeName() {
+		return this.myuserVO.getUserTypeName();
+	}
  
 }

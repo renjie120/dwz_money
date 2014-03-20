@@ -13,4 +13,8 @@ public enum UserType {
 	public String getName() {
 		return this.name;
 	}
+	
+	public String toString(){ 
+		return this.ordinal()+"";
+	}
 }

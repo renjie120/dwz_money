@@ -72,7 +72,7 @@
 						<label>
 							用户类型:
 						</label>
-							<input name="userType" class="textInput " size="30" type="text"   />
+							<my:newselect tagName="userType" paraType="usertype" />  
 					</div>
 					 <div class="unit">
 						<label>

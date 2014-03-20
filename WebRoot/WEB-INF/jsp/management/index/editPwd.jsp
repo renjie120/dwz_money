@@ -15,17 +15,17 @@
 		<p>
 			<label>
 				<s:text name="form.pwd"/>
-			</label><input type="password" name="oldPassword" class="required" value="111111"/>
+			</label><input type="password" name="oldPassword" class="required"  />
 		</p>
 		<p>
 			<label>
 				<s:text name="form.newPwd"/>
-			</label><input type="password" name="newPassword" id="newPassword" class="required" value="111111"/>
+			</label><input type="password" name="newPassword" id="newPassword" minlength="6" maxlength="16" class="required" value=""/>
 		</p>
 		<p>
 			<label>
 				<s:text name="form.confirmPwd"/>
-			</label><input type="password" name="rPassword" class="required" equalTo="#newPassword" value="111111"/>
+			</label><input type="password" name="rPassword" class="required" minlength="6" maxlength="16" equalTo="#newPassword" value=""/>
 		</p>
 	</div>
 	<div class="formBar">

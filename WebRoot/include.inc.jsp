@@ -23,8 +23,8 @@
 	User user = (User) session
 			.getAttribute(Constants.AUTHENTICATION_KEY);
 	boolean isAdmin = false;
-	if (user != null) {
-		if (user.getUserType().equals(UserType.ADMIN))
+	if (user != null) { 
+		if (user.getUserType().equals(UserType.ADMIN)||user.getUserType().equals(UserType.SUPER))
 			isAdmin = true;
 	}
 %>

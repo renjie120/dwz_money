@@ -1,8 +1,6 @@
 
 package money.myuser;
 
-import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 import java.io.Serializable;
 /**
  * 关于用户信息表的实体bean.
@@ -24,6 +22,15 @@ public class MyUserVO implements Serializable {
 
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
+	}
+
+	private String userTypeName;
+	public String getUserTypeName() {
+		return userTypeName;
+	}
+
+	public void setUserTypeName(String userTypeName) {
+		this.userTypeName = userTypeName;
 	}
 
 	public MyUserVO( int useId , String userName , String password , String loginId , int orgId , String email , String phone , String mobile , String userType , String address , int orderId ) {
@@ -124,18 +131,18 @@ public class MyUserVO implements Serializable {
  	public void setLoginId(String loginid){
  		this.loginId = loginid;
  	}
-	private int orgId; 
+	private Integer orgId; 
  	/**
  	 * 获取组织机构的属性值.
  	 */
- 	public int getOrgId(){
+ 	public Integer getOrgId(){
  		return orgId;
  	}
  	
  	/**
  	 * 设置组织机构的属性值.
  	 */
- 	public void setOrgId(int orgid){
+ 	public void setOrgId(Integer orgid){
  		this.orgId = orgid;
  	}
 	private String email; 
@@ -208,18 +215,18 @@ public class MyUserVO implements Serializable {
  	public void setAddress(String address){
  		this.address = address;
  	}
-	private int orderId; 
+	private Integer orderId; 
  	/**
  	 * 获取排序号的属性值.
  	 */
- 	public int getOrderId(){
+ 	public Integer getOrderId(){
  		return orderId;
  	}
  	
  	/**
  	 * 设置排序号的属性值.
  	 */
- 	public void setOrderId(int orderid){
+ 	public void setOrderId(Integer orderid){
  		this.orderId = orderid;
  	}
 }

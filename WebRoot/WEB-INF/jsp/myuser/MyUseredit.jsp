@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
-<%@ include file="/include.inc.jsp"%> 
-<script src="/js/treeCombox.js" type="text/javascript" />
+<%@ include file="/include.inc.jsp"%>  
+<script src="/js/treeCombox.js" type="text/javascript" /> 
 <script type="text/javascript">
 	/**
 	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
@@ -23,6 +23,7 @@
 <%@ page import="money.myuser.MyUser"%>
 <%
 	MyUser vo = (MyUser) request.getAttribute("vo");
+	String userType = vo.getUserType()+""; 
 %>
 <div class="pageContent">
 	<form method="post" action="/money/myuser!doUpdate.do"
@@ -60,8 +61,9 @@
 					size="30" type="text" value="<s:property value="vo.mobile"/>" />
 			</div>
 			<div class="unit">
-				<label> 用户类型: </label> <input name="userType" class="textInput  "
-					size="30" type="text" value="<s:property value="vo.userType"/>" />
+				<label> 用户类型: </label>  
+					<my:newselect tagName="userType"  paraType="usertype" 
+					selectedValue="<%=userType%>" />
 			</div>
 			<div class="unit">
 				<label> 地址: </label> <input name="address" class="textInput  "

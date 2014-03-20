@@ -149,6 +149,7 @@
 					type : 'POST',
 					url : '/passport!logout.do',
 					success : function() {
+						alert(152);
 						location.href = "/management/index!login.do";
 					},
 					error : DWZ.ajaxError
@@ -221,7 +222,7 @@
 								</p>
 							</div>
 							<p>
-								<span>欢迎使用本系统 ${contextUser.userName}</span>
+								<span>欢迎${contextUser.userType} ${contextUser.userName}</span>
 							</p>
 						</div>
 

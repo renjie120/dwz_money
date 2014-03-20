@@ -72,15 +72,17 @@ public class MyUserAction extends BaseAction {
 
 	/**
 	 * 首页的我的资料.
+	 * 
 	 * @return
 	 */
 	public String myContact() {
 		HttpSession session = request.getSession();
-		int userid =Integer.parseInt(((UserImpl)session.getAttribute(Constants.AUTHENTICATION_KEY)).getUserId());
+		int userid = Integer.parseInt(((UserImpl) session
+				.getAttribute(Constants.AUTHENTICATION_KEY)).getUserId());
 		vo = pMgr.getMyUser(userid);
 		return "myContact";
 	}
-	
+
 	private String oldPassword;
 	private String newPassword;
 
@@ -103,12 +105,12 @@ public class MyUserAction extends BaseAction {
 	public String changePwd() {
 		try {
 			UserImpl user = (UserImpl) ActionContext.getContext().getSession()
-					.get(Constants.AUTHENTICATION_KEY); 
-			if (!oldPassword.equals(user.getPassword())){ 
+					.get(Constants.AUTHENTICATION_KEY);
+			if (!oldPassword.equals(user.getPassword())) {
 				throw new BusinessException("密码不正确！");
 			}
-			newPassword = Coder.toMyCoder(newPassword);  
-			pMgr.updatePassword(newPassword,user.getUserName());
+			newPassword = Coder.toMyCoder(newPassword);
+			pMgr.updatePassword(newPassword, user.getUserName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -122,24 +124,43 @@ public class MyUserAction extends BaseAction {
 
 	public String doUpdate() {
 		try {
+			MyUser u = pMgr.getMyUser(useId);
 			if (password != null && !"".equals(password))
 				password = Coder.toMyCoder(password);
-			else{
-				MyUser u = pMgr.getMyUser(useId); 
-				password = u.getPassword(); 
+			else {
+				password = u.getPassword();
 			}
-			MyUserImpl myuserImpl = new MyUserImpl(useId, userName, password,
-					loginId, orgId, email, phone, mobile, userType, address,
-					orderId);
+			MyUserVO myuserVO = new MyUserVO();
+			myuserVO.setUseId(useId);
+			myuserVO.setUserName(userName);
+			myuserVO.setPassword(password);
+			myuserVO.setLoginId(loginId);
+			if (orgId == null) {
+				orgId = u.getOrgId();
+			}
+			if (userType == null) {
+				userType = u.getUserType();
+			}
+			if (orderId == null) {
+				orderId = u.getOrderId();
+			}
+			myuserVO.setOrgId(orgId);
+			myuserVO.setEmail(email);
+			myuserVO.setPhone(phone);
+			myuserVO.setMobile(mobile);
+			myuserVO.setUserType(userType);
+			myuserVO.setAddress(address);
+			myuserVO.setOrderId(orderId);
+			MyUserImpl myuserImpl = new MyUserImpl(myuserVO);
 			pMgr.updateMyUser(myuserImpl);
-			//从session中取得当前登录人
+			// 从session中取得当前登录人
 			UserImpl user = (UserImpl) ActionContext.getContext().getSession()
-					.get(Constants.AUTHENTICATION_KEY); 
-			if(user.getUserId().equals(useId)){
-				user.setPassword(Coder.fromMyCoder(password)); 
+					.get(Constants.AUTHENTICATION_KEY);
+			if (user.getUserId().equals(useId)) {
+				user.setPassword(Coder.fromMyCoder(password));
 			}
 		} catch (ValidateFieldsException e) {
-			log.error(e);
+			e.printStackTrace();
 			return ajaxForwardError(e.getLocalizedMessage());
 		} catch (Exception e) {
 			log.error(e);
@@ -167,7 +188,7 @@ public class MyUserAction extends BaseAction {
 	public String beforeQuery() {
 		return "query";
 	}
-	
+
 	public String MyGridTree() {
 		return "gridtree";
 	}
@@ -280,26 +301,26 @@ public class MyUserAction extends BaseAction {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	} 
+	}
 
 	public long getCount() {
 		return count;
 	}
-	
+
 	public void setCount(long count) {
 		this.count = count;
 	}
 
 	private Map<MyUserSearchFields, Object> getCriterias() {
 		Map<MyUserSearchFields, Object> criterias = new HashMap<MyUserSearchFields, Object>();
-		if (getUseId()!=null&&getUseId() !=0)
+		if (getUseId() != null && getUseId() != 0)
 			criterias.put(MyUserSearchFields.USEID, getUseId());
 		if (getUserName() != null && !"".equals(getUserName()))
 			criterias.put(MyUserSearchFields.USERNAME, getUserName());
-		if (getLoginId() != null && !"".equals(getLoginId())) 
-			criterias.put(MyUserSearchFields.LOGINID, getLoginId()); 
-		if (getOrgId()!=null&&getOrgId() != 0)  
-			criterias.put(MyUserSearchFields.ORGID, getOrgId()); 
+		if (getLoginId() != null && !"".equals(getLoginId()))
+			criterias.put(MyUserSearchFields.LOGINID, getLoginId());
+		if (getOrgId() != null && getOrgId() != 0)
+			criterias.put(MyUserSearchFields.ORGID, getOrgId());
 		return criterias;
 	}
 
@@ -471,19 +492,19 @@ public class MyUserAction extends BaseAction {
 		this.address = address;
 	}
 
-	private int orderId;
+	private Integer orderId;
 
 	/**
 	 * 获取排序号的属性值.
 	 */
-	public int getOrderId() {
+	public Integer getOrderId() {
 		return orderId;
 	}
 
 	/**
 	 * 设置排序号的属性值.
 	 */
-	public void setOrderId(int orderid) {
+	public void setOrderId(Integer orderid) {
 		this.orderId = orderid;
 	}
 }

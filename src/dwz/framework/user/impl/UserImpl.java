@@ -3,6 +3,11 @@
 import java.util.Collection;
 import java.util.Date;
 
+import money.param.Param;
+import money.param.ParamManager;
+
+import common.base.SpringContextUtil;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.constants.user.UserStatus;
 import dwz.framework.constants.user.UserType;
@@ -51,16 +56,23 @@ public class UserImpl extends AbstractBusinessObject implements User {
 	}
 
 	public UserType getUserType() {
-		// 如果是1，就是超级用户
-		if ("1".equals(this.sysUser.getUserType())) {
-			return UserType.SUPER;
-		}
-		// 2就是管理员.
-		else if ("2".equals(this.sysUser.getUserType()))
-			return UserType.ADMIN;
-		// 其他都是普通用户.
-		else
+		ParamManager pm = (ParamManager) SpringContextUtil
+				.getBean(BeanManagerKey.paramManager.toString());
+		try {
+			Param p = pm.getParam(Integer.parseInt(this.sysUser.getUserType()));
+			// 如果是1，就是超级用户
+			if ("1".equals(p.getUsevalue())) {
+				return UserType.SUPER;
+			}
+			// 2就是管理员.
+			else if ("2".equals(p.getUsevalue()))
+				return UserType.ADMIN;
+			// 其他都是普通用户.
+			else
+				return UserType.PERSON;
+		} catch (Exception e) {
 			return UserType.PERSON;
+		}
 	}
 
 	public void setEmail(String email) {
