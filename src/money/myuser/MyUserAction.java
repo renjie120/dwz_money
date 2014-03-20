@@ -58,10 +58,16 @@ public class MyUserAction extends BaseAction {
 		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
-
+	
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeMyUsers(ids);
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
+	
+	public String initPass() {
+		String ids = request.getParameter("ids");
+		pMgr.initPassword(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 

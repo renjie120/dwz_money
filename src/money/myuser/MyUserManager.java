@@ -59,6 +59,9 @@ public interface MyUserManager  extends BusinessObjectManager {
 	@Transactional
 	public void updatePassword(String pass, String userId) ;
 
+	@Transactional
+	public void initPassword(String useId) ;
+
 	/**
 	 * 删除操作
 	 * @param useId

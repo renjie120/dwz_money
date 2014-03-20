@@ -129,6 +129,7 @@ function initUI(_box){
 	}
 	
 	if ($.fn.uploadify) {
+		//alert('$(":file[uploader]", $p)=='+$(":file[uploader]", $p).size());
 		$(":file[uploader]", $p).each(function(){
 			var $this = $(this);
 			var options = {
@@ -298,7 +299,7 @@ function initUI(_box){
 			var uploaderOption = DWZ.jsonEval($this.attr("uploaderOption"));
 			$.extend(options, uploaderOption);
 
-			DWZ.debug("uploaderOption: "+DWZ.obj2str(uploaderOption));
+			//DWZ.debug("uploaderOption: "+DWZ.obj2str(uploaderOption));
 			
 			$this.uploadify(options);
 		});

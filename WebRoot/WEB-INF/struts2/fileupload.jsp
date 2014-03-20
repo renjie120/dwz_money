@@ -32,7 +32,7 @@
 
 <div class="pageContent" style="margin: 0 10px" >
 	
-	<input id="testFileInput" type="file" name="image" 
+	<!--  input id="testFileInput" type="file" name="image" 
 		uploaderOption="{
 			swf:'/uploadify/scripts/uploadify.swf',
 			uploader:'/upload/test!saveFile.do',
@@ -46,9 +46,8 @@
 			onUploadSuccess:uploadifySuccess,
 			onQueueComplete:uploadifyQueueComplete
 		}"
-	/>
-
-	<div class="divider"></div>
+	/> 
+	<div class="divider"></div-->
 
 	<input id="testFileInput2" type="file" name="image2" 
 		uploaderOption="{

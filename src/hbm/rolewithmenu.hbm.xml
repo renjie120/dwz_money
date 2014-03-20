@@ -18,8 +18,5 @@
 	<query name="money.rolemanager.RoleWithMenuDao.deleteAllByRoleId">
 		<![CDATA[delete from RoleWithMenuVO  where roleId = ?]]>
 	</query>
-	
-	<query name="money.rolemanager.RoleWithMenuDao.searchNumByMenuId">
-		<![CDATA[select count(1) from RoleWithMenuVO  where menuId = ?]]>
-	</query>
+	 
 </hibernate-mapping>

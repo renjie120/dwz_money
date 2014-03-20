@@ -69,6 +69,10 @@
 					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
 			<li>
+				<a class="edit" href="/money/myuser!initPass.do" postType="string"
+					target="selectedTodo" rel="ids"  title="密码初始化"><span>密码初始化</span> </a>
+			</li>
+			<li>
 				<a class="icon" href="/money/myuser!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>

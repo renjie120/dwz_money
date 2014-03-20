@@ -44,4 +44,6 @@ public interface MyUserDao extends BaseDao<MyUserVO, Integer> {
 	public Collection<MyUserVO> findByLoginId2(String loginId);
 
 	public void updateAllPasswd(String pass, String id);  
+	
+	public void updateAllPasswdById(String pass, int id);
 }

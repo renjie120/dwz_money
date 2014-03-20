@@ -9,6 +9,7 @@ import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
+import common.util.Coder;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -225,6 +226,19 @@ public class MyUserManagerImpl extends AbstractBusinessObjectManager implements
 		for (String s : idArr) {
 			MyUserVO vo = this.myuserdao.findByPrimaryKey(Integer.parseInt(s));
 			this.myuserdao.delete(vo);
+		}
+	}
+	
+	public void initPassword(String ids) {
+		String[] idArr = ids.split(",");
+		String newPassword = "";
+		try {
+			newPassword = Coder.toMyCoder("111111");
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		for (String s : idArr) { 
+			 this.myuserdao.updateAllPasswdById(newPassword, Integer.parseInt(s));
 		}
 	}
 

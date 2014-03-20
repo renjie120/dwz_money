@@ -35,6 +35,9 @@
 	<query name="money.myuser.MyUserDao.updateAllPasswd">
 		<![CDATA[update MyUserVO set password=? where userName = ?]]>
 	</query> 
+	<query name="money.myuser.MyUserDao.updateAllPasswdById">
+		<![CDATA[update MyUserVO set password=? where id = ?]]>
+	</query> 
 	<query name="money.myuser.MyUserDao.findByLoginId">
 		<![CDATA[select useId from MyUserVO as userVO where loginId = ? and password = ?]]>
 	</query>
