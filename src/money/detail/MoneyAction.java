@@ -1,6 +1,5 @@
 ﻿package money.detail;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,8 +18,10 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import common.base.SpringContextUtil;
-import common.report.ReportBuilderFactory;
+import common.report.MyReport;
 import common.report.ReportDaoUtil;
+import common.report.ReportModels;
+import common.report.ReportSet;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
@@ -170,9 +171,11 @@ public class MoneyAction extends BaseAction {
 		private String year;
 		private String month;
 	}
+
 	public String gridTree() {
 		return "gridTree";
 	}
+
 	public String moneyGridTree() {
 		Collection<Object[]> c = mMgr.reportMoneyGroupByYear();
 		LinkedHashSet<Integer> yearSet = new LinkedHashSet<Integer>();
@@ -184,12 +187,12 @@ public class MoneyAction extends BaseAction {
 		StringBuffer buf = new StringBuffer();
 		try {
 			Iterator<Object[]> yearIt = c.iterator();
-			
+
 			if (yearIt != null) {
 				while (yearIt.hasNext()) {
 					Object[] obj = yearIt.next();
 					yearSet.add(Integer.parseInt("" + obj[0]));
-					typeSet.add(""+obj[2]);
+					typeSet.add("" + obj[2]);
 					typeToDesc.put(obj[2] + "", obj[3] + "");
 					yearAndTypeToMoney.put(obj[0] + "-" + obj[2],
 							Double.parseDouble("" + obj[1]));
@@ -219,35 +222,44 @@ public class MoneyAction extends BaseAction {
 						}
 					}
 				}
-				
+
 				buf.append("{total:" + yearSet.size() + ",page:1,data[");
 				allYearIt = yearSet.iterator();
-				while(allYearIt.hasNext()){
+				while (allYearIt.hasNext()) {
 					int year = allYearIt.next();
 					buf.append("{");
-					buf.append("\"time\":"+year+",\"parentTime\":null,");
-					for(String tp:typeSet){
-						Double d = yearAndTypeToMoney.get(year+"-"+tp);
-						buf.append("\"type_"+tp+"\":\""+("null".equals(d)||d==null?"0":d)+"\",");
-						
+					buf.append("\"time\":" + year + ",\"parentTime\":null,");
+					for (String tp : typeSet) {
+						Double d = yearAndTypeToMoney.get(year + "-" + tp);
+						buf.append("\"type_" + tp + "\":\""
+								+ ("null".equals(d) || d == null ? "0" : d)
+								+ "\",");
+
 					}
 					buf.deleteCharAt(buf.lastIndexOf(","));
 					buf.append("},");
-					LinkedHashSet<String> thisYearMonth = (LinkedHashSet<String>) yearToMonth.get(year);
-					for(String m:thisYearMonth){
+					LinkedHashSet<String> thisYearMonth = (LinkedHashSet<String>) yearToMonth
+							.get(year);
+					for (String m : thisYearMonth) {
 						buf.append("{");
-						buf.append("\"time\":"+m+",\"parentTime\":"+year+",");
-						for(String tp:typeSet){
-							Double d = yearMonthAndTypeToMoney.get(year+"-"+m+"-"+tp);
-							buf.append("\"type_"+tp+"\":\""+(("null".equals(d)||d==null)?"0":d)+"\",");
+						buf.append("\"time\":" + m + ",\"parentTime\":" + year
+								+ ",");
+						for (String tp : typeSet) {
+							Double d = yearMonthAndTypeToMoney.get(year + "-"
+									+ m + "-" + tp);
+							buf.append("\"type_"
+									+ tp
+									+ "\":\""
+									+ (("null".equals(d) || d == null) ? "0"
+											: d) + "\",");
 						}
 						buf.deleteCharAt(buf.lastIndexOf(","));
 						buf.append("},");
-					}					
+					}
 				}
 				buf.deleteCharAt(buf.lastIndexOf(","));
 				buf.append("]}");
-			} 
+			}
 			String jsonStr = buf.toString();
 			response.setContentType("text/html; charset=UTF-8");
 			System.out.println("json串:" + jsonStr);
@@ -534,14 +546,15 @@ public class MoneyAction extends BaseAction {
 	 * @return
 	 */
 	public String reportCountByType() {
-//		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-//				.getBean("reportUtil");
-//		String sql = ReportBuilderFactory.getInstance()
-//				.countByColumn("money_detail_t", "money_type").generateSql();
-//		writeLog("按照金额类别统计的sql:" + sql);
-//		List ans = util.getTwoColumnReport(sql);
-//		writeToPage(response,
-//				ReportStringTool.getSimpleCountXML(ans, "按金额类别统计"));
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.groupBy("bigtype").count().colomns(new String[] { "bigtype" })
+				.build().generateSql();
+		List<ReportSet> ans = util.getTwoColumnReport(sql,
+				ReportModels.CountReportSetModel); 
+		writeToPage(response, ReportStringTool.getReportSetStr(ans,
+				ReportModels.CountReportRStrModel));
 		return null;
 	}
 
@@ -581,11 +594,12 @@ public class MoneyAction extends BaseAction {
 	 * @return
 	 */
 	public String reportSumByType() {
-//		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-//				.getBean("reportUtil");
-//		List ans = util.getSumGroupByOneColumn("money_detail_type_v",
-//				"tallytype", "money");
-//		writeToPage(response, ReportStringTool.getSimpleSumXML(ans, "按类总数统计"));
+		// ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+		// .getBean("reportUtil");
+		// List ans = util.getSumGroupByOneColumn("money_detail_type_v",
+		// "tallytype", "money");
+		// writeToPage(response, ReportStringTool.getSimpleSumXML(ans,
+		// "按类总数统计"));
 		return null;
 	}
 

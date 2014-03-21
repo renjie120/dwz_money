@@ -9,75 +9,92 @@ import java.util.Map;
 import common.util.CommonUtil;
 
 public class ReportStringTool {
-	/**
-	 * 返回报表列的数组json串.
-	 * @param ans
-	 * @return
-	 */
-	public static String getJsonArr(List<ReportSet> ans) {
+	public static String getReportSetStr(List<ReportSet> ans,
+			ReportSetStrGenerate g) {
 		StringBuilder buil = new StringBuilder();
 		if (ans != null) {
 			buil.append("[");
 			for (ReportSet s : ans) {
-				buil.append("['" + s.getName() + "'," + s.getCount() + "],");
+				buil.append(g.change(s) + ",");
 			}
 			buil.deleteCharAt(buil.lastIndexOf(","));
 			buil.append("]");
 		}
-		return buil.toString(); 
+		return buil.toString();
 	}
-
-	 
 	
+	public static String getThreeColumnReportStr(List<ReportMultiSeriesSet> ans,
+			ReportMultiSeriesSetStrGenerate g) {
+		StringBuilder buil = new StringBuilder();
+		if (ans != null) {
+			buil.append("[");
+			for (ReportMultiSeriesSet s : ans) {
+				buil.append(g.change(s) + ",");
+			}
+			buil.deleteCharAt(buil.lastIndexOf(","));
+			buil.append("]");
+		}
+		return buil.toString();
+	}
+	 
+
+
 	/**
-	 * 得到三维报表的xml串。
-	 * 返回的对象是一个字符串数组.
-	 * 第一个位置：统计group列的全部数据内容
-	 * 第二个位置：统计的第三维度的全部数据内容
+	 * 得到三维报表的xml串。 返回的对象是一个字符串数组. 第一个位置：统计group列的全部数据内容 第二个位置：统计的第三维度的全部数据内容
 	 * 第三个位置：xml字符串.
+	 * 
 	 * @param dataList
 	 * @param title
 	 * @return
 	 */
-	public static String[] getMultiSeriesReportXML(List<ReportMultiSeriesSet> dataList,String title) {
+	public static String[] getMultiSeriesReportXML(
+			List<ReportMultiSeriesSet> dataList, String title) {
 		StringBuffer buffer = new StringBuffer(
-				"<graph showNamesalPrecision='0'  showNames='1' caption='"+title+"'>");
+				"<graph showNamesalPrecision='0'  showNames='1' caption='"
+						+ title + "'>");
 		Iterator<ReportMultiSeriesSet> it = dataList.iterator();
 		List allGroupColumn = new ArrayList();
 		List allThirdColumn = new ArrayList();
 		Map allSumValue = new HashMap();
-		//分析得到三列报表的数据内容，得到第一列，第二列的具体数目和内容,以及记录数据对应的第一列和第二列的位置.
+		// 分析得到三列报表的数据内容，得到第一列，第二列的具体数目和内容,以及记录数据对应的第一列和第二列的位置.
 		while (it.hasNext()) {
-			ReportMultiSeriesSet set =   it.next();
-			if(allGroupColumn.indexOf(set.getGroupColumn())==-1)
+			ReportMultiSeriesSet set = it.next();
+			if (allGroupColumn.indexOf(set.getGroupColumn()) == -1)
 				allGroupColumn.add(set.getGroupColumn());
-			
-			if(allThirdColumn.indexOf(set.getThirdColumn())==-1)
+
+			if (allThirdColumn.indexOf(set.getThirdColumn()) == -1)
 				allThirdColumn.add(set.getThirdColumn());
-			
+
 			allSumValue.put(allGroupColumn.indexOf(set.getGroupColumn()) + ","
-					+ allThirdColumn.indexOf(set.getThirdColumn()), set
-					.getSumColumn());
+					+ allThirdColumn.indexOf(set.getThirdColumn()),
+					set.getSumColumn());
 		}
-		//定义数组来存储查询订单的三列报表的全部数据.
-		String[][] dataes = new String[allThirdColumn.size()][allGroupColumn.size()]; 
-	 
+		// 定义数组来存储查询订单的三列报表的全部数据.
+		String[][] dataes = new String[allThirdColumn.size()][allGroupColumn
+				.size()];
+
 		buffer.append("<categories>");
-		for(int j=0;j<allGroupColumn.size();j++){
-			buffer.append("<category name='"+allGroupColumn.get(j)+"'/>");
+		for (int j = 0; j < allGroupColumn.size(); j++) {
+			buffer.append("<category name='" + allGroupColumn.get(j) + "'/>");
 		}
 		buffer.append("</categories>");
 		ReportColor[] colors = ReportColor.values();
-		for(int i=0;i<allThirdColumn.size();i++){
-			buffer.append("<dataset seriesname='"+allThirdColumn.get(i)+"' showValue='1' color='"+colors[i*4].getColor()+"'>");
-			for(int j=0;j<allGroupColumn.size();j++){
-				buffer.append("<set value='"+CommonUtil.notBlank((String)allSumValue.get(j+","+i),"0")+"'/>");
+		for (int i = 0; i < allThirdColumn.size(); i++) {
+			buffer.append("<dataset seriesname='" + allThirdColumn.get(i)
+					+ "' showValue='1' color='" + colors[i * 4].getColor()
+					+ "'>");
+			for (int j = 0; j < allGroupColumn.size(); j++) {
+				buffer.append("<set value='"
+						+ CommonUtil.notBlank(
+								(String) allSumValue.get(j + "," + i), "0")
+						+ "'/>");
 			}
 			buffer.append("</dataset>");
 		}
-		buffer.append("</graph>"); 
-		String[] ans = new String[]{allGroupColumn.toString(),allThirdColumn.toString(),buffer.toString()};
+		buffer.append("</graph>");
+		String[] ans = new String[] { allGroupColumn.toString(),
+				allThirdColumn.toString(), buffer.toString() };
 		return ans;
 	}
-	 
+
 }

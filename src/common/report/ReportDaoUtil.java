@@ -17,18 +17,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author renjie120 connect my:(QQ)1246910068
  * 
  */
-public class ReportDaoUtil extends HibernateDaoSupport { 
-	
-	/**
-	 * 统计表格里面的某一列的累积个数.
-	 * 
-	 * @param table
-	 *            表名
-	 * @param groupBy
-	 *            进行累积计算的维度.
-	 * @return
-	 */
-	public List<ReportSet> getTwoColumnReport(final String sql) {
+public class ReportDaoUtil extends HibernateDaoSupport {
+
+	public List<ReportSet> getTwoColumnReport(final String sql,
+			final ReportSetGenerate genere) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -39,10 +31,7 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 					Iterator it = ansList.iterator();
 					while (it.hasNext()) {
 						Object[] objects = (Object[]) it.next();
-						ReportSet set = new ReportSet();
-						set.setCount(objects[0].toString());
-						set.setName((String) objects[1]);
-						result.add(set);
+						result.add(genere.change(objects));
 					}
 				}
 				return result;
@@ -50,47 +39,28 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 		});
 		return (List<ReportSet>) o;
 	}
-
-	/**
-	 * 统计表格里面的某一列的累积之和.
-	 * 
-	 * @param table
-	 *            表名
-	 * @param groupBy
-	 *            进行统计的维度
-	 * @param sumColumn
-	 *            计算和的维度
-	 * @return
-	 */
-	public List<ReportSet> getSumGroupByOneColumn(String table, String groupBy,
-			String sumColumn) {
-		final String tableString = table;
-		final String groupByString = groupBy;
-		final String sumString = sumColumn;
+	
+	public List<ReportMultiSeriesSet> getThreeColumnReport(final String sql,
+			final ReportMultiSeriesSetGenerate genere) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createSQLQuery("select sum(" + sumString
-						+ ")," + groupByString + " from " + tableString
-						+ " group by " + groupByString);
+				Query query = session.createSQLQuery(sql);
 				List ansList = query.list();
 				List result = new ArrayList();
 				if (ansList != null) {
 					Iterator it = ansList.iterator();
 					while (it.hasNext()) {
 						Object[] objects = (Object[]) it.next();
-						ReportSet set = new ReportSet();
-						set.setSum(objects[0].toString());
-						set.setName((String) objects[1]);
-						result.add(set);
+						result.add(genere.change(objects));
 					}
 				}
 				return result;
 			}
 		});
-		return (List<ReportSet>) o;
+		return (List<ReportMultiSeriesSet>) o;
 	}
-
+ 
 	/**
 	 * 查询三列，同时附加条件. 例如按照(年度)统计各个(类别)的(金额)总数.
 	 * 

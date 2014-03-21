@@ -10,8 +10,9 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import common.base.SpringContextUtil;
-import common.report.ReportBuilderFactory;
+import common.report.MyReport;
 import common.report.ReportDaoUtil;
+import common.report.ReportModels;
 import common.report.ReportSet;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
@@ -276,10 +277,11 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	public String reportQuestionCountByStatus() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		String sql = ReportBuilderFactory.getInstance()
-				.countByColumn("question_v", "statusname").generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql);
-		writeToPage(response, ReportStringTool.getJsonArr(ans));
+		String sql = new MyReport.Builder("question_v").groupBy("statusname")
+				.count().colomns(new String[] { "statusname" }).build()
+				.generateSql();
+		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
+		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
 		return null;
 	}
 
@@ -291,10 +293,11 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	public String reportQuestionCountByType() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		String sql = ReportBuilderFactory.getInstance()
-				.countByColumn("question_v", "typename").generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql);
-		writeToPage(response, ReportStringTool.getJsonArr(ans));
+		String sql = new MyReport.Builder("question_v").groupBy("typename")
+				.count().colomns(new String[] { "typename" }).build()
+				.generateSql();
+		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
+		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
 		return null;
 	}
 
@@ -306,10 +309,11 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	public String reportQuestionCountByPerson() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		String sql = ReportBuilderFactory.getInstance()
-				.countByColumn("question_v", "submit").generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql);
-		writeToPage(response, ReportStringTool.getJsonArr(ans));
+		String sql = new MyReport.Builder("question_v").groupBy("submit")
+				.count().colomns(new String[] { "submit" }).build()
+				.generateSql();
+		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
+		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
 		return null;
 	}
 

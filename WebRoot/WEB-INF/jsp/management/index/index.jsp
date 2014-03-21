@@ -170,13 +170,10 @@
 				</a>
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
-						mask="true">我的资料</a>
-					</li>
+						mask="true">我的资料</a></li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
-						mask="true">修改密码</a>
-					</li>
-					<li><a href="#" onclick="logout()">退出登录</a>
-					</li>
+						mask="true">修改密码</a></li>
+					<li><a href="#" onclick="logout()">退出登录</a></li>
 				</ul>
 			</div>
 		</div>
@@ -204,8 +201,7 @@
 						<!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
 						<ul class="navTab-tab">
 							<li tabid="main" class="main"><a href="javascript:void(0)"><span><span
-										class="home_icon">My Home</span> </span> </a>
-							</li>
+										class="home_icon">My Home</span> </span> </a></li>
 						</ul>
 					</div>
 					<div class="tabsLeft">left</div>
@@ -215,8 +211,7 @@
 					<div class="tabsMore">more</div>
 				</div>
 				<ul class="tabsMoreList">
-					<li><a href="javascript:void(0)">首页</a>
-					</li>
+					<li><a href="javascript:void(0)">首页</a></li>
 				</ul>
 				<div class="navTab-panel tabsPageContent">
 					<div>
@@ -232,7 +227,7 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80"> 
+						<div class="pageFormContent" layoutH="-80">
 							<div style='width:140px;float:left;'>
 								<h1>网站快捷键</h1>
 								<s:iterator value="#request.allHomepage" var="haha" status="stu">
@@ -243,18 +238,31 @@
 									</div>
 								</s:iterator>
 							</div>
-							<table cellspacing=0 cellpadding=0 width=1 height=230 bgcolor=008000 style='float:left'><tr><td></table> 
+							<table cellspacing=0 cellpadding=0 width=1 height=230
+								bgcolor=008000 style='float:left'>
+								<tr>
+									<td>
+							</table>
 							<div id="hm_chartdiv1" class="highcharts" type="pie"
 								serialName="问题数量" title='统计报表1'
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByStatus.do"></div>
-							
-							<table cellspacing=0 cellpadding=0 width=1 height=230 bgcolor=008000 style='float:left'><tr><td></table> 
-							
+
+							<table cellspacing=0 cellpadding=0 width=1 height=230
+								bgcolor=008000 style='float:left'>
+								<tr>
+									<td>
+							</table>
+
 							<div id="hm_chartdiv2" class="highcharts" type="pie"
 								serialName="问题数量" title='统计报表2'
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByType.do"></div>
+
+							<div id="hm_chartdiv3" class="highcharts" type="pie"
+								serialName="收支大类" title='按大类统计记录数目'
+								style="width:300px;height:250px;float:left;border:1 red;"
+								url="/money/newmoney!reportCountByType.do"></div>
 
 						</div>
 					</div>

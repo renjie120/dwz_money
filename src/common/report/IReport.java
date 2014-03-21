@@ -1,5 +1,7 @@
 package common.report;
 
+import java.util.List;
+
 /**
  * 生成一个报表sql语句.
  * 
@@ -12,11 +14,11 @@ public interface IReport {
 
 	public Group getGroup();
 
-	public IStatis[] getStatises();
+	public List<IStatis> getStatises();
 
 	public String getHaving();
 
-	public Column[] getColumns();
+	public List<Column> getColumns();
 
 	public String getWhere();
 }
