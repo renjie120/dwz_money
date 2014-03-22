@@ -18,9 +18,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * 
  */
 public class ReportDaoUtil extends HibernateDaoSupport {
-
-	public List<ReportSet> getTwoColumnReport(final String sql,
-			final ReportSetGenerate genere) {
+ 
+	
+	public List<List<String>> getReportData(final String sql,
+			final ReportDataGenerate genere) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -37,30 +38,33 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 				return result;
 			}
 		});
-		return (List<ReportSet>) o;
+		return (List<List<String>>) o;
 	}
 	
-	public List<ReportMultiSeriesSet> getThreeColumnReport(final String sql,
-			final ReportMultiSeriesSetGenerate genere) {
+	public String getReportStr(final String sql,
+			final ReportStrGenerate genere) {
 		Object o = this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Query query = session.createSQLQuery(sql);
-				List ansList = query.list();
-				List result = new ArrayList();
+				List ansList = query.list();  
+				StringBuilder buil = new StringBuilder(); 
 				if (ansList != null) {
 					Iterator it = ansList.iterator();
+					buil.append("[");
 					while (it.hasNext()) {
 						Object[] objects = (Object[]) it.next();
-						result.add(genere.change(objects));
+						buil.append(genere.change(objects)+",");
 					}
+					buil.deleteCharAt(buil.lastIndexOf(","));
+					buil.append("]");
 				}
-				return result;
+				return buil.toString();
 			}
 		});
-		return (List<ReportMultiSeriesSet>) o;
+		return (String) o;
 	}
- 
+	 
 	/**
 	 * 查询三列，同时附加条件. 例如按照(年度)统计各个(类别)的(金额)总数.
 	 * 

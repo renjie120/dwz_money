@@ -1,5 +1,6 @@
 package com.renjie120.reportUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -7,9 +8,8 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportSet;
-import common.report.ReportSetGenerate;
-import common.report.ReportSetStrGenerate;
+import common.report.ReportDataGenerate;
+import common.report.ReportStrGenerate;
 import common.report.ReportStringTool;
 
 @SuppressWarnings("deprecation")
@@ -29,24 +29,13 @@ public class QuestionActionTest extends
 				.count().colomns(new String[] { "statusname" }).build()
 				.generateSql();
 		System.out.println("查询sql:" + sql);
-		List<ReportSet> ans = util.getTwoColumnReport(sql,
-				new ReportSetGenerate() {
-					@Override
-					public ReportSet change(Object[] objs) {
-						ReportSet set = new ReportSet();
-						set.setCount(objs[0].toString());
-						set.setName((String) objs[1]);
-						return set;
-					}
-
-				});
-		String str = ReportStringTool.getReportSetStr(ans,
-				new ReportSetStrGenerate() { 
-					@Override
-					public String change(ReportSet s) {
-						return "['" + s.getName() + "'," + s.getCount() + "]";
-					}
-				});
+		String str = util.getReportStr(sql,
+				new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" +objs[1] + "'," + objs[0] + " ]";
+			} 
+		}); 
 		System.out.println(str);
 	}
 }

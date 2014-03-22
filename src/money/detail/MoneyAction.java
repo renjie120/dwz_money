@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -20,8 +21,8 @@ import com.opensymphony.xwork2.ActionContext;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportModels;
-import common.report.ReportSet;
+import common.report.ReportDataGenerate;
+import common.report.ReportStrGenerate;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
@@ -551,10 +552,14 @@ public class MoneyAction extends BaseAction {
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy("bigtype").count().colomns(new String[] { "bigtype" })
 				.build().generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql,
-				ReportModels.CountReportSetModel); 
-		writeToPage(response, ReportStringTool.getReportSetStr(ans,
-				ReportModels.CountReportRStrModel));
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + " ]";
+			}
+
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -566,10 +571,18 @@ public class MoneyAction extends BaseAction {
 	public String reportSumByTypeAndYear() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		List ans = util.getTribleColumn("money_detail_type_year_v", "money",
-				"tallytype", "year");
-		writeToPage(response,
-				ReportStringTool.getMultiSeriesReportXML(ans, "年度统计")[2]);
+		String sql = new MyReport.Builder("money_detail_view")
+				.groupBy(new String[] { "year", "tallytype" }).sum("money")
+				.colomns(new String[] { "year", "tallytype" }).build()
+				.generateSql();
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
+			}
+		}); 
+		writeToPage(response,ans);
 		return null;
 	}
 

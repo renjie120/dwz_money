@@ -8,36 +8,8 @@ import java.util.Map;
 
 import common.util.CommonUtil;
 
-public class ReportStringTool {
-	public static String getReportSetStr(List<ReportSet> ans,
-			ReportSetStrGenerate g) {
-		StringBuilder buil = new StringBuilder();
-		if (ans != null) {
-			buil.append("[");
-			for (ReportSet s : ans) {
-				buil.append(g.change(s) + ",");
-			}
-			buil.deleteCharAt(buil.lastIndexOf(","));
-			buil.append("]");
-		}
-		return buil.toString();
-	}
-	
-	public static String getThreeColumnReportStr(List<ReportMultiSeriesSet> ans,
-			ReportMultiSeriesSetStrGenerate g) {
-		StringBuilder buil = new StringBuilder();
-		if (ans != null) {
-			buil.append("[");
-			for (ReportMultiSeriesSet s : ans) {
-				buil.append(g.change(s) + ",");
-			}
-			buil.deleteCharAt(buil.lastIndexOf(","));
-			buil.append("]");
-		}
-		return buil.toString();
-	}
-	 
-
+public class ReportStringTool {  
+ 
 
 	/**
 	 * 得到三维报表的xml串。 返回的对象是一个字符串数组. 第一个位置：统计group列的全部数据内容 第二个位置：统计的第三维度的全部数据内容
