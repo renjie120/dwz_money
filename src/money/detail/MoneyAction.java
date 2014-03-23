@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -21,7 +20,6 @@ import com.opensymphony.xwork2.ActionContext;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportDataGenerate;
 import common.report.ReportStrGenerate;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
@@ -572,8 +570,8 @@ public class MoneyAction extends BaseAction {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy(new String[] { "year", "tallytype" }).sum("money")
-				.colomns(new String[] { "year", "tallytype" }).build()
+				.groupBy(new String[] { "year", "bigtype" }).sum("money")
+				.colomns(new String[] { "year", "bigtype" }).where("big_money_type='2'").build()
 				.generateSql();
 		System.out.println("查询sql:" + sql);
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {
@@ -582,6 +580,7 @@ public class MoneyAction extends BaseAction {
 				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
 			}
 		}); 
+		System.out.println("reportSumByTypeAndYear=="+ans);
 		writeToPage(response,ans);
 		return null;
 	}

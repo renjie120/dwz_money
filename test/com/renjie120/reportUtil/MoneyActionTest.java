@@ -1,16 +1,11 @@
 package com.renjie120.reportUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportDataGenerate;
 import common.report.ReportStrGenerate;
-import common.report.ReportStringTool;
 
 @SuppressWarnings("deprecation")
 public class MoneyActionTest extends
@@ -46,7 +41,7 @@ public class MoneyActionTest extends
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy(new String[] { "year", "tallytype" }).sum("money")
-				.colomns(new String[] { "year", "tallytype" }).build()
+				.colomns(new String[] { "year", "tallytype" }).where("big_money_type='2'").build()
 				.generateSql();
 		System.out.println("查询sql:" + sql);
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {

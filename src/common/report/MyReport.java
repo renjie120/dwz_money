@@ -48,7 +48,7 @@ public class MyReport implements IReport {
 			} else if (group.length > 1) {
 				Column c = new Column(group[0]);
 				this.group = new Group(c);
-				for(int i=1,j=group.length;i<j;i++){
+				for (int i = 1, j = group.length; i < j; i++) {
 					this.group.addColumn(new Column(group[i]));
 				}
 			}
@@ -60,6 +60,11 @@ public class MyReport implements IReport {
 				statises = new ArrayList<IStatis>();
 			}
 			statises.add(new Count1());
+			return this;
+		}
+
+		public Builder where(String where) {
+			this.where = where;
 			return this;
 		}
 
@@ -133,7 +138,7 @@ public class MyReport implements IReport {
 		buf.append(" from ");
 		buf.append(table);
 		if (CommonUtil.isNotEmpty(where))
-			buf.append(where);
+			buf.append(" where "+where+" ");
 		buf.append(group);
 		if (CommonUtil.isNotEmpty(having))
 			buf.append(having);
