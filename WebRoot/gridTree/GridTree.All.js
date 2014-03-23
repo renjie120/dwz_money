@@ -562,8 +562,8 @@
                 }
 
             },
-			_hideByPath:function(ppth,e){
-				$('tr[_node_path^=' + ppth + ']',elct).each(function(){
+			_hideByPath:function(ppth,e){ 
+				$('tr[_node_path^="' + ppth + '"]',elct).each(function(){
 					var $this = $(this);
 					var id = $this.attr('id').replace('_node','');  
 					if($this.attr('_node_isparent')=='1'){  

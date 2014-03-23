@@ -30,7 +30,7 @@
 	<link href="/uploadify/css/uploadify.css" rel="stylesheet"
 		type="text/css" />
 	<link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
-	<script src="/styles/management/js/jquery-1.4.4.min.js"
+	<script src="/styles/management/js/jquery-1.8.2.min.js"
 		type="text/javascript"></script>
 	<script src="/uploadify/scripts/jquery.uploadify.js"
 		type="text/javascript"></script>
@@ -170,10 +170,13 @@
 				</a>
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
-						mask="true">我的资料</a></li>
+						mask="true">我的资料</a>
+					</li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
-						mask="true">修改密码</a></li>
-					<li><a href="#" onclick="logout()">退出登录</a></li>
+						mask="true">修改密码</a>
+					</li>
+					<li><a href="#" onclick="logout()">退出登录</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -201,7 +204,8 @@
 						<!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
 						<ul class="navTab-tab">
 							<li tabid="main" class="main"><a href="javascript:void(0)"><span><span
-										class="home_icon">My Home</span> </span> </a></li>
+										class="home_icon">My Home</span> </span> </a>
+							</li>
 						</ul>
 					</div>
 					<div class="tabsLeft">left</div>
@@ -211,7 +215,8 @@
 					<div class="tabsMore">more</div>
 				</div>
 				<ul class="tabsMoreList">
-					<li><a href="javascript:void(0)">首页</a></li>
+					<li><a href="javascript:void(0)">首页</a>
+					</li>
 				</ul>
 				<div class="navTab-panel tabsPageContent">
 					<div>
@@ -260,6 +265,11 @@
 								url="/money/question!reportQuestionCountByType.do"></div>
 
 							<div id="hm_chartdiv3" class="highcharts" type="pie"
+								serialName="收支大类" title='按大类统计记录数目'
+								style="width:300px;height:250px;float:left;border:1 red;"
+								url="/money/newmoney!reportCountByType.do"></div>
+
+							<div id="hm_chartdiv4" class="highcharts" type="pie"
 								serialName="收支大类" title='按大类统计记录数目'
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/newmoney!reportCountByType.do"></div>
