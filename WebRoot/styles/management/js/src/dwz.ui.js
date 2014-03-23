@@ -409,7 +409,7 @@ function initUI(_box) {
 			$.ajax({
 				type : 'post',
 				url : $char.attr('url'),
-				success : function(msg) {
+				success : function(msg) { 
 					eval("var arr =" + msg);
 					$char.highcharts({
 						credits : {

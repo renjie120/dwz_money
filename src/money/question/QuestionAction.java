@@ -1,6 +1,7 @@
 ﻿package money.question;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,8 +13,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportModels;
-import common.report.ReportSet;
+import common.report.ReportDataGenerate;
+import common.report.ReportStrGenerate;
 import common.report.ReportStringTool;
 import common.util.CommonUtil;
 
@@ -280,8 +281,14 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String sql = new MyReport.Builder("question_v").groupBy("statusname")
 				.count().colomns(new String[] { "statusname" }).build()
 				.generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
-		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + " ]";
+			}
+
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -296,8 +303,14 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String sql = new MyReport.Builder("question_v").groupBy("typename")
 				.count().colomns(new String[] { "typename" }).build()
 				.generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
-		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + " ]";
+			}
+
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -312,8 +325,14 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String sql = new MyReport.Builder("question_v").groupBy("submit")
 				.count().colomns(new String[] { "submit" }).build()
 				.generateSql();
-		List<ReportSet> ans = util.getTwoColumnReport(sql,ReportModels.CountReportSetModel);
-		writeToPage(response, ReportStringTool.getReportSetStr(ans,ReportModels.CountReportRStrModel));
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + " ]";
+			}
+
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 

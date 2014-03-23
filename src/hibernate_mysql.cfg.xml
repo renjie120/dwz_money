@@ -13,11 +13,19 @@
 			org.hibernate.dialect.MySQLDialect
 		</property> 
 		<property name="hibernate.connection.autocommit">true</property>
+<<<<<<< HEAD
  	  <property name="connection.url">jdbc:mysql://127.0.0.1:3306/dwz4j</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">987425</property>  
 		
 			 <!--  <property name="connection.url">jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120</property>
+=======
+ 		  <property name="connection.url">jdbc:mysql://127.0.0.1:3306/dwz4j</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">987425</property> 
+		
+		 <!--  <property name="connection.url">jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120</property>
+>>>>>>> 1526cc1208e14d31df7dfdd38d94db7ec8f94d81
  
 		<property name="connection.username">renjie120</property>
 		<property name="connection.password">lsq20140307ZHQ</property>  -->
