@@ -20,8 +20,8 @@ function suspend(obj) {
 	});
 }
 
-function mydone(json){
-	alert(123);
+function mydone(json){ 
+	alert(JSON.stringify(json));
 	navTabAjaxDone(json);  
 	navTab.reloadFlag("lcfb");
 }

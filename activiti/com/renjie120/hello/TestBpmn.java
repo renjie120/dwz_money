@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestBpmn {
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"spring_activiti.cfg.xml");
+				 "spring.cfg.xml");
 		RepositoryService repositoryService = (RepositoryService) applicationContext
 				.getBean("repositoryService");
 		// String deploymentId = repositoryService.createDeployment()
