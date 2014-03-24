@@ -571,17 +571,17 @@ public class MoneyAction extends BaseAction {
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy(new String[] { "year", "bigtype" }).sum("money")
-				.colomns(new String[] { "year", "bigtype" }).where("big_money_type='2'").build()
-				.generateSql();
+				.colomns(new String[] { "year", "bigtype" })
+				.where("big_money_type='2'").build().generateSql();
 		System.out.println("查询sql:" + sql);
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {
 			@Override
 			public String change(Object[] objs) {
 				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
 			}
-		}); 
-		System.out.println("reportSumByTypeAndYear=="+ans);
-		writeToPage(response,ans);
+		});
+		System.out.println("reportSumByTypeAndYear==" + ans);
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -593,10 +593,18 @@ public class MoneyAction extends BaseAction {
 	public String reportSumByTypeAndYearAndMonth() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
-		List ans = util.getTribleColumn("money_detail_type_year_month_v",
-				"money", "tallytype", "month", " where year='2011'");
-		writeToPage(response,
-				ReportStringTool.getMultiSeriesReportXML(ans, "2011年统计数据")[2]);
+		String sql = new MyReport.Builder("money_detail_view")
+				.groupBy(new String[] { "month", "tallytype" }).sum("money")
+				.colomns(new String[] { "month", "tallytype" })
+				.where("year='2013'").build().generateSql();
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
+			}
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -606,12 +614,19 @@ public class MoneyAction extends BaseAction {
 	 * @return
 	 */
 	public String reportSumByType() {
-		// ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-		// .getBean("reportUtil");
-		// List ans = util.getSumGroupByOneColumn("money_detail_type_v",
-		// "tallytype", "money");
-		// writeToPage(response, ReportStringTool.getSimpleSumXML(ans,
-		// "按类总数统计"));
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.groupBy("bigtype").sum("money")
+				.colomns(new String[] { "bigtype" }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 

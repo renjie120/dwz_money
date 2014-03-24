@@ -56,6 +56,7 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 						Object[] objects = (Object[]) it.next();
 						buil.append(genere.change(objects)+",");
 					}
+					if(ansList.size()>0)
 					buil.deleteCharAt(buil.lastIndexOf(","));
 					buil.append("]");
 				}

@@ -30,7 +30,7 @@ function initEnv() {
 		ajaxbg.hide();
 	});
 
-	$("#leftside").jBar({
+	$("#leftside").jBar( {
 		minW : 150,
 		maxW : 700
 	});
@@ -47,13 +47,13 @@ function initEnv() {
 		initLayout();
 		initUI();
 		// navTab styles
-		var jTabsPH = $("div.tabsPageHeader");
-		jTabsPH.find(".tabsLeft").hoverClass("tabsLeftHover");
-		jTabsPH.find(".tabsRight").hoverClass("tabsRightHover");
-		jTabsPH.find(".tabsMore").hoverClass("tabsMoreHover");
+			var jTabsPH = $("div.tabsPageHeader");
+			jTabsPH.find(".tabsLeft").hoverClass("tabsLeftHover");
+			jTabsPH.find(".tabsRight").hoverClass("tabsRightHover");
+			jTabsPH.find(".tabsMore").hoverClass("tabsMoreHover");
 
-		lastLayout();
-	}, 10);
+			lastLayout();
+		}, 10);
 
 }
 /**
@@ -68,7 +68,7 @@ function initLayout() {
 			.layoutH();
 	$("#sidebar, #sidebar_s .collapse, #splitBar, #splitBarProxy").height(
 			iContentH - 5);
-	$("#taskbar").css({
+	$("#taskbar").css( {
 		top : iContentH + $("#header").height() + 5,
 		width : $(window).width()
 	});
@@ -114,7 +114,7 @@ function initUI(_box) {
 	$("ul.tree", $p).jTree();
 	$('div.accordion', $p).each(function() {
 		var $this = $(this);
-		$this.accordion({
+		$this.accordion( {
 			fillSpace : $this.attr("fillSpace"),
 			alwaysOpen : true,
 			active : 0
@@ -218,7 +218,7 @@ function initUI(_box) {
 
 	// validate form
 	$("form.required-validate", $p).each(function() {
-		$(this).validate({
+		$(this).validate( {
 			focusInvalid : false,
 			focusCleanup : true,
 			errorElement : "span",
@@ -349,7 +349,7 @@ function initUI(_box) {
 
 	$("div.pagination", $p).each(function() {
 		var $this = $(this);
-		$this.pagination({
+		$this.pagination( {
 			targetType : $this.attr("targetType"),
 			rel : $this.attr("rel"),
 			totalCount : $this.attr("totalCount"),
@@ -374,8 +374,8 @@ function initUI(_box) {
 
 			// DWZ.debug("uploaderOption: "+DWZ.obj2str(uploaderOption));
 
-			$this.uploadify(options);
-		});
+				$this.uploadify(options);
+			});
 	}
 
 	// dwz.ajax.js
@@ -395,15 +395,19 @@ function initUI(_box) {
 	if ($.fn.selectedTodo)
 		$("a[target=selectedTodo]", $p).selectedTodo();
 	if ($.fn.pagerForm)
-		$("form[rel=pagerForm]", $p).pagerForm({
+		$("form[rel=pagerForm]", $p).pagerForm( {
 			parentBox : $p
 		});
 	if ($.fn.pagerForm)
-		$("form[rel=pagerForm]", $p).pagerForm({
+		$("form[rel=pagerForm]", $p).pagerForm( {
 			parentBox : $p
 		});
 
-	if ($('.highcharts', $p).size() > 0) {
+if ($('.highcharts', $p).size() > 0) {
+		var _credits = {
+								href : 'http://www.thinksafari.com',
+								text : '思程工作室'
+							};
 		$(".highcharts", $p).each(function() {
 			var $char = $(this);
 			$.ajax({
@@ -413,15 +417,14 @@ function initUI(_box) {
 					eval("var arr =" + msg);
 					if($char.attr('type')=='pie'){ 
 						$char.highcharts({
-							credits : {
-								href : 'http://www.thinksafari.com',
-								text : '思程工作室'
-							},
+							credits :_credits,
 							title : {
 								text : $char.attr('title'), 
 							},
 							plotOptions: {
 								pie: {
+									allowPointSelect: true,
+                					cursor: 'pointer',
 					                dataLabels: {
 					                    enabled: true,   
 					                    format:  $char.attr('format')?$char.attr('format'):'{point.name}({y})'
@@ -435,6 +438,8 @@ function initUI(_box) {
 							} ]
 						});	
 					}else if($char.attr('type')=='column'){
+						if(arr.length<1)
+							return false;
 						//如果是普通的二维列表
 						if(arr[0].length==2){  
 							var xAxis_a = [];
@@ -445,10 +450,7 @@ function initUI(_box) {
 								yAxis_a.push(arr[_i][1]);
 							} 
 							$char.highcharts({
-								credits : {
-									href : 'http://www.thinksafari.com',
-									text : '思程工作室'
-								},
+								credits :_credits,
 							   chart: {
 							            type: 'column'
 							        },
@@ -499,10 +501,7 @@ function initUI(_box) {
 								seriesArr.push(_ans);
 							} 
 							$char.highcharts({
-								credits : {
-									href : 'http://www.thinksafari.com',
-									text : '思程工作室'
-								},
+								credits : _credits,
 							   chart: {
 							            type: 'column'
 							        },
