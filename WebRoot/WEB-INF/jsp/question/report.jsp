@@ -1,5 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<script language="JavaScript" src="/js/report/questionReport.js"></script>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%> 
 <div class="pageContent">
 	<div id="chartdiv1" class="highcharts" type="pie" serialName="问题数量"
 		title='按问题状态统计'

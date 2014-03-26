@@ -594,9 +594,9 @@ public class MoneyAction extends BaseAction {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy(new String[] { "month", "tallytype" }).sum("money")
-				.colomns(new String[] { "month", "tallytype" })
-				.where("year='2013'").build().generateSql();
+				.groupBy(new String[] { "month", "bigtype" }).sum("money")
+				.colomns(new String[] { "month", "bigtype" })
+				.where("year='2013' and big_money_type='2' ").build().generateSql();
 		System.out.println("查询sql:" + sql);
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {
 			@Override
@@ -617,7 +617,7 @@ public class MoneyAction extends BaseAction {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy("bigtype").sum("money")
+				.groupBy("bigtype").sum("money").where(" big_money_type='2' ")
 				.colomns(new String[] { "bigtype" }).build().generateSql();
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {
 			@Override
