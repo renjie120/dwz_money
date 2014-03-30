@@ -6,9 +6,9 @@ $(document).ready(function() {
 		action : '/money/tree!getMoneyTypeTree.do',
 		nameInput : 'moneyTypeName2',
 		height : '200px',
-		// checkbox:true,
+		 checkbox:true,
 		idInput : 'moneyType2',
-		treeId : "moneyTree3"
+		treeId : "ttt"
 	};
 	$('#moneyTypeName2').treeCombox(content);
 
@@ -24,13 +24,19 @@ function _clear() {
 function _makesure() {
 	var ans = [];
 	var names = [];
-	$('#moneyTree3').find('span.checkbox_true_full').each(
-			function() {
-				ans.push($(this).next('a').attr('id')
-						.replace('moneyTree3_', '').replace('_a', ''));
-				names.push($(this).next('a').attr('title'));
-			});
-	$("#moneyTypeName2").attr("value", names.join(','));
-	$("#moneyType2").attr("value", ans.join(','));
+	var zzz = $.fn.zTree.getZTreeObj("ttt"); 
+	var nodes = zzz.getCheckedNodes(true),v='',v2='';
+	if (nodes.length > 0 ) {
+		for ( var i = 0, l = nodes.length; i < l; i++) {
+			v += nodes[i].name + ",";
+			v2 += nodes[i].id + ",";
+		}
+		if (v.length > 0)
+			v = v.substring(0, v.length - 1);
+		if (v2.length > 0)
+			v2 = v2.substring(0, v2.length - 1); 
+	}   
+	$("#moneyTypeName2").attr("value", v);
+	$("#moneyType2").attr("value", v2);
 	$('#moneyTypeName2').hideMenu();
 }
