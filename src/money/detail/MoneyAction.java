@@ -590,11 +590,11 @@ public class MoneyAction extends BaseAction {
 	 */
 	public String reportSumByTypeAndYearAndMonth() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
+				.getBean("reportUtil"); 
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy(new String[] { "month", "bigtype" }).sum("money")
 				.colomns(new String[] { "month", "bigtype" })
-				.where("year='2013' and big_money_type='2' ").build().generateSql();
+				.where("year='"+year+"' and big_money_type='2' ").build().generateSql();
 		System.out.println("查询sql:" + sql);
 		String ans = util.getReportStr(sql, new ReportStrGenerate() {
 			@Override

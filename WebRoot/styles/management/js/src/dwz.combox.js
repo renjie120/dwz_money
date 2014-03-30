@@ -82,6 +82,10 @@
 				var label = $("option[value=" + value + "]",$this).text();
 				var ref = $this.attr("ref");
 				var refUrl = $this.attr("refUrl") || ""; 
+				//添加一个回调函数参数 .
+				var refFunction = $this.attr("relFun") || ""; 
+				//不请求的value
+				var noRequest= $this.attr("noRequest") || ""; 
 				var cid = $this.attr("id") || Math.round(Math.random()*10000000);
 				var select = '<div class="combox"><div id="combox_'+ cid +'" class="select"' + (ref?' ref="' + ref + '"' : '') + '>';
 				select += '<a href="javascript:" class="'+$this.attr("class")+'" name="' + name +'" value="' + value + '">' + label +'</a></div></div>';
@@ -119,6 +123,32 @@
 								$ref.trigger("refChange").trigger("change").combox();
 							},
 							error: DWZ.ajaxError
+						});
+					});
+				} 
+				//如果只填写了url没有填写rel,但是填写了relFun回调函数，就只进行ajax请求.
+				else if (  refUrl&&refFunction) {  
+					$this.unbind("refChange").bind("refChange", function(event){
+						//如果设置了不进行处理的值，就直接跳过.
+						if(noRequest){
+							if($this.attr("value")==noRequest)
+								return false;
+						} 
+						$.ajax({
+							type:'GET', dataType:"json", url:refUrl.replace("{value}", $this.attr("value")), cache: false,
+							data:{},
+							success: function(json){ 
+								if (!json) return; 
+								eval(refFunction+"("+json+")");  
+							},
+							error: function(json){  
+								if(json.status==200){ 
+									eval("var arr =" + json.responseText);    
+									eval(refFunction+"(\""+json.responseText+"\")");  
+								}else{
+									alert("出现错误.");
+								} 
+							}
 						});
 					});
 				}
