@@ -349,6 +349,26 @@ public class BaseDaoImpl<T, PK extends java.io.Serializable> extends
 			}
 		});
 		return (List) o;
+	}
+ 
+
+	@Override
+	public void exeBySqlQuery(final String queryStr,final Object[] params) {
+		this.getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+
+				Query query = session.createSQLQuery(queryStr);
+
+				if (params != null && params.length > 0) {
+					for (int i = 0; i < params.length; i++) {
+						query.setParameter(i, params[i]);
+					}
+				}
+				return query.executeUpdate();
+
+			}
+		}); 
 	} 
 
 }

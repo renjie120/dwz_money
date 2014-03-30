@@ -1,16 +1,11 @@
 package com.renjie120.reportUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportDataGenerate;
 import common.report.ReportStrGenerate;
-import common.report.ReportStringTool;
 
 @SuppressWarnings("deprecation")
 public class QuestionActionTest extends

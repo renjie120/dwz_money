@@ -8,8 +8,7 @@
 <!-- s:text name="ui.title" /-->
 <title>流程系统新平台</title>
 <%
-	String path = "http://127.0.0.1:9999";
-	System.out.println("path===" + path);
+	String path = "http://127.0.0.1:9999"; 
 	response.setHeader("Pragma", "No-cache");
 	response.setHeader("Cache-Control", "no-cache");
 	response.setDateHeader("Expires", 0);

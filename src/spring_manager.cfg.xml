@@ -18,6 +18,11 @@
 		class="dwz.framework.user.impl.UserManagerImpl">
 		<constructor-arg index="0" ref="sysUserDao"></constructor-arg>
 	</bean> 
+	
+	<bean id="fileManager"
+		class="common.struts2.FileManagerImpl">
+		<constructor-arg index="0" ref="fileDao"></constructor-arg>
+	</bean> 
 
 	<bean id="roleManager"
 		class="dwz.framework.user.impl.RoleManagerImpl">
