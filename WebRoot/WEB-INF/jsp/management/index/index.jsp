@@ -149,8 +149,7 @@
 					type : 'POST',
 					url : '/passport!logout.do',
 					success : function() {
-						alert(152);
-						location.href = "/management/index!login.do";
+					 	location.reload();
 					},
 					error : DWZ.ajaxError
 				});
@@ -170,7 +169,7 @@
 						mask="true">我的资料</a></li>
 					<li><a href="/management/index!editPwd.do" target="dialog"
 						mask="true">修改密码</a></li>
-					<li><a href="#" onclick="logout()">退出登录</a></li>
+					<li><a  onclick="logout()">退出登录</a></li>
 				</ul>
 			</div>
 		</div>
