@@ -37,6 +37,15 @@ public interface BaseDao<T, PK extends java.io.Serializable> {
 			final Object[] params);
 
 	/**
+	 * 执行原始s'q'l
+	 * @param queryStr
+	 * @param params
+	 */
+	public void exeBySqlQuery(final String queryStr,
+			final Object[] params);
+
+	
+	/**
 	 * 自己写hql进行查询的语句.
 	 * 
 	 * @param queryStr

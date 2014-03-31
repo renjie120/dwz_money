@@ -83,6 +83,9 @@
 			<result name="input">
 				/WEB-INF/jsp/management/index/login.jsp
 			</result>
+			<result name="logout">
+				/WEB-INF/jsp/homepageurl/HomePageUrllist.jsp
+			</result>
 			<result name="login2">
 				/WEB-INF/jsp/management/index/login.jsp
 			</result>

@@ -13,6 +13,11 @@ class DaoConstant {
 	public static final String COMMON_SQL_PREFIX = "commonSql";
 	
 	/**
+	 * 执行原始的sql进行操作.
+	 */
+	public static final String COMMON_EXE_SQL_PREFIX = "commonExecuteSql";
+	
+	/**
 	 * 自己写hql进行查询.
 	 */
 	public static final String HIBERNATE_SQL_PREFIX = "hibernateSql";

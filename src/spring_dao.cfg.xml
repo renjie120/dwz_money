@@ -33,6 +33,19 @@
 		</property>
 	</bean>
 	
+	<bean id="fileDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>common.struts2.FileDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg
+					value="common.struts2.MyFile">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
 	<bean id="sysLogDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>dwz.persistence.daos.SysLogDao</value>

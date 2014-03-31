@@ -42,7 +42,7 @@
 				<param name="name">uploadMethodFilter</param>
 			</interceptor>
 		</interceptors>
-		<action name="test" class="common.struts2.UploadAction">
+		<!-- action name="test" class="common.struts2.UploadAction">
 			<param name="allowTypes">
 				image/png,image/bmp,image/jpeg
 			</param>
@@ -61,8 +61,25 @@
 			<result name="success">
 				/WEB-INF/struts2/consoleUpload.jsp
 			</result>
-		</action>
+		</action -->
 
+		<action name="test" class="common.struts2.UploadAction">
+			<param name="allowTypes">
+				image/png,image/bmp,image/jpeg
+			</param>
+			<param name="savePath">/upload</param>  
+			<result name="init">
+				/WEB-INF/struts2/fileupload.jsp
+			</result>
+			<result name="input">
+				/WEB-INF/struts2/typeChangeError.jsp
+			</result>
+			<result name="ognl">/WEB-INF/struts2/ognlTest.jsp</result>
+			<result name="success">
+				/WEB-INF/struts2/consoleUpload.jsp
+			</result>
+		</action>
+		
 		<action name="test2" class="common.struts2.UploadAction2">
 			<param name="allowTypes">
 				image/png,image/bmp,image/jpeg

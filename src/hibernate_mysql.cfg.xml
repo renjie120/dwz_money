@@ -52,6 +52,7 @@
 		<mapping resource="hbm/homepageurl.hbm.xml" />
 		<mapping resource="hbm/plan.hbm.xml" />
 		<mapping resource="hbm/myuser.hbm.xml" />
+		<!-- mapping resource="hbm/myfile.hbm.xml" / -->
 		<mapping resource="hbm/menu.hbm.xml" />
 		<mapping resource="hbm/org.hbm.xml" />
 		<mapping resource="hbm/userroleright.hbm.xml" />

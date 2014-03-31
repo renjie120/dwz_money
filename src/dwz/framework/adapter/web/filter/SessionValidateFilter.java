@@ -53,14 +53,13 @@ public class SessionValidateFilter implements Filter {
 		validator.init(request.getSession());
 
 		String queryString = request.getQueryString();
-		String requestUri = request.getRequestURI();
+		String requestUri = request.getRequestURI(); 
 //		if ("/".equals(requestUri)) requestUri = "/index!index.do";
  
 		for (String unsecureUri : this.unsecureUris) {
 			String unsecureQuery = null;
 			String uri = unsecureUri;
-			boolean unsecure = false;
-
+			boolean unsecure = false; 
 			if (unsecureUri.indexOf("?") >= 0) {
 				uri = unsecureUri.substring(0, unsecureUri.indexOf("?"));
 				unsecureQuery = unsecureUri

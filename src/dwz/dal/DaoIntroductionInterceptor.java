@@ -6,7 +6,7 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.IntroductionInterceptor;
-											         
+
 public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 
 	private static Log log = LogFactory
@@ -53,29 +53,45 @@ public class DaoIntroductionInterceptor implements IntroductionInterceptor {
 			}
 			return baseDao.findCmd(queryName, params);
 		}
-		//如果sql名称以commonSql开头就进行调用原始sql进行查询.
+		// 如果sql名称以commonSql开头就进行调用原始sql进行查询.
 		if (methodName.startsWith(DaoConstant.COMMON_SQL_PREFIX)) {
 			if (params == null || params.length < 1) {
 				throw new java.lang.IllegalArgumentException(
 						"The CommonSQL Illegal Argument length < 1");
 			}
-			queryName = (String)params[0];
-			if(params.length>1){
-				params = (Object[])params[1];
+			queryName = (String) params[0];
+			if (params.length > 1) {
+				params = (Object[]) params[1];
 				return baseDao.findBySqlQuery(queryName, params);
-			}else
+			} else
 				return baseDao.findBySqlQuery(queryName, null);
+		}// 如果sql名称以commonSql开头就进行调用原始sql进行查询.
+		else if (methodName.startsWith(DaoConstant.COMMON_EXE_SQL_PREFIX)) {
+			if (params == null || params.length < 1) {
+				throw new java.lang.IllegalArgumentException(
+						"The COMMON_EXE_SQL_PREFIX Illegal Argument length < 1");
+			}
+
+			queryName = (String) params[0];
+			if (params.length > 1) {
+				params = (Object[]) params[1];
+				baseDao.exeBySqlQuery(queryName, params);
+				return null;
+			} else {
+				baseDao.exeBySqlQuery(queryName, null);
+				return null;
+			}
 		}
 		if (methodName.startsWith(DaoConstant.HIBERNATE_SQL_PREFIX)) {
 			if (params == null || params.length < 1) {
 				throw new java.lang.IllegalArgumentException(
 						"The CommonSQL Illegal Argument length < 1");
 			}
-			queryName = (String)params[0];
-			if(params.length>1){
-				params = (Object[])params[1];
+			queryName = (String) params[0];
+			if (params.length > 1) {
+				params = (Object[]) params[1];
 				return baseDao.findByQuery(queryName, params);
-			}else
+			} else
 				return baseDao.findByQuery(queryName, null);
 		}
 		throw new NoSupportDaoMethodException(

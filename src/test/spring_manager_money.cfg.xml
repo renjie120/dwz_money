@@ -11,6 +11,10 @@
 	<bean id="userrolerightManager" class="money.rolemanager.UserRoleRightManagerImpl">
 		<constructor-arg index="0" ref="userrolerightDao"></constructor-arg>
 	</bean>
+	<bean id="fileManager"
+		class="common.struts2.FileManagerImpl">
+		<constructor-arg index="0" ref="fileDao"></constructor-arg>
+	</bean> 
 	<bean id="homepageurlManager" class="money.homepage.HomePageUrlManagerImpl">
 		<constructor-arg index="0" ref="homepageurlDao"></constructor-arg>
 	</bean>
