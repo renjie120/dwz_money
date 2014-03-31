@@ -11,15 +11,14 @@
 		</property>
 		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
-		</property> 
-		<property name="hibernate.connection.autocommit">true</property> 
- 	   <property name="connection.url">jdbc:mysql://127.0.0.1:3306/dwz4j</property>
+		</property>
+		<property name="hibernate.connection.autocommit">true</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/dwz4j</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">987425</property>    
-		
-			<!--  <property name="connection.url">jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120</property> 
-		<property name="connection.username">renjie120</property>
-		<property name="connection.password">lishuiqing2014ZSQ</property>-->
+		<property name="connection.password">987425</property>
+
+		<!-- <property name="connection.url">jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120</property> 
+			<property name="connection.username">renjie120</property> <property name="connection.password">lishuiqing2014ZSQ</property> -->
 		<property name="show_sql">true</property>
 
 		<!-- C3P0连接池设定 -->
@@ -52,7 +51,7 @@
 		<mapping resource="hbm/homepageurl.hbm.xml" />
 		<mapping resource="hbm/plan.hbm.xml" />
 		<mapping resource="hbm/myuser.hbm.xml" />
-		<!-- mapping resource="hbm/myfile.hbm.xml" / -->
+		<mapping resource="hbm/filemanager.hbm.xml" />
 		<mapping resource="hbm/menu.hbm.xml" />
 		<mapping resource="hbm/org.hbm.xml" />
 		<mapping resource="hbm/userroleright.hbm.xml" />

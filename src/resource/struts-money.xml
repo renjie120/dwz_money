@@ -16,6 +16,17 @@
 				/WEB-INF/jsp/homepageurl/HomePageUrledit.jsp
 			</result>
 		</action>
+		<action name="filemanager" class="money.filemanage.FileManagerAction">
+			<result name="list">
+				/WEB-INF/jsp/filemanager/FileManagerlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/filemanager/FileManagerinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/filemanager/FileManageredit.jsp
+			</result>
+		</action>
 		<action name="role" class="money.rolemanager.RoleAction">
 			<result name="list">
 				/WEB-INF/jsp/role/Rolelist.jsp

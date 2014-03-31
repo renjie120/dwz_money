@@ -8,6 +8,10 @@
 	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">
 		<constructor-arg index="0" ref="rolewithmenuDao"></constructor-arg>
 	</bean>
+	<bean id="filemanagerManager"
+	class="money.filemanage.FileManagerManagerImpl">
+		<constructor-arg index="0" ref="filemanagerDao"></constructor-arg>
+	</bean> 
 	<bean id="userrolerightManager" class="money.rolemanager.UserRoleRightManagerImpl">
 		<constructor-arg index="0" ref="userrolerightDao"></constructor-arg>
 	</bean>

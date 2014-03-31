@@ -104,13 +104,7 @@
 			</bean>
 		</property>
 	</bean>
-
-	<bean id="jdbcTool" class="common.MyJdbcTool">
-		<property name="jdbcTemplate">
-			<ref bean="jdbcTemplate" />
-		</property>
-	</bean>
-
+ 
 
 	<bean id="planDao" parent="daoProxy">
 		<property name="proxyInterfaces">

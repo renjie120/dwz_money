@@ -16,6 +16,17 @@
 			</bean>
 		</property>
 	</bean> 
+	<bean id="filemanagerDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.filemanage.FileManagerDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.filemanage.FileManagerVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="homepageurlDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.homepage.HomePageUrlDao</value>

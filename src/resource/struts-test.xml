@@ -13,63 +13,48 @@
 
 
 	<package name="gridtree" namespace="/gridtree" extends="struts2">
-		<action name="gridTree"
-			class="querygridtree.action.GridTreeAction" />
+		<action name="gridTree" class="querygridtree.action.GridTreeAction" />
 
-		<action name="demo"
-			class="querygridtree.action.InitGridTreeAction" />
+		<action name="demo" class="querygridtree.action.InitGridTreeAction" />
 	</package>
 
 	<package name="commonGridTree" namespace="/commongridtree"
 		extends="struts2">
-		<action name="initlazy"
-			class="testGridTree.action.InitTableTreeLazyAction" />
+		<action name="initlazy" class="testGridTree.action.InitTableTreeLazyAction" />
 
-		<action name="lazy"
-			class="testGridTree.action.TableTreeLazyAction" />
+		<action name="lazy" class="testGridTree.action.TableTreeLazyAction" />
 
-		<action name="lazypage"
-			class="testGridTree.action.TableTreeLazyPagingAction" />
+		<action name="lazypage" class="testGridTree.action.TableTreeLazyPagingAction" />
 
-		<action name="common"
-			class="testGridTree.action.TableTreeAction" />
+		<action name="common" class="testGridTree.action.TableTreeAction" />
 	</package>
 
 	<package name="upload" namespace="/upload" extends="struts2">
 		<interceptors>
-			<interceptor name="myMethodInterceptor"
-				class="common.struts2.MyMethodInterceptor">
+			<interceptor name="myMethodInterceptor" class="common.struts2.MyMethodInterceptor">
 				<param name="name">uploadMethodFilter</param>
 			</interceptor>
 		</interceptors>
-		<!-- action name="test" class="common.struts2.UploadAction">
-			<param name="allowTypes">
-				image/png,image/bmp,image/jpeg
-			</param>
-			<param name="savePath">/upload</param>
-			<interceptor-ref name="fileUpload">
-				<param name="allowTypes">
-					image/png,image/bmp,image/jpeg
-				</param>
-				<param name="maximumSize">2000000</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack" />
-			<result name="init">/WEB-INF/struts2/fileupload.jsp</result>
-			<result name="input">
-				/WEB-INF/struts2/typeChangeError.jsp
-			</result>
-			<result name="success">
-				/WEB-INF/struts2/consoleUpload.jsp
-			</result>
-		</action -->
+		<!-- action name="test" class="common.struts2.UploadAction"> <param name="allowTypes"> 
+			image/png,image/bmp,image/jpeg </param> <param name="savePath">/upload</param> 
+			<interceptor-ref name="fileUpload"> <param name="allowTypes"> image/png,image/bmp,image/jpeg 
+			</param> <param name="maximumSize">2000000</param> </interceptor-ref> <interceptor-ref 
+			name="defaultStack" /> <result name="init">/WEB-INF/struts2/fileupload.jsp</result> 
+			<result name="input"> /WEB-INF/struts2/typeChangeError.jsp </result> <result 
+			name="success"> /WEB-INF/struts2/consoleUpload.jsp </result> </action -->
 
 		<action name="test" class="common.struts2.UploadAction">
 			<param name="allowTypes">
 				image/png,image/bmp,image/jpeg
 			</param>
-			<param name="savePath">/upload</param>  
+			<param name="savePath">/upload</param>
 			<result name="init">
 				/WEB-INF/struts2/fileupload.jsp
+			</result>
+			<result name="download" type="stream">
+				<param name="contentType">application/octet-stream;charset=UTF-8</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="inputName">downloadFile</param>
 			</result>
 			<result name="input">
 				/WEB-INF/struts2/typeChangeError.jsp
@@ -79,7 +64,7 @@
 				/WEB-INF/struts2/consoleUpload.jsp
 			</result>
 		</action>
-		
+
 		<action name="test2" class="common.struts2.UploadAction2">
 			<param name="allowTypes">
 				image/png,image/bmp,image/jpeg
@@ -153,10 +138,8 @@
 		</action>
 	</package>
 
-	<package name="typechange" namespace="/typechangedemo"
-		extends="struts2">
-		<action name="saveuser"
-			class="common.struts2.TypeChangeAction">
+	<package name="typechange" namespace="/typechangedemo" extends="struts2">
+		<action name="saveuser" class="common.struts2.TypeChangeAction">
 			<result name="success">
 				/WEB-INF/struts2/userTest.jsp
 			</result>
@@ -168,8 +151,7 @@
 			</result>
 		</action>
 
-		<action name="saveuser2"
-			class="common.struts2.TypeChangeAction2">
+		<action name="saveuser2" class="common.struts2.TypeChangeAction2">
 			<result name="success">
 				/WEB-INF/struts2/userTest.jsp
 			</result>
@@ -180,9 +162,9 @@
 				/WEB-INF/jsp/typechangedemo/saveuser/initUser2.jsp
 			</result>
 		</action>
-	</package> 
+	</package>
 
-	<package name="source" namespace="/source" extends="struts2"> 
+	<package name="source" namespace="/source" extends="struts2">
 		<action name="*" class="common.struts2.PlainTextResultAction">
 			<result name="jsp" type="plainText">
 				/WEB-INF/source/{1}.jsp

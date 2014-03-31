@@ -12,20 +12,25 @@
 		<property name="configLocation" value="classpath:hibernate_mysql.cfg.xml">
 		</property>
 	</bean>
-
-	<bean id="propertyFileConfigForDB" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-		<property name="location"> 
-			<value>classpath:db.properties</value>   
+	<bean id="jdbcTool" class="common.MyJdbcTool">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
 		</property>
-	</bean> 
+	</bean>
+
+	<bean id="propertyFileConfigForDB"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:db.properties</value>
+		</property>
+	</bean>
 	<bean id="ds"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-	</bean> 
+	</bean>
 
 	<!-- jdbc modle -->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
@@ -77,10 +82,10 @@
 	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
 		<property name="basenames"> <list> <value>resource/messages</value> </list> 
 		</property> </bean> -->
- 
-	<import resource="spring_dao_money.cfg.xml" /> 
+
+	<import resource="spring_dao_money.cfg.xml" />
 	<import resource="spring_manager_money.cfg.xml" />
- 
+
 
 	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
 	</bean>

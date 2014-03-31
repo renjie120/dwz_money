@@ -1,11 +1,8 @@
 ﻿package common.struts2;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.UUID;
 
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -28,6 +25,7 @@ public class UploadAction extends BaseAction {
 	public File getUpload() {
 		return upload;
 	}
+ 
 
 	public void setUpload(File upload) {
 		this.upload = upload;
@@ -38,6 +36,16 @@ public class UploadAction extends BaseAction {
 	private String uploadContentType;
 	private String uploadFileName;
 	private String fileId;
+	private String fileName;
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	// 设置允许上传的文件类型
 	private String allowTypes;
 	// 下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
@@ -115,15 +123,15 @@ public class UploadAction extends BaseAction {
 		// 下面的文件上传类型的是通过Action配置文件里面的属性注入的！param
 		String destFileName = getSavePath() + "\\" + uploadFileName;
 
-		FileOutputStream fos = new FileOutputStream(destFileName);
+//		FileOutputStream fos = new FileOutputStream(destFileName);
 		FileInputStream fis = new FileInputStream(getUpload());
-		byte[] buffer = new byte[1024];
-		int len = 0;
-		while ((len = fis.read(buffer)) > 0) {
-			fos.write(buffer, 0, len);
-		}
-		fis.close();
-		fos.close();
+//		byte[] buffer = new byte[1024];
+//		int len = 0;
+//		while ((len = fis.read(buffer)) > 0) {
+//			fos.write(buffer, 0, len);
+//		}
+//		fis.close();
+//		fos.close();
 		File f2 = new File(destFileName);
 		fileId = UUID.randomUUID().toString();
 		int fileLen = getFileSizes(upload);
@@ -132,22 +140,17 @@ public class UploadAction extends BaseAction {
 		f.setFileId(fileId);
 		f.setFileName(fileName);
 		f.setFileLen(fileLen);
-		f.setContent(f2);
-		fMgr.saveFile(f);
+		f.setContent(getUpload());
+		boolean result = fMgr.saveFile(f,fis);
+		if (result)
+			f2.deleteOnExit();
 		return "success";
 	}
-	
-	public InputStream getFile() throws Exception {  
-		MyFile file = fMgr.getFile(fileId);
-		File f = file.getContent();
-		Byte b = new 
-		//2、创建OutputStream类，并为此实例化对象  
-        OutputStream out=new FileOutputStream();   
-        byte b[]=str.getBytes();  
-        out.write(b);  
-        //4、关闭输入流  
-        out.close();  
-		return new ByteArrayInputStream(b);
+
+	public String getFile() throws Exception {
+		System.out.println("下载文件：" + fileId);
+		fMgr.getFile(fileId, response);
+		return null;
 	}
 
 	public String saveFile() throws Exception {
@@ -158,27 +161,9 @@ public class UploadAction extends BaseAction {
 		factory.setRepository(new File(getSavePath()));
 		ServletFileUpload uu = new ServletFileUpload(factory);
 		// 文件最大上限
-		uu.setSizeMax(2 * 1024 * 1024);
-		System.out.println("saveFile===");
+		uu.setSizeMax(2 * 1024 * 1024); 
 		// 下面的文件上传类型的是通过Action配置文件里面的属性注入的！param
 		String destFileName = getSavePath() + "\\" + uploadFileName;
-		// 获取所有文件列表
-		// List<FileItem> items = uu.parseRequest(request);
-		// for (FileItem item : items) {
-		// System.out.println("82");
-		// String fileName = item.getName();
-		// //检查文件后缀格式
-		// String fileEnd =
-		// fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-		// //创建文件唯一名称
-		// String uuid = UUID.randomUUID().toString();
-		// //真实上传路径
-		// StringBuffer sbRealPath = new StringBuffer();
-		// sbRealPath.append(getSavePath()).append(uuid).append(".").append(fileEnd);
-		// System.out.println("sbRealPath---"+sbRealPath);
-		// File file = new File(sbRealPath.toString());
-		// item.write(file);
-		// }
 		FileOutputStream fos = new FileOutputStream(destFileName);
 		FileInputStream fis = new FileInputStream(getUpload());
 		byte[] buffer = new byte[1024];
@@ -188,20 +173,6 @@ public class UploadAction extends BaseAction {
 		}
 		fis.close();
 		fos.close();
-		// 将上传的文件压缩之后，删除原文件.
-		// File destFile = new File(destFileName);
-		// if (destFile.exists()) {
-		// // 如果是excel文件，进行读取.
-		// if (uploadFileName.endsWith(".xls")
-		// || uploadFileName.endsWith(".xlsx")) {
-		//
-		// }
-		// ZipCompressor zipCompressor = new ZipCompressor(getSavePath()
-		// + "\\" + System.currentTimeMillis() + ".zip");
-		// zipCompressor.compress(destFileName);
-		//
-		// }
-		// destFile.delete();
 		return "success";
 	}
 
