@@ -5,23 +5,24 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
-	<bean id="activiti_ds"
-		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<!--  bean id="activiti_ds"
+		class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClass" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-	</bean>
+	</bean> -->
+	
 
 	<bean id="transactionManager2"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="activiti_ds" />
+		<property name="dataSource" ref="ds" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager2" />
 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-		<property name="dataSource" ref="activiti_ds" />
+		<property name="dataSource" ref="ds" />
 		<property name="transactionManager" ref="transactionManager2" />
 		<property name="databaseSchemaUpdate" value="true" />
 		<property name="jobExecutorActivate" value="false" />
