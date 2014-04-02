@@ -107,7 +107,7 @@
 
 	<listener>
 		<listener-class>
-	dwz.framework.adapter.web.listener.AppContextInitListener</listener-class>
+			dwz.framework.adapter.web.listener.AppContextInitListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -123,4 +123,23 @@
 		<!--<welcome-file>index!index.do</welcome-file> -->
 		<welcome-file>/homepage/index.html</welcome-file>
 	</welcome-file-list>
+
+
+
+	<!-- restful -->
+	<servlet>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.renjie120.restful</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- restful end -->
 </web-app>

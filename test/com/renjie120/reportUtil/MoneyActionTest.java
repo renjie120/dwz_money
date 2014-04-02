@@ -1,11 +1,7 @@
 package com.renjie120.reportUtil;
 
-import java.util.List;
-
-import org.junit.Test;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
-import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate;
