@@ -21,8 +21,9 @@ function suspend(obj) {
 }
 
 function mydone(json){ 
-	alert(JSON.stringify(json));
+	//alert(JSON.stringify(json));
 	navTabAjaxDone(json);  
+	alertMsg.error(json.message);
 	navTab.reloadFlag("lcfb");
 }
 </script>
