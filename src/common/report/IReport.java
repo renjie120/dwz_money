@@ -21,4 +21,6 @@ public interface IReport {
 	public List<Column> getColumns();
 
 	public String getWhere();
+	
+	public List<String> getOrders();
 }

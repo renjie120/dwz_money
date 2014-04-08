@@ -122,7 +122,57 @@ function initHightCharts($char,arr){
 				data : arr
 			} ]
 		});	
-	}else if($char.attr('type')=='column'){
+	}
+	//正负图
+	else if($char.attr('type')=='columnrange') {
+		if(arr.length<1)
+			return false;
+		var categories = [];
+		var dataes = [];
+		var _len = arr.length;
+		for(var _i=0;_i<_len;_i++){
+			categories.push(arr[_i][0]);
+			var _ar = [];
+			_ar.push(arr[_i][1]);
+			_ar.push(arr[_i][2]);
+			dataes.push(_ar);
+		} 
+		$char.highcharts({ 
+		    chart: {
+		        type: 'columnrange',
+		        inverted:$char.attr('inverted')=='true'?true:false //是否横向显示，默认不是
+		    },
+		    
+		    title: {
+		        text: $char.attr('title') 
+		    },
+		    
+			subtitle: {
+		        text: $char.attr('subtitle')  
+		    },
+		
+		    xAxis: {
+		        categories:categories
+		    },   
+		    plotOptions: {
+		        columnrange: {
+		        	dataLabels: {
+		        		enabled: true,
+		        		formatter: function () {
+		        			return this.y + '次';
+		        		}
+		        	}
+		        }
+		    }, 
+		
+		    series: [{
+		        name: $char.attr('series')  ,
+		        data: dataes
+		    }]
+		
+		});
+	}
+	else if($char.attr('type')=='column'){
 		//alert("列的行数："+arr.length);
 		if(arr.length<1)
 			return false;

@@ -16,6 +16,8 @@ import java.util.Map;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
+import common.base.AllSelect;
+import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
@@ -554,6 +556,27 @@ public class MoneyAction extends BaseAction {
 				return "['" + objs[1] + "'," + objs[0] + " ]";
 			}
 
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+	
+	/**
+	 * 统计功过记录的数据报表图.
+	 * @return
+	 */
+	public String reportGongguoStatis() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("gongguo_view")
+				.groupBy(new String[] { "g_value"  })
+				.colomns(new String[] {  "pname"  }).sum("flag").count().order("g_value").build().generateSql();
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[2] + "'," + (Double.parseDouble(objs[0]+"")-Double.parseDouble(objs[1]+""))+","+ (Double.parseDouble(objs[0]+""))+ "]";
+			}
 		});
 		writeToPage(response, ans);
 		return null;

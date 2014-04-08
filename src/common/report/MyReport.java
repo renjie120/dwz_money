@@ -18,6 +18,7 @@ public class MyReport implements IReport {
 	private Group group;
 	private String having;
 	private List<IStatis> statises;
+	private List<String> orders;
 
 	private MyReport(Builder build) {
 		this.table = build.table;
@@ -26,6 +27,7 @@ public class MyReport implements IReport {
 		this.group = build.group;
 		this.having = build.having;
 		this.statises = build.statises;
+		this.orders = build.orders;
 	}
 
 	public static class Builder {
@@ -35,6 +37,7 @@ public class MyReport implements IReport {
 		private Group group;
 		private String having;
 		private List<IStatis> statises;
+		private List<String> orders;
 
 		public Builder(String table) {
 			super();
@@ -60,6 +63,14 @@ public class MyReport implements IReport {
 				statises = new ArrayList<IStatis>();
 			}
 			statises.add(new Count1());
+			return this;
+		}
+
+		public Builder order(String column) {
+			if (this.orders == null) {
+				orders = new ArrayList<String>();
+			}
+			orders.add(column);
 			return this;
 		}
 
@@ -142,6 +153,15 @@ public class MyReport implements IReport {
 		buf.append(group);
 		if (CommonUtil.isNotEmpty(having))
 			buf.append(having);
+		
+		if (CommonUtil.isNotBlank(orders)){
+			buf.append(" order by ");
+			for(String s:orders){
+				buf.append(s+",");
+			}
+			buf.deleteCharAt(buf.lastIndexOf(","));
+		}
+			 
 		return buf.toString();
 	}
 
@@ -167,6 +187,11 @@ public class MyReport implements IReport {
 
 	public List<IStatis> getStatises() {
 		return statises;
+	}
+
+	@Override
+	public List<String> getOrders() {
+		return orders;
 	}
 
 }

@@ -29,13 +29,13 @@
 					<td>年度</td>
 					<td><my:newselect tagName="year" width="200"
 							idColumn="paramvalue" nameColumn="parametername"
-							tableName="params" where="parameterType=8" selectFlag="true"
+							tableName="params" where="parameterType=7" selectFlag="true"
 							selectedValue="<%=year %>" /></td>
 					<td>月份</td>
 					<td><my:newselect tagName="month" width="200"
 							idColumn="paramvalue" selectedValue="<%=month %>"
 							nameColumn="parametername" tableName="params"
-							where="parameterType=9" selectFlag="true" /></td>
+							where="parameterType=8" selectFlag="true" /></td>
 					<td>分类</td>
 					<td><input name="moneyTypeName" id="moneyTypeName2" type="text"
 						readOnly="true" value="<%=moneyTypeName%>" /> <input

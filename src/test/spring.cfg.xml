@@ -9,7 +9,125 @@
 	<!-- session factory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="configLocation" value="classpath:hibernate_mysql.cfg.xml">
+		<!-- to override, use the "SpringDatasourceConfig" snippet in your project -->
+		<property name="dataSource">
+			<ref local="ds" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>
+					dwz/persistence/beans/InfNews.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysRole.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysLog.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysResource.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysPermission.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysSession.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysUserRole.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysUser.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/ConFolder.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/ConFile.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SetPreference.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/WebPage.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/WebWebsite.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/InvCategory.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/InvProduct.hbm.xml
+				</value>
+				<value>
+					hbm/moneyDetail.hbm.xml
+				</value>
+				<value>
+					hbm/param.hbm.xml
+				</value>
+				<value>
+					hbm/paramtype.hbm.xml
+				</value>
+				<value>
+					hbm/usermenuright.hbm.xml
+				</value>
+				<value>
+					hbm/homepageurl.hbm.xml
+				</value>
+				<value>
+					hbm/plan.hbm.xml
+				</value>
+				<value>
+					hbm/myuser.hbm.xml
+				</value>
+				<value>
+					hbm/filemanager.hbm.xml
+				</value>
+				<value>
+					hbm/menu.hbm.xml
+				</value>
+				<value>
+					hbm/org.hbm.xml
+				</value>
+				<value>
+					hbm/userroleright.hbm.xml
+				</value>
+				<value>
+					hbm/role.hbm.xml
+				</value>
+				<value>
+					hbm/moneytype.hbm.xml
+				</value>
+				<value>
+					hbm/question.hbm.xml
+				</value>
+				<value>
+					hbm/rolewithmenu.hbm.xml
+				</value>
+				<value>
+					hbm/cache.hbm.xml
+				</value>
+				<value>
+					hbm/diary.hbm.xml
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.jdbc.fetch_size">5</prop>
+				<prop key="hibernate.connection.pool_size">2</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.max_fetch_depth">1</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+			</props>
 		</property>
 	</bean>
 	<bean id="jdbcTool" class="common.MyJdbcTool">
@@ -40,8 +158,9 @@
 		<property name="password" value="${password}" />
 
 
-		<!-- druid 连接池的 -->
-		<property name="filters" value="stat" />
+		<!-- druid 连接池的 -->	<property name="connectionProperties" value="config.decrypt=true" />
+		<property name="filters" value="stat,config" /> 
+		
 
 		<!-- 下面druid 和 dbcp 连接池通用的 ↓↓↓↓↓↓↓↓↓↓↓↓ -->
 		<!--maxActive: 最大连接数量 -->
