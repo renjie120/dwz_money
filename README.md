@@ -1,5 +1,6 @@
 使用dwz-jui框架搭建的一个快速开发平台
 =========
+ ![image](https://github.com/renjie120/dwz_money/raw/master/images/homepage.jpg)
 
 ###代码相关
 * 前台：jquery,dwz
