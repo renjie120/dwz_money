@@ -55,9 +55,9 @@
 		style="width: 300px; height: 250px; float: left; border: 1 red;"
 		url="/money/newmoney!reportSumByType.do"></div>
 
-	<div id="hm_chartdiv5" class="highcharts" type="columnrange" serialName="正负能量" inverted="false"
+	<div id="hm_chartdiv5" class="highcharts" type="columnrange" serialName="正负能量" inverted="true"
 		title='功过正负能量统计图' subtitle='时间最近...' series="次数统计"
-		style="width: 1450px; height: 600px; float: left; border: 1 red;"
+		style="width: 900px; height: 600px; float: left; border: 1 red;"
 		url="/money/newmoney!reportGongguoStatis.do"></div>
 
 </div>

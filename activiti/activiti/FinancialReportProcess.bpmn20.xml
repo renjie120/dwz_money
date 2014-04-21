@@ -3,11 +3,12 @@
 
 	<process id="financialReport" name="Monthly financial report reminder process">
 
-		<startEvent id="theStart" />
+		<startEvent id="theStart" activiti:formKey="开始111"/>
 
 		<sequenceFlow id='flow1' sourceRef='theStart' targetRef='writeReportTask' />
 
-		<userTask id="writeReportTask" name="Write monthly financial report">
+		<userTask id="writeReportTask" activiti:formKey="书写任务"
+			name="Write monthly financial report">
 			<documentation>
 				Write monthly financial report for publication to
 				shareholders.
