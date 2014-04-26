@@ -244,7 +244,7 @@ function initHightCharts($char,arr){
 				title : {
 					text : $char.attr('title'), 
 				},
-				yAxis: {  title: { text: $char.attr('yAxisName')?$char.attr('yAxisName'):'值' } },
+				//yAxis: {  title: { text: $char.attr('yAxisName')?$char.attr('yAxisName'):'值' } },
 				//显示点的值
 				plotOptions: {
 		            column: {

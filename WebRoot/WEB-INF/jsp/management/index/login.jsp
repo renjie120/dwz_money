@@ -112,7 +112,7 @@ input.login-field {
 					<tr>
 						<td class="login-button2">密码</td>
 						<td><input type="password" name="app_password" size="20"
-							class="login-field" value="11111" /></td>
+							class="login-field" value="111111" /></td>
 						<td>(默认为1)</td>
 					</tr>
 					<tr>

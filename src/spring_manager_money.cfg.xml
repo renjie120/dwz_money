@@ -8,12 +8,14 @@
 	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">
 		<constructor-arg index="0" ref="rolewithmenuDao"></constructor-arg>
 	</bean>
-	<bean id="filemanagerManager"
-	class="money.filemanage.FileManagerManagerImpl">
+	<bean id="filemanagerManager" class="money.filemanage.FileManagerManagerImpl">
 		<constructor-arg index="0" ref="filemanagerDao"></constructor-arg>
-	</bean> 
+	</bean>
 	<bean id="userrolerightManager" class="money.rolemanager.UserRoleRightManagerImpl">
 		<constructor-arg index="0" ref="userrolerightDao"></constructor-arg>
+	</bean>
+	<bean id="stockmanagerManager" class="money.stockmanage.StockManagerManagerImpl">
+		<constructor-arg index="0" ref="stockmanagerDao"></constructor-arg>
 	</bean>
 	<bean id="homepageurlManager" class="money.homepage.HomePageUrlManagerImpl">
 		<constructor-arg index="0" ref="homepageurlDao"></constructor-arg>

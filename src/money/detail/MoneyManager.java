@@ -18,22 +18,25 @@ public interface MoneyManager extends BusinessObjectManager {
 
 	public Integer searchMoneyNum(Map<MoneySearchFields, Object> criterias);
 
-	
 	/**
 	 * 根据条件按照分类重新金额总数.
+	 * 
 	 * @param criterias
 	 * @return
 	 */
-	public Collection<Money> searchMoneyByType(Map<MoneySearchFields, Object> criterias);
+	public Collection<Money> searchMoneyByType(
+			Map<MoneySearchFields, Object> criterias);
 
 	/**
 	 * 根据年份进行分组统计金额数据.
+	 * 
 	 * @return
 	 */
 	public Collection<Object[]> reportMoneyGroupByYear();
-	
+
 	/**
 	 * 根据年份，月份进行统计金额数据.
+	 * 
 	 * @param year
 	 * @return
 	 */
@@ -43,7 +46,14 @@ public interface MoneyManager extends BusinessObjectManager {
 	public void createMoney(Money money) throws ValidateFieldsException;
 
 	@Transactional
+	public void createMoney(Money money, int splitMonths)
+			throws ValidateFieldsException;
+
+	@Transactional
 	public void updateMoney(Money money) throws ValidateFieldsException;
+
+	@Transactional
+	public void updateMoney(Money money,int splitMonth) throws ValidateFieldsException;
 
 	@Transactional
 	public void removeMoney(String moneyId);

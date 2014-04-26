@@ -56,7 +56,22 @@
 					value="<s:property value="moneyVo.moneyTypeName"/>" /> <input
 					name="moneyType" 	id="moneyType"  type="hidden"
 					value="<s:property value="moneyVo.moneyType"/>" /> </a>
-			</div>
+			</div> 
+			 <s:if test="%{moneyVo.splitSno!=null}"> 
+			 <div class="unit">
+				<label> 原金额： </label><label>  <s:property value="moneyVo.realMoney"/> </label>
+			 </div>
+			 </s:if>
+			  <s:if test="%{moneyVo.splitSno==null}"> 
+				<div class="unit">
+				<label> 拆分： </label> <select name="splitMonth"><option value="1">不拆分</option><option value="2">2月</option>
+					<option value="3">3月</option>
+					<option value="6">6月</option>
+					<option value="8">8月</option>
+					<option value="12">12月</option>
+				</select>
+			 </div>
+			 </s:if> 
 			<div class="unit">
 				<label> 描述： </label>
 				<textarea class="editor" name="moneyDesc" rows="5" cols="30"><s:property value="moneyVo.moneyDesc" /></textarea>

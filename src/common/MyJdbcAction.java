@@ -95,19 +95,22 @@ public class MyJdbcAction extends BaseAction {
 		if (moneyStr != null) {
 			String[] diaries = moneyStr.split("\\$;");
 			for (String d : diaries) {
-				String[] strs = d.split("\\$,");
-				if (strs.length > 5)
+ 				String[] strs = d.split("\\$,");
+				if (strs.length > 5){
+					//转换为新的日记类型对应的id
+					String tp = "0".equals(strs[5])?"58":("1".equals(strs[5])?"59":"60");
 					sqlsql = "insert into diary_detail(content,time,type) values("
 							+ "'"
 							+ strs[4]
 							+ "','"
 							+ strs[1]
 							+ "','"
-							+ strs[5]
-							+ "'')";
+							+ tp
+							+ "')";
+				}
 				else
-					sqlsql = "insert into diary_detail(content,time) values("
-							+ "'" + strs[4] + "','" + strs[1] + "')";
+					sqlsql = "insert into diary_detail(content,time,type) values("
+							+ "'" + strs[4] + "','" + strs[1] + "',58)";
 				try {
 					jdbcDaoTest.exeSql(sqlsql);
 				} catch (Exception ex) {

@@ -16,6 +16,17 @@
 				/WEB-INF/jsp/homepageurl/HomePageUrledit.jsp
 			</result>
 		</action>
+		<action name="stockmanager" class="money.stockmanage.StockManagerAction">
+			<result name="list">
+				/WEB-INF/jsp/stockmanager/StockManagerlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/stockmanager/StockManagerinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/stockmanager/StockManageredit.jsp
+			</result>
+		</action>
 		<action name="filemanager" class="money.filemanage.FileManagerAction">
 			<result name="list">
 				/WEB-INF/jsp/filemanager/FileManagerlist.jsp
@@ -105,7 +116,7 @@
 			<result name="gridTree">
 				/WEB-INF/jsp/money/detail/MoneyGridTree.jsp
 			</result>
-				<result name="detail">
+			<result name="detail">
 				/WEB-INF/jsp/money/detail/info.jsp
 			</result>
 			<result name="editdetail">

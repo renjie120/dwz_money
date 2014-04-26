@@ -88,11 +88,19 @@ $(document).ready(function(){
 					credits : _credits,
 					title: {
 					    text: $char.attr('title')
-					},
-					 
-					tooltip: {
+					}, 
+					/*tooltip: {
 					  pointFormat: '{series.name}: <b>{point.y}</b>'
-					},
+					},*/
+					//显示点的值
+					plotOptions: {
+			            column: {
+			                dataLabels: {
+			                    enabled: true
+			                },
+			                enableMouseTracking: false
+			            }
+			        },
 					 xAxis: {
  		              categories: yAxis_a
  			        }, 

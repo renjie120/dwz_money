@@ -183,9 +183,9 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 				case MONEY_TYPE:
 					sb.append(count == 0 ? " where" : " and").append(
 							" money.moneyType in ( ");
-					String str = ""+entry.getValue();
+					String str = "" + entry.getValue();
 					String[] tps = str.split(",");
-					for(String tp:tps){
+					for (String tp : tps) {
 						sb.append("?,");
 						argList.add(tp);
 					}
@@ -408,6 +408,33 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		this.moneyDao.insert(moneyImpl.getMoneyVO());
 	}
 
+	public void createMoney(Money money, int splitMonths)
+			throws ValidateFieldsException {
+		MoneyImpl moneyImpl = (MoneyImpl) money;
+		MoneyVO v = moneyImpl.getMoneyVO();
+		double realMoney = v.getMoney();
+		Date time = v.getMoneyTime();
+		int maxSplitSno; 
+		if (splitMonths > 1) {
+			double m = CommonUtil.divide(realMoney, splitMonths, 2);
+			Collection<Object> ans = this.moneyDao
+					.commonSqlFindMaxSplitSno("select max(splitno) from money_detail_t");
+			maxSplitSno = Integer.parseInt(ans.toArray()[0] + "") + 1;
+			
+			for (int i = 0; i < splitMonths; i++) {
+				MoneyVO newV = (MoneyVO) v.clone();
+				//设置多个时间.
+				newV.setMoneyTime(DateTool.afterAnyDay(time,30*i));
+				newV.setMoney(m);
+				newV.setRealMoney(realMoney);
+				newV.setSplitSno(maxSplitSno); 
+				this.moneyDao.insert(newV);
+			}
+		}else{
+			this.moneyDao.insert(moneyImpl.getMoneyVO());
+		}
+	}
+
 	public void removeMoney(String moneyId) {
 		String[] ids = moneyId.split(",");
 		for (String s : ids) {
@@ -421,6 +448,34 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 
 		MoneyVO po = moneyImpl.getMoneyVO();
 		this.moneyDao.update(po);
+	}
+	
+	public void updateMoney(Money money,int splitMonths) throws ValidateFieldsException {
+		MoneyImpl moneyImpl = (MoneyImpl) money;
+		MoneyVO v = moneyImpl.getMoneyVO();
+		double realMoney = v.getMoney();
+		Date time = v.getMoneyTime();
+		int maxSplitSno; 
+		if (splitMonths > 1) {
+			double m = CommonUtil.divide(realMoney, splitMonths, 2);
+			Collection<Object> ans = this.moneyDao
+					.commonSqlFindMaxSplitSno("select max(splitno) from money_detail_t");
+			maxSplitSno = Integer.parseInt(ans.toArray()[0] + "") + 1;
+			//先删除老的数据.
+			this.moneyDao.delete(v);
+			//再插入新的数据
+			for (int i = 0; i < splitMonths; i++) {
+				MoneyVO newV = (MoneyVO) v.clone();
+				//设置多个时间.
+				newV.setMoneyTime(DateTool.afterAnyDay(time,30*i));
+				newV.setMoney(m);
+				newV.setRealMoney(realMoney);
+				newV.setSplitSno(maxSplitSno); 
+				this.moneyDao.insert(newV);
+			}
+		}else{
+			this.moneyDao.update(v);
+		}
 	}
 
 	public Money getMoney(Integer id) {
@@ -612,13 +667,15 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 
 	@Override
 	public Collection<Object[]> reportMoneyGroupByYear() {
-		Collection<Object[]> voList = this.moneyDao.commonSqlGroupByYear(groupByYear);
+		Collection<Object[]> voList = this.moneyDao
+				.commonSqlGroupByYear(groupByYear);
 		return voList;
 	}
 
 	@Override
 	public Collection<Object[]> reportMoneyGroupByMonth(int year) {
-		Collection<Object[]> voList = this.moneyDao.commonSqlGroupByMonth(groupByMonth,new Object[]{year});
+		Collection<Object[]> voList = this.moneyDao.commonSqlGroupByMonth(
+				groupByMonth, new Object[] { year });
 		return voList;
 	}
 }

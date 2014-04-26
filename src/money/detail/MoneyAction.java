@@ -16,8 +16,6 @@ import java.util.Map;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
-import common.base.AllSelect;
-import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
@@ -45,6 +43,15 @@ public class MoneyAction extends BaseAction {
 	private int moneySno;
 	private String year;
 	private String month;
+	private int splitMonth;
+
+	public int getSplitMonth() {
+		return splitMonth;
+	}
+
+	public void setSplitMonth(int splitMonth) {
+		this.splitMonth = splitMonth;
+	}
 
 	public String getYear() {
 		return year;
@@ -348,7 +355,7 @@ public class MoneyAction extends BaseAction {
 		try {
 			MoneyImpl moneyImpl = new MoneyImpl(moneyTime, money, moneyType,
 					moneyDesc, shopCard, bookType);
-			mMgr.createMoney(moneyImpl);
+			mMgr.createMoney(moneyImpl,splitMonth);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -391,7 +398,7 @@ public class MoneyAction extends BaseAction {
 		try {
 			MoneyImpl moneyImpl = new MoneyImpl(moneyTime, money, moneyType,
 					moneyDesc, shopCard, bookType, moneySno);
-			mMgr.updateMoney(moneyImpl);
+			mMgr.updateMoney(moneyImpl,splitMonth);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

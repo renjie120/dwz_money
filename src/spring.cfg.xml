@@ -5,7 +5,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
- 
+
 	<bean id="propertyFileConfigForDB"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
@@ -17,9 +17,9 @@
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
- 	
+
 		<property name="connectionProperties" value="config.decrypt=true" />
-		<property name="filters" value="stat,config" /> 
+		<property name="filters" value="stat,config" />
 		<!-- 下面druid 和 dbcp 连接池通用的 ↓↓↓↓↓↓↓↓↓↓↓↓ -->
 		<!--maxActive: 最大连接数量 -->
 		<property name="maxActive" value="20" />
@@ -79,6 +79,9 @@
 				</value>
 				<value>
 					dwz/persistence/beans/InvProduct.hbm.xml
+				</value>
+				<value>
+					hbm/stockmanager.hbm.xml
 				</value>
 				<value>
 					hbm/moneyDetail.hbm.xml

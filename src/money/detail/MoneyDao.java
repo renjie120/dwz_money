@@ -32,6 +32,8 @@ public interface MoneyDao extends BaseDao<MoneyVO, Integer> {
 	 */
 	public Collection<Object[]> commonSqlGroupByMonth(String sql,Object[] arguments);
 	
+	public Collection<Object> commonSqlFindMaxSplitSno(String sql);
+	
 	public Collection<MoneyVO> findAll(); 
 
 	public void deleteAllById(String id);

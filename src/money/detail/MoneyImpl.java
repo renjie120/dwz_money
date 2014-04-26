@@ -79,4 +79,14 @@ public class MoneyImpl implements Money {
 	public String getCode() {
 		return this.moneyVO.getCode();
 	}
+
+	@Override
+	public double getRealMoney() {
+		return this.moneyVO.getRealMoney();
+	}
+
+	@Override
+	public Integer getSplitSno() {
+		return this.moneyVO.getSplitSno();
+	}
 }

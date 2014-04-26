@@ -5,6 +5,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.base.AllSelect;
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -64,8 +70,13 @@ public class DiaryManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
-
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select1 = allSelect
+				.getParamsByType(AllSelectContants.DIARY_TYPE.getName());
+		
 		for (DiaryVO po : voList) {
+			po.setDiaryType(select1.getName(po.getDiaryType() )); 
 			eaList.add(new  DiaryImpl(po));
 		}
 

@@ -14,6 +14,10 @@ public interface Money extends BusinessObject {
 
 	public String getMoneyType();
 	
+	public double getRealMoney();
+	
+	public Integer getSplitSno();
+	
 	public String getMoneyTypeName();
 
 	public String getMoneyDesc();

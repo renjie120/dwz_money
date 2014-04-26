@@ -1,6 +1,19 @@
-<class name="FileManager" table="file_t" desc="文件管理" package="money.filemanage"> 
-	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false" noedit="true"/> 
-	<property name="fileId" column="fileid" type="string" desc="文件id"  width="100"  notnull="true"  />
-	<property name="fileName" column="filename" type="string" desc="文件名"  width="100"  notnull="true"   query="true" />
- 	<property name="fileLen" column="filelen" type="int" desc="文件长度"   width="100"  notnull="true"/> 
+<class name="StockManager" table="stock_deal" desc="股票交易"
+	package="money.stockmanage">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		noedit="true" />
+	<property name="stockNo" column="stock_no" type="string" desc="股票号码"
+		width="100" notnull="true" query="true" />
+	<property name="stockName" column="stock_name" type="string"
+		width="100" desc="股票名称 "   query="true" />
+	<property name="dealDate" column="deal_date" type="date" desc="交易时间"
+		width="100" notnull="true" />
+	<property name="price" column="price" type="double" desc="交易价格"
+		width="100" notnull="true" />
+	<property name="dealNumber" column="number " type="double"
+		width="100" desc="交易份额" notnull="true" />
+	<property name="fee" column="fee" type="double" desc="交易费率"
+		width="100" notnull="true" />
+	<property name="dealType" column="deal_type" type="string" selectType="dealType"
+		width="100" desc="交易类型" query="true" notnull="true" />
 </class>

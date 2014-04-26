@@ -1,0 +1,6 @@
+<class name="FileManager" table="file_t" desc="文件管理" package="money.filemanage"> 
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false" noedit="true"/> 
+	<property name="fileId" column="fileid" type="string" desc="文件id"  width="100"  notnull="true"  />
+	<property name="fileName" column="filename" type="string" desc="文件名"  width="100"  notnull="true"   query="true" />
+ 	<property name="fileLen" column="filelen" type="int" desc="文件长度"   width="100"  notnull="true"/> 
+</class>

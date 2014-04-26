@@ -15,7 +15,18 @@
 				</constructor-arg>
 			</bean>
 		</property>
-	</bean> 
+	</bean>
+	<bean id="stockmanagerDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.stockmanage.StockManagerDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.stockmanage.StockManagerVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="filemanagerDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.filemanage.FileManagerDao</value>

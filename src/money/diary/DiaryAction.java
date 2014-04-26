@@ -39,7 +39,7 @@ public class DiaryAction extends BaseAction {
 		Map<DiarySearchFields, Object> criterias = new HashMap<DiarySearchFields, Object>();
 		if (getDiaryContent() != null && !"".equals(getDiaryContent()))
 			criterias.put(DiarySearchFields.DIARYCONTENT, getDiaryContent());
-		if (getDiaryType() != null && !"".equals(getDiaryType()))
+		if (getDiaryType() != null && !"".equals(getDiaryType())&& !"-2".equals(getDiaryType()))
 			criterias.put(DiarySearchFields.DIARYTYPE, getDiaryType());
 		return criterias;
 	}
@@ -161,6 +161,7 @@ public class DiaryAction extends BaseAction {
 		int count = pMgr.searchDiaryNum(criterias);
 		request.setAttribute("totalCount", count);
 		ActionContext.getContext().put("list", moneyList);
+		request.setAttribute("diaryType", diaryType);
 		ActionContext.getContext().put("pageNum", pageNum);
 		ActionContext.getContext().put("numPerPage", numPerPage);
 		ActionContext.getContext().put("totalCount", count);

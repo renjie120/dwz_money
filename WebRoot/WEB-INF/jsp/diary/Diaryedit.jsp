@@ -28,8 +28,8 @@
 					 <div class="unit">
 						<label>
 							日志类型:
-						</label>
-							<input name="diaryType" class="textInput  " size="30" type="text"  value="<s:property value="diaryVo.diaryType"/>" />
+						</label><my:newselect tagName="diaryType" width="200" paraType="diarytype" selectedValue="<%=vo.getDiaryType() %>" />
+							 
 					</div>
 		</div>
 		<div class="formBar">
