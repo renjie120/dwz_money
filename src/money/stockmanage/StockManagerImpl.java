@@ -17,12 +17,12 @@ public class StockManagerImpl implements StockManager {
 		this.stockmanagerVO = stockmanagerVO;
 	}
 
-	public StockManagerImpl( int sno , String stockNo , String stockName , Date dealDate , double price , double dealNumber , double fee , String dealType ) {
-		this.stockmanagerVO = new StockManagerVO( sno , stockNo , stockName , dealDate , price , dealNumber , fee , dealType );
+	public StockManagerImpl( int sno , String stockNo , String stockName , Date dealDate , double price , double dealNumber , double fee , String dealType , int dealGroup ) {
+		this.stockmanagerVO = new StockManagerVO( sno , stockNo , stockName , dealDate , price , dealNumber , fee , dealType , dealGroup );
 	} 
 	
-	public StockManagerImpl(String stockNo ,String stockName ,Date dealDate ,double price ,double dealNumber ,double fee ,String dealType ) {
-		this.stockmanagerVO = new StockManagerVO(stockNo ,stockName ,dealDate ,price ,dealNumber ,fee ,dealType );
+	public StockManagerImpl(String stockNo ,String stockName ,Date dealDate ,double price ,double dealNumber ,double fee ,String dealType ,int dealGroup ) {
+		this.stockmanagerVO = new StockManagerVO(stockNo ,stockName ,dealDate ,price ,dealNumber ,fee ,dealType ,dealGroup );
 	} 
 
 	public StockManagerVO getStockManagerVO() {
@@ -87,6 +87,12 @@ public class StockManagerImpl implements StockManager {
  	 */
  	public  String   getDealType(){
  		return this.stockmanagerVO.getDealType();
+ 	}
+ 	/**
+ 	 * 获取交易分组的属性值.
+ 	 */
+ 	public  int   getDealGroup(){
+ 		return this.stockmanagerVO.getDealGroup();
  	}
  
 }

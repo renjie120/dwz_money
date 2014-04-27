@@ -1,9 +1,8 @@
 
 package money.stockmanage;
 
-import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 /**
  * 关于股票交易的实体bean.
  * @author www(水清)
@@ -12,12 +11,14 @@ import java.io.Serializable;
  */ 
 public class StockManagerVO implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final String BUY = "61";
+	public static final String SELL = "62";
 	
 	public StockManagerVO() {
 
 	}
 	
-	public StockManagerVO( int sno , String stockNo , String stockName , Date dealDate , double price , double dealNumber , double fee , String dealType ) {
+	public StockManagerVO( int sno , String stockNo , String stockName , Date dealDate , double price , double dealNumber , double fee , String dealType , int dealGroup ) {
 		 this.sno = sno;
 		 this.stockNo = stockNo;
 		 this.stockName = stockName;
@@ -26,9 +27,10 @@ public class StockManagerVO implements Serializable {
 		 this.dealNumber = dealNumber;
 		 this.fee = fee;
 		 this.dealType = dealType;
+		 this.dealGroup = dealGroup;
 	}
 	
-	public StockManagerVO(String stockNo ,String stockName ,Date dealDate ,double price ,double dealNumber ,double fee ,String dealType ) {
+	public StockManagerVO(String stockNo ,String stockName ,Date dealDate ,double price ,double dealNumber ,double fee ,String dealType ,int dealGroup ) {
 			 this.stockNo = stockNo;
 			 this.stockName = stockName;
 			 this.dealDate = dealDate;
@@ -36,6 +38,7 @@ public class StockManagerVO implements Serializable {
 			 this.dealNumber = dealNumber;
 			 this.fee = fee;
 			 this.dealType = dealType;
+			 this.dealGroup = dealGroup;
 	}
 	 
 	private Integer sno; 
@@ -150,4 +153,14 @@ public class StockManagerVO implements Serializable {
  	public void setDealType(String dealtype){
  		this.dealType = dealtype;
  	}
+	private Integer dealGroup;
+
+	public Integer getDealGroup() {
+		return dealGroup;
+	}
+
+	public void setDealGroup(Integer dealGroup) {
+		this.dealGroup = dealGroup;
+	} 
+  
 }

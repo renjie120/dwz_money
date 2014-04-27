@@ -22,7 +22,7 @@
 						<label>
 							交易时间:
 						</label>
-							<input type="text" name="dealDate" class="date required" size="30" readOnly="true"   />
+							<input type="text" name="dealDate" class="date " size="30" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 					</div>
 					 <div class="unit">
@@ -48,6 +48,12 @@
 							交易类型:
 						</label>
 									<my:newselect tagName="dealType"  paraType="dealType" width="100" allSelected="true" />
+					</div>
+					 <div class="unit">
+						<label>
+							交易分组:
+						</label>
+									<input name="dealGroup" class="textInput " size="30" type="text"   />
 					</div>
 		</div>
 		<div class="formBar">

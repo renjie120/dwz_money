@@ -28,7 +28,7 @@
 						<label>
 							交易时间:
 						</label>
-							<input type="text" name="dealDate" class="date required" size="30" readOnly="true"  value="<s:property value="vo.dealDate"/>" />
+							<input type="text" name="dealDate" class="date " size="30" readOnly="true"  value="<s:property value="vo.dealDate"/>" />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 					</div>
 					 <div class="unit">
@@ -54,6 +54,12 @@
 							交易类型:
 						</label>
 									<my:newselect tagName="dealType"  paraType="dealType" width="100" allSelected="true" selectedValue="<%=vo.getDealType() %>"/>									
+					</div>
+					 <div class="unit">
+						<label>
+							交易分组:
+						</label>
+									<input name="dealGroup" class="textInput  "  size="30" type="text"  value="<s:property value="vo.dealGroup"/>" />
 					</div>
 		</div>
 		<div class="formBar">

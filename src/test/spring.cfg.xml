@@ -97,6 +97,9 @@
 					hbm/role.hbm.xml
 				</value>
 				<value>
+					hbm/stockmanager.hbm.xml
+				</value>
+				<value>
 					hbm/moneytype.hbm.xml
 				</value>
 				<value>
@@ -133,6 +136,21 @@
 	<bean id="jdbcTool" class="common.MyJdbcTool">
 		<property name="jdbcTemplate">
 			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<bean id="stockmanagerManager" class="money.stockmanage.StockManagerManagerImpl">
+		<constructor-arg index="0" ref="stockmanagerDao"></constructor-arg>
+	</bean>
+	<bean id="stockmanagerDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.stockmanage.StockManagerDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.stockmanage.StockManagerVO">
+				</constructor-arg>
+			</bean>
 		</property>
 	</bean>
 
@@ -220,7 +238,7 @@
 		</property> </bean> -->
 
 	<import resource="spring_dao_money.cfg.xml" />
-	<import resource="spring_manager_money.cfg.xml" /> 
+	<import resource="spring_manager_money.cfg.xml" />
 
 	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
 	</bean>

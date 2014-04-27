@@ -16,15 +16,19 @@
 				<tr>
 					<td> 
 						股票号码</td><td>
-								<input name="stockNo" class="textInput" size="30" type="text"   />
+								<input  name="stockNo" id="stockNo" class="textInput" size="30" type="text"   />
 					</td> 
 					<td> 
 						股票名称 </td><td>
-								<input name="stockName" class="textInput" size="30" type="text"   />
+								<input id="stockName" name="stockName" class="textInput" size="30" type="text"   />
 					</td> 
 					<td> 
 						交易类型</td><td>
 								<my:newselect tagName="dealType"  paraType="dealType" width="100" allSelected="true" />
+					</td> 
+					<td> 
+						交易分组</td><td>
+								<input name="dealGroup" class="textInput" size="30" type="text"   />
 					</td> 
 				</tr>
 			</table>
@@ -98,6 +102,9 @@
 				<th width="100"    orderField="DEALTYPE" >
 						交易类型 
 				</th> 
+				<th width="100"    orderField="DEALGROUP" >
+						交易分组 
+				</th> 
 			</tr>
 		</thead>
 		<tbody>
@@ -128,6 +135,9 @@
 					<td>
 						<s:property value="dealType" />
 					</td> 
+					<td>
+						<s:property value="dealGroup" />
+					</td> 
 				</tr>
 			</s:iterator>
 		</tbody>
@@ -136,7 +146,7 @@
 		<div class="pages">
 			<span>显示</span>
 			<select class="combox" name="numPerPage"
-				onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+				onchange="navTabPageBreak({numPerPage:this.value,arglist:'stockNo,stockName,dealType',pageNum:1})">
 				<option value="20"
 					<%if((request.getAttribute("numPerPage")+"").equals("20")){%>
 					selected <%} %>>
@@ -160,7 +170,7 @@
 			</select>
 			<span>条，总共${totalCount}条记录</span>
 		</div>
-		<div class="pagination" targetType="navTab" totalCount="${totalCount}"
+		<div class="pagination" targetType="navTab" totalCount="${totalCount}" arglist="stockNo,stockName,dealType"
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>

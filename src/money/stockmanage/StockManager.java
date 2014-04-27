@@ -42,4 +42,8 @@ public interface StockManager extends BusinessObject {
  	 * 获取交易类型的属性值.
  	 */
  	public  String   getDealType();
+ 	/**
+ 	 * 获取交易分组的属性值.
+ 	 */
+ 	public  int   getDealGroup();
 }

@@ -73,10 +73,11 @@ public class StockManagerManagerImpl extends AbstractBusinessObjectManager imple
 	
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
-		ParamSelect select1 = allSelect
+		ParamSelect select_dealType = allSelect
 				.getParamsByType(AllSelectContants.DEAL_TYPE.getName());
+		
 		for (StockManagerVO po : voList) {
-			po.setDealType(select1.getName(po.getDealType() )); 
+			po.setDealType(select_dealType.getName("" + po.getDealType())); 
 			eaList.add(new  StockManagerImpl(po));
 		}
 
@@ -111,8 +112,8 @@ public class StockManagerManagerImpl extends AbstractBusinessObjectManager imple
 					break;
 					case STOCKNAME:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  stockmanager.stockName = ? ");
-						argList.add(entry.getValue());
+								"  stockmanager.stockName like  ? ");
+						argList.add("%"+entry.getValue()+"%");
 						count++;
 					break;
 					case DEALDATE:
@@ -142,6 +143,12 @@ public class StockManagerManagerImpl extends AbstractBusinessObjectManager imple
 					case DEALTYPE:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  stockmanager.dealType = ? ");
+						argList.add(entry.getValue());
+						count++;
+					break;
+					case DEALGROUP:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  stockmanager.dealGroup = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
@@ -183,6 +190,9 @@ public class StockManagerManagerImpl extends AbstractBusinessObjectManager imple
 			break;
 			case DEALTYPE:
 				 sb.append(" order by stockmanager.dealType");
+			break;
+			case DEALGROUP:
+				 sb.append(" order by stockmanager.dealGroup");
 			break;
 			default:
 				break;

@@ -1,7 +1,10 @@
 ﻿package common;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import money.stockmanage.StockManagerVO;
 
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -10,6 +13,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import common.base.SpringContextUtil;
+import common.util.CommonUtil;
 
 import dwz.present.BaseAction;
 
@@ -34,7 +38,7 @@ public class MyJdbcAction extends BaseAction {
 		return "list";
 	}
 
-	private String moneyStr;
+	private String moneyStr; 
 
 	public String getMoneyStr() {
 		return moneyStr;
@@ -95,10 +99,11 @@ public class MyJdbcAction extends BaseAction {
 		if (moneyStr != null) {
 			String[] diaries = moneyStr.split("\\$;");
 			for (String d : diaries) {
- 				String[] strs = d.split("\\$,");
-				if (strs.length > 5){
-					//转换为新的日记类型对应的id
-					String tp = "0".equals(strs[5])?"58":("1".equals(strs[5])?"59":"60");
+				String[] strs = d.split("\\$,");
+				if (strs.length > 5) {
+					// 转换为新的日记类型对应的id
+					String tp = "0".equals(strs[5]) ? "58" : ("1"
+							.equals(strs[5]) ? "59" : "60");
 					sqlsql = "insert into diary_detail(content,time,type) values("
 							+ "'"
 							+ strs[4]
@@ -107,8 +112,7 @@ public class MyJdbcAction extends BaseAction {
 							+ "','"
 							+ tp
 							+ "')";
-				}
-				else
+				} else
 					sqlsql = "insert into diary_detail(content,time,type) values("
 							+ "'" + strs[4] + "','" + strs[1] + "',58)";
 				try {
@@ -165,6 +169,106 @@ public class MyJdbcAction extends BaseAction {
 				try {
 					jdbcDaoTest.exeSql(sqlsql);
 				} catch (Exception ex) {
+					transactionManager.rollback(status);
+					System.out.println("出现异常了，回滚了！！");
+					throw ex;
+				}
+			}
+		}
+		transactionManager.commit(status);
+		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
+
+	private double parseD(String str) {
+		return Double.parseDouble(str);
+	}
+
+	/**
+	 * 解析一行数据得到股票交易记录列表.
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public List<StockManagerVO> parseStr(String str) {
+		String[] temp1 = str.split(":");
+		// 股票号
+		String stockNo = temp1[0];
+		boolean hasSold = false;
+		stockNo = stockNo.replace("\n", "");
+		if (stockNo.startsWith("_")) {
+			hasSold = true;
+			stockNo = stockNo.substring(1);
+		}
+		// 交易记录
+		String str2 = temp1[1];
+		// 最后价格
+		String str3 = temp1[2];
+		String[] dealDetails = str2.split(";");
+		List<StockManagerVO> vos = new ArrayList<StockManagerVO>();
+		Double stockSum = 0.0;
+		for (String s : dealDetails) {
+			StockManagerVO v = new StockManagerVO();
+			v.setStockNo(stockNo);
+			String[] ss = s.split(",");
+			v.setPrice(parseD(ss[0]));
+			double d = parseD(ss[1]);
+			v.setDealNumber(Math.abs(d));
+			if (d > 0)
+				v.setDealType(StockManagerVO.BUY);
+			else
+				v.setDealType(StockManagerVO.SELL);
+			v.setFee(parseD(ss[2]));
+			stockSum = CommonUtil.add(stockSum, d);
+			vos.add(v);
+		}
+		if (hasSold) {
+			StockManagerVO v = new StockManagerVO();
+			v.setStockNo(stockNo);
+			str3 = str3.replace("$", "");
+			String[] s = str3.split(",");
+			v.setPrice(parseD(s[0]));
+			v.setDealNumber(stockSum);
+			v.setFee(parseD(s[1]));
+			v.setDealType(StockManagerVO.SELL);
+			vos.add(v);
+		}
+		return vos;
+	}
+
+	public String importStockDeals() throws Exception {
+		MyJdbcTool jdbcDaoTest = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		PlatformTransactionManager transactionManager = (DataSourceTransactionManager) SpringContextUtil
+				.getBean("jdbcTm");
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		def.setTimeout(50);
+		TransactionStatus status = transactionManager.getTransaction(def);
+		System.out.println("moneyStr---" + request.getAttribute("moneyStr"));
+		if (moneyStr != null) {
+			String[] stockStrs = moneyStr.split("\\$");
+			List<StockManagerVO> allVo = new ArrayList<StockManagerVO>();
+			for (String m : stockStrs) {
+				allVo.addAll(parseStr(m));
+			}
+			System.out.println("解析得到交易数据："+allVo.size());
+			for (StockManagerVO v : allVo) {
+				String sqlsql = "insert into stock_deal(stock_no,price,number,fee,deal_type ) values("
+						+ "  '"
+						+ v.getStockNo()
+						+ "',"
+						+ v.getPrice()
+						+ ","
+						+ v.getDealNumber()
+						+ ","
+						+ v.getFee()
+						+ ","
+						+ v.getDealType() + ")";
+				try {
+					jdbcDaoTest.exeSql(sqlsql);
+				} catch (Exception ex) {
+					ex.printStackTrace();
 					transactionManager.rollback(status);
 					System.out.println("出现异常了，回滚了！！");
 					throw ex;

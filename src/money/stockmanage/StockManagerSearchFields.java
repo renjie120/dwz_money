@@ -8,5 +8,5 @@ package money.stockmanage;
  * http://www.iteye.com
  */
 public enum StockManagerSearchFields { 
- SNO , STOCKNO , STOCKNAME , DEALDATE , PRICE , DEALNUMBER , FEE , DEALTYPE 
+ SNO , STOCKNO , STOCKNAME , DEALDATE , PRICE , DEALNUMBER , FEE , DEALTYPE , DEALGROUP 
 }

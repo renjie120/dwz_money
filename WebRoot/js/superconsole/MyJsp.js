@@ -13,6 +13,14 @@ function importt() {
 				$('#moneyStr').val('');
 			});
 }
+
+function import4() {
+	$('#exesql').attr('action', '/money/superconsole!importStockDeals.do')
+			.ajaxSubmit(function(txt) {
+				alert(txt);
+				$('#moneyStr').val('');
+			});
+} 
 function importt2() {
 	$('#exesql').attr('action', '/money/superconsole!importDiary.do')
 			.ajaxSubmit(function(txt) {

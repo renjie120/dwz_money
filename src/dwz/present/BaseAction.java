@@ -55,7 +55,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	private String validationCode; // 楠岃瘉镰?
 
 	// search form fields
-	public final static int PAGE_SHOW_COUNT = 20;
+	public final static int PAGE_SHOW_COUNT = 100;
 	private int pageNum = 1;
 	private int numPerPage = 0;
 	private String orderField;

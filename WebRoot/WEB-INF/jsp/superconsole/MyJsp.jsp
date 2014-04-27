@@ -12,6 +12,7 @@
 			<button onClick="importt()" type="button">导入金额</button>
 			<button onClick="importt2()" type="button">导入日记</button>
 			<button onClick="importt3()" type="button">导入功过</button>
+			<button onClick="import4()" type="button">导入交易</button>
 			<button onclick="test()" type="button">执行</button>
 			<button onclick="query()" type="button">查询</button>
 		</div>
