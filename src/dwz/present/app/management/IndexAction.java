@@ -54,7 +54,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		if (ServerInfo.isAjax(request)) {
 			return "loginDialog";
 		}
-		return INPUT;
+		return "login2";
 	}
 
 	public String updPwd() {

@@ -13,6 +13,9 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import common.base.SpringContextUtil;
+import common.report.MyReport;
+import common.report.ReportDaoUtil;
+import common.report.ReportStrGenerate;
 import common.util.CommonUtil;
 
 import dwz.present.BaseAction;
@@ -25,6 +28,49 @@ import dwz.present.BaseAction;
  */
 public class MyJdbcAction extends BaseAction {
 	private String sql;
+	private String year;
+	private String month;
+	private String day, tallyType, bigType;
+
+	public String getTallyType() {
+		return tallyType;
+	}
+
+	public void setTallyType(String tallyType) {
+		this.tallyType = tallyType;
+	}
+
+	public String getBigType() {
+		return bigType;
+	}
+
+	public void setBigType(String bigType) {
+		this.bigType = bigType;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
 
 	public String getSql() {
 		return sql;
@@ -38,7 +84,7 @@ public class MyJdbcAction extends BaseAction {
 		return "list";
 	}
 
-	private String moneyStr; 
+	private String moneyStr;
 
 	public String getMoneyStr() {
 		return moneyStr;
@@ -126,6 +172,188 @@ public class MyJdbcAction extends BaseAction {
 		}
 		transactionManager.commit(status);
 		writeToPage(response, getText("msg.operation.success"));
+		return null;
+	}
+
+	public String getReportOut() throws Exception {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view").groupBy("year")
+				.sum("money").where(" big_money_type=2")
+				.colomns(new String[] { "year" }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String getReportOutByYear() throws Exception {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view").groupBy("month")
+				.sum("money")
+				.where(" big_money_type=2 and year='" + year + "'")
+				.colomns(new String[] { "month" }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String getReportOutByMonth() throws Exception {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.groupBy("money_time")
+				.sum("money")
+				.where(" big_money_type=2 and year='" + year + "' and month="
+						+ month + "").colomns(new String[] { "money_time" })
+				.build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String getReportOutInDay() throws Exception {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.sum("money")
+				.where("money_time='" + day + "'")
+				.groupBy("money_sno")
+				.colomns(
+						new String[] { "money_time", "money", "tallytype",
+								"money_sno", "money_desc" }).build()
+				.generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "','" + objs[3] + "','" + objs[2]
+						+ "','" + objs[5] + "']";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumByBigType() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view").sum("money")
+				.groupBy("bigtype")
+				.colomns(new String[] { "bigtype", "bigtypesno" }).build()
+				.generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + ",'" + objs[2] + "']";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumBySmallType() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view").sum("money")
+				.where(" bigtypesno='" + bigType + "'").groupBy("tallytype")
+				.colomns(new String[] { "tallytype", "money_type" }).build()
+				.generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + ",'" + objs[2] + "']";
+			}
+		});
+
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumBySmallTypeInYear() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view").sum("money")
+				.where(" money_type='" + tallyType + "'  ").groupBy("year")
+				.colomns(new String[] { "year" }).build().generateSql();
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumBySmallTypeInMonth() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.sum("money")
+				.where(" money_type='" + tallyType + "' and year='" + year
+						+ "' ").groupBy("month")
+				.colomns(new String[] { "month" }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumBySmallTypeInDay() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("money_detail_view")
+				.sum("money")
+				.where(" money_type='" + tallyType + "' and year='" + year
+						+ "' and month='" + month + "'").groupBy("money_time")
+				.colomns(new String[] { "money_time" }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "'," + objs[0] + "]";
+			}
+		});
+		writeToPage(response, ans);
+		return null;
+	}
+
+	public String reportSumBySmallTypeInSomeDay() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil"); 
+		String sql = new MyReport.Builder("money_detail_view")
+				.sum("money")
+				.where(" money_type='" + tallyType + "' and money_time='" + day
+						+ "' ").groupBy("money_sno")
+				.colomns(new String[] {"money_time", "money", "tallytype",
+						"money_sno", "money_desc"  }).build().generateSql();
+		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+			@Override
+			public String change(Object[] objs) {
+				return "['" + objs[1] + "','" + objs[3] + "','" + objs[2]
+						+ "','" + objs[5] + "']";
+			}
+		});
+		writeToPage(response, ans);
 		return null;
 	}
 
@@ -252,7 +480,7 @@ public class MyJdbcAction extends BaseAction {
 			for (String m : stockStrs) {
 				allVo.addAll(parseStr(m));
 			}
-			System.out.println("解析得到交易数据："+allVo.size());
+			System.out.println("解析得到交易数据：" + allVo.size());
 			for (StockManagerVO v : allVo) {
 				String sqlsql = "insert into stock_deal(stock_no,price,number,fee,deal_type ) values("
 						+ "  '"

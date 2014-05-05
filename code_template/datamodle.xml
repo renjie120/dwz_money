@@ -1,21 +1,27 @@
-<class name="StockManager" table="stock_deal" desc="股票交易"
-	package="money.stockmanage">
+<class name="OrderBaseManager" table="order_base_t" desc="订单基本信息"
+	package="money.orderbase">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		noedit="true" />
-	<property name="stockNo" column="stock_no" type="string" desc="股票号码"
+	<property name="orderNo" column="order_no" type="string" desc="订单"
 		width="100" notnull="true" query="true" />
-	<property name="stockName" column="stock_name" type="string"
-		width="100" desc="股票名称 " query="true" />
-	<property name="dealDate" column="deal_date" type="date" desc="交易时间"
-		width="100"  />
-	<property name="price" column="price" type="double" desc="交易价格"
-		width="100" notnull="true" />
-	<property name="dealNumber" column="number " type="double"
-		width="100" desc="交易份额" notnull="true" />
-	<property name="fee" column="fee" type="double" desc="交易费率"
-		width="100" notnull="true" />
-	<property name="dealType" column="deal_type" type="string"
-		selectType="dealType" width="100" desc="交易类型" query="true" notnull="true" />
-	<property name="dealGroup" column="stock_group" type="int"
-		width="100" desc="交易分组"  />
+	<property name="customerNo" column="customer_no" type="string"
+		width="100" desc="客户名称" query="true" />
+	<property name="gongLv" column="gonglv" type="string" desc="功率"
+		notnull="true" width="100" />
+	<property name="dianYa" column="dianya" type="string" desc="电压"
+		notnull="true" width="100" />
+	<property name="shiDai" column="shidai " type="string" width="100"
+		desc="世代" notnull="true" />
+	<property name="bianyaChangjia" column="bianya_changjia" type="string"
+		desc="整流变压器厂家" width="100" />
+	<property name="bianyaXinghao" column="bianya_xinghao" type="string"
+		width="100" desc="整流变压器型号" query="true" />
+	<property name="isImport" column="isimport" type="string"
+		width="100" desc="是否重点客户" />
+	<property name="startDate" column="start_date" type="date"
+		width="100" desc="计划开工时间" notnull="true" />
+	<property name="endDate" column="end_date" type="date" width="100"
+		desc="计划结束时间" notnull="true" />
+	<property name="currentState" column="current_State" type="string" selectType="orderstatus" 
+		width="100" desc="当前状态" />
 </class>

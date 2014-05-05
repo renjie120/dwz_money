@@ -81,13 +81,13 @@
 			class="dwz.present.passport.PassportAction">
 			<result name="success" type="redirect">${backToUrl}</result>
 			<result name="input">
-				/WEB-INF/jsp/management/index/login.jsp
+				/WEB-INF/jsp/management/login/login.jsp
 			</result>
 			<result name="logout">
 				/WEB-INF/jsp/homepageurl/HomePageUrllist.jsp
 			</result>
 			<result name="login2">
-				/WEB-INF/jsp/management/index/login.jsp
+				/WEB-INF/jsp/management/login/login.jsp
 			</result>
 		</action>
 
@@ -101,6 +101,9 @@
 			class="dwz.present.app.management.IndexAction">
 			<result name="loginDialog">
 				/WEB-INF/jsp/management/index/loginDialog.jsp
+			</result>
+			<result name="login2">
+				 /WEB-INF/jsp/management/login/login.jsp
 			</result>
 		</action>
 		<action name="syn" class="money.detail.MoneySynAction">

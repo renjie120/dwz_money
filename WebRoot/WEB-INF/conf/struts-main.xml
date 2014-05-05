@@ -10,11 +10,11 @@
 			class="dwz.present.passport.PassportAction">
 			<result name="success" type="redirect">${backToUrl}</result>
 			<result name="input">
-				/WEB-INF/jsp/management/index/login.jsp
+				/WEB-INF/jsp/management/login/login.jsp
 			</result>
 		</action>
 
-		<!-- <action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->
+		<!-- /WEB-INF/jsp/management/index/login.jsp	<action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->
 	</package>
 
 
@@ -25,6 +25,7 @@
 			<result name="loginDialog">
 				/WEB-INF/jsp/management/index/loginDialog.jsp
 			</result>
+			
 		</action>
 		<action name="user"
 			class="dwz.present.app.management.UserAction">

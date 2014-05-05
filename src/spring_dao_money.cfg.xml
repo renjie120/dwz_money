@@ -16,6 +16,17 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="orderbasemanagerDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.orderbase.OrderBaseManagerDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.orderbase.OrderBaseManagerVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="stockmanagerDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.stockmanage.StockManagerDao</value>

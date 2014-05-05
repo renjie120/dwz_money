@@ -33,5 +33,8 @@ spring_manager_money.cfg.xml
 </bean>
 
 hibernate_mysql.cfg.xml
+<value>
+	hbm/${nm}.hbm.xml
+</value>
 
 /money/${nm}!query.do

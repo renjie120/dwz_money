@@ -134,6 +134,9 @@
 				<value>
 					hbm/diary.hbm.xml
 				</value>
+				<value>
+					hbm/orderbasemanager.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

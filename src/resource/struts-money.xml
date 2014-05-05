@@ -5,6 +5,17 @@
 <struts>
 
 	<package name="money" namespace="/money" extends="struts2">
+		<action name="orderbasemanager" class="money.orderbase.OrderBaseManagerAction">
+			<result name="list">
+				/WEB-INF/jsp/orderbasemanager/OrderBaseManagerlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/orderbasemanager/OrderBaseManagerinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/orderbasemanager/OrderBaseManageredit.jsp
+			</result>
+		</action>
 		<action name="homepageurl" class="money.homepage.HomePageUrlAction">
 			<result name="list">
 				/WEB-INF/jsp/homepageurl/HomePageUrllist.jsp

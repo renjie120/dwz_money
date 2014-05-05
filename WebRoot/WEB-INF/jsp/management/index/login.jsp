@@ -106,13 +106,13 @@ input.login-field {
 					<tr>
 						<td class="login-button2">用户名</td>
 						<td><input type="text" name="app_username" size="20"
-							class="login-field" value="admin" /></td>
+							class="login-field" value="test" /></td>
 						<td>(默认test)</td>
 					</tr>
 					<tr>
 						<td class="login-button2">密码</td>
 						<td><input type="password" name="app_password" size="20"
-							class="login-field" value="111111" /></td>
+							class="login-field" value="1" /></td>
 						<td>(默认为1)</td>
 					</tr>
 					<tr>

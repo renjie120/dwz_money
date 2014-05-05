@@ -159,11 +159,11 @@
 <body scroll="no">
 	<div id="layout">
 		<div id="header">
-			<div class="headerNav">
-				<font style='color:white;' size="12">思程工作室</font> <a target=blank
+			<div class="headerNav2">
+				<font style='color:white;' size="8" >欢迎使用生产管理系统</font> <!--  a target=blank
 					href=tencent://message/?uin=1246910068&Site=思程工作室&Menu=yes><img
 					border='0' SRC=http://wpa.qq.com/pa?p=1:1246910068:1 alt='后台开发'>
-				</a>
+				</a-->
 				<ul class="nav">
 					<li><a href="/money/myuser!myContact.do" target="dialog"
 						mask="true">我的资料</a></li>
@@ -272,7 +272,7 @@
 
 	</div>
 
-	<div id="footer">© www.thinksafari.com &nbsp;&nbsp;&nbsp;&nbsp;
-		思程工作室版权所有</div>
+	<!--  div id="footer">© www.thinksafari.com &nbsp;&nbsp;&nbsp;&nbsp;
+		思程工作室版权所有</div>-->
 </body>
 </html>
