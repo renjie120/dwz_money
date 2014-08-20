@@ -1,4 +1,4 @@
-ï»¿package common.util;
+package common.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -7,17 +7,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ç±»ä¼¼base64çš„åŠ å¯†ç®—æ³•
+ * ÀàËÆbase64µÄ¼ÓÃÜËã·¨
+ * 
  * @author renjie120 419723443@qq.com
- *
+ * 
  */
 public class Cdd2 {
-	static int w;//3-ç¼–ç æ—¶æ•°ç»„é™¤ä»¥3ä½™ä¸‹çš„æ•°
+	static int w;// 3-±àÂëÊ±Êı×é³ıÒÔ3ÓàÏÂµÄÊı
 
 	static char[] source;
-	
-	public static String DJPHttp="qC8lS#^P2s%QS@v&pM!QRsuKOszJ2s4dRb8dSYz&pN4nUM!l8cdIpizrSsLn9N7z3i3Q3ijs0b4dScdXR#lm4iOm5#BQ4i$t5iOQ3ik=";
-	public static String  KEY= "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=";
+
+	private static class SingletonHolder {
+		public final static Cdd2 instance = new Cdd2();
+	}
+
+	public static Cdd2 getInstance() {
+		return SingletonHolder.instance;
+	}
+
+	public static String DJPHttp = "qC8lS#^P2s%QS@v&pM!QRsuKOszJ2s4dRb8dSYz&pN4nUM!l8cdIpizrSsLn9N7z3i3Q3ijs0b4dScdXR#lm4iOm5#BQ4i$t5iOQ3ik=";
+	public static String KEY = "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=";
+	public static String KEY2 = "B!@#$%DCj012pqRSTcb^*()IJKtuWlUVL&d678PXYMOsZ9nmQo45Nr3ikvwxyz+/=";
 
 	private static char[] strToChars(String str) {
 		try {
@@ -40,33 +50,42 @@ public class Cdd2 {
 	}
 
 	/**
-	 * åŠ å¯†å­—ç¬¦ä¸²ã€‚
-	 * @param str å¯†é’¥ã€‚
-	 * @param å¯†ç 
+	 * ¼ÓÃÜ×Ö·û´®¡£
+	 * 
+	 * @param str
+	 *            ÃÜÔ¿¡£
+	 * @param ÃÜÂë
 	 * @return
 	 */
-	public String strToBase64Str(String str,String mima) {
+	public String strToBase64Str(String str, String mima) {
 		char[] oldStrbyte = Cdd2.strToChars(str);
-		char[] ansChars = toAsBase64String(oldStrbyte,mima);
+		char[] ansChars = toAsBase64String(oldStrbyte, mima);
 		return new String(ansChars);
 	}
 
-	public static void main(String[] a){
-		Cdd2 c =new Cdd2();
+	public static void main(String[] a) {
+		Cdd2 c = new Cdd2();
 		List list = new ArrayList();
 		list.add(1);
 		list.add("c");
-		list.add((int)'a');
-		String mima = c.strToBase64Str("http://app.deppon.com/center/decryptFile?userId=130126&serial=356380051796015","B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
-		System.out.println(mima); 
+		list.add((int) 'a');
+		String mima = c
+				.strToBase64Str(
+						"http://app.deppon.com/center/decryptFile?userId=130126&serial=356380051796015",
+						"B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/=");
+		System.out.println(mima);
 		try {
-			System.out.println(c.strFromAsBase64Str(mima, "B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/="));
+			System.out
+					.println(c
+							.strFromAsBase64Str(mima,
+									"B!@#$%DCj0123456789ikLNMOpqRSTUVWXYZ&dcb^*()IJKPQonmlrstuvwxyz+/="));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
-	private static char[] toAsBase64String(char[] input,String mima) {
+
+	private static char[] toAsBase64String(char[] input, String mima) {
 		char[] Base64Code = Cdd2.strToChars(mima);
 		source = input;
 		int messageLen = input.length;
@@ -81,7 +100,7 @@ public class Cdd2 {
 		for (int x = 0; x < messageLen2; x++) {
 			if (x < messageLen) {
 				before[x] = source[x];
-			} else {//å°†è¡¥ä¸Šçš„æ•°ç»„è®¾ç½®ä¸º0
+			} else {// ½«²¹ÉÏµÄÊı×éÉèÖÃÎª0
 				before[x] = 0;
 			}
 		}
@@ -103,9 +122,9 @@ public class Cdd2 {
 			if (instr[2] != 0) {
 				buffer[3 + i * 4] = (byte) (instr[2] & 0x3f);
 			} else {
-				buffer[3 + i * 4] = 64;//è¿™ä¸€æ­¥å¿…ä¸å¯å°‘ï¼ï¼ï¼è¿™æ ·çš„è¯ï¼Œè™½ç„¶å«Base64ï¼Œ
+				buffer[3 + i * 4] = 64;// ÕâÒ»²½±Ø²»¿ÉÉÙ£¡£¡£¡ÕâÑùµÄ»°£¬ËäÈ»½ĞBase64£¬
 			}
-			//æœ‰64ä¸ªæœ‰ç”¨çš„ä»£ç ï¼Œå®é™…è¦ç”¨çš„æ˜¯65ä¸ªï¼ï¼ï¼ï¼ï¼Œå¤šä¸ªâ€˜=â€™ï¼Œä»¥åè¦æŠŠä»–å»æ‰çš„ï¼ï¼
+			// ÓĞ64¸öÓĞÓÃµÄ´úÂë£¬Êµ¼ÊÒªÓÃµÄÊÇ65¸ö£¡£¡£¡£¡£¬¶à¸ö¡®=¡¯£¬ÒÔºóÒª°ÑËûÈ¥µôµÄ£¡£¡
 		}
 		for (int x = 0; x < page * 4; x++) {
 			result[x] = Base64Code[buffer[x]];
@@ -114,20 +133,22 @@ public class Cdd2 {
 	}
 
 	/**
-	 * è§£å¯†å­—ç¬¦ä¸²ã€‚
-	 * @param str åŠ å¯†ä¸²ã€‚
+	 * ½âÃÜ×Ö·û´®¡£
+	 * 
+	 * @param str
+	 *            ¼ÓÃÜ´®¡£
 	 * @return
 	 * @throws Exception
 	 */
-	public String strFromAsBase64Str(String str,String mima) throws Exception {
-		byte[] ansBytes = fromAsBase64String(str,mima);
+	public String strFromAsBase64Str(String str, String mima) throws Exception {
+		byte[] ansBytes = fromAsBase64String(str, mima);
 		String ans = new String(ansBytes, System.getProperty("file.encoding"));
 		return ans;
-	} 
-	 
+	}
 
-	private static byte[] fromAsBase64String(String Message1,String mima) throws Exception {
-		int q = 0;//ç”¨æ¥ç»Ÿè®¡æœ‰å¤šå°‘ä¸ªè½¬ä¹‰å­—ç¬¦ï¼
+	private static byte[] fromAsBase64String(String Message1, String mima)
+			throws Exception {
+		int q = 0;// ÓÃÀ´Í³¼ÆÓĞ¶àÉÙ¸ö×ªÒå×Ö·û£¡
 		for (int a = 0; a < Message1.length(); a++) {
 			byte x = (byte) Message1.charAt(a);
 			if (x == 10 || x == 13 || x == 9 || x == 32) {
@@ -142,29 +163,29 @@ public class Cdd2 {
 				d++;
 				continue;
 			} else {
-				/*AEFGH*/
+				/* AEFGH */
 				message[a - d] = Message1.charAt(a);
 			}
 		}
-		String Message = new String(message);//é—®é—®è€å¸ˆï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+		String Message = new String(message);// ÎÊÎÊÀÏÊ¦£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡
 		String regEx = "^[BCDI-Zbcdi-z0-9^&*()!@#$%/+=]*$";
 		Pattern p = Pattern.compile(regEx);
 		Matcher m = p.matcher(Message);
 		boolean ans = m.matches();
 		int iq = m.end();
 		if (!ans) {
-			System.out.print("åŒ…å«ä¸æ­£ç¡®çš„BASE64ç¼–ç ï¼Œè¯·æ£€æŸ¥ã€‚");
-			throw new Exception("åŒ…å«ä¸æ­£ç¡®çš„BASE64ç¼–ç ï¼Œè¯·æ£€æŸ¥ã€‚");
+			System.out.print("°üº¬²»ÕıÈ·µÄBASE64±àÂë£¬Çë¼ì²é¡£");
+			throw new Exception("°üº¬²»ÕıÈ·µÄBASE64±àÂë£¬Çë¼ì²é¡£");
 		}
 		if (((Message.length()) % 4) != 0) {
-			System.out.print("ä¸æ˜¯æ­£ç¡®çš„BASE64ç¼–ç ï¼Œè¯·æ£€æŸ¥");
-			throw new Exception("ä¸æ˜¯æ­£ç¡®çš„BASE64ç¼–ç ï¼Œè¯·æ£€æŸ¥ã€‚");
+			System.out.print("²»ÊÇÕıÈ·µÄBASE64±àÂë£¬Çë¼ì²é");
+			throw new Exception("²»ÊÇÕıÈ·µÄBASE64±àÂë£¬Çë¼ì²é¡£");
 		}
 		String Base64Code = mima;
 		int page = Message.length() / 4;
 		byte[] buffer = new byte[page * 3];
 		int length;
-		int temp = 0;//ç”¨æ¥çœ‹æœ€åçš„3ä¸ªå­—ç¬¦ä¸­æœ‰å¤šå°‘ä¸ªâ€œ=â€
+		int temp = 0;// ÓÃÀ´¿´×îºóµÄ3¸ö×Ö·ûÖĞÓĞ¶àÉÙ¸ö¡°=¡±
 		for (int x = 0; x < 2; x++) {
 			if (message[Message.length() - x - 1] == '=') {
 				temp++;
@@ -172,9 +193,9 @@ public class Cdd2 {
 		}
 		length = buffer.length - temp;
 		byte[] newStr = new byte[length];
-		byte[] outstr = new byte[3 * page];//ç”¨æ¥å°†outMessageçš„å†…å®¹å…¨éƒ¨å¤åˆ¶åˆ°è¿™é‡Œå¥½æŠŠä»–ä¼ åˆ°å¤–é¢å».
+		byte[] outstr = new byte[3 * page];// ÓÃÀ´½«outMessageµÄÄÚÈİÈ«²¿¸´ÖÆµ½ÕâÀïºÃ°ÑËû´«µ½ÍâÃæÈ¥.
 		for (int i = 0; i < page; i++) {
-			byte[] instr = new byte[4];//ä¸‹é¢çš„æ˜¯ç”¨æ¥çœ‹base64ç¼–ç çš„å¯¹åº”çš„æ•°æ˜¯0åˆ°64çš„å“ªä¸€ä¸ª
+			byte[] instr = new byte[4];// ÏÂÃæµÄÊÇÓÃÀ´¿´base64±àÂëµÄ¶ÔÓ¦µÄÊıÊÇ0µ½64µÄÄÄÒ»¸ö
 			instr[0] = (byte) Base64Code.indexOf(message[i * 4]);
 			instr[1] = (byte) Base64Code.indexOf(message[i * 4 + 1]);
 			instr[2] = (byte) Base64Code.indexOf(message[i * 4 + 2]);

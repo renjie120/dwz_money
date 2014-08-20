@@ -101,27 +101,7 @@ function initHightCharts($char,arr){
 							};
 	
 	if($char.attr('type')=='pie'){ 
-		$char.highcharts({
-			credits :_credits,
-			title : {
-				text : $char.attr('title'), 
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-	                dataLabels: {
-	                    enabled: true,   
-	                    format:  $char.attr('format')?$char.attr('format'):'{point.name}({y})'
-	                } 
-	            }
-	        },
-			series : [ {
-				type : 'pie',
-				name : $char.attr('serialName'),
-				data : arr
-			} ]
-		});	
+		showPie(arr,$char.attr('title'),$char.attr('id'),$char.attr('serialName'),$char.attr('format')); 
 	}
 	//正负图
 	else if($char.attr('type')=='columnrange') {
@@ -172,44 +152,13 @@ function initHightCharts($char,arr){
 		
 		});
 	}
-	else if($char.attr('type')=='column'){
+	else if($char.attr('type')=='column'){ 
 		//alert("列的行数："+arr.length);
 		if(arr.length<1)
 			return false;
 		//如果是普通的二维列表
-		if(arr[0].length==2){  
-			var xAxis_a = [];
-			var yAxis_a = [];  
-			var _len = arr.length;
-			for(var _i=0;_i<_len;_i++){
-				xAxis_a.push(arr[_i][0]);
-				yAxis_a.push(arr[_i][1]);
-			} 
-			$char.highcharts({
-				credits :_credits,
-			   chart: {
-			            type: 'column'
-			        },
-				title : {
-					text : $char.attr('title'), 
-				},
-				//显示点的值
-				plotOptions: {
-		            column: {
-		                dataLabels: {
-		                    enabled: true
-		                },
-		                enableMouseTracking: false
-		            }
-		        },
-				 xAxis: {
-			            categories: xAxis_a
-			        },
-				series : [ { 
-					name : $char.attr('serialName'),
-					data : yAxis_a
-				} ]
-			});	
+		if(arr[0].length==2){   
+			show2Column_two(arr,$char.attr('title'),$char.attr('id'),$char.attr('serialName'));
 		}else if(arr[0].length==3){ 
 			var xAxis_a = [];
 			var yAxis_a = [];  

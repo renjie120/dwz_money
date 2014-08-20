@@ -36,6 +36,8 @@
 <script src="/highcharts_3.0.10/js/highcharts.js" type="text/javascript"></script>
 <script src="/highcharts_3.0.10/js/highcharts-more.js" type="text/javascript"></script>
 <script src="/styles/management/js/speedup.js" type="text/javascript"></script>
+<script src="/js/report/hightChartsUtil.js" type="text/javascript">
+</script>
 <script src="/styles/management/js/jquery.cookie.js"
 	type="text/javascript"></script>
 <script src="/styles/management/js/jquery.validate.js"

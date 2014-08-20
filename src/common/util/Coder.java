@@ -1,6 +1,5 @@
-ï»¿package common.util;
+package common.util;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 
 import javax.crypto.KeyGenerator;
@@ -9,9 +8,10 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * å•å‘åŠ å¯†ç®—æ³•é›†åˆ.
+ * µ¥Ïò¼ÓÃÜËã·¨¼¯ºÏ.
  * 
  * @author renjie120 connect my:(QQ)1246910068
  * 
@@ -21,7 +21,7 @@ public abstract class Coder {
 	public static final String KEY_MD5 = "MD5";
 
 	/**
-	 * MACç®—æ³•å¯é€‰ä»¥ä¸‹å¤šç§ç®—æ³•
+	 * MACËã·¨¿ÉÑ¡ÒÔÏÂ¶àÖÖËã·¨
 	 * 
 	 * <pre>
 	 * HmacMD5  
@@ -34,7 +34,7 @@ public abstract class Coder {
 	public static final String KEY_MAC = "HmacMD5";
 
 	/**
-	 * BASE64è§£å¯†
+	 * BASE64½âÃÜ
 	 * 
 	 * @param key
 	 * @return
@@ -46,7 +46,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * BASE64åŠ å¯†
+	 * BASE64¼ÓÃÜ
 	 * 
 	 * @param key
 	 * @return
@@ -58,48 +58,62 @@ public abstract class Coder {
 	}
 
 	/**
-	 * åŠ å¯†.
+	 * ¼ÓÃÜ.
 	 * 
 	 * @param key
 	 * @return
 	 * @throws Exception
 	 */
-	public static String toMyCoder(String key) throws Exception {
-		byte[] inputData = key.getBytes();
-		// å…ˆè¿›æ€§base64åŠ å¯†
-		String ans = Coder.encryptBASE64(inputData);
-		// åœ¨è¿›è¡Œä¸ªæ€§åŒ–çš„åŠ å¯†.
-		ans = PassWord.encode(ans);
+	public static String toMyCoder(String key)   {
+		String ans = Cdd2.getInstance().strToBase64Str(key, Cdd2.KEY2);
+//		byte[] inputData = key.getBytes();
+//		// ÏÈ½øĞÔbase64¼ÓÃÜ
+//		String ans = Coder.encryptBASE64(inputData);
+//		// ÔÚ½øĞĞ¸öĞÔ»¯µÄ¼ÓÃÜ.
+//		ans = PassWord.encode(ans);
 		return ans;
 	}
 
 	/**
-	 * è§£å¯†.
+	 * ½âÃÜ.
 	 * 
 	 * @param key
 	 * @return
 	 * @throws Exception
 	 */
 	public static String fromMyCoder(String key) {
-		key = PassWord.decode(key);
-		// å†è¿›è¡Œbase64è§£å¯†
-		byte[] output;
-		String outputStr = "";
+//		key = PassWord.decode(key);
+//		// ÔÙ½øĞĞbase64½âÃÜ
+//		byte[] output;
+//		String outputStr = "";
+//		try {
+//			output = Coder.decryptBASE64(key);
+//			outputStr = new String(output);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		String outputStr;
 		try {
-			output = Coder.decryptBASE64(key);
-			outputStr = new String(output);
+			outputStr = Cdd2.getInstance().strFromAsBase64Str(key, Cdd2.KEY2);
 		} catch (Exception e) {
-			e.printStackTrace();
+			 e.printStackTrace();
+			 return null;
 		}
 		return outputStr;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(fromMyCoder("X:VpHm9Da`Bm2+5SJbDzPt0RFIHS"));
+//		System.out.println(fromMyCoder("FsVc`4CL@fUxCm=W").trim());
+		try {
+			System.out.println(toMyCoder("1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * MD5åŠ å¯†
+	 * MD5¼ÓÃÜ
 	 * 
 	 * @param data
 	 * @return
@@ -115,26 +129,27 @@ public abstract class Coder {
 	}
 
 	/**
-	 * å¾—åˆ°md5åŠ å¯†å­—ç¬¦ä¸².
+	 * µÃµ½md5¼ÓÃÜ×Ö·û´®.
 	 * 
 	 * @Title: encryptMD5Str
-	 * @Description: TODO(è¿™é‡Œç”¨ä¸€å¥è¯æè¿°è¿™ä¸ªæ–¹æ³•çš„ä½œç”¨)
+	 * @Description: TODO(ÕâÀïÓÃÒ»¾ä»°ÃèÊöÕâ¸ö·½·¨µÄ×÷ÓÃ)
 	 * @param @param data
 	 * @param @return
 	 * @param @throws Exception
 	 * @return String
 	 * @throws
 	 */
-	public static String encryptMD5Str(String data) throws Exception {
-		MessageDigest md5 = MessageDigest.getInstance(KEY_MD5);
-		md5.update(data.getBytes());
-		byte[] ans = md5.digest();
-		BigInteger inT = new BigInteger(ans);
-		return inT.toString(16);
+	public static String encryptMD5Str(String data)  {
+//		MessageDigest md5 = MessageDigest.getInstance(KEY_MD5);
+//		md5.update(data.getBytes());
+//		byte[] ans = md5.digest();
+//		BigInteger inT = new BigInteger(ans);
+//		return inT.toString(16);
+		return DigestUtils.md5Hex(data);
 	}
 
 	/**
-	 * SHAåŠ å¯†
+	 * SHA¼ÓÃÜ
 	 * 
 	 * @param data
 	 * @return
@@ -150,7 +165,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * åˆå§‹åŒ–HMACå¯†é’¥
+	 * ³õÊ¼»¯HMACÃÜÔ¿
 	 * 
 	 * @return
 	 * @throws Exception
@@ -163,7 +178,7 @@ public abstract class Coder {
 	}
 
 	/**
-	 * HMACåŠ å¯†
+	 * HMAC¼ÓÃÜ
 	 * 
 	 * @param data
 	 * @param key

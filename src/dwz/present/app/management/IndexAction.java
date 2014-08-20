@@ -1,4 +1,4 @@
-ï»¿package dwz.present.app.management;
+package dwz.present.app.management;
 
 import money.homepage.HomePageUrlManager;
 import money.role.UserMenuRightManager;
@@ -20,10 +20,10 @@ import dwz.present.BaseAction;
 import dwz.present.UiModel;
 
 /**
- * ç™»é™†
+ * µÇÂ½
 * @ClassName: IndexAction
-* @Description: TODO(è¿™é‡Œç”¨ä¸€å¥è¯æè¿°è¿™ä¸ªç±»çš„ä½œç”¨) 
-* @date 2014-3-19 ä¸Šåˆ09:12:21
+* @Description: TODO(ÕâÀïÓÃÒ»¾ä»°ÃèÊöÕâ¸öÀàµÄ×÷ÓÃ) 
+* @date 2014-3-19 ÉÏÎç09:12:21
 *
  */
 public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
@@ -43,7 +43,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
 				.get(Constants.AUTHENTICATION_KEY); 
 		UserType tp = user.getUserType(); 
-		// å¾—åˆ°èœå•æ ‘
+		// µÃµ½²Ëµ¥Ê÷
 		Tree t = tMgr.initMenuWithRight(user.getUserId(),user.getUserType());
 		request.setAttribute("allMenu", t.getDeepTree());
 		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
@@ -54,7 +54,8 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		if (ServerInfo.isAjax(request)) {
 			return "loginDialog";
 		}
-		return "login2";
+		//return "login2";
+		return "login";
 	}
 
 	public String updPwd() {

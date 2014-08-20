@@ -134,7 +134,7 @@
 
 
 
-	<!-- restful -->
+	<!-- restful
 	<servlet>
 		<servlet-name>Jersey REST Service</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
@@ -147,7 +147,7 @@
 	<servlet-mapping>
 		<servlet-name>Jersey REST Service</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
 	<!-- restful end -->
 </web-app>
