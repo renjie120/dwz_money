@@ -9,5 +9,8 @@ public class MapAction extends BaseAction {
 	}
 	public String initSumMap() {
 		return "sum";
-	} 
+	}
+	public String initMarvinjs() {
+		return "marvinjs";
+	}
 }
