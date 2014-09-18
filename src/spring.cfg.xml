@@ -12,26 +12,30 @@
 			<value>classpath:db.properties</value>
 		</property>
 	</bean>
-	<bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+	>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/dwz4j_zhengshi" />
+		<property name="username" value="root" />
+		<property name="password" value="987425" />
+	</bean>
+
+	<!--	destroy-method="close"    bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
 
-		<property name="connectionProperties" value="config.decrypt=true" />
-		<property name="filters" value="stat,config" />
-		<!-- 下面druid 和 dbcp 连接池通用的 ↓↓↓↓↓↓↓↓↓↓↓↓ -->
-		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="20" />
-		<!--initialSize: 初始化连接 -->
+		<property name="filters" value="stat,config" /> 
+		<property name="maxActive" value="20" /> 
 		<property name="initialSize" value="5" />
 
-	</bean>
+	</bean-->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<!-- to override, use the "SpringDatasourceConfig" snippet in your project -->
 		<property name="dataSource">
-			<ref local="ds" />
+			<ref bean="ds" />
 		</property>
 		<property name="mappingResources">
 			<list>
@@ -219,7 +223,7 @@
 	<import resource="spring_dao.cfg.xml" />
 	<import resource="spring_manager.cfg.xml" />
 	<import resource="spring_dao_money.cfg.xml" />
-	<import resource="spring_activiti.cfg.xml" />
+	<!-- import resource="spring_activiti.cfg.xml" /-->
 	<import resource="spring_manager_money.cfg.xml" />
 
 	<tx:annotation-driven transaction-manager="txManager" />

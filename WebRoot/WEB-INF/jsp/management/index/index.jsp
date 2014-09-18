@@ -257,7 +257,7 @@
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByType.do"></div>
 
-							<div id="hm_chartdiv3" class="highcharts" type="column"
+							<div id="hm_chartdiv3" class="highcharts" type="pie"
 								serialName="收支大类" title='收支金额数据统计' 
 								style="width: 300px; height: 250px; float: left; border: 1 red;"
 								url="/money/newmoney!reportCountByType.do"></div>

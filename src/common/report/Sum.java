@@ -11,7 +11,7 @@ public class Sum implements IStatis {
 	@Override
 	public String statis() {
 		// TODO Auto-generated method stub
-		return " sum(" + c.toString() + ") ";
+		return " sum(" + c.toString() + ") as SUM_"+c.toString().trim()+" ";
 	}
 
 }

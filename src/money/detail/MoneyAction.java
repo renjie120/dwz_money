@@ -20,6 +20,7 @@ import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate;
+import common.report.ReportStrGenerate2;
 import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
@@ -557,10 +558,10 @@ public class MoneyAction extends BaseAction {
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy("bigtype").count().colomns(new String[] { "bigtype" })
 				.build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + " ]";
+			public String change(Map strs) {
+				return "['" +strs.get("bigtype")+ "'," + strs.get("count1") + " ]";
 			}
 
 		});
@@ -602,10 +603,10 @@ public class MoneyAction extends BaseAction {
 				.colomns(new String[] { "year", "bigtype" })
 				.where("big_money_type='2'").build().generateSql();
 		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
+			public String change(Map  objs) {
+				return "['" + objs.get("year") + "','" +objs.get("bigtype") + "'," + objs.get("sum_MONEY") + " ]";
 			}
 		});
 		System.out.println("reportSumByTypeAndYear==" + ans);

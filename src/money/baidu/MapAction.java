@@ -9,5 +9,5 @@ public class MapAction extends BaseAction {
 	}
 	public String initSumMap() {
 		return "sum";
-	}
+	} 
 }

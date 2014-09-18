@@ -72,7 +72,7 @@
 		<action name="map" class="money.baidu.MapAction">
 			<result name="detail">
 				/WEB-INF/jsp/baidu/BaiduMap.jsp
-			</result>
+			</result> 
 			<result name="sum">
 				/WEB-INF/jsp/baidu/SumBaiduMap.jsp
 			</result>

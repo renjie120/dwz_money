@@ -12,6 +12,7 @@ import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate;
+import common.report.ReportStrGenerate2;
 import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
@@ -277,10 +278,10 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String sql = new MyReport.Builder("question_v").groupBy("statusname")
 				.count().colomns(new String[] { "statusname" }).build()
 				.generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + " ]";
+			public String change(Map objs) {
+				return "['" + objs.get("statusname") + "'," + objs.get("count1") + " ]";
 			}
 
 		});
@@ -299,10 +300,10 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String sql = new MyReport.Builder("question_v").groupBy("typename")
 				.count().colomns(new String[] { "typename" }).build()
 				.generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + " ]";
+			public String change(Map objs) {
+				return "['" + objs.get("typename") + "'," + objs.get("count1") + " ]";
 			}
 
 		});

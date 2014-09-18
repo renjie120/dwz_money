@@ -10,7 +10,7 @@ public class Count1 implements IStatis {
 	@Override
 	public String statis() {
 		// TODO Auto-generated method stub
-		return " count(1) ";
+		return " count(1) AS COUNT1 ";
 	}
 
 }

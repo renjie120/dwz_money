@@ -70,7 +70,7 @@ body {
 														</div>
 													</td>
 													<td width="79%" height="30"><input name="app_username" 
-														value="test2" id="username"
+														value="admin" id="username"
 														style="height:18px; width:130px; border:solid 1px #cadcb2; font-size:12px; color:#81b432;" />
 												</tr>
 												<tr>
@@ -78,7 +78,7 @@ body {
 															<span class="STYLE3">√‹¬Î</span>
 														</div>
 													</td>
-													<td height="30"><input name="app_password" value="1"
+													<td height="30"><input name="app_password" value="erp"
 														type="password" id="password"
 														style="height:18px; width:130px; border:solid 1px #cadcb2; font-size:12px; color:#81b432;" />
 													</td>
