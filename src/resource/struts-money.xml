@@ -192,6 +192,9 @@
 			<result name="detail">
 				/WEB-INF/jsp/question/info.jsp
 			</result>
+			<result name="import">
+				/WEB-INF/jsp/question/import.jsp
+			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/question/edit.jsp
 			</result>

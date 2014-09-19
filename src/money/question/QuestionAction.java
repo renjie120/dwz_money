@@ -1,9 +1,13 @@
 ﻿package money.question;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -14,6 +18,7 @@ import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate;
 import common.report.ReportStrGenerate2;
 import common.util.CommonUtil;
+import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -62,6 +67,15 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		return "report";
 	}
 
+	// 封装上传文件域的属性
+	private File image;
+	// 封装上传文件类型的属性
+	private String imageContentType;
+	// 封装上传文件名的属性
+	private String imageFileName;
+	// 接受依赖注入的属性
+	private String savePath;
+
 	public String reportXml() {
 		response.setContentType("text/plain;charset=GBK");
 		try {
@@ -71,6 +85,38 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public File getImage() {
+		return image;
+	}
+
+	public void setImage(File image) {
+		this.image = image;
+	}
+
+	public String getImageContentType() {
+		return imageContentType;
+	}
+
+	public void setImageContentType(String imageContentType) {
+		this.imageContentType = imageContentType;
+	}
+
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
+
+	public String getSavePath() {
+		return savePath;
+	}
+
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
 	}
 
 	/**
@@ -93,10 +139,84 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		questionVo = pMgr.getQuestion(questionId);
 		return "editdetail";
 	}
+	
+	public String beforeImport() { 
+		return "import";
+	}
+
+	/**
+	 * 导入excel中的数据
+	 * 
+	 * @return
+	 */
+	public String importExcel() {
+		FileInputStream fis;
+		response.setContentType("text/html;charset=GBK");
+		String result = "error";
+		try {
+			fis = new FileInputStream(getImage());
+			NPOIReader reader = new NPOIReader(fis);
+			List allSheetname = reader.getSheetNames();
+			Iterator it = allSheetname.iterator();
+			int count = 1;
+			while (it.hasNext()) {
+				System.out.println(count++ + ":" + it.next());
+			}
+		} catch (Exception e) {
+
+		}
+		return null;
+	}
+
+	/**
+	 * 提供导入模版的下载
+	 * 
+	 * @return
+	 */
+	public String initImport() {
+		response.setContentType("Application/excel");
+		String fileNameString = CommonUtil.toUtf8String("导入问题列表模版.xls");
+		response.addHeader("Content-Disposition", "attachment;filename="
+				+ fileNameString);
+
+		XlsExport e = new XlsExport();
+		int rowIndex = 0;
+
+		e.createRow(rowIndex++);
+		for (ImportFiled filed : ImportFiled.values()) {
+			e.setCell(filed.ordinal(), filed.toString());
+		}
+
+		e.exportXls(response);
+		return null;
+	}
+
+	private static enum ImportFiled {
+		SORT, QUESTIONDESC, QUESTIONDATE, CONSOLEDATE, ANSWER, STATUS;
+
+		@Override
+		public String toString() {
+			switch (this.ordinal()) {
+			case 0:
+				return "问题类型";
+			case 1:
+				return "问题描述";
+			case 2:
+				return "发现日期";
+			case 3:
+				return "解决时间";
+			case 4:
+				return "解决方案";
+			case 5:
+				return "问题状态";
+			default:
+				return "";
+			}
+		}
+	}
 
 	private static enum ExportFiled {
 		QUESTIONID, SORT, QUESTIONDESC, QUESTIONDATE, CONSOLEDATE, ANSWER, STATUS;
-		private String context;
 
 		@Override
 		public String toString() {
@@ -281,7 +401,8 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
 			public String change(Map objs) {
-				return "['" + objs.get("statusname") + "'," + objs.get("count1") + " ]";
+				return "['" + objs.get("statusname") + "',"
+						+ objs.get("count1") + " ]";
 			}
 
 		});
@@ -303,7 +424,8 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
 			public String change(Map objs) {
-				return "['" + objs.get("typename") + "'," + objs.get("count1") + " ]";
+				return "['" + objs.get("typename") + "'," + objs.get("count1")
+						+ " ]";
 			}
 
 		});

@@ -125,6 +125,10 @@
 				line
 			</li>
 			<li>
+				<a class="add" href="/money/question!beforeImport.do" target="dialog" mask="true"
+					height="350" title="导入"><span>导入</span> </a> 
+			</li>
+			<li>
 				<a class="icon" href="/money/question!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
