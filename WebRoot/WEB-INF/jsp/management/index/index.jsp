@@ -18,8 +18,7 @@
 		response.sendRedirect("/management/index!login.do");
 %>
 <script type="text/javascript"> 
-		var appPath = "<%=path%>
-	";
+		var appPath = "<%=path%>";
 </script>
 <base href="/">
 <link href="/styles/management/themes/default/style.css"
@@ -29,7 +28,7 @@
 <link href="/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
 <link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
-<script src="/styles/management/js/jquery-1.4.4.min.js"
+<script src="/styles/management/js/jquery-1.8.2.min.js"
 	type="text/javascript"></script>
 <script src="/uploadify/scripts/jquery.uploadify.js"
 	type="text/javascript"></script>
