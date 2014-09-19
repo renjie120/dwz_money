@@ -4,18 +4,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -262,12 +264,43 @@ public class NPOIReader extends ExcelTool {
 				switch (cell.getCellType()) {
 				case 0: {
 					// 检查是不是日期类型.
-					if (HSSFDateUtil.isCellDateFormatted(cell)) {
-						cellStr = getDate(cell);
-					} else {
-						cellStr = getNumber(cell);
-						cell.setCellValue(123);
-					}
+//					if (HSSFDateUtil.isCellDateFormatted(cell)) {
+//						cellStr = getDate(cell);
+//					} else {
+//						cellStr = getNumber(cell);
+//						cell.setCellValue(123);
+//					}
+//					System.out.println(cell.getCellStyle().getDataFormat() );
+					if (HSSFDateUtil.isCellDateFormatted(cell)) {// 处理日期格式、时间格式  
+		                SimpleDateFormat sdf = null;  
+		                if (cell.getCellStyle().getDataFormat() == HSSFDataFormat  
+		                        .getBuiltinFormat("h:mm")) {  
+		                    sdf = new SimpleDateFormat("HH:mm");  
+		                } else {// 日期  
+		                    sdf = new SimpleDateFormat("yyyy-MM-dd");  
+		                }  
+		                Date date = cell.getDateCellValue();  
+		                cellStr = sdf.format(date);  
+		            } else if (cell.getCellStyle().getDataFormat() == 58||cell.getCellStyle().getDataFormat() == 165||cell.getCellStyle().getDataFormat() == 166) {  
+		                // 处理自定义日期格式：m月d日(通过判断单元格的格式id解决，id的值是58)  
+		                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:ss"); 
+//		                System.out.println(cell.getCellStyle().getDataFormat()+","+HSSFDataFormat  
+//		                        .getBuiltinFormat("h:mm"));
+		                double value = cell.getNumericCellValue();  
+		                Date date = org.apache.poi.ss.usermodel.DateUtil  
+		                        .getJavaDate(value);  
+		                cellStr = sdf.format(date);  
+		            }   else {  
+		                double value = cell.getNumericCellValue();  
+		                CellStyle style = cell.getCellStyle();  
+		                DecimalFormat format = new DecimalFormat();  
+		                String temp = style.getDataFormatString();  
+		                // 单元格设置成常规  
+		                if (temp.equals("General")) {  
+		                    format.applyPattern("#");  
+		                }  
+		                cellStr = format.format(value);  
+		            }  
 					break;
 				}
 				case 1: {
@@ -698,34 +731,34 @@ public class NPOIReader extends ExcelTool {
 	public static void main(String[] arg) {
 		try {
 			//NPOIReader reader = new NPOIReader("e:\\工资模拟模板.xls");  
-			NPOIReader reader = new NPOIReader("d:\\1.xlsx");
-			List allSheetname = reader.getSheetNames();
-			Iterator it = allSheetname.iterator();
-			int count = 1;
-			while (it.hasNext()) {
-				System.out.println(count++ + ":" + it.next());
-			}
-
-			System.out.println("-----得到第一个sheet的第一行 ");
-			System.out.println(reader.arrarToStr(reader.readRow(0, 0)));
-
-			System.out.println("-----得到第一个sheet的第一行第一个单元格 ");
-			System.out.println(reader.readCell(0, 0, 0));
-			System.out.println("--------------------------------------------");
-
-			System.out.println("-----得到第一个sheet的并且只得到id非空的数据! ");
-			String[][] result = reader.readWithIdColumn(0, 0);
-			System.out.println(reader.arrarToStr(result));
+			NPOIReader reader = new NPOIReader("E:\\firefox_download\\daorumoban.xls");
+//			List allSheetname = reader.getSheetNames();
+//			Iterator it = allSheetname.iterator();
+//			int count = 1;
+//			while (it.hasNext()) {
+//				System.out.println(count++ + ":" + it.next());
+//			}
+//
+//			System.out.println("-----得到第一个sheet的第一行 ");
+//			System.out.println(reader.arrarToStr(reader.readRow(0, 0)));
+//
+//			System.out.println("-----得到第一个sheet的第一行第一个单元格 ");
+//			System.out.println(reader.readCell(0, 0, 0));
+//			System.out.println("--------------------------------------------");
+//
+//			System.out.println("-----得到第一个sheet的并且只得到id非空的数据! ");
+//			String[][] result = reader.readWithIdColumn(0, 0);
+//			System.out.println(reader.arrarToStr(result));
 
 			System.out.println("-----得到第一个sheet的全部数据!-----------------");
 			String[][] result2 = reader.read(0);
-			System.out.println(reader.arrarToStr(result2));
+			System.out.println(reader.arrarToStr(result2[1]));
 			
-			System.out.println("全部的sheet名:"+reader.getSheetNames());
-			
-			System.out.println("第一个sheet的行数:"+reader.getRowNum(0));
-			
-			System.out.println("第一个sheet的行数:"+reader.getRowNum(0,0));
+//			System.out.println("全部的sheet名:"+reader.getSheetNames());
+//			
+//			System.out.println("第一个sheet的行数:"+reader.getRowNum(0));
+//			
+//			System.out.println("第一个sheet的行数:"+reader.getRowNum(0,0));
 
 			reader.destory();
 		} catch (IOException e) {

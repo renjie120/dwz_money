@@ -1,15 +1,21 @@
 ﻿package money.question;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import brightmoon.util.DateUtil;
 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.util.CommonUtil;
+import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -314,4 +320,44 @@ public class QuestionManagerImpl extends AbstractBusinessObjectManager
 		return new QuestionImpl(question);
 	}
 
+	@Override
+	public void createQuestionFromExcel(InputStream instream)
+			throws ValidateFieldsException {
+		NPOIReader reader;
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select1 = allSelect
+				.getParamsByType(AllSelectContants.QUESTION_SORT.getName());
+		ParamSelect select2 = allSelect
+				.getParamsByType(AllSelectContants.QUESTION_STATUS.getName());
+		try {
+			reader = new NPOIReader(instream);
+			String[][] result2   = reader.read(0);
+			if (result2 != null && result2.length > 1) {
+				int rownum = 1, size = result2.length;
+				for (; rownum < size; rownum++) {
+					String[] data = result2[rownum];
+					QuestionVO q = new QuestionVO(); 
+					q.setSort(Integer.parseInt(select1.getValue(data[0])));
+					q.setQuestionDesc(data[1]);
+					q.setQuestionDate(DateUtil.getDate(data[2], "yyyy-MM-dd"));
+					q.setConsoleDate(DateUtil.getDate(data[3], "yyyy-MM-dd"));
+					q.setAnswer(data[4]);
+					q.setStatus(Integer.parseInt(select2.getValue(data[5])));
+					this.questionDao.insert(q);
+				}
+			}
+			reader.destory();
+		} catch (Exception e) { 
+			e.printStackTrace();
+		} finally{
+			if(instream!=null)
+				try {
+					instream.close();
+				} catch (IOException e) { 
+					e.printStackTrace();
+				}
+		}
+		 
+	}
 }

@@ -188,6 +188,17 @@
 		</action>
 
 		<action name="question" class="money.question.QuestionAction">
+			<param name="allowTypes">
+				application/excel
+			</param>
+			<param name="savePath">/attached</param>
+			<interceptor-ref name="fileUpload">
+				<param name="allowTypes">
+					application/excel
+				</param>
+				<param name="maximumSize">2000000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
 			<result name="list">/WEB-INF/jsp/question/list.jsp</result>
 			<result name="detail">
 				/WEB-INF/jsp/question/info.jsp

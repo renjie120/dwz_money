@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import brightmoon.util.DateUtil;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import common.base.SpringContextUtil;
@@ -155,16 +157,11 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		String result = "error";
 		try {
 			fis = new FileInputStream(getImage());
-			NPOIReader reader = new NPOIReader(fis);
-			List allSheetname = reader.getSheetNames();
-			Iterator it = allSheetname.iterator();
-			int count = 1;
-			while (it.hasNext()) {
-				System.out.println(count++ + ":" + it.next());
-			}
+			pMgr.createQuestionFromExcel(fis);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
+		writeToPage(response, "导入成功!");
 		return null;
 	}
 
@@ -175,7 +172,7 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 	 */
 	public String initImport() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("导入问题列表模版.xls");
+		String fileNameString = CommonUtil.toUtf8String("question_import_model.xls");
 		response.addHeader("Content-Disposition", "attachment;filename="
 				+ fileNameString);
 
@@ -186,7 +183,13 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 		for (ImportFiled filed : ImportFiled.values()) {
 			e.setCell(filed.ordinal(), filed.toString());
 		}
-
+		e.createRow(rowIndex++);
+		e.setCell(0, "简单");
+		e.setCell(1, "示例");
+		e.setCell(2, "2014-1-1");
+		e.setCell(3, "2014-2-1");
+		e.setCell(4, "示例");
+		e.setCell(5, "待解决");
 		e.exportXls(response);
 		return null;
 	}
@@ -243,7 +246,7 @@ public class QuestionAction extends BaseAction implements ModelDriven<Object> {
 
 	public String export() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("问题列表.xls");
+		String fileNameString = CommonUtil.toUtf8String("question_"+DateUtil.toString(new Date(),"yyyy_MM_dd_HH_ss")+".xls");
 		response.addHeader("Content-Disposition", "attachment;filename="
 				+ fileNameString);
 

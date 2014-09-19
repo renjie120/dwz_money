@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
-<%@ include file="/include.inc.jsp"%>  
+<%@ include file="/include.inc.jsp"%>   
 <div class="pageContent">
-	<form method="post" action="/money/question!importExcel.do" id="questionInfo"
-		class="pageForm required-validate" onsubmit="return myCallback(this, closeDialogWindow);">
+	<form method="post" action="/money/question!importExcel.do" id="questionInfo" enctype="multipart/form-data"
+		 >
 		<div class="pageFormContent"  width='300px' layoutH="57"> 
 		  <div class="unit">
 				<label>
@@ -13,8 +13,8 @@
 			</div>
 			<div class="unit">
 				<label>
-					<a href="/money/question!initImport.do">模版下载</a>
-				</label> 
+					<a href="/money/question!initImport.do"><font color='red'>模版下载</font></a>
+				</label>   
 			</div>  
 		</div>
 		<div class="formBar">
@@ -23,7 +23,7 @@
 					<div class="buttonActive">
 						<div class="buttonContent">
 							<button type="submit" >
-								导入
+								<input name="dd" type="submit" value="提交"/> 
 							</button>
 						</div>
 					</div>
