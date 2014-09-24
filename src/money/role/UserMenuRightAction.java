@@ -7,6 +7,8 @@ import dwz.present.BaseAction;
  * 关于用户菜单权限信息的Action操作类.
  * 
  * @author www(水清) 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名. http://www.iteye.com
+    name="menulist" /WEB-INF/jsp/role/Menulist.jsp
+	name="rolepage"	/WEB-INF/jsp/role/UserMenuRightlist.jsp
  */
 public class UserMenuRightAction extends BaseAction {
 	/**

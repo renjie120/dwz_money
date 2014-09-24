@@ -613,6 +613,24 @@ public class MoneyAction extends BaseAction {
 		writeToPage(response, ans);
 		return null;
 	}
+	
+	public String reportYingli() {
+//		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+//				.getBean("reportUtil");
+//		String sql = new MyReport.Builder("money_detail_view")
+//				.groupBy(new String[] { "year", "bigtype" }).sum("money")
+//				.colomns(new String[] { "year", "bigtype" })
+//				.where("big_money_type='2'").build().generateSql();
+//		System.out.println("查询sql:" + sql);
+		String ans ="[['盈利','08/01',10000],['盈利','08/02',14000],['盈利','08/03',20000],['盈利','08/04',15900]" +
+				",['盈利','08/05',10000],['盈利','08/06',10000],['盈利','08/07',10000],['盈利','08/08',20000]" +
+				",['盈利','08/09',10900],['盈利','08/10',40000],['亏损','08/01',-10500],['亏损','08/02',-12000]" +
+				",['亏损','08/03',-14000],['亏损','08/04',-24000],['亏损','08/05',-10900],['亏损','08/06',-19000]," +
+				"['亏损','08/07',-16000],['亏损','08/08',-19000],['亏损','08/09',-20000],['亏损','08/10',-9000]]";
+		System.out.println("reportSumByTypeAndYear==" + ans);
+		writeToPage(response, ans);
+		return null;
+	}
 
 	/**
 	 * 按照类别，年份，月份统计金额总数.

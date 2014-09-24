@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+.main canvas{
+	box-shadow: none;
+}
+
+.canvasScrollPanel, .canvasScrollPanelNoLogo{
+	border: 1px dotted gray;
+}
+
