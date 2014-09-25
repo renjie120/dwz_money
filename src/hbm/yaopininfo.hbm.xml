@@ -13,8 +13,8 @@
 				<property name="chemStruct" column="chem_struct" type="string" />
 				<property name="productName" column="product_name" type="string" />
 				<property name="customer" column="customer " type="string" />
-				<property name="num" column="num" type="double" />
-				<property name="price" column="price" type="double" />
+				<property name="num" column="num" type="Double" />
+				<property name="price" column="price" type="Double" />
 				<property name="chundu" column="chundu" type="string" />
 				<property name="saleTime" column="sale_time" type="date" />
 				<property name="cas" column="cas" type="string" />

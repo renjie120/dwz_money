@@ -17,7 +17,7 @@ public class YaopinInfoVO implements Serializable {
 
 	}
 	
-	public YaopinInfoVO( int sno , String companyName , String engName , String chnName , String chemStruct , String productName , String customer , double num , double price , String chundu , Date saleTime , String cas , String connect ) {
+	public YaopinInfoVO( int sno , String companyName , String engName , String chnName , String chemStruct , String productName , String customer , Double num , Double price , String chundu , Date saleTime , String cas , String connect ) {
 		 this.sno = sno;
 		 this.companyName = companyName;
 		 this.engName = engName;
@@ -33,7 +33,7 @@ public class YaopinInfoVO implements Serializable {
 		 this.connect = connect;
 	}
 	
-	public YaopinInfoVO(String companyName ,String engName ,String chnName ,String chemStruct ,String productName ,String customer ,double num ,double price ,String chundu ,Date saleTime ,String cas ,String connect ) {
+	public YaopinInfoVO(String companyName ,String engName ,String chnName ,String chemStruct ,String productName ,String customer ,Double num ,Double price ,String chundu ,Date saleTime ,String cas ,String connect ) {
 			 this.companyName = companyName;
 			 this.engName = engName;
 			 this.chnName = chnName;
@@ -146,32 +146,32 @@ public class YaopinInfoVO implements Serializable {
  	public void setCustomer(String customer){
  		this.customer = customer;
  	}
-	private double num; 
+	private Double num; 
  	/**
  	 * 获取数量的属性值.
  	 */
- 	public double getNum(){
+ 	public Double getNum(){
  		return num;
  	}
  	
  	/**
  	 * 设置数量的属性值.
  	 */
- 	public void setNum(double num){
+ 	public void setNum(Double num){
  		this.num = num;
  	}
-	private double price; 
+	private Double price; 
  	/**
  	 * 获取销售价格的属性值.
  	 */
- 	public double getPrice(){
+ 	public Double getPrice(){
  		return price;
  	}
  	
  	/**
  	 * 设置销售价格的属性值.
  	 */
- 	public void setPrice(double price){
+ 	public void setPrice(Double price){
  		this.price = price;
  	}
 	private String chundu; 

@@ -17,11 +17,11 @@ public class YaopinInfoImpl implements YaopinInfo {
 		this.yaopininfoVO = yaopininfoVO;
 	}
 
-	public YaopinInfoImpl( int sno , String companyName , String engName , String chnName , String chemStruct , String productName , String customer , double num , double price , String chundu , Date saleTime , String cas , String connect ) {
+	public YaopinInfoImpl( int sno , String companyName , String engName , String chnName , String chemStruct , String productName , String customer , Double num , Double price , String chundu , Date saleTime , String cas , String connect ) {
 		this.yaopininfoVO = new YaopinInfoVO( sno , companyName , engName , chnName , chemStruct , productName , customer , num , price , chundu , saleTime , cas , connect );
 	} 
 	
-	public YaopinInfoImpl(String companyName ,String engName ,String chnName ,String chemStruct ,String productName ,String customer ,double num ,double price ,String chundu ,Date saleTime ,String cas ,String connect ) {
+	public YaopinInfoImpl(String companyName ,String engName ,String chnName ,String chemStruct ,String productName ,String customer ,Double num ,Double price ,String chundu ,Date saleTime ,String cas ,String connect ) {
 		this.yaopininfoVO = new YaopinInfoVO(companyName ,engName ,chnName ,chemStruct ,productName ,customer ,num ,price ,chundu ,saleTime ,cas ,connect );
 	} 
 
@@ -85,13 +85,13 @@ public class YaopinInfoImpl implements YaopinInfo {
  	/**
  	 * 获取数量的属性值.
  	 */
- 	public  double   getNum(){
+ 	public  Double   getNum(){
  		return this.yaopininfoVO.getNum();
  	}
  	/**
  	 * 获取销售价格的属性值.
  	 */
- 	public  double   getPrice(){
+ 	public  Double   getPrice(){
  		return this.yaopininfoVO.getPrice();
  	}
  	/**

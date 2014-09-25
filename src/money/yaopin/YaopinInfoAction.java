@@ -43,8 +43,6 @@ public class YaopinInfoAction extends BaseAction {
 			pMgr.createYaopinInfo(yaopininfoImpl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
-			e.printStackTrace();
-			System.out.println(e.getMessage());
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
 		writeToPage(response,getText("msg.operation.success"));
@@ -336,32 +334,32 @@ public class YaopinInfoAction extends BaseAction {
  	public void setCustomer(String customer){
  		this.customer = customer;
  	}
-	private double num; 
+	private Double num; 
  	/**
  	 * 获取数量的属性值.
  	 */
- 	public double getNum(){
+ 	public Double getNum(){
  		return num;
  	}
  	
  	/**
  	 * 设置数量的属性值.
  	 */
- 	public void setNum(double num){
+ 	public void setNum(Double num){
  		this.num = num;
  	}
-	private double price; 
+	private Double price; 
  	/**
  	 * 获取销售价格的属性值.
  	 */
- 	public double getPrice(){
+ 	public Double getPrice(){
  		return price;
  	}
  	
  	/**
  	 * 设置销售价格的属性值.
  	 */
- 	public void setPrice(double price){
+ 	public void setPrice(Double price){
  		this.price = price;
  	}
 	private String chundu; 

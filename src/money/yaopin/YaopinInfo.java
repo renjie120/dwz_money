@@ -41,11 +41,11 @@ public interface YaopinInfo extends BusinessObject {
  	/**
  	 * 获取数量的属性值.
  	 */
- 	public  double   getNum();
+ 	public  Double   getNum();
  	/**
  	 * 获取销售价格的属性值.
  	 */
- 	public  double   getPrice();
+ 	public  Double   getPrice();
  	/**
  	 * 获取纯度的属性值.
  	 */
