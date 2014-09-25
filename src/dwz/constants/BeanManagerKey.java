@@ -8,5 +8,5 @@ public enum BeanManagerKey {
 	paramManager,paramtypeManager, moneyTypeManager,stockmanagerManager,
 	menuManager,orgManager,questionManager,diaryManager,myuserManager,orderbasemanagerManager,
 	usermenurightManager,rolewithmenuManager,homepageurlManager,userrolerightManager,
-	workflowDeploymentManager,fileManager,filemanagerManager
+	workflowDeploymentManager,fileManager,filemanagerManager,yaopininfoManager
 }

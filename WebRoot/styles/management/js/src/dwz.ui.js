@@ -59,11 +59,11 @@ function initEnv() {
 /**
  * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
  */
-function initLayout() {
+function initLayout() { 
 	var iContentW = $(window).width()
 			- (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34;
-	$("#container").width(iContentW);
+	$("#container").width(iContentW); 
 	$("#container .tabsPageContent").height(iContentH - 34).find("[layoutH]")
 			.layoutH();
 	$("#sidebar, #sidebar_s .collapse, #splitBar, #splitBarProxy").height(
@@ -77,7 +77,7 @@ function initLayout() {
 	var gridTreeHeight = $("#container .tabsPageContent").height()
 			- $('#container div.pageHeader').height() - 56;
 	$('#newtableTree').resetHeight(gridTreeHeight);
-	initMyUI();
+	initMyUI(); 
 }
 /**
  * 在全部结束完成之后再执行一次layout布局修改.
@@ -349,6 +349,22 @@ function initUI(_box) {
 						});
 			});
 
+	$("a[target=myDialog]", $p).each(
+			function() {
+				$(this)
+						.click(
+								function(event) {
+									var $this = $(this);
+									var title = $this.attr("title")
+											|| $this.text();
+									var w = $this.attr("width")||400;
+									var h = $this.attr("height")||300;
+									var url = unescape($this.attr("href"));
+									window.open (url, 'newwindow', 'height='+w+', width='+h+', top=0, left=0, toolbar=no,'
+											+' menubar=no, scrollbars=no, resizable=no,location=no, status=no') ;
+									return false;
+								})}
+	);
 	// dialogs
 	$("a[target=dialog]", $p).each(
 			function() {

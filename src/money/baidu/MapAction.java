@@ -13,4 +13,7 @@ public class MapAction extends BaseAction {
 	public String initMarvinjs() {
 		return "marvinjs";
 	}
+	public String initMarvinjs2() {
+		return "marvinjs2";
+	}
 }

@@ -19,17 +19,12 @@
 		<property name="password" value="${password}" />
 	</bean>
 
-	<!--	destroy-method="close"    bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="driverClassName" value="${driverName}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
-
-		<property name="filters" value="stat,config" /> 
-		<property name="maxActive" value="20" /> 
-		<property name="initialSize" value="5" />
-
-	</bean-->
+	<!-- destroy-method="close" bean id="ds" class="com.alibaba.druid.pool.DruidDataSource"> 
+		<property name="driverClassName" value="${driverName}" /> <property name="url" 
+		value="${url}" /> <property name="username" value="${username}" /> <property 
+		name="password" value="${password}" /> <property name="filters" value="stat,config" 
+		/> <property name="maxActive" value="20" /> <property name="initialSize" 
+		value="5" /> </bean -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<!-- to override, use the "SpringDatasourceConfig" snippet in your project -->
@@ -52,6 +47,9 @@
 				</value>
 				<value>
 					dwz/persistence/beans/SysPermission.hbm.xml
+				</value>
+				<value>
+					hbm/yaopininfo.hbm.xml
 				</value>
 				<value>
 					dwz/persistence/beans/SysSession.hbm.xml
@@ -222,7 +220,7 @@
 	<import resource="spring_dao.cfg.xml" />
 	<import resource="spring_manager.cfg.xml" />
 	<import resource="spring_dao_money.cfg.xml" />
-	<!-- import resource="spring_activiti.cfg.xml" /-->
+	<!-- import resource="spring_activiti.cfg.xml" / -->
 	<import resource="spring_manager_money.cfg.xml" />
 
 	<tx:annotation-driven transaction-manager="txManager" />
