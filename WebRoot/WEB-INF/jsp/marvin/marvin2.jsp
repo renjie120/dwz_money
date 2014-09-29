@@ -8,18 +8,14 @@
  
 <html>
  <head>
-  <base href="<%=basePath%>">
-  <title>Marvin JS Example - Set a Molecule</title>
+  <base href="<%=basePath%>"> 
   <script src="marvinjs-14.9.15-all/js/lib/jquery-1.9.1.min.js">
 </script>
   <script src="marvinjs-14.9.15-all/js/promise-0.1.1.min.js">
 </script>
   <script src="marvinjs-14.9.15-all/js/marvinjslauncher.js">
 </script>
-  <script>
- 
-
-
+  <script> 
 var marvinSketcherInstance;
 
 var marvin;
@@ -40,11 +36,25 @@ $(document).ready(function handleDocumentReady(e) {
  });
 });
  
+function save(){
+	 marvinSketcherInstance.exportStructure('mrv').then(function(source) {
+		$('#source').val(source);
+		$('form:first').submit(function(){
+			 window.close();
+		});  
+	  }, function(error) {
+	   alert("Molecule export failed:"+error);
+	  });
+}
 </script>
  </head>
- <body> 
+ <body>		
+ <form action='/money/map!saveSource.do'>
+	<input type='text' name='id' id='id' value="${id}">
+	<input type='text' name='source' id='source'  >
    <iframe src="marvinjs-14.9.15-all/editor.html" id="sketch"
     style="overflow: hidden; min-width: 400px; min-height: 350px; border: 1px solid darkgray;"></iframe>
-  
+  <button onclick='save()'>±£´æ</button>
+  </form>
  </body>
 </html>
