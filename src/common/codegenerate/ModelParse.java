@@ -50,7 +50,7 @@ public class ModelParse {
 					model.setKeyDesc(DomUtil.getAttribute(child, "desc"));
 					model.setKeyName(DomUtil.getAttribute(child, "name"));
 					model.setKeyColumn(DomUtil.getAttribute(child, "column"));
-					model.setKeyType(DomUtil.getAttribute(child, "type"));
+					model.setKeyType(DomUtil.getAttribute(child, "type")); 
 				} else
 					config.setIskey("false");
 				//节点类型
@@ -59,6 +59,8 @@ public class ModelParse {
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
 				//是否要检索
 				config.setQuery(DomUtil.getAttribute(child, "query")); 
+				//列类型
+				config.setColumnType(DomUtil.getAttribute(child, "columnType"));
 				//列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否模糊匹配

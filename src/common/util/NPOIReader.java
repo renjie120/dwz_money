@@ -731,7 +731,7 @@ public class NPOIReader extends ExcelTool {
 	public static void main(String[] arg) {
 		try {
 			//NPOIReader reader = new NPOIReader("e:\\工资模拟模板.xls");  
-			NPOIReader reader = new NPOIReader("E:\\firefox_download\\daorumoban.xls");
+			NPOIReader reader = new NPOIReader("E:\\JChem_for_Excel_Demo_Data.xlsx");
 //			List allSheetname = reader.getSheetNames();
 //			Iterator it = allSheetname.iterator();
 //			int count = 1;
@@ -752,7 +752,7 @@ public class NPOIReader extends ExcelTool {
 
 			System.out.println("-----得到第一个sheet的全部数据!-----------------");
 			String[][] result2 = reader.read(0);
-			System.out.println(reader.arrarToStr(result2[1]));
+			System.out.println(reader.arrarToStr(result2));
 			
 //			System.out.println("全部的sheet名:"+reader.getSheetNames());
 //			

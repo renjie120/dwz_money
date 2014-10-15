@@ -13,6 +13,7 @@ function see(obj){
 	var url = unescape('/money/map!initMarvinjs2.do?id='+id);
 	window.open (url, 'newwindow', 'height='+h+', width='+w+', top='+iTop+', left='+iLeft+', toolbar=no,'
 			+' menubar=no, scrollbars=no, resizable=no,location=no, status=no') ;
+	
 	return false;
 }
 //-->

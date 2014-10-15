@@ -12,6 +12,15 @@ public class ColumnModel {
 	private String name;
 	private String noedit;
 	private String querylike;
+	private String columnType;
+	public String getColumnType() {
+		return columnType;
+	}
+
+	public void setColumnType(String columnType) {
+		this.columnType = columnType;
+	}
+
 	public String getQuerylike() {
 		return querylike;
 	}

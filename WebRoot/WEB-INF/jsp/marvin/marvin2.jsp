@@ -36,25 +36,24 @@ $(document).ready(function handleDocumentReady(e) {
  });
 });
  
-function save(){
+function save(){ 
 	 marvinSketcherInstance.exportStructure('mrv').then(function(source) {
-		$('#source').val(source);
-		$('form:first').submit(function(){
-			 window.close();
-		});  
+		$('#source').val(source); 
+		//window.close();
 	  }, function(error) {
-	   alert("Molecule export failed:"+error);
+	    alert("Molecule export failed:"+error);
 	  });
 }
 </script>
  </head>
  <body>		
  <form action='/money/map!saveSource.do'>
-	<input type='text' name='id' id='id' value="${id}">
-	<input type='text' name='source' id='source'  >
+	<input type='hidden' name='id' id='id' value="${id}">
+	<input type='hidden' name='source' id='source'  >
    <iframe src="marvinjs-14.9.15-all/editor.html" id="sketch"
-    style="overflow: hidden; min-width: 400px; min-height: 350px; border: 1px solid darkgray;"></iframe>
-  <button onclick='save()'>±£´æ</button>
+    style="overflow: hidden; min-width: 400px; min-height: 350px; border: 1px solid darkgray;"></iframe> 
+	<button onclick='save()'>±£´æ</button>
   </form>
+  
  </body>
 </html>
