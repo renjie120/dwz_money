@@ -37,16 +37,17 @@ String ID= "";
 			
 if("add".equals(method))
 {  
-	<#list model.attributes as attr>  
-		<#if '${attr.name}'!='${model.keyName}'>
-			ProcPara += flag+${attr.name};
+	<#assign index=0> 
+	<#list model.attributes as attr>
+		 <#if '${attr.name}'!='${model.keyName}'>
+			ProcPara<#if index=0>=<#else>+=flag+</#if>${attr.name};<#assign index=index+1>
 		</#if> 
 	</#list>    
 	${nm}RecordSet.executeProc("${model.table}_Insert",ProcPara);
 	${nm}RecordSet.executeSql("SELECT MAX(id) as id from ${model.table}");
 	if (${nm}RecordSet.next()) ID = ${nm}RecordSet.getString("id"); 
 
-	response.sendRedirect("/CRM/data/Shangwuxinxi.jsp?CustomerID="+crm_id+"&isfromtab=true"); 
+	response.sendRedirect("/CRM/data/${model.className}_list.jsp?CustomerID="+crm_id+"&isfromtab=true"); 
 	return;
 } 
 else if("delete".equals(method))

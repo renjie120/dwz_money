@@ -1,6 +1,5 @@
 ﻿package common.codegenerate;
 
-
 /**
  * 分析配置文件的节点.
  * 
@@ -13,6 +12,119 @@ public class ColumnModel {
 	private String noedit;
 	private String querylike;
 	private String columnType;
+	// 数据库中的列名
+	private String column;
+	private String textarea;
+	private String selectType;
+	// 是否可见.
+	private String visible;
+	private String query;
+	// 非空.
+	private String notnull;
+	// 属性描述
+	private String desc;
+	// jsp中描述属性的样式（number）
+	private String clas;
+	// 长度
+	private String length;
+	/**
+	 * 是否是主键.
+	 */
+	private String iskey;
+	/**
+	 * 最大长度
+	 */
+	private String maxLength;
+	/**
+	 * 控件类型：默认为input，可选：resource depart customer areatext select checkbox radio
+	 */
+	private String inputType;
+	/**
+	 * 下拉菜单的可选文本值
+	 */
+	private String names;
+	/**
+	 * 多行文本里面的列数
+	 */
+	private String cols;
+	/**
+	 * 多行文本里面的行数
+	 */
+	private String rows;
+
+	public String getNames() {
+		return names;
+	}
+
+	public void setNames(String names) {
+		this.names = names;
+	}
+
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
+	}
+
+	public String getRows() {
+		return rows;
+	}
+
+	public void setRows(String rows) {
+		this.rows = rows;
+	}
+
+	public String getValues() {
+		return values;
+	}
+
+	public void setValues(String values) {
+		this.values = values;
+	}
+
+	/**
+	 * 下拉菜单的对应值
+	 */
+	private String values;
+
+	public String getInputType() {
+		return inputType;
+	}
+
+	public void setInputType(String inputType) {
+		this.inputType = inputType;
+	}
+
+	/**
+	 * 最小长度
+	 */
+	private String minLength;
+
+	public String getMaxLength() {
+		return maxLength;
+	}
+
+	public void setMaxLength(String maxLength) {
+		this.maxLength = maxLength;
+	}
+
+	public String getMinLength() {
+		return minLength;
+	}
+
+	public void setMinLength(String minLength) {
+		this.minLength = minLength;
+	}
+
+	// 列类型
+	private String type;
+	// 节点类型：属性，或者id列
+	private String nodeType;
+	// 列宽度
+	private String width;
+
 	public String getColumnType() {
 		return columnType;
 	}
@@ -37,10 +149,6 @@ public class ColumnModel {
 		this.noedit = noedit;
 	}
 
-	// 数据库中的列名
-	private String column;
-	private String textarea;
-	private String selectType;
 	public String getSelectType() {
 		return selectType;
 	}
@@ -57,8 +165,6 @@ public class ColumnModel {
 		this.textarea = textarea;
 	}
 
-	//是否可见.
-	private String visible;
 	public String getVisible() {
 		return visible;
 	}
@@ -66,7 +172,7 @@ public class ColumnModel {
 	public void setVisible(String visible) {
 		this.visible = visible;
 	}
-	private String query;
+
 	public String getQuery() {
 		return query;
 	}
@@ -74,10 +180,6 @@ public class ColumnModel {
 	public void setQuery(String query) {
 		this.query = query;
 	}
-
-	//非空.
-	private String notnull;
-  
 
 	public String getNotnull() {
 		return notnull;
@@ -87,11 +189,6 @@ public class ColumnModel {
 		this.notnull = notnull;
 	}
 
-	/**
-	 * 是否是主键.
-	 */
-	private String iskey;
-
 	public String getIskey() {
 		return iskey;
 	}
@@ -100,12 +197,6 @@ public class ColumnModel {
 		this.iskey = iskey;
 	}
 
-	// 列类型
-	private String type;
-	// 节点类型：属性，或者id列
-	private String nodeType;
-	//列宽度
-	private String width;
 	public String getWidth() {
 		return width;
 	}
@@ -113,13 +204,6 @@ public class ColumnModel {
 	public void setWidth(String width) {
 		this.width = width;
 	}
-
-	// 属性描述
-	private String desc;
-	// jsp中描述属性的样式（number）
-	private String clas;
-	// 长度
-	private String length;
 
 	public String getName() {
 		return name;

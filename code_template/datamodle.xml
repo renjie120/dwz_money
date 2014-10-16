@@ -1,34 +1,31 @@
-<class name="ContractInfo" table="crm_contract_info" desc="合同"
+<class name="Huifang" table="crm_interview_huifang" desc="满意度回访"
 	package="eco.test">
-	<id name="contractId" column="id" type="int" desc="流水号" width="10" visible="false" />
-	<property name="ct_no" column="ct_no" type="varchar(50)" desc="合同编号"
-		width="15%" notnull="true" query="true" />
-	<property name="ct_type" column="ct_type" type="int" width="15%"
-		desc="合作类别" />
-	<property name="ct_money" column="ct_money" type="numeric(18,2)"
-		desc="合同总额" width="15%" />
-	<property name="ct_content" column="ct_content" type="varchar(500)"
-		visible="false" width="15%" desc="咨询内容" query="true" />
-	<property name="ct_start_date" column="ct_start_date" type="date" columnType="varchar(10)"
-		desc="开始时间" width="15%" />
-	<property name="ct_end_date" column="ct_end_date" type="date" columnType="varchar(10)"
-		desc="结束时间" width="15%" />
-	<property name="ct_travel" column="ct_travel" type="varchar(500)"
-		visible="false" desc="差旅约定" query="true" />
-	<property name="ct_pay_type" column="ct_pay_type" type="varchar(50)"
-		visible="false" desc="支付方式" query="true" />
-	<property name="ct_special" column="ct_special" type="varchar(2000)"
-		visible="false" desc="特别条款说明" query="true" />
-	<property name="shoukuan" column="shoukuan" type="varchar(100)"
-		desc="收款情况" query="true" />
-	<property name="ct_jingli" column="ct_jingli" type="varchar(50)"
-		desc="项目负责人" query="true" />
-	<property name="ct_zongjian" column="ct_zongjian" type="varchar(50)"
-		visible="false" desc="项目总监" query="true" />
-	<property name="ct_mishu" column="ct_mishu" type="varchar(50)"
-		visible="false" desc="项目秘书" query="true" />
-	<property name="ct_hexin" column="ct_hexin" type="varchar(100)"
-		visible="false" desc="核心人员" query="true" />
-	<property name="ct_crmId" column="crm_id" type="int" desc="关联客户"
+	<id name="lianxiId" column="id" type="int" desc="流水号" width="10"
 		visible="false" />
+	<property name="hf_time" column="hf_time" type="date"
+		columnType="varchar(10)" desc="回访时间" width="15%" notnull="true" />
+	<property name="hf_object" column="hf_object" type="varchar(50)"
+		maxLength="50" desc="回访对象" width="15%" />
+	<property name="hf_people" column="hf_people" type="num"
+		inputType='resource' columnType="int" width="15%" desc="回访人" />
+	<property name="hf_zhiliang" column="hf_zhiliang" type="varchar(5)"
+		names="A,B,C,D" values="A,B,C,D" inputType='select' maxLength="5"
+		visible="false" width="15%" desc="项目成果质量化" />
+	<property name="hf_zhiyehua" column="hf_zhiyehua" type="varchar(50)"
+		inputType='select' visible="false" maxLength="50" desc="职业化精神" width="15%" />
+	<property name="hf_control" column="hf_control" type="varchar(50)"
+		visible="false" maxLength="50" desc="进度控制" width="15%" />
+	<property name="hf_yuqi" column="hf_yuqi" type="varchar(2)"
+		names="是,否" values="1,0" inputType='select' visible="false"  
+		maxLength="2" desc="是否达到预期" />
+	<property name="hf_content" column="hf_content" type="varchar(2000)"
+		cols="40" rows="5" inputType='textarea' width="45%" desc="回访内容" />
+	<property name="hf_level" column="hf_level" type="varchar(12)"
+		inputType='select' maxLength="12" visible="false" desc="最终等级" />
+	<property name="hf_contract_no" column="hf_contract_no" type="varchar(50)"
+		maxLength="50" visible="false" desc="合同编号" />
+	<property name="hf_crm_id" column="crm_id" type="int" visible="false"
+		desc="关联客户" />
 </class>
+
+<!-- 添加inputtype。添加时间空间的必填选项，完善模板里面的view，edit，完善add模板的代码！！ -->

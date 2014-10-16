@@ -17,7 +17,7 @@ String titlename = "${model.classDesc}";
 
 
 <%
-String sql${bignm} = "select *  from ${model.table} order by ${model.keyName} desc";
+String sql${bignm} = "select *  from ${model.table} order by ${model.keyColumn} desc";
 ${nm}Rs.executeSql(sql${bignm});
 %> 
 <script type="text/javascript">

@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=GBK" %>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ include file="/systeminfo/init.jsp" %>
 <%@ page import="weaver.general.Util" %>
 
@@ -140,9 +140,15 @@ RCMenuHeight += RCMenuHeightStep ;
 									WdatePicker({lang:languageStr,el:'${attr.name}_span',onpicked:function(dp){
 										$dp.$('${attr.name}').value = dp.cal.getDateStr()},oncleared:function(dp){$dp.$('${attr.name}').value = ''}});
 							}
-							</SCRIPT>
-						<#else>  
-							<input   name="${attr.name}"  id="${attr.name}"/> 
+							</SCRIPT> 
+						<#else> <#-- 下面对很多的input的类型 进行处理验证情况-->                           <input   name="${attr.name}"  id="${attr.name}" <#if 
+						    '${attr.type}'='numAndChar'>  valid='numAndChar'<#elseif 
+							'${attr.type}'='email'>	 valid='email' <#elseif 
+							'${attr.type}'='num'> 	valid='num'	<#elseif 
+							'${attr.type}'='char'> 	valid='char' <#elseif 
+							'${attr.type}'='double'> valid='double'	<#else>	</#if><#if 
+							'${attr.minLength}'!=''>minLength="${attr.minLength}"</#if><#if 
+							'${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if>  /> 
 						</#if>
 						<#if '${attr.notnull}'='true'>
 						<SPAN id=FirstNameimage><IMG src="/images/BacoError.gif" align=absMiddle></SPAN>
@@ -175,4 +181,5 @@ function onSave(obj){
 <SCRIPT language="javascript" src="/js/datetime.js"></script>
 <SCRIPT language="javascript" src="/js/JSDateTime/WdatePicker.js"></script> 
 <script language=javascript src="/js/checkData.js"></script> 
+<SCRIPT language="javascript" src="/CRM/data/MySelectTool.js"></script>
 </HTML>

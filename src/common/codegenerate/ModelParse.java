@@ -57,6 +57,22 @@ public class ModelParse {
 				config.setNodeType(child.getNodeName());
 				//节点汉字注释
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
+				//最大长度
+				config.setMaxLength(DomUtil.getAttribute(child, "maxLength"));
+				//最短长度
+				config.setMinLength(DomUtil.getAttribute(child, "minLength"));
+				//列属性名
+				config.setCols(DomUtil.getAttribute(child, "cols"));
+				//列属性名
+				config.setName(DomUtil.getAttribute(child, "rows"));
+				//列的展示类型
+				config.setName(DomUtil.getAttribute(child, "inputType"));
+				//下拉菜单对应的文本的值
+				config.setName(DomUtil.getAttribute(child, "values"));
+				//下拉菜单的对应的文本的显示值
+				config.setName(DomUtil.getAttribute(child, "names"));
+				//列属性名
+				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否要检索
 				config.setQuery(DomUtil.getAttribute(child, "query")); 
 				//列类型
