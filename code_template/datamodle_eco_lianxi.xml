@@ -1,20 +1,21 @@
 <class name="Lianxi" table="crm_lianxi_log" desc="联系日志" package="eco.test">
 	<id name="lianxiId" column="id" type="int" desc="流水号" width="10"
 		visible="false" />
-	<property name="lx_object" column="lx_object" type="num" columnType="int"
-		desc="联系对象"  width="15%" notnull="true" query="true" />
-	<property name="lx_man" column="lx_man" type="varchar(50)" width="15%"
-		desc="联系人" />
+	<property name="lx_object" column="lx_object" type="select"
+		columnType="int" desc="联系对象" width="15%" notnull="true" query="true" />
+	<property name="lx_man" column="lx_man" type="resource" width="15%"
+		columnType="varchar(50)" desc="联系人" />
 	<property name="lx_type" column="lx_type" columnType="varchar(10)"
-		type="double" desc="联系类型" width="15%" />
-	<property name="lx_status" column="lx_status" type="varchar(10)"
-		maxLength="10" visible="false" width="15%" desc="联系状态" query="true" />
+		names="日常联系,偶尔联系" values="1,2" type="select" desc="联系类型" width="15%" />
+	<property name="lx_status" column="lx_status" columnType="varchar(10)"
+		type='select' names="去电,来电" values="1,2" maxLength="10" visible="false"
+		width="15%" desc="联系状态" />
 	<property name="lx_date" column="lx_date" type="date"
 		columnType="varchar(10)" desc="联系日期" width="15%" />
 	<property name="lx_time" column="lx_time" type="time"
 		columnType="varchar(8)" desc="联系时间" width="15%" />
-	<property name="lx_content" column="lx_content" type="varchar(2000)"
-		inputType='area' maxLength="2000" visible="false" desc="内容" query="true" />
-	<property name="lx_crm_id" column="crm_id" type="int" visible="false"
+	<property name="lx_content" column="lx_content" columnType="varchar(2000)"
+		type='areatext' maxLength="2000" visible="false" desc="内容" query="true" />
+	<property name="lx_crm_id" column="crm_id" type="int" visible="false" noeidt="true"
 		desc="关联客户" />
 </class>

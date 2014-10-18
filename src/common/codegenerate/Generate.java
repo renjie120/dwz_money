@@ -1,8 +1,10 @@
 package common.codegenerate;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import freemarker.template.Configuration;
@@ -36,7 +38,8 @@ public abstract class Generate {
 				throw new RuntimeException("文件已经存在：" + file);
 		}
 		try {
-			out = new FileWriter(file);
+			OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(_f.getAbsoluteFile(), true),"GBK");
+			out = osw;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

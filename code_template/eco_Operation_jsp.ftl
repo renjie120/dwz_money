@@ -1,5 +1,4 @@
-<#include "/com.renjie120.codegenerate.common.ftl">
-<%@ page language="java" contentType="text/html; charset=GBK" %> <%@ include file="/systeminfo/init.jsp" %>
+<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %> <%@ include file="/systeminfo/init.jsp" %>
 <%@ page import="java.util.*,
                  java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>

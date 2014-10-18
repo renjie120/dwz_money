@@ -64,13 +64,11 @@ public class ModelParse {
 				//列属性名
 				config.setCols(DomUtil.getAttribute(child, "cols"));
 				//列属性名
-				config.setName(DomUtil.getAttribute(child, "rows"));
-				//列的展示类型
-				config.setName(DomUtil.getAttribute(child, "inputType"));
+				config.setRows(DomUtil.getAttribute(child, "rows")); 
 				//下拉菜单对应的文本的值
-				config.setName(DomUtil.getAttribute(child, "values"));
+				config.setValues(DomUtil.getAttribute(child, "values"));
 				//下拉菜单的对应的文本的显示值
-				config.setName(DomUtil.getAttribute(child, "names"));
+				config.setNames(DomUtil.getAttribute(child, "names"));
 				//列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否要检索

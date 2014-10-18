@@ -47,6 +47,18 @@ public class Code {
 			}
 		}.setDirName(jspRoot, 2).make(true);
 		
+		new Generate("eco_view_jsp.ftl", beanName, "_view.jsp", packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.setDirName(jspRoot, 2).make(true);
+		
+		new Generate("eco_edit_jsp.ftl", beanName, "_edit.jsp", packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.setDirName(jspRoot, 2).make(true);
+		
 		new Generate("sqlserver_proceduce.ftl", beanName, ".sql", packageName) {
 			public Object setData() {
 				return m;

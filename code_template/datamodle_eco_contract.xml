@@ -8,8 +8,9 @@
 		desc="合作类别" />
 	<property name="ct_money" column="ct_money" columnType="numeric(18,2)"
 		type="double" desc="合同总额" width="15%" />
-	<property name="ct_content" column="ct_content" type="varchar(500)"
-		maxLength="500" visible="false" width="15%" desc="咨询内容" query="true" />
+	<property name="ct_content" column="ct_content" columnType="varchar(500)"
+		type="textarea" maxLength="500" visible="false" width="15%" desc="咨询内容"
+		query="true" />
 	<property name="ct_start_date" column="ct_start_date" type="date"
 		columnType="varchar(10)" desc="开始时间" width="15%" />
 	<property name="ct_end_date" column="ct_end_date" type="date"
@@ -18,8 +19,9 @@
 		inputType='area' maxLength="500" visible="false" desc="差旅约定" query="true" />
 	<property name="ct_pay_type" column="ct_pay_type" type="varchar(50)"
 		visible="false" desc="支付方式" query="true" />
-	<property name="ct_special" column="ct_special" type="varchar(2000)"
-		inputType='area' maxLength="2000" visible="false" desc="特别条款说明" query="true" />
+	<property name="ct_special" column="ct_special" cols="40"
+		rows="5" columnType="varchar(2000)" type='textarea' maxLength="2000"
+		visible="false" desc="特别条款说明" query="true" />
 	<property name="shoukuan" column="shoukuan" type="varchar(100)"
 		maxLength="100" desc="收款情况" query="true" />
 	<property name="ct_jingli" column="ct_jingli" type="varchar(50)"

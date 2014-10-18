@@ -41,6 +41,14 @@
 <#-- 全部的属性除去主键的连接字符串--全部的数据库字段的连接 -->
 <#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
  
+<#macro allfield2notkey_updatecolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}= @${attr.name}<#assign index=index+1></#if></#list></#macro>
+
+<#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
+ 
+<#-- 组装成为下拉菜单的option选项字符串 -->
+<#macro getOptionStr names values><#if names!=''><#assign arr1=names?split(",")><#if values!=''><#assign arr2=values?split(",")></#if><#list arr1 as n><#assign temp=0><option value="${arr2[temp]}">${n}</option><#assign temp=temp+1></#list></#if></#macro>
+<#macro getOptionWithCheck names values check_val><#if names!=''><#assign arr1=names?split(",")><#if values!=''><#assign arr2=values?split(",")></#if><#list arr1 as n><#assign temp=0><option value="${arr2[temp]}" <#if check_val==arr2[temp]>selected</#if>>${n}</option><#assign temp=temp+1></#list></#if></#macro>
+<#macro getOptionStr2 names ><#if names!=''><#list names?split(",") as array>${array},</#list></#if></#macro>
 
 <#-- 全部的属性的排序字符串的连接字符串 -->
 <#macro allorderfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case},  ${attr.name?upper_case}_DESC <#assign index=index+1><#if index<size>,</#if></#list></#macro>

@@ -36,9 +36,9 @@ public class ColumnModel {
 	 */
 	private String maxLength;
 	/**
-	 * 控件类型：默认为input，可选：resource depart customer areatext select checkbox radio
+	 * 控件类型：默认为input，可选：resource depart customer textarea select checkbox radio
 	 */
-	private String inputType;
+	//private String inputType;
 	/**
 	 * 下拉菜单的可选文本值
 	 */
@@ -89,13 +89,13 @@ public class ColumnModel {
 	 */
 	private String values;
 
-	public String getInputType() {
-		return inputType;
-	}
-
-	public void setInputType(String inputType) {
-		this.inputType = inputType;
-	}
+//	public String getInputType() {
+//		return inputType;
+//	}
+//
+//	public void setInputType(String inputType) {
+//		this.inputType = inputType;
+//	}
 
 	/**
 	 * 最小长度
@@ -118,7 +118,7 @@ public class ColumnModel {
 		this.minLength = minLength;
 	}
 
-	// 列类型
+	// 列类型:可选：resource int date double depart customer areatext select checkbox radio
 	private String type;
 	// 节点类型：属性，或者id列
 	private String nodeType;

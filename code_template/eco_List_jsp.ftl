@@ -1,8 +1,19 @@
-<#include "/com.renjie120.codegenerate.common.ftl">
-<%@ page language="java" contentType="text/html; charset=GBK" %> <%@ include file="/systeminfo/init.jsp" %>
+<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %> <%@ include file="/systeminfo/init.jsp" %>
 <%@ page import="weaver.general.Util" %>
- 
-<jsp:useBean id="${nm}Rs" class="weaver.conn.RecordSet" scope="page" />  
+<jsp:useBean id="${nm}Rs" class="weaver.conn.RecordSet" scope="page" />   
+<jsp:useBean id="ResourceComInfo" class="weaver.hrm.resource.ResourceComInfo" scope="page"/>
+<jsp:useBean id="RequestComInfo" class="weaver.workflow.request.RequestComInfo" scope="page"/>
+<jsp:useBean id="CustomerInfoComInfo" class="weaver.crm.Maint.CustomerInfoComInfo" scope="page" />
+
+<%
+String crmId = Util.null2String(request.getParameter("CustomerID"));
+int viewType = Util.getIntValue(request.getParameter("viewtype"), 0);
+boolean isfromtab =  Util.null2String(request.getParameter("isfromtab")).equals("true")?true:false;
+String userId = String.valueOf(user.getUID());
+String userType = user.getLogintype();
+userType="1";  //表WorkPlanShareDetail usertype字段都是为1，所以，如果客户门户登陆的话，永远查询不到数据
+%>
+
 
 <HTML><HEAD>
 <%if(isfromtab) {%>
@@ -10,11 +21,31 @@
 <%} %>
 <LINK href="/css/Weaver.css" type=text/css rel=STYLESHEET>
 </HEAD>
-<% 
-String titlename = "${model.classDesc}";  
-%>
-<BODY>
+<%
+String imagefilename = "/images/hdReport.gif";
+String titlename = SystemEnv.getHtmlLabelName(6082,user.getLanguage())
+					+ " - " + SystemEnv.getHtmlLabelName(136,user.getLanguage())
+					+ ":&nbsp;<A href='/CRM/data/ViewCustomer.jsp?CustomerID=" + crmId + "'>"
+					+ Util.toScreen(CustomerInfoComInfo.getCustomerInfoname(crmId),user.getLanguage())+"</A>";
 
+String needfav ="1";
+String needhelp ="";
+String currentvalue = "";
+%>
+<BODY>  
+
+<%@ include file="/systeminfo/RightClickMenuConent.jsp" %>
+<%
+/*RCMenu += "{"+SystemEnv.getHtmlLabelName(82,user.getLanguage())+",javascript:doAdd(),_top} " ;
+RCMenuHeight += RCMenuHeightStep ;*/
+if(!isfromtab){
+	RCMenu += "{"+SystemEnv.getHtmlLabelName(1290,user.getLanguage())+",javascript:goCustomerCardBack(),_top} " ;
+	RCMenuHeight += RCMenuHeightStep ;
+	%>
+	<%@ include file="/systeminfo/TopTitle.jsp" %>
+	<%
+}
+%> 
 
 <%
 String sql${bignm} = "select *  from ${model.table} order by ${model.keyColumn} desc";
@@ -30,6 +61,10 @@ ${nm}Rs.executeSql(sql${bignm});
 		document.location.href = 
 			"/CRM/data/${model.className}_add.jsp?add=1&CustomerID=<%=crmId%>&isfromtab=<%=isfromtab%>";
 	}
+	function see${bignm}(obj){
+		 document.location.href = 
+			"/CRM/data/${model.className}_view.jsp?CustomerID=<%=crmId%>&ID="+$(obj).attr('idtag');	
+	} 
 	function delete${bignm}(obj){
 		 if(confirm("确定要删除该${model.classDesc}信息吗？")){
 			$.ajax({
@@ -84,7 +119,8 @@ ${nm}Rs.executeSql(sql${bignm});
 					<td><%=${attr.name}%></td>
 						</#if>
 					</#list>    
-					<td><button onclick='delete${bignm}(this)' idtag='<%=${model.keyName}%>' >删除</button></td>
+					<td><button onclick='delete${bignm}(this)' idtag='<%=${model.keyName}%>' >删除</button>
+					<button onclick='see${bignm}(this)' idtag='<%=${model.keyName}%>' >查看</button></td>
 					<%
 							isLight${bignm} = !isLight${bignm};
 					}	
