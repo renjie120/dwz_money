@@ -1,17 +1,19 @@
-<class name="Peixun" table="crm_peixun" desc="培训" package="eco.test">
-	<id name="id" column="id" type="int" desc="流水号" width="10" visible="false" />
+<class name="Peixun" table="crm_peixun" desc="公开课" package="eco.test" arg1="/CRM/data/Shangwuxinxi.jsp?CustomerID=">
+	<id name="peixunid" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
 	<property name="pxPeople" column="px_people" type="varchar(500)"
-		desc="参与人" width="15%" notnull="true" query="true" />
-	<property name="pxClass" column="px_class" type="varchar(50)"
-		width="15%" desc="班级" query="true" />
-	<property name="pxTime" column="px_time" type="date"  
-		desc="培训时间" width="15%" />
-	<property name="pxAddress" column="px_address" type="varchar(500)"
-		desc="地址" width="15%" />
-	<property name="pxMoneyStation" column="px_money_station"
-		type="varchar(500)" width="15%" desc="付款情况" />
-	<property name="pxCharge" column="px_charge" type="varchar(100)"
-		desc="负责人" width="15%" />
-	<property name="crmId" column="crm_id" type="int" desc="关联客户"
-		query="true" />
+		desc="学员" width="15%" notnull="true" query="true" />
+	<property name="pxClass" column="px_class" type="varchar(50)" notnull="true"
+		maxLength="50" width="15%" desc="班级" query="true" />
+	<property name="pxTime" column="px_time" type="date" desc="培训时间" notnull="true" query="true" 
+		columnType="varchar(10)" width="15%" />
+	<property name="pxAddress" column="px_address" columnType="varchar(500)" notnull="true" query="true" 
+		maxLength="500" type="textarea" desc="地址" width="15%" />
+	<property name="pxMoneyStation" column="px_money_station" notnull="true" query="true" 
+		type="textarea" maxLength="1000" columnType="varchar(1000)" width="15%"
+		desc="收款情况" />
+	<property name="pxCharge" column="px_charge" columnType="varchar(500)"  type="resources" notnull="true" query="true" 
+		maxLength="500" desc="负责人" width="15%" />
+	<property name="peixuncrmId" column="crm_id" type="int" desc="关联客户"
+		visible="false" noedit="true" query="true" />
 </class>

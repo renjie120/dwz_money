@@ -20,6 +20,15 @@ public class ModelParse {
 	private List<ColumnModel> attributes = new ArrayList<ColumnModel>();
 	private String table;
 	private String className;
+	private String arg1;
+	public String getArg1() {
+		return arg1;
+	}
+
+	public void setArg1(String arg1) {
+		this.arg1 = arg1;
+	}
+
 	private String classDesc;
 	private String packageName;
 
@@ -38,6 +47,7 @@ public class ModelParse {
 		table = DomUtil.getAttribute(list, "table");
 		packageName = DomUtil.getAttribute(list, "package");
 		className = DomUtil.getAttribute(list, "name");
+		arg1 = DomUtil.getAttribute(list, "arg1");
 		classDesc = DomUtil.getAttribute(list, "desc");
 		NodeList children = list.getChildNodes();
 		for (int j = 0; j < children.getLength(); j++) {
@@ -103,6 +113,7 @@ public class ModelParse {
 			}
 		}
 		model.setTable(table);
+		model.setArg1(arg1);
 		model.setClassName(className);
 		model.setPackageName(packageName);
 		model.setClassDesc(classDesc);

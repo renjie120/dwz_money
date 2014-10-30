@@ -1,4 +1,4 @@
-﻿<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
+<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
 <%@ include file="/systeminfo/init.jsp" %>
 <%@ page import="weaver.general.Util" %>
 
@@ -83,10 +83,10 @@ RCMenuHeight += RCMenuHeightStep ;
 RCMenu += "{"+SystemEnv.getHtmlLabelName(589,user.getLanguage())+",javascript:document.weaver.reset(),_top} " ;
 RCMenuHeight += RCMenuHeightStep ;
 if(!isfromtab){
-RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/Shangwuxinxi.jsp?CustomerID="+CustomerID+"&isfromtab=true',_top} " ;
+RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&isfromtab=true',_top} " ;
 RCMenuHeight += RCMenuHeightStep ;
 }else{
-	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/Shangwuxinxi.jsp?CustomerID="+CustomerID+"&isfromtab=true',_top} " ;
+	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&isfromtab=true',_top} " ;
 	RCMenuHeight += RCMenuHeightStep ;
 }
 %>
@@ -133,25 +133,75 @@ RCMenuHeight += RCMenuHeightStep ;
 						<TD>${attr.desc}</TD>
 						<TD class=Field>
 						<#if '${attr.type}'='date'>
-							<BUTTON type="button" class=calendar id=px_time_a onclick=get${attr.name?cap_first}()></BUTTON>
+							<BUTTON type="button" <#if '${attr.notnull}'=='true'>notnull="true" inputType='date' </#if> class=calendar id=px_time_${attr.name} onclick=get${attr.name?cap_first}()></BUTTON>
 							<SPAN id=${attr.name}_span ></SPAN>
+							<#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if>
 							<input type="hidden" name="${attr.name}"  id="${attr.name}"/>  
 							<SCRIPT language="javascript"> 
 							function get${attr.name?cap_first}(){
 									WdatePicker({lang:languageStr,el:'${attr.name}_span',onpicked:function(dp){
-										$dp.$('${attr.name}').value = dp.cal.getDateStr()},oncleared:function(dp){$dp.$('${attr.name}').value = ''}});
-							}
+											$dp.$('${attr.name}').value = dp.cal.getDateStr();<#if '${attr.notnull}'=='true'>
+											see${attr.name?cap_first}();</#if>
+									},oncleared:function(dp){
+											$dp.$('${attr.name}').value = '';<#if '${attr.notnull}'=='true'>
+											see${attr.name?cap_first}();</#if>
+									}});
+							}<#if '${attr.notnull}'=='true'>
+							function see${attr.name?cap_first}(){
+									if($('#${attr.name}_span').html()==''){
+										$('#${attr.name}image').html("<IMG src='/images/BacoError.gif' align=absMiddle>");
+									}else{
+										$('#${attr.name}image').html('');
+									}	
+							}</#if>
+							</SCRIPT> 
+						<#elseif '${attr.type}'='time'>
+							<BUTTON type="button" <#if '${attr.notnull}'=='true'>notnull="true" inputType='time' </#if> class=calendar id=px_time_${attr.name} onclick=get${attr.name?cap_first}()></BUTTON>
+							<SPAN id=${attr.name}_span ></SPAN>
+							<#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if>
+							<input type="hidden" name="${attr.name}"  id="${attr.name}"/>  
+							<SCRIPT language="javascript"> 
+							function get${attr.name?cap_first}(){
+									WdatePicker({lang:languageStr,dateFmt:'H:mm:ss',el:'${attr.name}_span',onpicked:function(dp){
+											$dp.$('${attr.name}').value = dp.cal.getDateStr();<#if '${attr.notnull}'=='true'>
+											see${attr.name?cap_first}();</#if>
+									},oncleared:function(dp){
+											$dp.$('${attr.name}').value = '';<#if '${attr.notnull}'=='true'>
+											see${attr.name?cap_first}();</#if>
+									}});
+							}<#if '${attr.notnull}'=='true'>
+							function see${attr.name?cap_first}(){
+									if($('#${attr.name}_span').html()==''){
+										$('#${attr.name}image').html("<IMG src='/images/BacoError.gif' align=absMiddle>");
+									}else{
+										$('#${attr.name}image').html('');
+									}	
+							}</#if>
 							</SCRIPT> 
 						<#elseif '${attr.type}'='resource'>
-							<sq type='resource' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq>
+							<sq <#if '${attr.notnull}'=='true'>notnull="true" inputType='sq' </#if> type='resource' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq> 
+						<#elseif '${attr.type}'='resources'>
+							<input class=wuiBrowser type=hidden name="${attr.name}" id="${attr.name}"   _url="/systeminfo/BrowserMain.jsp?url=/hrm/resource/MutiResourceBrowser.jsp"
+							 _displayTemplate="<a href='/hrm/resource/HrmResource.jsp?id=#b{id}' target='_blank' >#b{name}</a>&nbsp;" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
+							 _trimLeftComma="yes"	  >
+							 <span id="${attr.name}span"> </span>  
+						<#elseif '${attr.type}'='customers'>
+							<input class=wuiBrowser type=hidden name="${attr.name}" id="${attr.name}"  _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/MutiCustomerBrowser.jsp"
+							 _displayTemplate="<a href='/CRM/data/ViewCustomer.jsp?CustomerID=#b{id}' target='_blank'>#b{name}</a>&nbsp;" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
+							 _trimLeftComma="yes"	  >
+							 <span id="${attr.name}span"> </span>  
 						<#elseif '${attr.type}'='customer'>
-							<sq type='customer' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq>
+							<sq <#if '${attr.notnull}'=='true'>notnull="true" inputType='sq' </#if> type='customer' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq> 
+						<#elseif '${attr.type}'='contact'>
+							<INPUT class="wuiBrowser"  _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/Crm_lianxiren_Browser.jsp?crmManager=<%=CustomerID%>" <#if '${attr.notnull}'=='true'>_required='yes' </#if> id="${attr.name}" type=hidden name="${attr.name}"  />
 						<#elseif '${attr.type}'='textarea'>
-							<textarea name="${attr.name}" id="${attr.name}" <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if>></textarea>
+							<textarea <#if '${attr.minLength}'!=''>minLength="${attr.minLength}"</#if> <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if> <#if '${attr.notnull}'=='true'>onchange='checkNotnull("${attr.name}","${attr.name}image")'</#if>  name="${attr.name}" id="${attr.name}" <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if>></textarea><#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if>
 						<#elseif '${attr.type}'='select'>
 							<#--注释：：：<#list  '${attr.names}'?split(",") as array>${array},</#list>  -->
-							<select name="${attr.name}" id="${attr.name}"><@getOptionStr names=attr.names values=attr.values/></select>
-						<#else> <#-- 下面对很多的input的类型 进行处理验证情况-->    
+							<select name="${attr.name}" id="${attr.name}" <#if '${attr.notnull}'=='true'>notnull="true" onchange='checkNotnullSelect(this,"${attr.name}image")' </#if> ><@getOptionStr names=attr.names values=attr.values/></select><#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if>
+						<#elseif '${attr.type}'='file'>
+							 <input class=inputstyle  <#if '${attr.notnull}'='true'>onchange='checkNotnull("${attr.name}","${attr.name}image")'</#if> type="file" maxLength=100 size=30 name="${attr.name}" id="${attr.name}"><#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if>  
+						<#else> <#-- 下面对很多的input的类型 进行处理验证情况-->  
 						  <input   name="${attr.name}"  id="${attr.name}" 
 						    <#if  '${attr.type}'='numAndChar'>  valid='numAndChar'
 						    <#elseif 	'${attr.type}'='email'>	 valid='email' 
@@ -159,12 +209,13 @@ RCMenuHeight += RCMenuHeightStep ;
 						    <#elseif 	'${attr.type}'='char'> 	valid='char' 
 						    <#elseif 	'${attr.type}'='double'> valid='double'	
 						    <#else>	</#if>
-						    <#if '${attr.minLength}'!=''>minLength="${attr.minLength}"</#if>
-						    <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if>  /> 
+						    <#if '${attr.minLength}'!=''>minLength="${attr.minLength}"</#if> <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if>
+						    <#if '${attr.notnull}'='true'>onchange='checkNotnull("${attr.name}","${attr.name}image")'</#if> 
+						     /><#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"><IMG src='/images/BacoError.gif' align=absMiddle></SPAN></#if> 
 						</#if>
-						<#if '${attr.notnull}'='true'>
+						<#--  #if '${attr.notnull}'='true'>
 						<SPAN id=FirstNameimage><IMG src="/images/BacoError.gif" align=absMiddle></SPAN>
-						</#if> 
+						</#if--> 
 			</TD></TR>	
 					<tr  style="height: 1px"><td class=Line colspan=2></td></tr>				
 				</#if></#if>

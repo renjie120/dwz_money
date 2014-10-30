@@ -1,7 +1,9 @@
-﻿<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
+<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
 <%@ include file="/systeminfo/init.jsp" %>
 <%@ page import="weaver.general.Util" %>
+ <jsp:useBean id="CustomerContacterComInfo" class="weaver.crm.Maint.CustomerContacterComInfo" scope="page" />
 
+<jsp:useBean id="CustomerInfoComInfo" class="weaver.crm.Maint.CustomerInfoComInfo" scope="page" />
 <jsp:useBean id="LanguageComInfo" class="weaver.systeminfo.language.LanguageComInfo" scope="page" />
 <jsp:useBean id="${nm}RecordSet" class="weaver.conn.RecordSet" scope="page" />
 <jsp:useBean id="Util" class="weaver.general.Util" scope="page" />
@@ -89,10 +91,10 @@ String needhelp ="";
 RCMenu += "{编辑,javascript:location.href='/CRM/data/${model.className}_edit.jsp?CustomerID="+CustomerID+"&ID="+ID+"&isfromtab=true',_top}  " ; 
 RCMenuHeight += RCMenuHeightStep ;
 if(!isfromtab){
-RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/${model.className}_List.jsp?CustomerID="+CustomerID+"&isfromtab=true',_top} " ;
+RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&isfromtab=true',_top} " ;
 RCMenuHeight += RCMenuHeightStep ;
 }else{
-	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/${model.className}_List.jsp?CustomerID="+CustomerID+"&isfromtab=true',_top} " ;
+	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&isfromtab=true',_top} " ;
 	RCMenuHeight += RCMenuHeightStep ;
 }
 %>
@@ -131,12 +133,42 @@ RCMenuHeight += RCMenuHeightStep ;
 			</TR>
 			<#list model.attributes as attr> 
 			<#if '${attr.name}'!='${model.keyName}'>
+			<#if '${attr.noedit}'!='true'>	
 			<TR>
-					<TD>${attr.desc}</TD>
-					<TD class=Field>
-					  <%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%> 
+			<TD>${attr.desc}</TD>
+			<TD class=Field>
+				<#if '${attr.type}'='resources'>
+				<%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+				    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+				    for(int i=0;i<array${attr.name}s.size();i++){
+				   %>
+				      <A href='/hrm/resource/HrmResource.jsp?id=<%=""+array${attr.name}s.get(i)%>' target='_blank' ><%=ResourceComInfo.getResourcename(""+array${attr.name}s.get(i))%></a>&nbsp
+				   <%}}%>	  
+				<#elseif '${attr.type}'='select'>
+				<span type='select' names='${attr.names}' values='${attr.values}' selected='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>'></span> 
+				<#elseif '${attr.type}'='customers'>
+				<%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+				    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+				    for(int i=0;i<array${attr.name}s.size();i++){
+				   %>
+				      <A href='/CRM/data/ViewCustomer.jsp?CustomerID=<%=""+array${attr.name}s.get(i)%>'><%=CustomerInfoComInfo.getCustomerInfoname(""+array${attr.name}s.get(i))%></a>&nbsp
+				   <%}}%>
+				<#elseif '${attr.type}'='resource'>
+				<%=Util.toScreen(ResourceComInfo.getResourcename(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%>
+				<#elseif '${attr.type}'='customer'>
+				<%=Util.toScreen(CustomerInfoComInfo.getCustomerInfoname(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%>
+				<#elseif '${attr.type}'='contact'>
+				 <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+				    String str${attr.name} =  Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()) ; 
+				   %>
+				      <A href='/CRM/data/ViewContacter.jsp?ContacterID=<%=str${attr.name}%>'><%=Util.toScreen(CustomerContacterComInfo.getCustomerContacternameByID( str${attr.name}),user.getLanguage())%></a>&nbsp
+				   <%} %>
+				<#else>
+				<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%> 
+				</#if>
 			</TD></TR>	 
 			<tr  style="height: 1px"><td class=Line colspan=2></td></tr>
+			</#if>
 			</#if>
 			</#list>
 		</TBODY>
@@ -149,4 +181,5 @@ RCMenuHeight += RCMenuHeightStep ;
 </tr> 
 </table> 
 </BODY> 
-</HTML>
+</HTML> 
+<SCRIPT language="javascript" src="/CRM/data/MySelectTool.js"></script>

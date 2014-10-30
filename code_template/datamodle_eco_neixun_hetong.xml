@@ -1,0 +1,22 @@
+<class name="NeixunContractInfo" table="crm_contranx_neixun_info" desc="内训合同" arg1="/CRM/data/Shangwuxinxi.jsp?CustomerID="
+	package="eco.test">
+	<id name="nxcontractId" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
+	<property name="nx_no" column="nx_no" type="varchar(50)" desc="合同编号"
+		maxLength="50" width="15%" notnull="true"  /> 
+	<property name="nx_content" column="nx_content" columnType="varchar(5000)" rows="5" cols="60"
+		type="textarea" maxLength="5000"   width="15%" desc="课程内容"
+	  />
+	<property name="nx_start_date" column="nx_start_date" type="date"  notnull="true"  
+		columnType="varchar(10)" desc="开始时间" width="15%" />
+	<property name="nx_end_date" column="nx_end_date" type="date"  notnull="true"  
+		columnType="varchar(10)" desc="结束时间" width="15%" />   
+	<property name="nx_money" column="nx_money" columnType="numeric(18,2)"  notnull="true"
+		type="double" desc="合同金额" width="15%" />
+	<property name="nx_teacher" column="teacher" columnType="varchar(100)"  notnull="true" type="customers"
+		maxLength="100" desc="讲师信息"  />
+	<property name="nx_jingli" column="nx_jingli" columnType="varchar(1000)"  notnull="true" type="resources"
+		maxLength="1000" desc="负责人"  /> 
+	<property name="nx_crmId" column="crm_id" type="int" desc="关联客户"
+		visible="false" />
+</class>

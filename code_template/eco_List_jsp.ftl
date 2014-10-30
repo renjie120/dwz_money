@@ -33,20 +33,8 @@ String needhelp ="";
 String currentvalue = "";
 %>
 <BODY>  
-
-<%@ include file="/systeminfo/RightClickMenuConent.jsp" %>
-<%
-/*RCMenu += "{"+SystemEnv.getHtmlLabelName(82,user.getLanguage())+",javascript:doAdd(),_top} " ;
-RCMenuHeight += RCMenuHeightStep ;*/
-if(!isfromtab){
-	RCMenu += "{"+SystemEnv.getHtmlLabelName(1290,user.getLanguage())+",javascript:goCustomerCardBack(),_top} " ;
-	RCMenuHeight += RCMenuHeightStep ;
-	%>
-	<%@ include file="/systeminfo/TopTitle.jsp" %>
-	<%
-}
-%> 
-
+<%@ include file="/systeminfo/RightClickMenuConent.jsp" %> 
+<%@ include file="/systeminfo/RightClickMenu.jsp" %>  
 <%
 String sql${bignm} = "select *  from ${model.table} order by ${model.keyColumn} desc";
 ${nm}Rs.executeSql(sql${bignm});
@@ -65,6 +53,10 @@ ${nm}Rs.executeSql(sql${bignm});
 		 document.location.href = 
 			"/CRM/data/${model.className}_view.jsp?CustomerID=<%=crmId%>&ID="+$(obj).attr('idtag');	
 	} 
+	function edit${bignm}(obj){
+		 document.location.href = 
+			"/CRM/data/${model.className}_edit.jsp?CustomerID=<%=crmId%>&ID="+$(obj).attr('idtag')+"&isfromtab=<%=isfromtab%>";		
+	} 
 	function delete${bignm}(obj){
 		 if(confirm("确定要删除该${model.classDesc}信息吗？")){
 			$.ajax({
@@ -78,7 +70,7 @@ ${nm}Rs.executeSql(sql${bignm});
 	} 
 //-->
 </script> 
-<div style='float:left;width:100%'>
+<div style='float:top;width:100%'>
 	<button onclick='add${bignm}()'>添加${model.classDesc} </button>
 	<TABLE class="ListStyle">
 		<COLGROUP> 	
@@ -116,11 +108,33 @@ ${nm}Rs.executeSql(sql${bignm});
 					%>
 					<#list model.attributes as attr> 
 					<#if "${attr.visible}"!='false'>
+					<#if "${attr.type}"=='resource'>
+					<td><A href="/hrm/resource/HrmResource.jsp?id=<%=${attr.name}%>" ><%=Util.toScreen(ResourceComInfo.getResourcename(${attr.name}),user.getLanguage())%></a></td>					
+					<#elseif "${attr.type}"=='contact'>
+					<td><A href="/CRM/data/ViewContacter.jsp?ContacterID=<%=${attr.name}%>" ><%=Util.toScreen(CustomerContacterComInfo.getCustomerContacternameByID(${attr.name}),user.getLanguage())%></a></td>					
+					<#elseif "${attr.type}"=='customers'>
+					<td><%if(!"".equals(${attr.name})){
+							    ArrayList array${attr.name}s = Util.TokenizerString(${attr.name},",");
+							    for(int i=0;i<array${attr.name}s.size();i++){
+							   %><A href='/CRM/data/ViewCustomer.jsp?CustomerID=<%=""+array${attr.name}s.get(i)%>'><%=CustomerInfoComInfo.getCustomerInfoname(""+array${attr.name}s.get(i))%></a>&nbsp
+							   <%}}%></td>					
+					<#elseif "${attr.type}"=='resources'>
+					<td><%if(!"".equals(${attr.name})){
+							    ArrayList array${attr.name}s = Util.TokenizerString(${attr.name},",");
+							    for(int i=0;i<array${attr.name}s.size();i++){
+							   %><A href='/hrm/resource/HrmResource.jsp?id=<%=""+array${attr.name}s.get(i)%>'><%=ResourceComInfo.getResourcename(""+array${attr.name}s.get(i))%></a>&nbsp
+							   <%}}%></td>	
+					<#elseif "${attr.type}"=='customer'>
+					<td><A href="/CRM/data/ViewCustomer.jsp?CustomerID=<%=${attr.name}%>" ><%=Util.toScreen(CustomerInfoComInfo.getCustomerInfoname(${attr.name}),user.getLanguage())%></a></td>					
+					<#else>
 					<td><%=${attr.name}%></td>
-						</#if>
+					</#if>
+					</#if>
 					</#list>    
-					<td><button onclick='delete${bignm}(this)' idtag='<%=${model.keyName}%>' >删除</button>
-					<button onclick='see${bignm}(this)' idtag='<%=${model.keyName}%>' >查看</button></td>
+					<td><button   onclick='see${bignm}(this)' idtag='<%=${model.keyName}%>' >查看</button>
+					&nbsp;<button   onclick='delete${bignm}(this)' idtag='<%=${model.keyName}%>' >删除</button>
+					&nbsp;<button onclick='edit${bignm}(this)' idtag='<%=${model.keyName}%>' >编辑</button> 
+					</td>
 					<%
 							isLight${bignm} = !isLight${bignm};
 					}	

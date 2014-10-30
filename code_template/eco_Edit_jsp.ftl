@@ -1,7 +1,7 @@
-﻿<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
+<#include "/com.renjie120.codegenerate.common.ftl"><%@ page language="java" contentType="text/html; charset=GBK" %>
 <%@ include file="/systeminfo/init.jsp" %>
-<%@ page import="weaver.general.Util" %>
-
+<%@ page import="weaver.general.Util" %> 
+<jsp:useBean id="CustomerInfoComInfo" class="weaver.crm.Maint.CustomerInfoComInfo" scope="page" />
 <jsp:useBean id="LanguageComInfo" class="weaver.systeminfo.language.LanguageComInfo" scope="page" />
 <jsp:useBean id="${nm}RecordSet" class="weaver.conn.RecordSet" scope="page" />
 <jsp:useBean id="Util" class="weaver.general.Util" scope="page" />
@@ -11,6 +11,7 @@
 <jsp:useBean id="ResourceComInfo" class="weaver.hrm.resource.ResourceComInfo" scope="page"/>
 <jsp:useBean id="CheckUserRight" class="weaver.systeminfo.systemright.CheckUserRight" scope="page" />
 <jsp:useBean id="RecordSetV" class="weaver.conn.RecordSet" scope="page" />
+<jsp:useBean id="CustomerContacterComInfo" class="weaver.crm.Maint.CustomerContacterComInfo" scope="page" />
 <jsp:useBean id="CrmShareBase" class="weaver.crm.CrmShareBase" scope="page" />
 <%
 String CustomerID = Util.null2String(request.getParameter("CustomerID"));
@@ -86,17 +87,19 @@ String needhelp ="";
 <%} %>
 <%@ include file="/systeminfo/RightClickMenuConent.jsp" %>
 <% 
-if(!isfromtab){
-RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/Huifang_Edit.jsp?CustomerID="+CustomerID+"&ID="+ID+"isfromtab=true',_top} " ;
+RCMenu += "{保存,javascript:onSave(this),_top} " ;
 RCMenuHeight += RCMenuHeightStep ;
+if(!isfromtab){
+	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&ID="+ID+"isfromtab=true',_top} " ;
+	RCMenuHeight += RCMenuHeightStep ;
 }else{
-	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='/CRM/data/Shangwuxinxi.jsp?CustomerID="+CustomerID+"&isfromtab=true',_top} " ;
+	RCMenu += "{"+SystemEnv.getHtmlLabelName(201,user.getLanguage())+",javascript:location.href='${model.arg1}"+CustomerID+"&isfromtab=true',_top} " ;
 	RCMenuHeight += RCMenuHeightStep ;
 }
 %>
 
 <%@ include file="/systeminfo/RightClickMenu.jsp" %>
-
+<FORM id=weaver name="weaver" action="/CRM/data/${model.className}_operation.jsp" method=post onsubmit='return check_form(this,"<#list model.attributes as attr><#if '${attr.notnull}'='true'>${attr.name},</#if></#list>")' enctype="multipart/form-data"> 
 <table width=100% height=100% border="0" cellspacing="0" cellpadding="0">
 <colgroup>
 <col width="10">
@@ -111,8 +114,9 @@ RCMenuHeight += RCMenuHeightStep ;
 		<TABLE class=Shadow>
 		<tr>
 		<td valign="top"> 
-	<input type="hidden" name="method" value="add">
+	<input type="hidden" name="method" value="edit">
 	<input type="hidden" name="CustomerID" value="<%=CustomerID%>">
+	<input type="hidden" name="ID" value="<%=Util.toScreen(${nm}RecordSet.getString("${model.keyColumn}"), user.getLanguage())%>">
 	<input type="hidden" name="isfromtab" value="<%=isfromtab %>"> 
 	
 	<TABLE class=ViewForm>
@@ -134,24 +138,91 @@ RCMenuHeight += RCMenuHeightStep ;
 						<TD>${attr.desc}</TD>
 						<TD class=Field>
 						<#if '${attr.type}'='date'>
-							<BUTTON type="button" class=calendar id=px_time_a onclick=get${attr.name?cap_first}()></BUTTON>
-							<SPAN id=${attr.name}_span ><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></SPAN>
-							<input type="hidden" name="${attr.name}"  id="${attr.name}"/>  
+							<BUTTON type="button" <#if '${attr.notnull}'=='true'>notnull="true"</#if> class=calendar id=px_time_a onclick=get${attr.name?cap_first}()></BUTTON>
+							<SPAN id=${attr.name}_span ><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></SPAN><SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN>
+							<#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"></SPAN></#if>
+							<input type="hidden" name="${attr.name}"  id="${attr.name}" value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>'/>  
 							<SCRIPT language="javascript"> 
 							function get${attr.name?cap_first}(){
 									WdatePicker({lang:languageStr,el:'${attr.name}_span',onpicked:function(dp){
-										$dp.$('${attr.name}').value = dp.cal.getDateStr()},oncleared:function(dp){$dp.$('${attr.name}').value = ''}});
-							}
+										$dp.$('${attr.name}').value = dp.cal.getDateStr();<#if '${attr.notnull}'=='true'>
+										see${attr.name?cap_first}();</#if>
+									},oncleared:function(dp){$dp.$('${attr.name}').value = '';<#if '${attr.notnull}'=='true'>
+										see${attr.name?cap_first}();</#if>}});
+							}<#if '${attr.notnull}'=='true'>
+							function see${attr.name?cap_first}(){
+									if($('#${attr.name}_span').html()==''){
+										$('#${attr.name}image').html("<IMG src='/images/BacoError.gif' align=absMiddle>");
+									}else{
+										$('#${attr.name}image').html('');
+									}	
+							}</#if>
 							</SCRIPT> 
+						<#elseif '${attr.type}'='time'>
+							<BUTTON type="button" <#if '${attr.notnull}'=='true'>notnull="true"</#if> class=calendar id=px_time_a onclick=get${attr.name?cap_first}()></BUTTON>
+							<SPAN id=${attr.name}_span ><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></SPAN><SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN>
+							<#if '${attr.notnull}'='true'><SPAN id="${attr.name}image"></SPAN></#if>
+							<input type="hidden" name="${attr.name}"  id="${attr.name}" value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>'/>  
+							<SCRIPT language="javascript"> 
+							function get${attr.name?cap_first}(){
+									WdatePicker({lang:languageStr,dateFmt:'H:mm:ss',el:'${attr.name}_span',onpicked:function(dp){
+										$dp.$('${attr.name}').value = dp.cal.getDateStr();<#if '${attr.notnull}'=='true'>
+										see${attr.name?cap_first}();</#if>
+									},oncleared:function(dp){$dp.$('${attr.name}').value = '';<#if '${attr.notnull}'=='true'>
+										see${attr.name?cap_first}();</#if>}});
+							}<#if '${attr.notnull}'=='true'>
+							function see${attr.name?cap_first}(){
+									if($('#${attr.name}_span').html()==''){
+										$('#${attr.name}image').html("<IMG src='/images/BacoError.gif' align=absMiddle>");
+									}else{
+										$('#${attr.name}image').html('');
+									}	
+							}</#if>
+							</SCRIPT> 
+						<#elseif '${attr.type}'='resources'>
+							<input class=wuiBrowser type=hidden name="${attr.name}" value="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>"
+							   _url="/systeminfo/BrowserMain.jsp?url=/hrm/resource/MutiResourceBrowser.jsp"
+							   _displayTemplate="<a href='/hrm/resource/HrmResource.jsp?id=#b{id}' target='_blank' >#b{name}</a>&nbsp;"
+							   _trimLeftComma="yes" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
+							   >
+							   <span id="callersspan">
+							   <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+							    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+							    for(int i=0;i<array${attr.name}s.size();i++){
+							   %>
+							      <A href='/hrm/resource/HrmResource.jsp?id=<%=""+array${attr.name}s.get(i)%>' target='_blank' ><%=ResourceComInfo.getResourcename(""+array${attr.name}s.get(i))%></a>&nbsp
+							   <%}}%>
+							   </span> 
+						<#elseif '${attr.type}'='customers'>
+							<input class=wuiBrowser type=hidden name="${attr.name}" value="${nm}RecordSet.getString("${attr.column}"), user.getLanguage())"
+							   _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/MutiCustomerBrowser.jsp" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
+							   _displayTemplate="<a href='/CRM/data/ViewCustomer.jsp?CustomerID=#b{id}' target='_blank'>#b{name}</a>&nbsp;">
+							   <span id="${attr.name}span">
+							   <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+							    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+							    for(int i=0;i<array${attr.name}s.size();i++){
+							   %>
+							      <A href='/CRM/data/ViewCustomer.jsp?CustomerID=<%=""+array${attr.name}s.get(i)%>'><%=CustomerInfoComInfo.getCustomerInfoname(""+array${attr.name}s.get(i))%></a>&nbsp
+							   <%}}%>
+							   </span> 
 						<#elseif '${attr.type}'='resource'>
-							<sq type='resource' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq><span name='${attr.name}Span' id='${attr.name}Span'><%=Util.toScreen(ResourceComInfo.getResourcename(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%></span>
+							<sq type='resource' spanName='<%=Util.toScreen(ResourceComInfo.getResourcename(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%>' value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>' <#if '${attr.notnull}'=='true'>notnull="true"</#if> name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq> 
 						<#elseif '${attr.type}'='customer'>
-							<sq type='customer' name="${attr.name}" id="${attr.name}"  span="${attr.name}Span"></sq><span name='${attr.name}Span' id='${attr.name}Span'><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></span>
+							<sq type='customer'  spanName='<%=Util.toScreen(ResourceComInfo.getResourcename(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%>'  value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>' <#if '${attr.notnull}'=='true'>notnull="true"</#if> name="${attr.name}" id="${attr.name}"  span="${attr.name}Span"></sq>
 						<#elseif '${attr.type}'='textarea'>
-							<textarea name="${attr.name}" id="${attr.name}" <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if>><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></textarea>
+							<textarea name="${attr.name}"  <#if '${attr.minLength}'!=''>minLength="${attr.minLength}"</#if> <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if> <#if '${attr.notnull}'=='true'>onchange='checkNotnull("${attr.name}","${attr.name}image")'</#if>  id="${attr.name}" <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if>><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></textarea><SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN>
+						<#elseif '${attr.type}'='contact'>
+							<INPUT class="wuiBrowser"  _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/Crm_lianxiren_Browser.jsp?crmManager=<%=CustomerID%>" <#if '${attr.notnull}'=='true'>_required='yes' </#if> id="${attr.name}" type=hidden name="${attr.name}"  />
+							<span id="${attr.name}span">
+							   <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+							    String str${attr.name} =  Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()) ; 
+							   %>
+							      <A href='/CRM/data/ViewContacter.jsp?ContacterID=<%=str${attr.name}%>'><%=Util.toScreen(CustomerContacterComInfo.getCustomerContacternameByID( str${attr.name}),user.getLanguage())%></a>&nbsp
+							   <%} %>
+							   </span> 
 						<#elseif '${attr.type}'='select'>
 							<#--注释：：：<#list  '${attr.names}'?split(",") as array>${array},</#list>  -->
-							<select name="${attr.name}" id="${attr.name}" selectVal='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>'><@getOptionStr names=attr.names values=attr.values/></select>
+							<select name="${attr.name}"  <#if '${attr.notnull}'=='true'>notnull="true" onchange='checkNotnullSelect(this,"${attr.name}image")' </#if>  id="${attr.name}" selectVal='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>'><@getOptionStr names=attr.names values=attr.values/></select><SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN>
 						<#else> <#-- 下面对很多的input的类型 进行处理验证情况-->    
 						  <input   name="${attr.name}"  id="${attr.name}" 
 						    <#if  '${attr.type}'='numAndChar'>  valid='numAndChar'
@@ -161,12 +232,8 @@ RCMenuHeight += RCMenuHeightStep ;
 						    <#elseif 	'${attr.type}'='double'> valid='double'	
 						    <#else>	</#if>
 						    <#if '${attr.minLength}'!=''>minLength="${attr.minLength}"</#if>
-						    <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if> value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>' /> 
-						</#if>
-						<#if '${attr.notnull}'='true'>
-						<%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%>
-							<SPAN id=FirstNameimage><IMG src="/images/BacoError.gif" align=absMiddle></SPAN>
-						<%}%>
+						    <#if '${attr.notnull}'=='true'>onchange='checkNotnull("${attr.name}","${attr.name}image")'</#if> 
+						    <#if '${attr.maxLength}'!=''>maxLength="${attr.maxLength}"</#if> value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>' /><#if '${attr.notnull}'=='true'> <SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN></#if>
 						</#if> 
 			</TD></TR>	
 					<tr  style="height: 1px"><td class=Line colspan=2></td></tr>				
@@ -184,9 +251,21 @@ RCMenuHeight += RCMenuHeightStep ;
 	<td></td>
 </tr> 
 </table> 
+</form>
 </BODY> 
 <SCRIPT language="javascript" src="/js/datetime.js"></script>
 <SCRIPT language="javascript" src="/js/JSDateTime/WdatePicker.js"></script> 
 <script language=javascript src="/js/checkData.js"></script> 
 <SCRIPT language="javascript" src="/CRM/data/MySelectTool.js"></script>
+<script type="text/javascript">
+<!--
+function onSave(obj){
+	window.onbeforeunload=null; 
+	if(check_form(weaver,'<#list model.attributes as attr><#if '${attr.notnull}'='true'>${attr.name},</#if></#list>')){
+		obj.disabled=true;
+		weaver.submit();
+	}
+}
+//-->
+</script>
 </HTML>
