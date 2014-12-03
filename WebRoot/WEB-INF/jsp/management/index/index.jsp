@@ -228,12 +228,12 @@
 							<div id="hm_chartdiv5" class="highcharts" type="column"
 								serialName="盈利" title='收支盈利图' yAxisName="金额"
 								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="/money/newmoney!reportYingli.do"></div>
+								url="money/superconsole!getReportOut.do"></div>
 							 
 							<div id="hm_chartdiv4" class="highcharts" type="column"
 								serialName="收支大类" title='按大类统计记录数目' yAxisName="金额"
 								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="/money/newmoney!reportSumByTypeAndYear.do"></div>
+								url="/money/superconsole!reportSumByBigType.do"></div>
 
 							
 							<!--div style='width:140px;float:left;'>
@@ -267,10 +267,10 @@
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByType.do"></div>
 
-							<div id="hm_chartdiv3" class="highcharts" type="pie"
+							<!--  div id="hm_chartdiv3" class="highcharts" type="pie"
 								serialName="收支大类" title='收支金额数据统计' 
 								style="width: 300px; height: 250px; float: left; border: 1 red;"
-								url="/money/newmoney!reportCountByType.do"></div>
+								url="/money/newmoney!reportCountByType.do"></div>-->
 
 						</div>
 					</div>
