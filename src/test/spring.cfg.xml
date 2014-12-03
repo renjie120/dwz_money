@@ -14,52 +14,7 @@
 			<ref local="ds" />
 		</property>
 		<property name="mappingResources">
-			<list>
-				<value>
-					dwz/persistence/beans/InfNews.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysRole.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysLog.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysResource.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysPermission.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysSession.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysUserRole.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SysUser.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/ConFolder.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/ConFile.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/SetPreference.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/WebPage.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/WebWebsite.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/InvCategory.hbm.xml
-				</value>
-				<value>
-					dwz/persistence/beans/InvProduct.hbm.xml
-				</value>
+			<list> 
 				<value>
 					hbm/moneyDetail.hbm.xml
 				</value>
@@ -164,25 +119,12 @@
 		<property name="driverClass" value="${driverName}" /> <property name="url" 
 		value="${url}" /> <property name="username" value="${username}" /> <property 
 		name="password" value="${password}" /> </bean> -->
-
-	<bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
+ 
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
-
-
-		<!-- druid 连接池的 -->
-		<property name="connectionProperties" value="config.decrypt=true" />
-		<property name="filters" value="stat,config" />
-
-
-		<!-- 下面druid 和 dbcp 连接池通用的 ↓↓↓↓↓↓↓↓↓↓↓↓ -->
-		<!--maxActive: 最大连接数量 -->
-		<property name="maxActive" value="20" />
-		<!--initialSize: 初始化连接 -->
-		<property name="initialSize" value="5" />
-
 	</bean>
 
 

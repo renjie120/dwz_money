@@ -16,11 +16,10 @@
 	<property name="jy_content" column="jy_content" columnType="varchar(8000)"
 		cols="40" rows="5" notnull="true" type='textarea' maxLength="8000"
 		desc="拜访小结" />
-	<property name="jy_gongshi" column="jy_gongshi" type="select"
-		names="0.5D,1D,1.5D,2D,2.5D,3D,3.5D,4D" values="0.5,1,1.5,2,2.5,3,3.5,4"
+	<property name="jy_gongshi" column="jy_gongshi" type="double" 
 		notnull="true" columnType="varchar(10)" desc="占用工时" width="15%" />
 	<property name="jy_money" column="jy_money" columnType="numeric(10, 2)"
-		notnull="true" type='num' desc="差旅费用" />
+		notnull="true" type='double' desc="差旅费用" />
 	<property name="jy_file" column="jy_file" columnType="varchar(1000)"
 		notnull="true" type='file' maxLength="2000" visible="false" desc="附件上传" />
 	<property name="jy_crm_id" column="crm_id" type="int" visible="false"

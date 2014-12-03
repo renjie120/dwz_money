@@ -1,7 +1,7 @@
 <class name="Contracter" table="CRM_CustomerContacter" desc="联系人"
 	package="eco.test">
 	<id name="contracterId" column="id" type="int" desc="流水号" width="10" />
-	<property name="bumen" column="bumen" type="num" columnType="int"
+	<property name="bumen" column="bumen" type="int" columnType="int"
 		desc="数字" width="15%" notnull="true" />
 	<property name="jobtitle" column="jobtitle" type="email"
 		width="15%" notnull="true" columnType="varchar(50)" desc="邮箱" />

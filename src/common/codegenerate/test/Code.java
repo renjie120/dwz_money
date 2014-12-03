@@ -14,7 +14,6 @@ class MyThread implements Runnable {
 		this.file = f;
 	}
 
-	@Override
 	public void run() {
 		String Root = "E:";
 		// final String file =
@@ -33,42 +32,92 @@ class MyThread implements Runnable {
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
 
-		new Generate("eco_List_jsp.ftl", beanName, "_list.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
-
-		new Generate("eco_Add_jsp.ftl", beanName, "_add.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
-
-		new Generate("eco_operation_jsp.ftl", beanName, "_operation.jsp",
+//		// 查询列表页面
+//		 new Generate("eco_List_jsp.ftl", beanName, "_list.jsp", packageName)
+//		 {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+//		 // 增加页面
+//		 new Generate("eco_Add_jsp.ftl", beanName, "_add.jsp", packageName) {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+		 // 操作页面
+		 new Generate("eco_operation_jsp.ftl", beanName, "_operation.jsp",
+		 packageName) {
+		 public Object setData() {
+		 return m;
+		 }
+		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+//		 // 查看页面
+//		 new Generate("eco_view_jsp.ftl", beanName, "_view.jsp", packageName)
+//		 {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+//		 // 编辑页面
+//		 new Generate("eco_edit_jsp.ftl", beanName, "_edit.jsp", packageName)
+//		 {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+		 // 对应的存储过程
+		 new Generate("sqlserver_proceduce.ftl", beanName, ".sql",
+		 packageName) {
+		 public Object setData() {
+		 return m;
+		 }
+		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+		
+//		 // 一些代码片段
+//		 new Generate("code_template.ftl", beanName, ".txt", packageName) {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+//		 在一个页面里面生成对应的增删改查
+		new Generate("eco_mainList_jsp.ftl", beanName, "_mainList.jsp",
 				packageName) {
 			public Object setData() {
 				return m;
 			}
 		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 
-		new Generate("eco_view_jsp.ftl", beanName, "_view.jsp", packageName) {
+		// 在一个页面里面生成对应的增删改查
+		new Generate("eco_mainList_operation_jsp.ftl", beanName,
+				"_main_Operation.jsp", packageName) {
 			public Object setData() {
 				return m;
 			}
 		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
-
-		new Generate("eco_edit_jsp.ftl", beanName, "_edit.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
-
-		new Generate("sqlserver_proceduce.ftl", beanName, ".sql", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//
+//		// 生成自定义的弹出框代码
+//		new Generate("eco_brower_jsp.ftl", beanName, "_Browser.jsp",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		
+//		new Generate("eco_cache_ComInfo_java.ftl", beanName, "ComInfo.java",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+		
+		
 
 		System.out.println("生成完毕:" + jspRoot + "\\" + beanName);
 	}
@@ -76,28 +125,41 @@ class MyThread implements Runnable {
 
 public class Code {
 	public static void main(String[] agrgs) {
-		String file2 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_contract.xml";
-		String file3 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_huifang.xml";
-		String file4 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_lianxi.xml";
-		String file5 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_peixun.xml";
-		String file6 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_contacter.xml";
-		String file7 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_kaohe.xml";
-		String file8 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_jiyao.xml";
-		String file9 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_neixun_hetong.xml";
-		String file11 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_mainTest.xml"; 
-		String file10 = "E:\\github\\dwz_money\\code_template\\datamodle_eco_binggou_hetong.xml";
+		String root = "E:\\github\\dwz_money\\code_template\\";
+		// String root =
+		// "E:\\dwz_money-master\\dwz_money-master\\code_template\\";
+//		String file1 = root + "datamodle_eco_zhuanjialeibie.xml";
+//		String file11 = root + "datamodle_eco_zhuanjialingyu.xml";
+//		String file12 = root + "datamodle_eco_zixun.xml";
+//		String file13 = root + "datamodle_eco_ziliao.xml";
+//		 String file2 = root+"datamodle_eco_contract.xml";
+		// String file3 = root+"datamodle_eco_huifang.xml";
+		// String file4 = root+"datamodle_eco_lianxi.xml";
+		// String file4 = root + "datamodle_eco_hezuo.xml";
+		// String file5 = root+"datamodle_eco_peixun.xml";
+//		 String file6 = root + "datamodle_eco_contacter.xml";
+//		 String file16 = root + "datamodle_eco_zhengfuhangye.xml"; 
+		// String file7 = root+"datamodle_eco_kaohe.xml";
+		// String file8 = root+"datamodle_eco_jiyao.xml";
+		// String file9 = root+"datamodle_eco_neixun_hetong.xml";
+//		 String file11 = root+"datamodle_eco_mainTest.xml";
+		// String file10 = root+"datamodle_eco_binggou_hetong.xml";
 
-		// String file2 = "E:\\github\\dwz_money\\code_template\\datamodle.xml";
+		 String file2 = root+"datamodle.xml";
+//		new Thread(new MyThread(file1)).start();
 		new Thread(new MyThread(file2)).start();
-		new Thread(new MyThread(file3)).start();
-		new Thread(new MyThread(file4)).start();
-		new Thread(new MyThread(file5)).start();
-		new Thread(new MyThread(file6)).start();
-		new Thread(new MyThread(file7)).start();
-		new Thread(new MyThread(file8)).start();
-		new Thread(new MyThread(file9)).start();
-		new Thread(new MyThread(file10)).start();
-		new Thread(new MyThread(file11)).start();
+//		new Thread(new MyThread(file12)).start();
+//		new Thread(new MyThread(file13)).start();
+		// new Thread(new MyThread(file2)).start();
+		// new Thread(new MyThread(file3)).start();
+		// new Thread(new MyThread(file13)).start();
+		// new Thread(new MyThread(file5)).start();
+		// new Thread(new MyThread(file6)).start();
+		// new Thread(new MyThread(file7)).start();
+		// new Thread(new MyThread(file8)).start();
+		// new Thread(new MyThread(file9)).start();
+		// new Thread(new MyThread(file10)).start();
+		// new Thread(new MyThread(file11)).start();
 		// new Generate("dao_code.ftl", beanName, "Dao.java", packageName) {
 		// public Object setData() {
 		// return m;

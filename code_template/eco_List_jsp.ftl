@@ -61,7 +61,7 @@ ${nm}Rs.executeSql(sql${bignm});
 		 if(confirm("确定要删除该${model.classDesc}信息吗？")){
 			$.ajax({
 			  type:'POST',
-		      url:'/CRM/data/${model.className}_operation.jsp?method=delete&ID='+$(obj).attr('idtag'), 
+		      url:'/CRM/data/${model.className}_operation.jsp?method=delete&ID='+$(obj).attr('idtag')+"&CustomerID=<%=crmId%>",  
 			  success: function(){  
 				$(obj).parent().parent().hide(200);
 			  }

@@ -59,6 +59,8 @@ if("add".equals(method))
 else if("edit".equals(method))
 {   
 	ID= Util.null2String(fu.getParameter("ID"));  
+	RecordSet.executeProc("${model.table}_SelectByID",ID);
+	RecordSet.first(); 
 	/*权限判断－－Begin*/
 	String sql="SELECT * FROM CRM_CustomerInfo WHERE id = "+CustomerID;
 	rs.executeSql(sql);
@@ -97,6 +99,7 @@ else if("edit".equals(method))
 		ProcPara = CustomerID+flag+"1"+flag+"0"+flag+"0";
 		ProcPara += flag+fieldName+flag+CurrentDate+flag+CurrentTime+flag+strTemp+flag+${attr.name};
 		ProcPara += flag+CurrentUser+flag+SubmiterType+flag+ClientIP;
+		RecordSetT.executeProc("CRM_Modify_Insert",ProcPara);
 		bNeedUpdate = true;
 	}
 	</#if>
@@ -106,7 +109,6 @@ else if("edit".equals(method))
 	<#list model.attributes as attr>
 		 <#if '${attr.name}'!='${model.keyName}'>
 	ProcPara+=flag+${attr.name}; 
-	System.out.println("${attr.name}="+${attr.name});
 		</#if> 
 	</#list>    
 	boolean updateSuccess = false ;

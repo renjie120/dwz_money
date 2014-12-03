@@ -1,0 +1,7 @@
+<class name="HomePageUrl" table="homepageurl" desc="首页url" package="money.homepage"> 
+	<id name="urlId" column="id" type="int" desc="首页流水号id" width="10" visible="false" noedit="true"/>  
+	<property name="urlDesc" column="urldesc" type="string" desc="链接描述 "  width="100"  notnull="true"  />
+	<property name="url" column="url" type="string" desc="链接"   width="100"  notnull="true"/>
+	<property name="orderId" column="orderid" type="int" desc="排序号"   width="100"  visible="false"/>
+	<property name="typeId" column="typeid" type="int" desc="类型" query="true"   width="100"  />
+</class>

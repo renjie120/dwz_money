@@ -158,6 +158,8 @@ if(!isfromtab){
 									}	
 							}</#if>
 							</SCRIPT> 
+						<#elseif '${attr.type}'='brower'>
+							<INPUT class="wuiBrowser" _displayText="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>" value="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>" _url="/systeminfo/BrowserMain.jsp?url=${attr.browerUrl}" id=${attr.name} type=hidden name="${attr.name}" >
 						<#elseif '${attr.type}'='time'>
 							<BUTTON type="button" <#if '${attr.notnull}'=='true'>notnull="true"</#if> class=calendar id=px_time_a onclick=get${attr.name?cap_first}()></BUTTON>
 							<SPAN id=${attr.name}_span ><%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%></SPAN><SPAN id="${attr.name}image"><%if("".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){%><IMG src='/images/BacoError.gif' align=absMiddle><%}%></SPAN>
@@ -180,31 +182,33 @@ if(!isfromtab){
 							}</#if>
 							</SCRIPT> 
 						<#elseif '${attr.type}'='resources'>
-							<input class=wuiBrowser type=hidden name="${attr.name}" value="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>"
-							   _url="/systeminfo/BrowserMain.jsp?url=/hrm/resource/MutiResourceBrowser.jsp"
-							   _displayTemplate="<a href='/hrm/resource/HrmResource.jsp?id=#b{id}' target='_blank' >#b{name}</a>&nbsp;"
-							   _trimLeftComma="yes" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
-							   >
-							   <span id="callersspan">
-							   <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
-							    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
-							    for(int i=0;i<array${attr.name}s.size();i++){
-							   %>
-							      <A href='/hrm/resource/HrmResource.jsp?id=<%=""+array${attr.name}s.get(i)%>' target='_blank' ><%=ResourceComInfo.getResourcename(""+array${attr.name}s.get(i))%></a>&nbsp
-							   <%}}%>
-							   </span> 
+						 <%
+							String ${attr.name}Str = "";
+							if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+							ArrayList array__s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+									for(int i=0;i<array__s.size();i++){
+										${attr.name}Str += "<A href='/hrm/resource/HrmResource.jsp?id="+array__s.get(i)+"' target='_blank' >"+ResourceComInfo.getResourcename(""+array__s.get(i))+"</a>&nbsp";
+									}
+							}%> 
+						  <input class=wuiBrowser type=hidden name="${attr.name}" value="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>"
+						  _displayText="<%=${attr.name}Str%>"
+							 _url="/systeminfo/BrowserMain.jsp?url=/hrm/resource/MutiResourceBrowser.jsp"
+							 _displayTemplate="<a href='<A href='/hrm/resource/HrmResource.jsp?id=#b{id}' target='_blank' >#b{name}</a>&nbsp;"
+							 _trimLeftComma="yes"  <#if '${attr.notnull}'=='true'>_required='yes' </#if> >   
 						<#elseif '${attr.type}'='customers'>
-							<input class=wuiBrowser type=hidden name="${attr.name}" value="${nm}RecordSet.getString("${attr.column}"), user.getLanguage())"
-							   _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/MutiCustomerBrowser.jsp" <#if '${attr.notnull}'=='true'>_required='yes' </#if>
-							   _displayTemplate="<a href='/CRM/data/ViewCustomer.jsp?CustomerID=#b{id}' target='_blank'>#b{name}</a>&nbsp;">
-							   <span id="${attr.name}span">
-							   <%if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
-							    ArrayList array${attr.name}s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
-							    for(int i=0;i<array${attr.name}s.size();i++){
-							   %>
-							      <A href='/CRM/data/ViewCustomer.jsp?CustomerID=<%=""+array${attr.name}s.get(i)%>'><%=CustomerInfoComInfo.getCustomerInfoname(""+array${attr.name}s.get(i))%></a>&nbsp
-							   <%}}%>
-							   </span> 
+						 <%
+							String ${attr.name}Str = "";
+							if(!"".equals(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()))){
+							ArrayList array__s = Util.TokenizerString(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage()),",");
+									for(int i=0;i<array__s.size();i++){
+										${attr.name}Str += "<A href='/CRM/data/ViewCustomer.jsp?CustomerID="+array__s.get(i)+"' target='_blank' >"+CustomerInfoComInfo.getCustomerInfoname(""+array__s.get(i))+"</a>&nbsp";
+									}
+							}%> 
+						  <input class=wuiBrowser type=hidden name="${attr.name}" value="<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>"
+						  _displayText="<%=${attr.name}Str%>"
+							 _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/MutiCustomerBrowser.jsp"
+							 _displayTemplate="<a href='/CRM/data/ViewCustomer.jsp?CustomerID=#b{id}' target='_blank' >#b{name}</a>&nbsp;"
+							 _trimLeftComma="yes"  <#if '${attr.notnull}'=='true'>_required='yes' </#if> >    
 						<#elseif '${attr.type}'='resource'>
 							<sq type='resource' spanName='<%=Util.toScreen(ResourceComInfo.getResourcename(Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())),user.getLanguage())%>' value='<%=Util.toScreen(${nm}RecordSet.getString("${attr.column}"), user.getLanguage())%>' <#if '${attr.notnull}'=='true'>notnull="true"</#if> name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq> 
 						<#elseif '${attr.type}'='customer'>

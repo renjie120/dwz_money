@@ -1,0 +1,9 @@
+<class name="ZhuanjiaType" table="crm_zhuanjialeibie" desc="专家类别" package="eco.test">
+	<id name="zjLbxId" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
+	<property name="ZjlbName" column="zjlb_name" columnType="varchar(300)"
+		maxLength="300" brower="true" query="true" desc="专家类别" width="50%"
+		notnull="true" />
+	<property name="ZjlbDesc" column="zjlb_desc" columnType="varchar(300)"
+		maxLength="300" brower="true" query="true" desc="详细描述" width="50%" />
+</class> 

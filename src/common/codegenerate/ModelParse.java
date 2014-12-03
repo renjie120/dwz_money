@@ -79,6 +79,10 @@ public class ModelParse {
 				config.setValues(DomUtil.getAttribute(child, "values"));
 				//下拉菜单的对应的文本的显示值
 				config.setNames(DomUtil.getAttribute(child, "names"));
+				//浏览框设置的对应的url
+				config.setBrowerUrl(DomUtil.getAttribute(child, "browerUrl"));
+				//设置为选择下拉框
+				config.setBrower(DomUtil.getAttribute(child, "brower"));
 				//列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否要检索

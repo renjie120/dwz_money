@@ -1,0 +1,13 @@
+<class name="MyUser" table="user_t" desc="用户信息表" package="money.myuser">
+	<id name="useId" column="id" type="int" desc="用户流水号" query="true" width="100"/>
+	<property name="userName" column="userName" type="string" desc="用户名" query="true"  querylike="true" width="100" notnull="true" noedit="true"/> 
+	<property name="password" column="pass" type="string" desc="密码" width="100" notnull="true" visible="false"/>
+	<property name="loginId" column="loginId" type="string" desc="登陆号" query="true"  querylike="true" width="100" notnull="true" noedit="true"/> 
+	<property name="orgId" column="orgId" type="int" desc="组织机构" query="true" width="100"/>
+	<property name="email" column="email" type="string" desc="邮件"  width="50"/> 
+	<property name="phone" column="phone" type="string" desc="座机"  width="50"/>
+	<property name="mobile" column="mobile" type="string" desc="手机"  width="50"/>
+	<property name="userType" column="usertype" type="string" desc="用户类型"  width="50" selectType="questionSort"/>
+	<property name="address" column="address" type="string" desc="地址"  width="50" textarea="true"/>
+	<property name="orderId" column="orderId" type="int" desc="排序号"  width="50"/> 
+</class>

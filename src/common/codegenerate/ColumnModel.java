@@ -16,9 +16,36 @@ public class ColumnModel {
 	private String column;
 	private String textarea;
 	private String selectType;
+	/**
+	 * 浏览框对应的url地址.
+	 */
+	private String browerUrl;
+	public String getBrowerUrl() {
+		return browerUrl;
+	}
+
+	public void setBrowerUrl(String browerUrl) {
+		this.browerUrl = browerUrl;
+	}
+
 	// 是否可见.
 	private String visible;
+	/**
+	 * 是否出现在查询条件中
+	 */
 	private String query;
+	/**
+	 * 是否出现在浏览框中.
+	 */
+	private String brower;
+	public String getBrower() {
+		return brower;
+	}
+
+	public void setBrower(String brower) {
+		this.brower = brower;
+	}
+
 	// 非空.
 	private String notnull;
 	// 属性描述

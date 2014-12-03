@@ -41,7 +41,16 @@
 <#-- 全部的属性除去主键的连接字符串--全部的数据库字段的连接 -->
 <#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
  
+<#macro all_query_field2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if '${attr.query}'='true'>,${attr.column} </#if></#if></#list></#macro>
+
+<#macro all_brower_field2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if '${attr.brower}'='true'>,${attr.column} </#if></#if></#list></#macro>
+
 <#macro allfield2notkey_updatecolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}= @${attr.name}<#assign index=index+1></#if></#list></#macro>
+   
+<#macro allfield2notkey_updatecolumn_nosql nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}='"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
+   
+<#macro allfield2notkey_insertcolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>'"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
+
 
 <#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
  

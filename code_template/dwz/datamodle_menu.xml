@@ -1,0 +1,10 @@
+<class name="Menu" table="menu_t" desc="菜单信息表" package="money.menu">
+	<id name="menuId" column="menuId" type="int" desc="菜单流水号"  query="true"    width="100" noedit="true"/>
+	<property name="target" column="target" type="string" desc="目标" width="10" visible="false" noedit="true"/> 
+	<property name="menuName" column="menuName" type="string" desc="菜单名称" query="true" querylike='true'  width="80"/>
+	<property name="parentId" column="parentId" type="string" desc="上级菜单" query="true" width="100"/> 
+	<property name="orderId" column="orderId" type="int" desc="排序号"   visible="false" width="100"/>
+	<property name="url" column="url" type="string" desc="连接"   width="200"/>
+	<property name="level" column="level" type="string" desc="菜单级别" query="true" width="100" selectType="menulevel"/>
+	<property name="relId" column="relId" type="string" desc="菜单编码"  visible="false" width="100"/>
+</class>

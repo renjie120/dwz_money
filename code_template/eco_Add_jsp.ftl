@@ -192,6 +192,8 @@ RCMenuHeight += RCMenuHeightStep ;
 							 <span id="${attr.name}span"> </span>  
 						<#elseif '${attr.type}'='customer'>
 							<sq <#if '${attr.notnull}'=='true'>notnull="true" inputType='sq' </#if> type='customer' name="${attr.name}" id="${attr.name}" span="${attr.name}Span"></sq> 
+						<#elseif '${attr.type}'='brower'>
+							<INPUT class="wuiBrowser" _url="/systeminfo/BrowserMain.jsp?url=${attr.browerUrl}" id=${attr.name} type=hidden name="${attr.name}" >
 						<#elseif '${attr.type}'='contact'>
 							<INPUT class="wuiBrowser"  _url="/systeminfo/BrowserMain.jsp?url=/CRM/data/Crm_lianxiren_Browser.jsp?crmManager=<%=CustomerID%>" <#if '${attr.notnull}'=='true'>_required='yes' </#if> id="${attr.name}" type=hidden name="${attr.name}"  />
 						<#elseif '${attr.type}'='textarea'>

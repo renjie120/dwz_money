@@ -1,0 +1,6 @@
+<class name="Diary" table="diary_detail" desc="日志信息表" package="money.diary">
+	<id name="diaryId" column="id" type="int" desc="日志id" width="100"/>
+	<property name="diaryContent" column="content" type="string" desc="日志内容" query="true" querylike='true' width="300" notnull="true"/> 
+	<property name="diaryTime" column="TIME" type="date" desc="开始时间" width="80"/>
+	<property name="diaryType" column="type" type="string" desc="日志类型" query="true" width="100"/> 
+</class>
