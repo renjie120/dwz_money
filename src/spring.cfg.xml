@@ -239,14 +239,5 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
- 
-	<bean id="chemaxonHandler" class="chemaxon.util.ConnectionHandler">
-		<constructor-arg>
-			<value>true</value>
-		</constructor-arg>
-		<property name="driver" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/dwz4j"/>
-		<property name="loginName" value="root"/>
-		<property name="password" value="987425"/>
-	</bean>
+  
 </beans>

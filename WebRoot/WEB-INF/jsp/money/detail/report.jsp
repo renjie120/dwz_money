@@ -34,17 +34,17 @@
 			</select></td>
 		</tr>
 	</table>
-	<div id="hm_chartdiv33" class="dynhighcharts" type="column"
+	<!-- <div id="hm_chartdiv33" class="dynhighcharts" type="column"
 		serialName="开支大类" title='2014年度每月按开支大类统计'
 		style="width: 900px; height: 250px; float: left; border: 1 red;"
 		url="/money/moneyReport!reportSumByTypeAndYearAndMonth.do?year=2014"></div>
-
+-->
 	<div id="hm_chartdiv1" class="highcharts" type="column"
 		serialName="开支大类" title='按大类统计开支金额' yAxisName="金额"
 		style="width: 900px; height: 300px; float: left; border: 1 red;"
 		url="/money/moneyReport!reportSumByTypeAndYear.do"></div>
 
-
+<!-- 
 	<div id="hm_chartdiv2" class="highcharts" type="column"
 		serialName="收支大类" title='收支数据统计数量'
 		style="width: 300px; height: 250px; float: left; border: 1 red;"
@@ -55,9 +55,9 @@
 		style="width: 300px; height: 250px; float: left; border: 1 red;"
 		url="/money/moneyReport!reportSumByType.do"></div>
 
-	<div id="hm_chartdiv5" class="highcharts" type="columnrange" serialName="正负能量" inverted="true"
+	 <div id="hm_chartdiv5" class="highcharts" type="columnrange" serialName="正负能量" inverted="true"
 		title='功过正负能量统计图' subtitle='时间最近...' series="次数统计"
 		style="width: 900px; height: 600px; float: left; border: 1 red;"
-		url="/money/moneyReport!reportGongguoStatis.do"></div>
+		url="/money/moneyReport!reportGongguoStatis.do"></div> -->
 
 </div>
