@@ -109,7 +109,6 @@ function show3Column(arr, _title, _divId) {
 		var yAxis_a = [];  
 		var zAxis_a = new HashMap();  
 		var _len = arr.length;
-		alert(112);
 		for(var _i=0;_i<_len;_i++){
 			//去重添加到数组xAxis_a中
 			if($.inArray(arr[_i][0],xAxis_a)==-1)
