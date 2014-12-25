@@ -152,7 +152,7 @@ function initHightCharts($char,arr){
 		
 		});
 	}
-	else if($char.attr('type')=='column'){ 
+	else if($char.attr('type')=='column'){  
 		//alert("列的行数："+arr.length);
 		if(arr.length<1)
 			return false;
@@ -182,6 +182,14 @@ function initUI(_box) {
 		$this.tabs(options);
 	});
 
+	$("li[roleId]").each(function(){
+		if(!window.roles)
+			window.roles= $('#roleStr').val(); 
+		var $this = $(this);
+		if(window.roles.indexOf($this.attr('roleId'))==-1)
+			$this.remove();
+	});
+	
 	$("ul.tree", $p).jTree();
 	$('div.accordion', $p).each(function() {
 		var $this = $(this);

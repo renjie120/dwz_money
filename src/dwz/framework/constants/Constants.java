@@ -2,6 +2,8 @@
 
 public interface Constants {
 
+	String ROLE = "systemRole";
+ 
 	String FACTORY_CLASS_KEY = "app.factory.class";
 
 	String FACTORY_CLASS = "dwz.framework.core.factory.DefaultBusinessFoctory";

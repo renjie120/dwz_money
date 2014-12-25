@@ -462,7 +462,7 @@ public class MoneyAction extends BaseAction {
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
 				realOrderField(), startIndex, numPerPage);
 
-		moneyGridTree();
+	//	moneyGridTree();
 		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
 		double shouru = 0;
 		double zhichu = 0;

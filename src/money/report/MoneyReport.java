@@ -149,7 +149,7 @@ public class MoneyReport extends BaseAction {
 		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
 			public String change(Map objs) {
-				return "['" + objs.get("SUM_money") +"'," + objs.get("bigtype")+ "]";
+				return "['" + objs.get("bigtype") +"'," + objs.get("SUM_money")+ "]";
 			}
 
 		});

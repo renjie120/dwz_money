@@ -176,13 +176,13 @@ function show3Column(arr, _title, _divId) {
  * @param {Object} _format
  */
 function showPie(arr, _title, _divId, _serialName, _format) {
-if(arr)
+if(arr){  
 	$('#'+_divId).highcharts({
-			credits :_credits,
+			//credits :_credits,
 			title : {
 				text :_title, 
 			},
-			plotOptions: {
+			/*plotOptions: {
 				pie: {
 					allowPointSelect: true,
 					cursor: 'pointer',
@@ -191,13 +191,13 @@ if(arr)
 	                    format:  _format?_format:'{point.name}({y}):{point.percentage:.1f} %'
 	                } 
 	            }
-	        },
+	        },*/
 			series : [ {
 				type : 'pie',
 				name : _serialName,
 				data : arr
 			} ]
 		});	
-	else
+}else
 		alertMsg.error("没有数据!");
 }

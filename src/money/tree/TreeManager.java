@@ -48,6 +48,7 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public common.tree.Tree initMenuWithRight(String userId,UserType tp);
+	 
 	
 	/**
 	 * 得到组织机构树形的缓存.

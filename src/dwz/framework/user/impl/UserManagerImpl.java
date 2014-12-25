@@ -3,7 +3,12 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import org.springframework.util.LinkedCaseInsensitiveMap;
+
+import common.MyJdbcTool;
 
 import dwz.framework.constants.user.UserOrderByFields;
 import dwz.framework.constants.user.UserSearchFields;
@@ -22,7 +27,17 @@ public class UserManagerImpl extends AbstractBusinessObjectManager implements
 		UserManager {
 
 	private SysUserDao	sysUserDao	= null;
+	
+	private MyJdbcTool jdbc;
 
+	public MyJdbcTool getJdbc() {
+		return jdbc;
+	}
+
+	public void setJdbc(MyJdbcTool jdbc) {
+		this.jdbc = jdbc;
+	}
+	
 	public UserManagerImpl(SysUserDao sysUserDao) {
 		this.sysUserDao = sysUserDao;
 	}
@@ -357,6 +372,27 @@ public class UserManagerImpl extends AbstractBusinessObjectManager implements
 		}
 		// System.out.println("hql=" + sb);
 		return sb.toString();
+	}
+
+	@Override
+	public String getRights(String userId, UserType tp) {
+		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+		List menuList = null;
+		if (UserType.SUPER.equals(tp)) {
+			orgSql = "(select  menuid from menu_t)";
+			menuList = jdbc.queryForList(orgSql);
+		}else{
+			menuList = jdbc.queryForList(orgSql,new Object[]{userId});
+		}
+		String result = ",";
+		if(menuList!=null&&menuList.size()>0){
+			for(Object o:menuList){
+				LinkedCaseInsensitiveMap mm = (LinkedCaseInsensitiveMap)o;
+				result+=mm.values().toArray()[0]+",";
+			}
+			//result = result.substring(1);
+		}
+		return result;
 	}
 	
 }

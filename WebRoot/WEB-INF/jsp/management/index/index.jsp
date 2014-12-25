@@ -28,6 +28,8 @@
 <link href="/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
 <link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
+<script src="/styles/management/js/json2.js"
+	type="text/javascript"></script> 
 <script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
 <script src="/uploadify/scripts/jquery.uploadify.js"
@@ -224,16 +226,16 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80">
+						<div class="pageFormContent" layoutH="-80"> 
 							<div id="hm_chartdiv5" class="highcharts" type="column"
 								serialName="盈利" title='收支盈利图' yAxisName="金额"
 								style="width: 900px; height: 300px; float: left; border: 1 red;"
 								url="money/superconsole!getReportOut.do"></div>
 							 
-							<div id="hm_chartdiv4" class="highcharts" type="column"
+							<!--div id="hm_chartdiv4" class="highcharts" type="column"
 								serialName="收支大类" title='按大类统计记录数目' yAxisName="金额"
 								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="/money/superconsole!reportSumByBigType.do"></div>
+								url="/money/superconsole!reportSumByBigType.do"></div-->
 
 							
 							<!--div style='width:140px;float:left;'>

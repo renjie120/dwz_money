@@ -39,13 +39,17 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 	public String index() {
 		UiModel model = new UiModel();
 		setModel(model);
+		UserManager uMgr = bf.getManager(BeanManagerKey.userManager);
 		TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
 		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
 				.get(Constants.AUTHENTICATION_KEY); 
-		UserType tp = user.getUserType(); 
+		UserType tp = user.getUserType();  
+		System.out.println("权限Id:"+uMgr.getRights(user.getId(), tp));
+		request.getSession().setAttribute(Constants.ROLE, uMgr.getRights(user.getId(), tp)); 
 		// 得到菜单树
 		Tree t = tMgr.initMenuWithRight(user.getUserId(),user.getUserType());
 		request.setAttribute("allMenu", t.getDeepTree());
+		request.getSession().setAttribute("allMenu", t.getDeepTree());
 		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
 		return INPUT;
 	}

@@ -26,6 +26,14 @@ public interface UserManager extends BusinessObjectManager {
 	@Transactional
 	public void removeUser(String userId);
 
+	/**
+	 * 得到全部的权限Id
+	 * @param userId
+	 * @param tp
+	 * @return
+	 */
+	public String getRights(String userId,UserType tp);
+	
 	public User getUser(String id);
 
 	public User getUserByName(String userName);

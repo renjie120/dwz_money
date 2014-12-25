@@ -289,7 +289,7 @@ function _getPagerForm($parent, args) {
  * pagerForm参数 {pageNum:"n", numPerPage:"n", orderField:"xxx",
  * orderDirection:""} callback: 加载完成回调函数
  */
-function dwzPageBreak(options) { 
+function dwzPageBreak(options) {   
 	var op = $.extend({
 				targetType : "navTab",
 				rel : "",
@@ -300,6 +300,7 @@ function dwzPageBreak(options) {
 					orderDirection : ""
 				},
 				arglist:null,//添加一个自定义的列属性，分页的时候添加一些额外的属性.
+				argnamelist:null,
 				callback : null
 			}, options); 
 	var $parent = op.targetType == "dialog" ? $.pdialog.getCurrent() : navTab
@@ -313,12 +314,13 @@ function dwzPageBreak(options) {
 			if(op.arglist){
 				var _args = op.arglist.split(",");
 				for(var __i=0,__j=_args.length;__i<__j;__i++){  
-					var obj = {};
+					var obj = {}; 
 					obj.name =_args[__i];
 					obj.value = $('#'+_args[__i]).val();
 					params.push(obj);
 				}
-			} 
+			}     
+			
 			$box.ajaxUrl({
 						type : "POST",
 						url : $(form).attr("action"),
@@ -353,11 +355,13 @@ function dwzPageBreak(options) {
 		//在分页里面添加上额外的参数！
 		if(op.arglist){
 			var _args = op.arglist.split(",");
+			var _argnames = op.argnamelist.split(",");
 			for(var __i=0,__j=_args.length;__i<__j;__i++){  
 				var obj = {};
-				obj.name =_args[__i];
+				//obj.name =_args[__i];
+				obj.name =_argnames[__i];
 				obj.value = $('#'+_args[__i]).val();
-				params.push(obj);
+				params.push(obj); 
 			}
 		} 
 		 
@@ -384,7 +388,8 @@ function dwzPageBreak(options) {
  * @param rel：
  *            可选 用于局部刷新div id号
  */
-function navTabPageBreak(args, rel) { 
+function navTabPageBreak(args, rel) {  
+	args.pageNum=1;
 	if(args.arglist)
 		dwzPageBreak({
 			targetType : "navTab",
