@@ -1,0 +1,57 @@
+<class name="crmInfo" table="CRM_CustomerInfo" desc="客户" package="eco.test">
+	<id name="id" column="id" type="int" desc="流水号" width="10" visible="false" />
+	<property name="Name" column="Name" columnType="varchar(50)"
+		desc="单位名称" />
+	<property name="Address1" column="Address1" columnType="varchar(250)"
+		desc="单位地址" />
+	<property name="City" column="City" columnType="int" desc="城市" />
+	<property name="Zipcode" column="Zipcode" columnType="varchar(10)"
+		desc="邮编" />
+	<property name="danweibiaohao" column="danweibiaohao"
+		columnType="varchar(200)" desc="单位编号" />
+	<property name="shifouhuiyuan" column="shifouhuiyuan"
+		columnType="varchar(10)" desc="是否会员" />
+	<property name="Website" column="website" columnType="varchar(150)"
+		desc="网站" />
+	<property name="CustomerStatus" column="status" columnType="int"
+		desc="状态" />
+	<property name="kehujibie" column="kehujibie" columnType="varchar(10)"
+		desc="客户级别" />
+	<property name="Sector" column="Sector" columnType="int" desc="行业" />
+	<property name="Description" column="Description" columnType="int"
+		desc="客户性质" />
+	<property name="Size" column="Size_n" columnType="int" desc="客户规模" />
+	<property name="guanxiren" column="guanxiren" columnType="varchar(200)"
+		desc="客户关系人" />
+	<property name="shangjizhuguan" column="shangjizhuguan"
+		columnType="varchar(400)" desc="上级主管部门" />
+	<property name="hezuoyufou" column="hezuoyufou" columnType="varchar(2)"
+		notnull="true" type='select' names="请选择,是,否" values=",1,0" desc="合作与否" />
+	<property name="xingbie" column="xingbie" columnType="varchar(2)"
+		names="请选择,男,女" notnull="true" values=",1,0" type='select' desc="性别" />
+	<property name="danwei" column="danwei" columnType="varchar(400)"
+		desc="单位" />
+	<property name="shengri" column="shengri" columnType="varchar(10)"
+		desc="生日" />
+	<property name="zhiwu" column="zhiwu" columnType="varchar(50)"
+		desc="职务" />
+	<property name="leibie" column="leibie" columnType="varchar(50)"
+		desc="专家类别" />
+	<property name="zhuanzhulingyu" column="zhuanzhulingyu"
+		columnType="varchar(10)" desc="专注领域" />
+	<property name="gongzuozhuangtai" column="gongzuozhuangtai"
+		type='select' notnull="true" names="请选择,在职,退休" values=",1,0"
+		columnType="varchar(10)" desc="工作状态" />
+	<property name="aihao" column="aihao" columnType="varchar(50)"
+		desc="爱好" />
+	<property name="mobile" column="mobile" columnType="varchar(20)"
+		desc="手机" />
+	<property name="ziliao" column="ziliao" columnType="varchar(50)"
+		desc="资料" />
+	<property name="Email" column="email" columnType="varchar(150)"
+		desc="邮箱" />
+	<property name="Phone" column="phone" columnType="varchar(50)"
+		desc="办公电话" />
+</class>
+
+<!-- 添加inputtype。添加时间空间的必填选项，完善模板里面的view，edit，完善add模板的代码！！ -->

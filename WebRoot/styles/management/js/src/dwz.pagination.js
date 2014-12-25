@@ -28,22 +28,22 @@
 				
 				if (pc.hasPrev()){
 					$first.add($prev).find(">span").hide();
-					_bindEvent($prev, pc.getCurrentPage()-1, pc.targetType(), pc.rel(),$this.attr('arglist'));
-					_bindEvent($first, 1, pc.targetType(), pc.rel(),$this.attr('arglist'));
+					_bindEvent($prev, pc.getCurrentPage()-1, pc.targetType(), pc.rel(),$this.attr('arglist'),$this.attr('argnamelist'));
+					_bindEvent($first, 1, pc.targetType(), pc.rel(),$this.attr('arglist'),$this.attr('argnamelist'));
 				} else {
 					$first.add($prev).addClass("disabled").find(">a").hide();
 				}
 				
 				if (pc.hasNext()) {
 					$next.add($last).find(">span").hide();
-					_bindEvent($next, pc.getCurrentPage()+1, pc.targetType(), pc.rel(),$this.attr('arglist'));
-					_bindEvent($last, pc.numPages(), pc.targetType(), pc.rel(),$this.attr('arglist'));
+					_bindEvent($next, pc.getCurrentPage()+1, pc.targetType(), pc.rel(),$this.attr('arglist'),$this.attr('argnamelist'));
+					_bindEvent($last, pc.numPages(), pc.targetType(), pc.rel(),$this.attr('arglist'),$this.attr('argnamelist'));
 				} else {
 					$next.add($last).addClass("disabled").find(">a").hide();
 				}
 	
 				$this.find(setting.nums$).each(function(i){    
-					_bindEvent($(this), i+interval.start, pc.targetType(), pc.rel(),$this.attr('arglist'));
+					_bindEvent($(this), i+interval.start, pc.targetType(), pc.rel(),$this.attr('arglist'),$this.attr('argnamelist'));
 				});
 				$this.find(setting.jumpto$).each(function(){ 
 					var $this = $(this);
@@ -62,9 +62,10 @@
 				});
 			});
 			
-			function _bindEvent($target, pageNum, targetType, rel,args){
+			function _bindEvent($target, pageNum, targetType, rel,args,argnames){
 				$target.bind("click", {pageNum:pageNum}, function(event){  
-					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum},arglist:args});  
+					//alert("翻页："+event.data.pageNum);
+					dwzPageBreak({targetType:targetType, rel:rel, data:{pageNum:event.data.pageNum},arglist:args,argnamelist:argnames});  
 					event.preventDefault(); 
 				});
 			}
@@ -76,7 +77,6 @@
 			//alert($pcpc.html());
 			return this.each(function(){
 				var $this = $(this).css({cursor:"pointer"}).click(function(){
-					//alert("paganization::"+77);					
 					var orderField = $this.attr("orderField");
 					var orderDirection = $this.hasClass(op.asc) ? op.desc : op.asc;
 					dwzPageBreak({targetType:op.targetType, rel:op.rel, data:{orderField: orderField, orderDirection: orderDirection},arglist:$pcpc.attr('arglist')});

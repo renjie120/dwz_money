@@ -17,6 +17,9 @@
 	<bean id="userManager"
 		class="dwz.framework.user.impl.UserManagerImpl">
 		<constructor-arg index="0" ref="sysUserDao"></constructor-arg>
+		<property name="jdbc">
+			<ref bean="jdbcTool" />
+		</property>
 	</bean> 
 	
 	<bean id="fileManager"

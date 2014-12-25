@@ -371,8 +371,18 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 					argList.add(entry.getValue());
 					break;
 				case MONEY_TYPE:
-					sb.append(" and  money.moneyType=? ");
-					argList.add(entry.getValue());
+					String tp = ""+entry.getValue();
+					if(tp!=null&&!"null".equals(tp)){
+						String[] tps = tp.split(",");
+						sb.append(" and  money.moneyType in ( ");
+						for(int i=0,j=tps.length;i<j;i++){
+							sb.append("?");
+							if(i<j-1)
+								sb.append(",");
+							argList.add(tps[i]);
+						}  
+						sb.append(" )");
+					}
 					break;
 				case MONEY_DESC:
 					sb.append(" and  money.moneyDesc like ? ");

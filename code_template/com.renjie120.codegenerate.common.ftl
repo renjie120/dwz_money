@@ -32,13 +32,33 @@
 <#-- 全部的属性除去主键.参数连接字符串 Arg arg1,Arg2 arg2。。。。。-->
 <#macro allfieldnotkey nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><@datatype2 nm=attr.type/> ${attr.name} <#assign index=index+1><#if index<size>,</#if><#else><#assign index=index+1></#if></#list></#macro>
 
-
 <#-- 全部的属性的连接字符串 -->
 <#macro allfield2 nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name} <#assign index=index+1><#if index<size>,</#if></#list></#macro>
 
 <#-- 全部的属性除去主键的连接字符串 -->
 <#macro allfield2notkey nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'>${attr.name} <#assign index=index+1><#if index<size>,</#if><#else><#assign index=index+1></#if></#list></#macro>
 
+<#-- 全部的属性除去主键的连接字符串--全部的数据库字段的连接 -->
+<#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
+ 
+<#macro all_query_field2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if '${attr.query}'='true'>,${attr.column} </#if></#if></#list></#macro>
+
+<#macro all_brower_field2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if '${attr.brower}'='true'>,${attr.column} </#if></#if></#list></#macro>
+
+<#macro allfield2notkey_updatecolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}= @${attr.name}<#assign index=index+1></#if></#list></#macro>
+   
+<#macro allfield2notkey_updatecolumn_nosql nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}='"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
+   
+<#macro allfield2notkey_insertcolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>'"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
+
+
+<#macro allfield2notkey_column nm><#assign index=0><#assign size=nm?size><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column} <#assign index=index+1></#if></#list></#macro>
+ 
+<#-- 组装成为下拉菜单的option选项字符串 -->
+<#macro getOptionStr names values><#if names!=''><#assign arr1=names?split(",")><#if values!=''><#assign arr2=values?split(",")></#if><#assign temp=0><#list arr1 as n><option value="${arr2[temp]}">${n}</option><#assign temp=temp+1></#list></#if></#macro>
+<#macro getOptionWithCheck names values check_val><#if names!=''><#assign arr1=names?split(",")><#if values!=''><#assign arr2=values?split(",")></#if><#list arr1 as n><#assign temp=0><option value="${arr2[temp]}" <#if check_val==arr2[temp]>selected</#if>>${n}</option><#assign temp=temp+1></#list></#if></#macro>
+<#macro getOptionAns names values check_val><#if names!=''><#assign arr1=names?split(",")><#if values!=''><#assign arr2=values?split(",")></#if><#list arr1 as n><#assign temp=0><#if check_val==arr2[temp]>${n}</#if><#assign temp=temp+1></#list></#if></#macro>
+<#macro getOptionStr2 names ><#if names!=''><#list names?split(",") as array>${array},</#list></#if></#macro>
 
 <#-- 全部的属性的排序字符串的连接字符串 -->
 <#macro allorderfield nm><#assign index=0><#assign size=nm?size><#list nm as attr> ${attr.name?upper_case},  ${attr.name?upper_case}_DESC <#assign index=index+1><#if index<size>,</#if></#list></#macro>

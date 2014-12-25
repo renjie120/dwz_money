@@ -59,11 +59,11 @@ function initEnv() {
 /**
  * 只在index.jsp初始化的时候加载这里的函数。还有在window.resize()的时候也会调用.
  */
-function initLayout() {
+function initLayout() { 
 	var iContentW = $(window).width()
 			- (DWZ.ui.sbar ? $("#sidebar").width() + 10 : 34) - 5;
 	var iContentH = $(window).height() - $("#header").height() - 34;
-	$("#container").width(iContentW);
+	$("#container").width(iContentW); 
 	$("#container .tabsPageContent").height(iContentH - 34).find("[layoutH]")
 			.layoutH();
 	$("#sidebar, #sidebar_s .collapse, #splitBar, #splitBarProxy").height(
@@ -77,7 +77,7 @@ function initLayout() {
 	var gridTreeHeight = $("#container .tabsPageContent").height()
 			- $('#container div.pageHeader').height() - 56;
 	$('#newtableTree').resetHeight(gridTreeHeight);
-	initMyUI();
+	initMyUI(); 
 }
 /**
  * 在全部结束完成之后再执行一次layout布局修改.
@@ -152,63 +152,16 @@ function initHightCharts($char,arr){
 		
 		});
 	}
-	else if($char.attr('type')=='column'){ 
+	else if($char.attr('type')=='column'){  
 		//alert("列的行数："+arr.length);
 		if(arr.length<1)
 			return false;
 		//如果是普通的二维列表
-		if(arr[0].length==2){   
+		if(arr[0].length==2){    
 			show2Column_two(arr,$char.attr('title'),$char.attr('id'),$char.attr('serialName'));
-		}else if(arr[0].length==3){ 
-			var xAxis_a = [];
-			var yAxis_a = [];  
-			var zAxis_a = new HashMap();  
-			var _len = arr.length;
-			for(var _i=0;_i<_len;_i++){
-				//去重添加到数组xAxis_a中
-				if($.inArray(arr[_i][0],xAxis_a)==-1)
-					xAxis_a.push(arr[_i][0]);
-				//去重添加到数组yAxis_a中
-				if($.inArray(arr[_i][1],yAxis_a)==-1)
-					yAxis_a.push(arr[_i][1]);
-				zAxis_a.put(arr[_i][0]+",,"+arr[_i][1],arr[_i][2]); 
-			}  
-			var len1 = xAxis_a.length;
-			var len2 = yAxis_a.length; 
-			var seriesArr = [];
-			for(var _i=0;_i<len1;_i++){
-				var _ans = {};
-				_ans.name = xAxis_a[_i];
-				_ans.data = [];
-				for(var _j=0;_j<len2;_j++){
-					_ans.data.push(zAxis_a.get(xAxis_a[_i]+",,"+yAxis_a[_j]));
-				} 
-				seriesArr.push(_ans);
-			} 
-			$char.highcharts({
-				credits : _credits,
-			   chart: {
-			            type: 'column'
-			        },
-				title : {
-					text : $char.attr('title'), 
-				},
-				//yAxis: {  title: { text: $char.attr('yAxisName')?$char.attr('yAxisName'):'值' } },
-				//显示点的值
-				plotOptions: {
-		            column: {
-		                dataLabels: {
-		                    enabled: true
-		                },
-		                enableMouseTracking: false
-		            }
-		        },
-				 xAxis: {
-			            categories: yAxis_a
-			        },
-				series : seriesArr
-			});	
-		}
+		}else if(arr[0].length==3){  
+			show3Column(arr,$char.attr('title'),$char.attr('id'));
+  		}
 	}
 }
 function initUI(_box) {
@@ -229,6 +182,14 @@ function initUI(_box) {
 		$this.tabs(options);
 	});
 
+	$("li[roleId]").each(function(){
+		if(!window.roles)
+			window.roles= $('#roleStr').val(); 
+		var $this = $(this);
+		if(window.roles.indexOf($this.attr('roleId'))==-1)
+			$this.remove();
+	});
+	
 	$("ul.tree", $p).jTree();
 	$('div.accordion', $p).each(function() {
 		var $this = $(this);
@@ -396,6 +357,22 @@ function initUI(_box) {
 						});
 			});
 
+	$("a[target=myDialog]", $p).each(
+			function() {
+				$(this)
+						.click(
+								function(event) {
+									var $this = $(this);
+									var title = $this.attr("title")
+											|| $this.text();
+									var w = $this.attr("width")||400;
+									var h = $this.attr("height")||300;
+									var url = unescape($this.attr("href"));
+									window.open (url, 'newwindow', 'height='+w+', width='+h+', top=0, left=0, toolbar=no,'
+											+' menubar=no, scrollbars=no, resizable=no,location=no, status=no') ;
+									return false;
+								})}
+	);
 	// dialogs
 	$("a[target=dialog]", $p).each(
 			function() {

@@ -1,14 +1,15 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<%@ page import="dwz.framework.constants.Constants" %>
 <script src="/js/treeCombox.js" type="text/javascript" />
 <form id="pagerForm" method="post" action="/money/newmoney!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" /> <input
 		type="hidden" name="numPerPage" value="${numPerPage}" /> <input
 		type="hidden" name="orderField" value="${param.orderField}" /> <input
 		type="hidden" name="orderDirection" value="${param.orderDirection}" />
-</form>
+</form> 
 <%
-	String year = (String) request.getAttribute("year");
+	String year = (String) request.getAttribute("year"); 
 	String month = (String) request.getAttribute("month");
 	String moneyType = (String) request.getAttribute("moneyType");
 	String moneyTypeName = (String) request
@@ -20,6 +21,9 @@
 %>
 
 <script src="/js/money/list.js" type="text/javascript"></script>
+<%String roleStr = (String) session.getAttribute(Constants.ROLE); %>
+<input value="<%=roleStr %>" type='hidden' id='roleStr'/>
+
 <div class="pageHeader" id="moneylist">
 	<form onsubmit="return navTabSearch(this);"
 		action="/money/newmoney!query.do" method="post">
@@ -38,8 +42,8 @@
 							where="parameterType=8" selectFlag="true" /></td>
 					<td>分类</td>
 					<td><input name="moneyTypeName" id="moneyTypeName2" type="text"
-						readOnly="true" value="<%=moneyTypeName%>" /> <input
-						name="moneyType" id="moneyType2" type="hidden" id="moneyType2"
+						readOnly="true" value="<%=moneyTypeName%>" /> <input type="hidden"
+						name="moneyType" id="moneyType2"  
 						value="<%=moneyType%>" /></td>
 				</tr>
 			</table>
@@ -59,19 +63,19 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="/money/newmoney!beforeAdd.do"
+			<li roleId="65"><a class="add" href="/money/newmoney!beforeAdd.do"
 				target="dialog" mask="true" title="添加金额信息"><span>添加</span> </a></li>
-			<li><a class="delete" href="/money/newmoney!doDelete.do"
+			<li roleId="66"><a class="delete" href="/money/newmoney!doDelete.do"
 				postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 			</a></li>
-			<li><a class="edit"
+			<li roleId="67"><a class="edit"
 				href="/money/newmoney!beforeUpdate.do?moneySno={moneysno}"
 				target="dialog" mask="true" title="修改金额信息"><span>修改</span> </a></li>
-			<li class="line">line</li>
-			<li><a class="icon" href="/money/newmoney!export.do"
+			<li  class="line">line</li>
+			<li roleId="68"><a class="icon" href="/money/newmoney!export.do"
 				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
 			</a></li>
-			<li><a class="icon" href="/money/newmoney!initImport.do"
+			<li roleId="69"><a class="icon" href="/money/newmoney!initImport.do"
 				target="dialog"> <span>从EXCEL导入</span> </a></li>
 			<li> <span>收入：</span><span type="in">${shouru}</span><span>支出：</span><span type="out">${zhichu}</span></li>
 		</ul>
@@ -121,6 +125,7 @@
 
 		<div class="pagination" targetType="navTab" totalCount="${totalCount}"
 			arglist="year,month,moneyType2,moneyTypeName2"
+			argnamelist="year,month,moneyType,moneyTypeName"
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>

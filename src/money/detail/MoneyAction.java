@@ -16,11 +16,6 @@ import java.util.Map;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
-import common.base.SpringContextUtil;
-import common.report.MyReport;
-import common.report.ReportDaoUtil;
-import common.report.ReportStrGenerate;
-import common.report.ReportStrGenerate2;
 import common.util.CommonUtil;
 
 import dwz.constants.BeanManagerKey;
@@ -365,10 +360,7 @@ public class MoneyAction extends BaseAction {
 		return null;
 	}
 
-	public String report() {
-		return "report";
-	}
-
+	
 	/**
 	 * 删除信息.
 	 * 
@@ -470,7 +462,7 @@ public class MoneyAction extends BaseAction {
 		Collection<Money> moneyList = mMgr.searchMoney(criterias,
 				realOrderField(), startIndex, numPerPage);
 
-		moneyGridTree();
+	//	moneyGridTree();
 		Collection<Money> ans = mMgr.searchMoneyByType(criterias);
 		double shouru = 0;
 		double zhichu = 0;
@@ -547,118 +539,10 @@ public class MoneyAction extends BaseAction {
 		return criterias;
 	}
 
-	/**
-	 * 按照类别统计数量.
-	 * 
-	 * @return
-	 */
-	public String reportCountByType() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy("bigtype").count().colomns(new String[] { "bigtype" })
-				.build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
-			@Override
-			public String change(Map strs) {
-				return "['" +strs.get("bigtype")+ "'," + strs.get("count1") + " ]";
-			}
-
-		});
-		writeToPage(response, ans);
-		return null;
-	}
 	
-	/**
-	 * 统计功过记录的数据报表图.
-	 * @return
-	 */
-	public String reportGongguoStatis() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		String sql = new MyReport.Builder("gongguo_view")
-				.groupBy(new String[] { "g_value"  })
-				.colomns(new String[] {  "pname"  }).sum("flag").count().order("g_value").build().generateSql();
-		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
-			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[2] + "'," + (Double.parseDouble(objs[0]+"")-Double.parseDouble(objs[1]+""))+","+ (Double.parseDouble(objs[0]+""))+ "]";
-			}
-		});
-		writeToPage(response, ans);
-		return null;
-	}
 
-	/**
-	 * 按照类别，年份统计金额总数.
-	 * 
-	 * @return
-	 */
-	public String reportSumByTypeAndYear() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy(new String[] { "year", "bigtype" }).sum("money")
-				.colomns(new String[] { "year", "bigtype" })
-				.where("big_money_type='2'").build().generateSql();
-		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
-			@Override
-			public String change(Map  objs) {
-				return "['" + objs.get("year") + "','" +objs.get("bigtype") + "'," + objs.get("sum_MONEY") + " ]";
-			}
-		});
-		System.out.println("reportSumByTypeAndYear==" + ans);
-		writeToPage(response, ans);
-		return null;
-	}
-
-	/**
-	 * 按照类别，年份，月份统计金额总数.
-	 * 
-	 * @return
-	 */
-	public String reportSumByTypeAndYearAndMonth() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil"); 
-		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy(new String[] { "month", "bigtype" }).sum("money")
-				.colomns(new String[] { "month", "bigtype" })
-				.where("year='"+year+"' and big_money_type='2' ").build().generateSql();
-		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
-			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
-			}
-		});
-		writeToPage(response, ans);
-		return null;
-	}
-
-	/**
-	 * 按照类别统计各个的总金额.
-	 * 
-	 * @return
-	 */
-	public String reportSumByType() {
-		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
-		String sql = new MyReport.Builder("money_detail_view")
-				.groupBy("bigtype").sum("money").where(" big_money_type='2' ")
-				.colomns(new String[] { "bigtype" }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
-			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
-			}
-
-		});
-		writeToPage(response, ans);
-		return null;
-	}
-
+	
+	
 	public Money getMoneyVo() {
 		return moneyVo;
 	}

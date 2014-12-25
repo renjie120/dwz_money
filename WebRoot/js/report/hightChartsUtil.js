@@ -140,13 +140,22 @@ function show3Column(arr, _title, _divId) {
 			},
 			//yAxis: {  title: { text: $char.attr('yAxisName')?$char.attr('yAxisName'):'值' } },
 			//显示点的值
-			plotOptions: {
+			/*plotOptions: {
 	            column: {
 	                dataLabels: {
 	                    enabled: true
 	                },
 	                enableMouseTracking: false
 	            }
+	        },
+	        tooltip: {
+                formatter: function(){
+                    return '<b>'+ this.series.name +', age '+ this.point.category +'</b><br/>'+
+                        'Population: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }
+            },*/
+	        credits: {
+	            enabled: false
 	        },
 			 xAxis: {
 		            categories: yAxis_a
@@ -167,13 +176,13 @@ function show3Column(arr, _title, _divId) {
  * @param {Object} _format
  */
 function showPie(arr, _title, _divId, _serialName, _format) {
-if(arr)
+if(arr){  
 	$('#'+_divId).highcharts({
-			credits :_credits,
+			//credits :_credits,
 			title : {
 				text :_title, 
 			},
-			plotOptions: {
+			/*plotOptions: {
 				pie: {
 					allowPointSelect: true,
 					cursor: 'pointer',
@@ -182,13 +191,13 @@ if(arr)
 	                    format:  _format?_format:'{point.name}({y}):{point.percentage:.1f} %'
 	                } 
 	            }
-	        },
+	        },*/
 			series : [ {
 				type : 'pie',
 				name : _serialName,
 				data : arr
 			} ]
 		});	
-	else
+}else
 		alertMsg.error("没有数据!");
 }

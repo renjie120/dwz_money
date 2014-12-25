@@ -20,6 +20,15 @@ public class ModelParse {
 	private List<ColumnModel> attributes = new ArrayList<ColumnModel>();
 	private String table;
 	private String className;
+	private String arg1;
+	public String getArg1() {
+		return arg1;
+	}
+
+	public void setArg1(String arg1) {
+		this.arg1 = arg1;
+	}
+
 	private String classDesc;
 	private String packageName;
 
@@ -38,6 +47,7 @@ public class ModelParse {
 		table = DomUtil.getAttribute(list, "table");
 		packageName = DomUtil.getAttribute(list, "package");
 		className = DomUtil.getAttribute(list, "name");
+		arg1 = DomUtil.getAttribute(list, "arg1");
 		classDesc = DomUtil.getAttribute(list, "desc");
 		NodeList children = list.getChildNodes();
 		for (int j = 0; j < children.getLength(); j++) {
@@ -50,15 +60,35 @@ public class ModelParse {
 					model.setKeyDesc(DomUtil.getAttribute(child, "desc"));
 					model.setKeyName(DomUtil.getAttribute(child, "name"));
 					model.setKeyColumn(DomUtil.getAttribute(child, "column"));
-					model.setKeyType(DomUtil.getAttribute(child, "type"));
+					model.setKeyType(DomUtil.getAttribute(child, "type")); 
 				} else
 					config.setIskey("false");
 				//节点类型
 				config.setNodeType(child.getNodeName());
 				//节点汉字注释
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
+				//最大长度
+				config.setMaxLength(DomUtil.getAttribute(child, "maxLength"));
+				//最短长度
+				config.setMinLength(DomUtil.getAttribute(child, "minLength"));
+				//列属性名
+				config.setCols(DomUtil.getAttribute(child, "cols"));
+				//列属性名
+				config.setRows(DomUtil.getAttribute(child, "rows")); 
+				//下拉菜单对应的文本的值
+				config.setValues(DomUtil.getAttribute(child, "values"));
+				//下拉菜单的对应的文本的显示值
+				config.setNames(DomUtil.getAttribute(child, "names"));
+				//浏览框设置的对应的url
+				config.setBrowerUrl(DomUtil.getAttribute(child, "browerUrl"));
+				//设置为选择下拉框
+				config.setBrower(DomUtil.getAttribute(child, "brower"));
+				//列属性名
+				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否要检索
 				config.setQuery(DomUtil.getAttribute(child, "query")); 
+				//列类型
+				config.setColumnType(DomUtil.getAttribute(child, "columnType"));
 				//列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				//是否模糊匹配
@@ -87,6 +117,7 @@ public class ModelParse {
 			}
 		}
 		model.setTable(table);
+		model.setArg1(arg1);
 		model.setClassName(className);
 		model.setPackageName(packageName);
 		model.setClassDesc(classDesc);

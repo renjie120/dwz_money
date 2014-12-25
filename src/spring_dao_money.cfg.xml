@@ -16,6 +16,17 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="yaopininfoDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.yaopin.YaopinInfoDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.yaopin.YaopinInfoVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="orderbasemanagerDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.orderbase.OrderBaseManagerDao</value>

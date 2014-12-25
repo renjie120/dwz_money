@@ -149,18 +149,3 @@ ul.rightTools li {
 				</div>
 			</div> 
 </div>
-<!--   li><a href="javascript:;"><span>用户菜单权限</span> </a></li-->
-					<!--  div>
-						<div class="zTreeDemoBackground left" id='userMenuRight'
-							style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
-							autoHeight> 
-							<ul id="userMenuRight_menutree" class="ztree" lazy="true" url="/money/tree!getOrgWithPeopleTree.do" autoParam="[ 'id', 'name']"></ul>
-						</div>
-		
-						<div id="jbsxBox" class="unitBox" relHeight='userMenuRight'
-							style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;"> 
-						</div>
-					</div>-->
-
-
-

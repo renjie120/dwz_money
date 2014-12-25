@@ -1,0 +1,9 @@
+<class name="Zixun" table="crm_zixunneirong" desc="咨询内容" package="eco.test">
+	<id name="zxId" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
+	<property name="ZxName" column="zxnr_name" columnType="varchar(300)"
+		maxLength="300" brower="true" query="true" desc="咨询类别" width="50%"
+		notnull="true" />
+	<property name="ZxDesc" column="zxnr_desc" columnType="varchar(300)"
+		maxLength="300" brower="true" query="true" desc="详细描述" width="50%" />
+</class> 

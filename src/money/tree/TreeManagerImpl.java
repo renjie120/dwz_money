@@ -262,7 +262,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 					.queryForInt(
 							"select count(distinct t1.menuid) from menu_t t1,"
 									+ orgSql
-									+ " t2 where t1.menuid=t2.menuid and t1.parentid=?  ",
+									+ " t2 where t1.menuid=t2.menuid and t1.parentid=? and t1.level!=66 ",
 							UserType.SUPER.equals(tp) ? new Object[] { nd
 									.getId() } : new Object[] { userId,
 									nd.getId() });

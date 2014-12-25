@@ -74,7 +74,10 @@
 				/WEB-INF/jsp/baidu/BaiduMap.jsp
 			</result>
 			<result name="marvinjs">
-				/index.html
+				/WEB-INF/jsp/marvin/marvinIndex.jsp
+			</result>
+			<result name="marvinjs2">
+				/WEB-INF/jsp/marvin/marvin2.jsp
 			</result>
 			<result name="sum">
 				/WEB-INF/jsp/baidu/SumBaiduMap.jsp
@@ -122,6 +125,12 @@
 			/WEB-INF/jsp/plan/PlanQuery.jsp </result> <result name="editdetail"> /WEB-INF/jsp/plan/PlanEdit.jsp 
 			</result> </action> -->
 
+		<action name="moneyReport" class="money.report.MoneyReport">
+			<result name="report">
+				/WEB-INF/jsp/money/detail/report.jsp
+			</result>
+		</action>
+
 		<action name="newmoney" class="money.detail.MoneyAction">
 			<param name="savePath">/upload</param>
 			<result name="list">
@@ -139,9 +148,6 @@
 			<result name="about">/WEB-INF/jsp/About.jsp</result>
 			<result name="technology">
 				/WEB-INF/jsp/Technology.jsp
-			</result>
-			<result name="report">
-				/WEB-INF/jsp/money/detail/report.jsp
 			</result>
 			<result name="import">
 				/WEB-INF/jsp/money/detail/import.jsp
@@ -186,6 +192,11 @@
 		<action name="superconsole" class="common.MyJdbcAction">
 			<result name="list">/WEB-INF/jsp/superconsole/MyJsp.jsp</result>
 		</action>
+		<action name="questionReport" class="money.report.QuestionReport">
+			<result name="report">
+				/WEB-INF/jsp/question/report.jsp
+			</result>
+		</action>
 
 		<action name="question" class="money.question.QuestionAction">
 			<param name="allowTypes">
@@ -212,9 +223,6 @@
 			<result name="query">
 				/WEB-INF/jsp/question/query.jsp
 			</result>
-			<result name="report">
-				/WEB-INF/jsp/question/report.jsp
-			</result>
 		</action>
 
 		<action name="org" class="money.org.OrgAction">
@@ -223,6 +231,18 @@
 			<result name="query">/WEB-INF/jsp/org/OrgQuery.jsp</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/org/OrgEdit.jsp
+			</result>
+		</action>
+
+		<action name="yaopininfo" class="money.yaopin.YaopinInfoAction">
+			<result name="list">
+				/WEB-INF/jsp/yaopininfo/YaopinInfolist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/yaopininfo/YaopinInfoinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/yaopininfo/YaopinInfoedit.jsp
 			</result>
 		</action>
 

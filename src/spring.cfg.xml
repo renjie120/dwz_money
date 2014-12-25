@@ -12,25 +12,19 @@
 			<value>classpath:db.properties</value>
 		</property>
 	</bean>
-	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
-	>
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/dwz4j_zhengshi" />
-		<property name="username" value="root" />
-		<property name="password" value="987425" />
-	</bean>
-
-	<!--	destroy-method="close"    bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${driverName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
+	</bean>
 
-		<property name="filters" value="stat,config" /> 
-		<property name="maxActive" value="20" /> 
-		<property name="initialSize" value="5" />
-
-	</bean-->
+	<!-- destroy-method="close" bean id="ds" class="com.alibaba.druid.pool.DruidDataSource"> 
+		<property name="driverClassName" value="${driverName}" /> <property name="url" 
+		value="${url}" /> <property name="username" value="${username}" /> <property 
+		name="password" value="${password}" /> <property name="filters" value="stat,config" 
+		/> <property name="maxActive" value="20" /> <property name="initialSize" 
+		value="5" /> </bean -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<!-- to override, use the "SpringDatasourceConfig" snippet in your project -->
@@ -40,49 +34,52 @@
 		<property name="mappingResources">
 			<list>
 				<value>
-					dwz/persistence/beans/InfNews.hbm.xml
+					hbm/InfNews.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysRole.hbm.xml
+					hbm/SysRole.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysLog.hbm.xml
+					hbm/SysLog.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysResource.hbm.xml
+					hbm/SysResource.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysPermission.hbm.xml
+					hbm/SysPermission.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysSession.hbm.xml
+					hbm/yaopininfo.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysUserRole.hbm.xml
+					hbm/SysSession.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SysUser.hbm.xml
+					hbm/SysUserRole.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/ConFolder.hbm.xml
+					hbm/SysUser.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/ConFile.hbm.xml
+					hbm/ConFolder.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/SetPreference.hbm.xml
+					hbm/ConFile.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/WebPage.hbm.xml
+					hbm/SetPreference.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/WebWebsite.hbm.xml
+					hbm/WebPage.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/InvCategory.hbm.xml
+					hbm/WebWebsite.hbm.xml
 				</value>
 				<value>
-					dwz/persistence/beans/InvProduct.hbm.xml
+					hbm/InvCategory.hbm.xml
+				</value>
+				<value>
+					hbm/InvProduct.hbm.xml
 				</value>
 				<value>
 					hbm/stockmanager.hbm.xml
@@ -223,7 +220,7 @@
 	<import resource="spring_dao.cfg.xml" />
 	<import resource="spring_manager.cfg.xml" />
 	<import resource="spring_dao_money.cfg.xml" />
-	<!-- import resource="spring_activiti.cfg.xml" /-->
+	<!-- import resource="spring_activiti.cfg.xml" / -->
 	<import resource="spring_manager_money.cfg.xml" />
 
 	<tx:annotation-driven transaction-manager="txManager" />
@@ -242,4 +239,5 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+  
 </beans>

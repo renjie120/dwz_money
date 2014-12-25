@@ -182,7 +182,7 @@
 					<td>
 					<s:property value="questionDate" />
 					</td>
-					<td><div style='width:200px' title='<s:property value="questionDesc"/>'><s:property value="questionDesc"/></div></td> 
+					<td><span title='<s:property value="questionDesc"/>'><s:property value="questionDesc" /></span></td> 
 					<td>
 					<s:property value="submit" />
 					</td>

@@ -1,8 +1,9 @@
 package common.codegenerate;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import freemarker.template.Configuration;
@@ -36,7 +37,9 @@ public abstract class Generate {
 				throw new RuntimeException("文件已经存在：" + file);
 		}
 		try {
-			out = new FileWriter(file);
+			OutputStreamWriter osw = new OutputStreamWriter(
+					new FileOutputStream(_f.getAbsoluteFile(), true), "GBK");
+			out = osw;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,31 +47,61 @@ public abstract class Generate {
 
 	private void getOut(boolean delete) {
 		String fileName;
-		if (dirName == null) {
-			File f = new File("d:\\" + beanName);
-			if (!f.exists())
-				f.mkdir();
-			fileName = "d:\\" + beanName + "\\" + (beanName + outFile);
-			returnOut(fileName, delete);
-		} else {
-			if (dirType == 1) {// java文件
-				String[] strs = packageName.split("\\.");
-				for (String str : strs) {
-					dirName += "\\" + str;
+		if (splitByBeanName) {
+			if (dirName == null) {
+				File f = new File("d:\\" + beanName);
+				if (!f.exists())
+					f.mkdir();
+				fileName = "d:\\" + beanName + "\\" + (beanName + outFile);
+				returnOut(fileName, delete);
+			} else {
+				if (dirType == 1) {// java文件
+					String[] strs = packageName.split("\\.");
+					for (String str : strs) {
+						dirName += "\\" + str;
+						File f = new File(dirName);
+						if (!f.exists())
+							f.mkdir();
+					}
+					fileName = dirName + "\\" + (beanName + outFile);
+					returnOut(fileName, delete);
+				} else if (dirType == 2) {// jsp文件
+					dirName += "\\" + beanName.toLowerCase();
 					File f = new File(dirName);
 					if (!f.exists())
 						f.mkdir();
+					returnOut(dirName + "\\" + (beanName + outFile), delete);
+				} else {// hbm文件
+					returnOut(dirName + "\\" + (beanName + outFile), delete);
 				}
-				fileName = dirName + "\\" + (beanName + outFile);
-				returnOut(fileName, delete);
-			} else if (dirType == 2) {// jsp文件
-				dirName += "\\" + beanName.toLowerCase();
-				File f = new File(dirName);
+			}
+		} else {
+			if (dirName == null) {
+				File f = new File("d:\\"  );
 				if (!f.exists())
 					f.mkdir();
-				returnOut(dirName + "\\" + (beanName + outFile), delete);
-			} else {// hbm文件
-				returnOut(dirName + "\\" + (beanName + outFile), delete);
+				fileName = "d:\\" +  (beanName + outFile);
+				returnOut(fileName, delete);
+			} else {
+				if (dirType == 1) {// java文件
+					String[] strs = packageName.split("\\.");
+					for (String str : strs) {
+						dirName += "\\" + str;
+						File f = new File(dirName);
+						if (!f.exists())
+							f.mkdir();
+					}
+					fileName = dirName + "\\" + (beanName + outFile);
+					returnOut(fileName, delete);
+				} else if (dirType == 2) {// jsp文件
+					//dirName += "\\" + beanName.toLowerCase();
+					File f = new File(dirName);
+					if (!f.exists())
+						f.mkdir();
+					returnOut(dirName + "\\" + (beanName + outFile), delete);
+				} else {// hbm文件
+					returnOut(dirName + "\\" + (beanName + outFile), delete);
+				}
 			}
 		}
 	}
@@ -78,6 +111,18 @@ public abstract class Generate {
 	public Generate setDirName(String dirName, int dirType) {
 		this.dirName = dirName;
 		this.dirType = dirType;
+		return this;
+	}
+
+	// 结果感觉beanName进行区分.
+	private boolean splitByBeanName = true;
+
+	public boolean isSplitByBeanName() {
+		return splitByBeanName;
+	}
+
+	public Generate setSplitByBeanName(boolean splitByBeanName) {
+		this.splitByBeanName = splitByBeanName;
 		return this;
 	}
 

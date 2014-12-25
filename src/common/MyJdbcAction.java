@@ -15,7 +15,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportStrGenerate;
+import common.report.ReportStrGenerate2;
 import common.util.CommonUtil;
 
 import dwz.present.BaseAction;
@@ -181,10 +181,10 @@ public class MyJdbcAction extends BaseAction {
 		String sql = new MyReport.Builder("money_detail_view").groupBy("year")
 				.sum("money").where(" big_money_type=2")
 				.colomns(new String[] { "year" }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" +objs.get("year") + "'," + objs.get("SUM_money") + "]";
 			}
 		});
 		writeToPage(response, ans);
@@ -198,10 +198,10 @@ public class MyJdbcAction extends BaseAction {
 				.sum("money")
 				.where(" big_money_type=2 and year='" + year + "'")
 				.colomns(new String[] { "month" }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("month") + "'," + objs.get("SUM_money") + "]";
 			}
 		});
 		writeToPage(response, ans);
@@ -217,10 +217,10 @@ public class MyJdbcAction extends BaseAction {
 				.where(" big_money_type=2 and year='" + year + "' and month="
 						+ month + "").colomns(new String[] { "money_time" })
 				.build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("money_time") + "'," + objs.get("SUM_money") + "]";
 			}
 		});
 		writeToPage(response, ans);
@@ -238,11 +238,11 @@ public class MyJdbcAction extends BaseAction {
 						new String[] { "money_time", "money", "tallytype",
 								"money_sno", "money_desc" }).build()
 				.generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "','" + objs[3] + "','" + objs[2]
-						+ "','" + objs[5] + "']";
+			public String change(Map objs) { 
+				return "['" + objs.get("money_time") + "','" + objs.get("tallytype") + "','" + objs.get("money")
+						+ "','" + objs.get("money_desc")+ "']";
 			}
 		});
 		writeToPage(response, ans);
@@ -256,10 +256,10 @@ public class MyJdbcAction extends BaseAction {
 				.groupBy("bigtype")
 				.colomns(new String[] { "bigtype", "bigtypesno" }).build()
 				.generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + ",'" + objs[2] + "']";
+			public String change(Map objs) {
+					return "['" + objs.get("bigtype") + "','" + objs.get("SUM_money")  + "','" + objs.get("bigtypesno")+ "']";
 			}
 		});
 		writeToPage(response, ans);
@@ -273,10 +273,10 @@ public class MyJdbcAction extends BaseAction {
 				.where(" bigtypesno='" + bigType + "'").groupBy("tallytype")
 				.colomns(new String[] { "tallytype", "money_type" }).build()
 				.generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + ",'" + objs[2] + "']";
+			public String change(Map objs) {
+				return "['" + objs.get("tallytype") + "','" + objs.get("SUM_money")  + "','" + objs.get("money_type")+ "']";
 			}
 		});
 
@@ -291,10 +291,10 @@ public class MyJdbcAction extends BaseAction {
 				.where(" money_type='" + tallyType + "'  ").groupBy("year")
 				.colomns(new String[] { "year" }).build().generateSql();
 		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("year") + "','" + objs.get("SUM_money")  + "']";
 			}
 		});
 		writeToPage(response, ans);
@@ -309,10 +309,10 @@ public class MyJdbcAction extends BaseAction {
 				.where(" money_type='" + tallyType + "' and year='" + year
 						+ "' ").groupBy("month")
 				.colomns(new String[] { "month" }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("month") + "','" + objs.get("SUM_money")  + "']";
 			}
 		});
 		writeToPage(response, ans);
@@ -327,10 +327,10 @@ public class MyJdbcAction extends BaseAction {
 				.where(" money_type='" + tallyType + "' and year='" + year
 						+ "' and month='" + month + "'").groupBy("money_time")
 				.colomns(new String[] { "money_time" }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("money_time") + "','" + objs.get("SUM_money")  + "']";
 			}
 		});
 		writeToPage(response, ans);
@@ -346,11 +346,10 @@ public class MyJdbcAction extends BaseAction {
 						+ "' ").groupBy("money_sno")
 				.colomns(new String[] {"money_time", "money", "tallytype",
 						"money_sno", "money_desc"  }).build().generateSql();
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "','" + objs[3] + "','" + objs[2]
-						+ "','" + objs[5] + "']";
+			public String change(Map objs) {
+				return "['" + objs.get("money_time") + "','" + objs.get("tallytype")+ "','" + objs.get("money") + "','" + objs.get("money_desc")   + "']";
 			}
 		});
 		writeToPage(response, ans);

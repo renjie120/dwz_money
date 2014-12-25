@@ -28,7 +28,9 @@
 <link href="/uploadify/css/uploadify.css" rel="stylesheet"
 	type="text/css" />
 <link href="/gridTree/GridTree.css" rel="stylesheet" type="text/css" />
-<script src="/styles/management/js/jquery-1.8.2.min.js"
+<script src="/styles/management/js/json2.js"
+	type="text/javascript"></script> 
+<script src="/styles/management/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
 <script src="/uploadify/scripts/jquery.uploadify.js"
 	type="text/javascript"></script>
@@ -224,8 +226,19 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80">
-							<div style='width:140px;float:left;'>
+						<div class="pageFormContent" layoutH="-80"> 
+							<div id="hm_chartdiv5" class="highcharts" type="column"
+								serialName="盈利" title='收支盈利图' yAxisName="金额"
+								style="width: 900px; height: 300px; float: left; border: 1 red;"
+								url="money/superconsole!getReportOut.do"></div>
+							 
+							<!--div id="hm_chartdiv4" class="highcharts" type="column"
+								serialName="收支大类" title='按大类统计记录数目' yAxisName="金额"
+								style="width: 900px; height: 300px; float: left; border: 1 red;"
+								url="/money/superconsole!reportSumByBigType.do"></div-->
+
+							
+							<!--div style='width:140px;float:left;'>
 								<h1>网站快捷键</h1>
 								<s:iterator value="#request.allHomepage" var="haha" status="stu">
 									<div class="unit">
@@ -239,32 +252,28 @@
 								bgcolor=008000 style='float:left'>
 								<tr>
 									<td>
-							</table>
+							</table-->
 							<div id="hm_chartdiv1" class="highcharts" type="pie"
 								serialName="问题数量" title='问题状态统计报表' format="{point.name}({point.percentage:.1f}%)"
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByStatus.do"></div>
 
-							<table cellspacing=0 cellpadding=0 width=1 height=230
+							<!--table cellspacing=0 cellpadding=0 width=1 height=230
 								bgcolor=008000 style='float:left'>
 								<tr>
 									<td>
-							</table>
+							</table-->
 
 							<div id="hm_chartdiv2" class="highcharts" type="pie"
 								serialName="问题数量" title='问题数量统计报表'
 								style="width:300px;height:250px;float:left;border:1 red;"
 								url="/money/question!reportQuestionCountByType.do"></div>
 
-							<div id="hm_chartdiv3" class="highcharts" type="pie"
+							<!--  div id="hm_chartdiv3" class="highcharts" type="pie"
 								serialName="收支大类" title='收支金额数据统计' 
 								style="width: 300px; height: 250px; float: left; border: 1 red;"
-								url="/money/newmoney!reportCountByType.do"></div>
+								url="/money/newmoney!reportCountByType.do"></div>-->
 
-							<div id="hm_chartdiv4" class="highcharts" type="column"
-								serialName="收支大类" title='按大类统计记录数目' yAxisName="金额"
-								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="/money/newmoney!reportSumByTypeAndYear.do"></div>
 						</div>
 					</div>
 				</div>

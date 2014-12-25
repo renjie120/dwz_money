@@ -31,6 +31,7 @@ public class MyJdbcTool {
 		 String str = "123.doc";
 		 String ext=str.substring(str.lastIndexOf(".")).toLowerCase();
 		 System.out.println(ext);
+		 
 	}
 
 	/**

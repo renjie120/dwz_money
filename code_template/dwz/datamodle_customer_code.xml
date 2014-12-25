@@ -1,0 +1,26 @@
+<class name="Huifang" table="crm_interview_huifang" desc="满意度回访"
+	package="eco.test">
+	<id name="lianxiId" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
+	<property name="xingbie" column="xingbie" columnType="varchar(10)"
+		desc="性别" width="15%" notnull="true" />
+	<property name="danwei" column="danwei" columnType="varchar(10)"
+		desc="单位" width="15%" notnull="true" />
+	<property name="shengri" column="shengri" columnType="varchar(10)"
+		desc="生日" width="15%" notnull="true" />
+	<property name="zhiwu" column="zhiwu" columnType="varchar(10)"
+		desc="职务" width="15%" notnull="true" />
+	<property name="leibie" column="leibie" columnType="varchar(10)"
+		desc="专家类别" width="15%" notnull="true" />
+	<property name="zhuanzhulingyu" column="zhuanzhulingyu"
+		columnType="varchar(10)" desc="专注领域" width="15%" notnull="true" />
+	<property name="gongzuozhuangtai" column="gongzuozhuangtai"
+		columnType="varchar(10)" desc="工作状态" width="15%" notnull="true" />
+	<property name="aihao" column="aihao" columnType="varchar(10)"
+		desc="爱好" width="15%" notnull="true" />
+	<property name="mobile" column="mobile" columnType="varchar(10)"
+		desc="手机" width="15%" notnull="true" />
+	<property name="ziliao" column="ziliao" columnType="varchar(10)"
+		desc="资料" width="15%" notnull="true" />
+	ziliao
+</class> 

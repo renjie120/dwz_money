@@ -1,10 +1,14 @@
 package com.renjie120.reportUtil;
 
+import java.util.Map;
+
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
+import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate;
+import common.report.ReportStrGenerate2;
 
 @SuppressWarnings("deprecation")
 public class MoneyActionTest extends
@@ -75,7 +79,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void atestReportSumByTypeAndYearAndMonth() {
+	public void testReportSumByTypeAndYearAndMonth() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
@@ -83,32 +87,80 @@ public class MoneyActionTest extends
 				.colomns(new String[] { "month", "tallytype" })
 				.where("year='2013'").build().generateSql();
 		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "','" + objs[2] + "'," + objs[0] + " ]";
+			public String change(Map objs) {
+				return "['" + objs.get("month") +"'," + objs.get("tallytype")+"'," + objs.get("SUM_money")+ "]";
 			}
 		});
 		System.out.println(ans);
 	}
+	
+	public void testReportGongguoStatis() {
+		ReportDaoUtil util = (ReportDaoUtil) applicationContext
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("gongguo_view")
+		.groupBy(new String[] { "g_value" })
+		.colomns(new String[] { "pname" }).sum("flag").count()
+		.order("g_value").build().generateSql();
+		
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
+			@Override
+			public String change(Map objs) {
+				return "['"
+						+ objs.get("pname")
+						+ "',"
+						+ (Double.parseDouble(objs.get("SUM_flag") + "") - Double
+								.parseDouble(objs.get("COUNT1") + "")) + ","
+						+ (Double.parseDouble(objs.get("SUM_flag")  + "")) + "]";
+			}
+		});
+		System.out.println(ans);
+	}
+	
 
-	public void qtestReportSumByType() {
+	public void atestReportSumByType() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy("bigtype").sum("money")
 				.colomns(new String[] { "bigtype" }).build().generateSql();
 		System.out.println("查询sql:" + sql);
-		String ans = util.getReportStr(sql, new ReportStrGenerate() {
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
 			@Override
-			public String change(Object[] objs) {
-				return "['" + objs[1] + "'," + objs[0] + "]";
+			public String change(Map objs) {
+				return "['" + objs.get("SUM_money") +"'," + objs.get("bigtype")+ "]";
+			}
+
+		});
+		System.out.println(ans);
+	}
+	
+	public void atestReportGongguoStatis() {
+		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
+				.getBean("reportUtil");
+		String sql = new MyReport.Builder("gongguo_view")
+				.groupBy(new String[] { "g_value" })
+				.colomns(new String[] { "pname" }).sum("flag").count()
+				.order("g_value").build().generateSql();
+		System.out.println("查询sql:" + sql);
+		String ans = util.getReportStr(sql, new ReportStrGenerate2() {
+			@Override
+			public String change(Map objs) {
+				return "['"
+						+ objs.get("pname")
+						+ "',"
+						+ (Double.parseDouble(objs.get("COUNT1") + "") - Double
+								.parseDouble(objs.get("SUM_flag")  + "")) + ","
+						+ (Double.parseDouble(objs.get("COUNT1") + "")) + "]";
 			}
 		});
 		System.out.println(ans);
 	}
 
-	public void aatestReportOutSumByYear() {
+
+	public void atestReportOutSumByYear() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view").groupBy("year")
@@ -180,7 +232,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void testReportSumByBigType() {
+	public void atestReportSumByBigType() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
@@ -198,7 +250,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void testReportSumBySmallType() {
+	public void atestReportSumBySmallType() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
@@ -217,7 +269,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void testReportSumBySmallTypeInYear() {
+	public void atestReportSumBySmallTypeInYear() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
@@ -236,7 +288,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void testReportSumBySmallTypeInMonth() {
+	public void atestReportSumBySmallTypeInMonth() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
@@ -255,7 +307,7 @@ public class MoneyActionTest extends
 		System.out.println(ans);
 	}
 
-	public void testReportSumBySmallTypeInDay() {
+	public void atestReportSumBySmallTypeInDay() {
 		ReportDaoUtil util = (ReportDaoUtil) applicationContext
 				.getBean("reportUtil");
 		String sql = new MyReport.Builder("money_detail_view")
