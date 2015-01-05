@@ -5,39 +5,20 @@
 <struts>
 
 	<package name="money" namespace="/money" extends="struts2">
-		<action name="orderbasemanager" class="money.orderbase.OrderBaseManagerAction">
+		<!-- ido -->
+		<action name="insuredunit" class="ido.InsuredUnit.InsuredUnitAction">
 			<result name="list">
-				/WEB-INF/jsp/orderbasemanager/OrderBaseManagerlist.jsp
+				/WEB-INF/jsp/insuredunit/InsuredUnitlist.jsp
 			</result>
 			<result name="detail">
-				/WEB-INF/jsp/orderbasemanager/OrderBaseManagerinfo.jsp
+				/WEB-INF/jsp/insuredunit/InsuredUnitinfo.jsp
 			</result>
 			<result name="editdetail">
-				/WEB-INF/jsp/orderbasemanager/OrderBaseManageredit.jsp
+				/WEB-INF/jsp/insuredunit/InsuredUnitedit.jsp
 			</result>
 		</action>
-		<action name="homepageurl" class="money.homepage.HomePageUrlAction">
-			<result name="list">
-				/WEB-INF/jsp/homepageurl/HomePageUrllist.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/homepageurl/HomePageUrlinfo.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/homepageurl/HomePageUrledit.jsp
-			</result>
-		</action>
-		<action name="stockmanager" class="money.stockmanage.StockManagerAction">
-			<result name="list">
-				/WEB-INF/jsp/stockmanager/StockManagerlist.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/stockmanager/StockManagerinfo.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/stockmanager/StockManageredit.jsp
-			</result>
-		</action>
+
+		<!-- ido -->
 		<action name="filemanager" class="money.filemanage.FileManagerAction">
 			<result name="list">
 				/WEB-INF/jsp/filemanager/FileManagerlist.jsp
@@ -69,38 +50,12 @@
 				/WEB-INF/jsp/role/checkedRolelist.jsp
 			</result>
 		</action>
-		<action name="map" class="money.baidu.MapAction">
-			<result name="detail">
-				/WEB-INF/jsp/baidu/BaiduMap.jsp
-			</result>
-			<result name="marvinjs">
-				/WEB-INF/jsp/marvin/marvinIndex.jsp
-			</result>
-			<result name="marvinjs2">
-				/WEB-INF/jsp/marvin/marvin2.jsp
-			</result>
-			<result name="sum">
-				/WEB-INF/jsp/baidu/SumBaiduMap.jsp
-			</result>
-		</action>
 		<action name="usermenuright" class="money.role.UserMenuRightAction">
 			<result name="menulist">
 				/WEB-INF/jsp/role/Menulist.jsp
 			</result>
 			<result name="rolepage">
 				/WEB-INF/jsp/role/UserMenuRightlist.jsp
-			</result>
-		</action>
-		<action name="plan" class="money.plan.PlanAction">
-			<result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result>
-			<result name="detail">
-				/WEB-INF/jsp/plan/PlanInfo.jsp
-			</result>
-			<result name="query">
-				/WEB-INF/jsp/plan/PlanQuery.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/plan/PlanEdit.jsp
 			</result>
 		</action>
 		<action name="myuser" class="money.myuser.MyUserAction">
@@ -120,40 +75,6 @@
 				/WEB-INF/jsp/myuser/MyUseredit.jsp
 			</result>
 		</action>
-		<!-- <action name="tree" class="money.plan.PlanAction"> <result name="list">/WEB-INF/jsp/plan/PlanList.jsp</result> 
-			<result name="detail"> /WEB-INF/jsp/plan/PlanInfo.jsp </result> <result name="query"> 
-			/WEB-INF/jsp/plan/PlanQuery.jsp </result> <result name="editdetail"> /WEB-INF/jsp/plan/PlanEdit.jsp 
-			</result> </action> -->
-
-		<action name="moneyReport" class="money.report.MoneyReport">
-			<result name="report">
-				/WEB-INF/jsp/money/detail/report.jsp
-			</result>
-		</action>
-
-		<action name="newmoney" class="money.detail.MoneyAction">
-			<param name="savePath">/upload</param>
-			<result name="list">
-				/WEB-INF/jsp/money/detail/list.jsp
-			</result>
-			<result name="gridTree">
-				/WEB-INF/jsp/money/detail/MoneyGridTree.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/money/detail/info.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/money/detail/edit.jsp
-			</result>
-			<result name="about">/WEB-INF/jsp/About.jsp</result>
-			<result name="technology">
-				/WEB-INF/jsp/Technology.jsp
-			</result>
-			<result name="import">
-				/WEB-INF/jsp/money/detail/import.jsp
-			</result>
-		</action>
-
 		<action name="cache" class="money.cache.CacheAction">
 			<result name="list">/WEB-INF/jsp/cache/list.jsp</result>
 			<result name="detail">/WEB-INF/jsp/cache/info.jsp</result>
@@ -177,24 +98,6 @@
 			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/param/Paramedit.jsp
-			</result>
-		</action>
-		<action name="moneyType" class="money.moneytype.MoneyTypeAction">
-			<result name="list">/WEB-INF/jsp/moneytype/list.jsp</result>
-			<result name="detail">
-				/WEB-INF/jsp/moneytype/info.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/moneytype/edit.jsp
-			</result>
-		</action>
-
-		<action name="superconsole" class="common.MyJdbcAction">
-			<result name="list">/WEB-INF/jsp/superconsole/MyJsp.jsp</result>
-		</action>
-		<action name="questionReport" class="money.report.QuestionReport">
-			<result name="report">
-				/WEB-INF/jsp/question/report.jsp
 			</result>
 		</action>
 
@@ -234,22 +137,6 @@
 			</result>
 		</action>
 
-		<action name="yaopininfo" class="money.yaopin.YaopinInfoAction">
-			<result name="list">
-				/WEB-INF/jsp/yaopininfo/YaopinInfolist.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/yaopininfo/YaopinInfoinfo.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/yaopininfo/YaopinInfoedit.jsp
-			</result>
-		</action>
-
-		<!-- <action name="myuser" class="money.user.MyUserAction"> <result name="list"> 
-			/WEB-INF/jsp/user/detail/list.jsp </result> <result name="detail"> /WEB-INF/jsp/user/detail/info.jsp 
-			</result> <result name="editdetail"> /WEB-INF/jsp/user/detail/edit.jsp </result> 
-			</action> -->
 
 		<action name="paramtype" class="money.paramtype.ParamTypeAction">
 			<result name="list">
@@ -263,17 +150,6 @@
 			</result>
 		</action>
 
-		<action name="diary" class="money.diary.DiaryAction">
-			<result name="list">
-				/WEB-INF/jsp/diary/Diarylist.jsp
-			</result>
-			<result name="detail">
-				/WEB-INF/jsp/diary/Diaryinfo.jsp
-			</result>
-			<result name="editdetail">
-				/WEB-INF/jsp/diary/Diaryedit.jsp
-			</result>
-		</action>
 
 		<action name="menu" class="money.menu.MenuAction">
 			<result name="list">
@@ -290,9 +166,5 @@
 			</result>
 		</action>
 
-		<!-- <action name="param" class="money.params.ParamAction"> <result name="list"> 
-			/WEB-INF/jsp/params/detail/list.jsp </result> <result name="detail"> /WEB-INF/jsp/params/detail/info.jsp 
-			</result> <result name="editdetail"> /WEB-INF/jsp/params/detail/edit.jsp 
-			</result> </action> -->
 	</package>
 </struts>

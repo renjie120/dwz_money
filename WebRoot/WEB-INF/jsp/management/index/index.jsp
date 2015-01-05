@@ -226,53 +226,7 @@
 							</p>
 						</div>
 
-						<div class="pageFormContent" layoutH="-80"> 
-							<div id="hm_chartdiv5" class="highcharts" type="column"
-								serialName="盈利" title='收支盈利图' yAxisName="金额"
-								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="money/superconsole!getReportOut.do"></div>
-							 
-							<!--div id="hm_chartdiv4" class="highcharts" type="column"
-								serialName="收支大类" title='按大类统计记录数目' yAxisName="金额"
-								style="width: 900px; height: 300px; float: left; border: 1 red;"
-								url="/money/superconsole!reportSumByBigType.do"></div-->
-
-							
-							<!--div style='width:140px;float:left;'>
-								<h1>网站快捷键</h1>
-								<s:iterator value="#request.allHomepage" var="haha" status="stu">
-									<div class="unit">
-										<a href="<s:property value="url" />" target="navTab"
-											rel="relId<s:property value="urlId" />"><s:property
-												value="urlDesc" /> </a>
-									</div>
-								</s:iterator>
-							</div>
-							<table cellspacing=0 cellpadding=0 width=1 height=230
-								bgcolor=008000 style='float:left'>
-								<tr>
-									<td>
-							</table-->
-							<div id="hm_chartdiv1" class="highcharts" type="pie"
-								serialName="问题数量" title='问题状态统计报表' format="{point.name}({point.percentage:.1f}%)"
-								style="width:300px;height:250px;float:left;border:1 red;"
-								url="/money/question!reportQuestionCountByStatus.do"></div>
-
-							<!--table cellspacing=0 cellpadding=0 width=1 height=230
-								bgcolor=008000 style='float:left'>
-								<tr>
-									<td>
-							</table-->
-
-							<div id="hm_chartdiv2" class="highcharts" type="pie"
-								serialName="问题数量" title='问题数量统计报表'
-								style="width:300px;height:250px;float:left;border:1 red;"
-								url="/money/question!reportQuestionCountByType.do"></div>
-
-							<!--  div id="hm_chartdiv3" class="highcharts" type="pie"
-								serialName="收支大类" title='收支金额数据统计' 
-								style="width: 300px; height: 250px; float: left; border: 1 red;"
-								url="/money/newmoney!reportCountByType.do"></div>-->
+						<div class="pageFormContent" layoutH="-80">  
 
 						</div>
 					</div>

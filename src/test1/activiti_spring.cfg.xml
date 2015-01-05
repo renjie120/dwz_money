@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!-- session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- to override, use the "SpringDatasourceConfig" snippet in your project -->
+		<property name="dataSource">
+			<ref local="ds" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>
+					dwz/persistence/beans/InfNews.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysRole.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysLog.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysResource.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysPermission.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysSession.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysUserRole.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SysUser.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/ConFolder.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/ConFile.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/SetPreference.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/WebPage.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/WebWebsite.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/InvCategory.hbm.xml
+				</value>
+				<value>
+					dwz/persistence/beans/InvProduct.hbm.xml
+				</value>
+				<value>
+					hbm/moneyDetail.hbm.xml
+				</value>
+				<value>
+					hbm/param.hbm.xml
+				</value>
+				<value>
+					hbm/paramtype.hbm.xml
+				</value>
+				<value>
+					hbm/usermenuright.hbm.xml
+				</value>
+				<value>
+					hbm/homepageurl.hbm.xml
+				</value>
+				<value>
+					hbm/plan.hbm.xml
+				</value>
+				<value>
+					hbm/myuser.hbm.xml
+				</value>
+				<value>
+					hbm/filemanager.hbm.xml
+				</value>
+				<value>
+					hbm/menu.hbm.xml
+				</value>
+				<value>
+					hbm/org.hbm.xml
+				</value>
+				<value>
+					hbm/userroleright.hbm.xml
+				</value>
+				<value>
+					hbm/role.hbm.xml
+				</value>
+				<value>
+					hbm/moneytype.hbm.xml
+				</value>
+				<value>
+					hbm/question.hbm.xml
+				</value>
+				<value>
+					hbm/rolewithmenu.hbm.xml
+				</value>
+				<value>
+					hbm/cache.hbm.xml
+				</value>
+				<value>
+					hbm/diary.hbm.xml
+				</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.jdbc.fetch_size">5</prop>
+				<prop key="hibernate.connection.pool_size">2</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.max_fetch_depth">1</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="jdbcTool" class="common.MyJdbcTool">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<bean id="propertyFileConfigForDB"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:db.properties</value>
+		</property>
+	</bean>
+	<bean id="ds" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${driverName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+
+
+		<!-- druid 连接池的 -->
+		<property name="connectionProperties" value="config.decrypt=true" />
+		<property name="filters" value="stat,config" />
+
+
+		<!-- 下面druid 和 dbcp 连接池通用的 ↓↓↓↓↓↓↓↓↓↓↓↓ -->
+		<!--maxActive: 最大连接数量 -->
+		<property name="maxActive" value="20" />
+		<!--initialSize: 初始化连接 -->
+		<property name="initialSize" value="5" />
+
+	</bean>
+
+
+	<!-- jdbc modle -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="ds" />
+		</property>
+	</bean>
+
+
+	<!-- DaoIntroductionInterceptor -->
+	<bean id="daoIntroductionInterceptor" class="dwz.dal.DaoIntroductionInterceptor">
+	</bean>
+
+	<bean id="reportUtil" class="common.report.ReportDaoUtil">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- IntroductionInterception -->
+	<bean id="daoAdvisor"
+		class="org.springframework.aop.support.DefaultIntroductionAdvisor">
+		<constructor-arg>
+			<ref bean="daoIntroductionInterceptor" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="daoProxy" class="org.springframework.aop.framework.ProxyFactoryBean"
+		abstract="true">
+		<property name="interceptorNames">
+			<list>
+				<value>daoAdvisor</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<bean id="baseDao" class="dwz.dal.BaseDaoImpl" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Spring资源国际化 (统一使用String2国际化) -->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basenames"> <list> <value>resource/messages</value> </list> 
+		</property> </bean> -->
+
+	<import resource="spring_activiti.cfg.xml" />
+
+	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
+	</bean>
+
+	<bean id="queryGridTreeBO" class="querygridtree.bo.QueryGridTreeBOImpl">
+		<property name="queryGridTreeDAO">
+			<ref bean="queryGridTreeDAO" />
+		</property>
+	</bean>
+
+	<bean id="queryGridTreeDAO" class="querygridtree.dao.QueryGridTreeDAOImpl">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+</beans>

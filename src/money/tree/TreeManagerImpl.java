@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import money.moneytype.MoneyTypeDao;
-import money.moneytype.MoneyTypeVO;
 import money.rolemanager.RoleWithMenuDao;
 import money.rolemanager.RoleWithMenuVO;
 
@@ -29,12 +27,9 @@ import dwz.framework.core.business.AbstractBusinessObjectManager;
 public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		TreeManager {
 
-	private MoneyTypeDao moneyTypeDao = null;
 	private RoleWithMenuDao roleWithMenuDao = null;
 
-	public TreeManagerImpl(MoneyTypeDao moneyTypeDao,
-			RoleWithMenuDao roleWithMenuDao) {
-		this.moneyTypeDao = moneyTypeDao;
+	public TreeManagerImpl(RoleWithMenuDao roleWithMenuDao) {
 		this.roleWithMenuDao = roleWithMenuDao;
 	}
 
@@ -48,45 +43,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		this.jdbc = jdbc;
 	}
 
-	/**
-	 * 查询树形的json串.
-	 */
-	public String getMoneyTypeTree() {
-		if (CacheManager.getCacheInfo("moneyTypeTree") == null) {
-			Collection<MoneyTypeVO> allNodeCollection = new ArrayList<MoneyTypeVO>();
-
-			Collection<MoneyTypeVO> firstlevel = this.moneyTypeDao
-					.findFirstLevel();
-			allNodeCollection.addAll(firstlevel);
-
-			Iterator<MoneyTypeVO> it = firstlevel.iterator();
-			while (it.hasNext()) {
-				MoneyTypeVO vo = it.next();
-				List c = this.moneyTypeDao.findChildCount(vo.getTypeCode());
-				if (c != null && c.size() > 0) {
-					int totalCount = Integer.parseInt("" + c.get(0));
-					if (totalCount > 0) {
-						Collection<MoneyTypeVO> child = this.moneyTypeDao
-								.findChildren(vo.getTypeCode());
-						allNodeCollection.addAll(child);
-					}
-				}
-			}
-			TreeTool<MoneyTypeVO> tree = new TreeTool<MoneyTypeVO>();
-			String ans = tree.getTreeStr(allNodeCollection);
-
-			Cache c = new Cache();
-			c.setKey("moneyTypeTree");
-			c.setValue(ans);
-			c.setName("金额类型树");
-			CacheManager.putCache("moneyTypeTree", c);
-
-			return ans;
-		} else {
-			return (String) CacheManager.getCacheInfo("moneyTypeTree")
-					.getValue();
-		}
-	}
+	 
 
 	public String getMenuTree() {
 		return initMenuCache().toZTreeJson();

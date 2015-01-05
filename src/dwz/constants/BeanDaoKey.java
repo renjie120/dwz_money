@@ -4,7 +4,7 @@ public enum BeanDaoKey {
 
 	sysUserDao, sysSessionDao, setPreferenceDao, 
 	webSiteDao, webPageDao, 
-	conFileDao, conFolderDao,moneyTypeDao,myuserDao,
-	infNewsDao,orgDao,questionDao,moneyDao,menuDao,paramTypeDao,paramDao
+	conFileDao, conFolderDao,myuserDao,
+	infNewsDao,orgDao,menuDao,paramTypeDao,paramDao
 
 }

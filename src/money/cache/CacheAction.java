@@ -54,14 +54,14 @@ public class CacheAction extends BaseAction {
 		
 		//初始化全部的缓存
 		AllSelect allselect  = (AllSelect)SpringContextUtil.getBean(AllSelect.BEANNAME);
-		allselect.getAllMoneyType();
+//		allselect.getAllMoneyType();
 		allselect.getAllParamType();
 		allselect.getAllParamTypeCode();
 		allselect.cacheAllParams();
 		
 		//初始化金额树.
 		TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
-		tMgr.getMoneyTypeTree();  
+//		tMgr.getMoneyTypeTree();  
 		
 		//初始化业务菜单缓存.
 		tMgr.initMenuCache();

@@ -1,6 +1,5 @@
 package dwz.present.app.management;
 
-import money.homepage.HomePageUrlManager;
 import money.role.UserMenuRightManager;
 import money.tree.TreeManager;
 
@@ -30,9 +29,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 	private UiModel model;
 	private String password;
 	private String newPassword;
-	private TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager);
-	private HomePageUrlManager pMgr = bf
-			.getManager(BeanManagerKey.homepageurlManager);
+	private TreeManager tMgr = bf.getManager(BeanManagerKey.treeManager); 
 	private UserMenuRightManager userMenuMgr = bf
 			.getManager(BeanManagerKey.usermenurightManager);
 
@@ -50,7 +47,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		Tree t = tMgr.initMenuWithRight(user.getUserId(),user.getUserType());
 		request.setAttribute("allMenu", t.getDeepTree());
 		request.getSession().setAttribute("allMenu", t.getDeepTree());
-		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
+//		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());
 		return INPUT;
 	}
 

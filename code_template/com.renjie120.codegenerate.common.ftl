@@ -47,7 +47,7 @@
 
 <#macro allfield2notkey_updatecolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}= @${attr.name}<#assign index=index+1></#if></#list></#macro>
    
-<#macro allfield2notkey_updatecolumn_nosql nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.column}='"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
+<#macro allfield2notkey_updatecolumn_nosql nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>${attr.name}='"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
    
 <#macro allfield2notkey_insertcolumn nm><#assign index=0><#list nm as attr><#if '${attr.name}'!='${model.keyName}'><#if index!=0>,</#if>'"+${attr.name}+"'<#assign index=index+1></#if></#list></#macro>
 

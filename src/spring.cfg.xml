@@ -49,9 +49,6 @@
 					hbm/SysPermission.hbm.xml
 				</value>
 				<value>
-					hbm/yaopininfo.hbm.xml
-				</value>
-				<value>
 					hbm/SysSession.hbm.xml
 				</value>
 				<value>
@@ -82,12 +79,6 @@
 					hbm/InvProduct.hbm.xml
 				</value>
 				<value>
-					hbm/stockmanager.hbm.xml
-				</value>
-				<value>
-					hbm/moneyDetail.hbm.xml
-				</value>
-				<value>
 					hbm/param.hbm.xml
 				</value>
 				<value>
@@ -95,12 +86,6 @@
 				</value>
 				<value>
 					hbm/usermenuright.hbm.xml
-				</value>
-				<value>
-					hbm/homepageurl.hbm.xml
-				</value>
-				<value>
-					hbm/plan.hbm.xml
 				</value>
 				<value>
 					hbm/myuser.hbm.xml
@@ -121,22 +106,13 @@
 					hbm/role.hbm.xml
 				</value>
 				<value>
-					hbm/moneytype.hbm.xml
-				</value>
-				<value>
-					hbm/question.hbm.xml
-				</value>
-				<value>
 					hbm/rolewithmenu.hbm.xml
 				</value>
 				<value>
 					hbm/cache.hbm.xml
 				</value>
 				<value>
-					hbm/diary.hbm.xml
-				</value>
-				<value>
-					hbm/orderbasemanager.hbm.xml
+					hbm/insuredunit.hbm.xml
 				</value>
 			</list>
 		</property>
@@ -228,16 +204,4 @@
 	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
 	</bean>
 
-	<bean id="queryGridTreeBO" class="querygridtree.bo.QueryGridTreeBOImpl">
-		<property name="queryGridTreeDAO">
-			<ref bean="queryGridTreeDAO" />
-		</property>
-	</bean>
-
-	<bean id="queryGridTreeDAO" class="querygridtree.dao.QueryGridTreeDAOImpl">
-		<property name="sessionFactory">
-			<ref local="sessionFactory" />
-		</property>
-	</bean>
-  
 </beans>

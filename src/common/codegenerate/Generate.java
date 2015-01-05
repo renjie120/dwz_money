@@ -38,7 +38,7 @@ public abstract class Generate {
 		}
 		try {
 			OutputStreamWriter osw = new OutputStreamWriter(
-					new FileOutputStream(_f.getAbsoluteFile(), true), "GBK");
+					new FileOutputStream(_f.getAbsoluteFile(), true), "UTF-8");
 			out = osw;
 		} catch (IOException e) {
 			e.printStackTrace();

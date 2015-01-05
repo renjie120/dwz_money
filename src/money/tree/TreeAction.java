@@ -45,16 +45,16 @@ public class TreeAction extends BaseAction {
 		return "tree";
 	}
 	
-	/**
-	 * 金额类型树的ZTREE树形字符串.
-	 * @return
-	 */
-	public String getMoneyTypeTree(){
-		HttpServletResponse response = ServletActionContext.getResponse(); 
-		writeToPage(response,tMgr.getMoneyTypeTree());
-		return null;
-	}
-	
+//	/**
+//	 * 金额类型树的ZTREE树形字符串.
+//	 * @return
+//	 */
+//	public String getMoneyTypeTree(){
+//		HttpServletResponse response = ServletActionContext.getResponse(); 
+//		writeToPage(response,tMgr.getMoneyTypeTree());
+//		return null;
+//	}
+//	
 	/**
 	 * 组织机构json串
 	 * @return

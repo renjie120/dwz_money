@@ -1,0 +1,33 @@
+<class name="Huifang" table="crm_interview_huifang" desc="满意度回访"
+	package="eco.test">
+	<id name="lianxiId" column="id" type="int" desc="流水号" width="10"
+		visible="false" />
+	<property name="hf_time" column="hf_time" type="date"
+		columnType="varchar(10)" desc="回访时间" width="15%" notnull="true" />
+	<property name="hf_object" column="hf_object" type="time" columnType="varchar(50)"
+		notnull="true" maxLength="50" desc="回访对象" width="15%" />
+	<property name="hf_people" column="hf_people" columnType="int"
+		notnull="true" type='resource' width="15%" desc="回访人" />
+	<property name="hf_zhiliang" column="hf_zhiliang" columnType="varchar(5)"
+		notnull="true" names="A,B,C,D" values="A,B,C,D" type='select'
+		maxLength="5" visible="false" width="15%" desc="项目成果质量化" />
+	<property name="hf_zhiyehua" column="hf_zhiyehua" columnType="varchar(50)"
+		notnull="true" type='select' visible="false" maxLength="50" desc="职业化精神"
+		width="15%" />
+	<property name="hf_control" column="hf_control" type="varchar(50)"
+		notnull="true" visible="false" maxLength="50" desc="进度控制" width="15%" />
+	<property name="hf_yuqi" column="hf_yuqi" columnType="varchar(2)" 
+		names="是,否" values="1,0" type='select' visible="false" maxLength="2"
+		notnull="true" desc="是否达到预期" />
+	<property name="hf_content" column="hf_content" columnType="varchar(2000)"
+		cols="40" rows="5" type='textarea' width="45%" desc="回访内容" />
+	<property name="hf_level" column="hf_level" columnType="varchar(12)"
+		names="优秀,良好,一般" values="A,B,C" type='select' maxLength="12" visible="false"
+		desc="最终等级" />
+	<property name="hf_contract_no" column="hf_contract_no" type="varchar(50)"
+		maxLength="50" visible="false" desc="合同编号" />
+	<property name="hf_crm_id" column="crm_id" type="int" visible="false"
+		noedit="true" desc="关联客户" />
+</class>
+
+<!-- 添加inputtype。添加时间空间的必填选项，完善模板里面的view，edit，完善add模板的代码！！ -->

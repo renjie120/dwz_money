@@ -48,12 +48,12 @@ class MyThread implements Runnable {
 //		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 //		
 		 // 操作页面
-		 new Generate("eco_operation_jsp.ftl", beanName, "_operation.jsp",
-		 packageName) {
-		 public Object setData() {
-		 return m;
-		 }
-		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		 new Generate("eco_operation_jsp.ftl", beanName, "_operation.jsp",
+//		 packageName) {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 //		
 //		 // 查看页面
 //		 new Generate("eco_view_jsp.ftl", beanName, "_view.jsp", packageName)
@@ -72,35 +72,35 @@ class MyThread implements Runnable {
 //		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 //		
 		 // 对应的存储过程
-		 new Generate("sqlserver_proceduce.ftl", beanName, ".sql",
-		 packageName) {
+//		 new Generate("sqlserver_proceduce.ftl", beanName, ".sql",
+//		 packageName) {
+//		 public Object setData() {
+//		 return m;
+//		 }
+//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+		
+		 // 一些代码片段
+		 new Generate("code_template.ftl", beanName, ".txt", packageName) {
 		 public Object setData() {
 		 return m;
 		 }
 		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 		
-//		 // 一些代码片段
-//		 new Generate("code_template.ftl", beanName, ".txt", packageName) {
-//		 public Object setData() {
-//		 return m;
-//		 }
-//		 }.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
-//		
 //		 在一个页面里面生成对应的增删改查
-		new Generate("eco_mainList_jsp.ftl", beanName, "_mainList.jsp",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		new Generate("eco_mainList_jsp.ftl", beanName, "_mainList.jsp",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 
 		// 在一个页面里面生成对应的增删改查
-		new Generate("eco_mainList_operation_jsp.ftl", beanName,
-				"_main_Operation.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
+//		new Generate("eco_mainList_operation_jsp.ftl", beanName,
+//				"_main_Operation.jsp", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).setSplitByBeanName(false).make(true);
 //
 //		// 生成自定义的弹出框代码
 //		new Generate("eco_brower_jsp.ftl", beanName, "_Browser.jsp",

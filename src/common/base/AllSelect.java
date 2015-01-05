@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import money.moneytype.MoneyTypeDao;
-import money.moneytype.MoneyTypeVO;
 import money.param.ParamDao;
 import money.param.ParamVO;
 import money.paramtype.ParamTypeDao;
@@ -27,12 +25,10 @@ import dwz.framework.core.business.BusinessObjectManager;
 public class AllSelect extends AbstractBusinessObjectManager implements BusinessObjectManager{
 	public static final String BEANNAME = "allSelectManager";
 	ParamTypeDao paramTypeDao = null;
-	ParamDao paramDao = null;
-	MoneyTypeDao moneyTypeDao = null;
-	public AllSelect(ParamTypeDao paramTypeDao,ParamDao paramDao,MoneyTypeDao moneyTypeDao) {
+	ParamDao paramDao = null; 
+	public AllSelect(ParamTypeDao paramTypeDao,ParamDao paramDao ) {
 		this.paramTypeDao = paramTypeDao; 
-		this.paramDao = paramDao; 
-		this.moneyTypeDao = moneyTypeDao;  
+		this.paramDao = paramDao;  
 	}
 
 	/**
@@ -102,28 +98,7 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 					.getValue();
 	} 
 	
-	/**
-	 * 得到所有的金额类型的映射.
-	 * @return
-	 */
-	public ParamSelect getAllMoneyType() {
-		if (CacheManager.getCacheInfo("moneyType") == null) {
-			ParamSelect ans = null;
-			Collection<MoneyTypeVO> all = this.moneyTypeDao.findAll();
-			ans = new ParamSelect(all);
-
-			Cache c = new Cache();
-			c.setKey("moneyType");
-			c.setValue(ans);
-			c.setName("金额类型");
-			CacheManager.putCache("moneyType", c);
-
-			return ans;
-		} else
-			return (ParamSelect) CacheManager.getCacheInfo("moneyType")
-					.getValue();
-	}
-
+	 
 	/**
 	 * 查询指定的参数类型的全部参数值.
 	 * @param paraType 参数类型流水号

@@ -2,7 +2,6 @@
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +12,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import querygridtree.data.TaskVO;
 
 /**
  * 表格树工具类.
@@ -175,56 +172,6 @@ public class GridTreeUtil {
 			log.error("GridTreeUtil--getJsonStr--1:", e);
 		}
 
-		return buf.toString();
-	}
-	
-	public static String getTaskJsonStr(List<TaskVO> list){
-		StringBuffer buf = new StringBuffer(512);
-		buf.append("[");
-		if(list.size()>0){
-			int flag = 0;
-			Iterator<TaskVO> it = list.iterator();
-			while(it.hasNext()){
-				TaskVO vo = it.next();
-				buf.append("{").append("'taskid':'").append(vo.getTaskId());
-				//描述
-				buf.append("','description':'").append(vo.getDescription());
-				//项目名称
-				buf.append("','projname':'").append(vo.getProjectName());
-				//所处节点
-				buf.append("','nodename':'").append(vo.getNodeName());
-				//时间管理
-				buf.append("','encharge':'").append(vo.getEncharge());
-				//责任人
-				buf.append("','approved':'").append(vo.getApproved());
-				//关注焦点
-				buf.append("','focus':'").append("");
-				//备注
-				buf.append("','wremark':'").append(vo.getWremark()); 
-				//计划开始
-				buf.append("','palnstart':'").append(vo.getPalnstart());
-				//计划完成
-				buf.append("','planend':'").append(vo.getPlanend());
-				//完成标示
-				buf.append("','taskkeyword':'").append(vo.getTaskkeyword());
-				//工时估算
-				buf.append("','attention':'").append(vo.getAttention());
-				//费用估算
-				buf.append("','subjoincost':'").append(vo.getSubCost());  
-				//父亲任务节点
-				buf.append("','parenttid':'").append(vo.getParenttid());
-				//路径
-				buf.append("','parentPath':'").append(vo.getTaskParentPath());
-				//部门
-				buf.append("','department':'").append(vo.getDepartment());
-				//父亲任务节点
-				buf.append("','isLeaf':'").append(vo.getIsParent()); 
-				buf.append("'},");
-			}
-			//删除最后一个逗号			
-			buf.deleteCharAt(buf.length()-1);
-		}
-		buf.append("]"); 
 		return buf.toString();
 	} 
 }

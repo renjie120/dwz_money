@@ -109,12 +109,12 @@ public class EcoCode {
 			}
 		}.setDirName(hbmRoot, 3).make();
 
-		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.make();
+//		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.make();
 
 		System.out.println("生成完毕:d:\\" + beanName + "\\");
 	}

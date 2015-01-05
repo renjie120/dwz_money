@@ -5,12 +5,7 @@ import dwz.framework.core.business.BusinessObjectManager;
 
 //@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,rollbackFor = Exception.class)
 public interface TreeManager extends BusinessObjectManager {
-	
-	/**
-	 * 查询树形的json串.
-	 * @return
-	 */
-	public String getMoneyTypeTree();
+	 
 	
 	/**
 	 * 得到角色有权限的菜单树 .

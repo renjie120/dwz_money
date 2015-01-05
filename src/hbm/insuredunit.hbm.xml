@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.InsuredUnit.InsuredUnitVO" table="Insured_unit">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="unitCode" column="unit_code" type="string" />
+				<property name="unitName" column="unit_Name" type="string" />
+				<property name="contactName" column="contact_name" type="string" />
+				<property name="contactMobile" column="contact_mobile" type="string" />
+				<property name="contactEmail" column="contact_email" type="string" />
+				<property name="unitParentId" column="unit_parent_id" type="int" />
+				<property name="unitState" column="unit_state" type="string" />
+				<property name="unitAddress" column="unit_address" type="string" />
+				<property name="unitRemark" column="unit_remark" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.InsuredUnit.InsuredUnitDao.findRecordById">
+		<![CDATA[from InsuredUnitVO as insuredUnitDao where sno = ?]]>
+	</query>
+</hibernate-mapping>
