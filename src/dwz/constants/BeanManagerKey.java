@@ -8,5 +8,5 @@ public enum BeanManagerKey {
 	paramManager,paramtypeManager, 
 	menuManager,orgManager,myuserManager,orderbasemanagerManager,
 	usermenurightManager,rolewithmenuManager,userrolerightManager,
-	fileManager,filemanagerManager
+	fileManager,filemanagerManager,diaryManager,moneyManager
 }
