@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.loginfo.LogInfoVO" table="log_info">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="operUser" column="operate_user" type="int" />
+				<property name="operUserName" column="operate_username" type="string" />
+				<property name="operTime" column="operate_time" type="string" />
+				<property name="operType" column="operate_type" type="string" />
+				<property name="operIp" column="operate_ip" type="string" />
+				<property name="operUrl" column="operate_url" type="string" />
+				<property name="operBefore" column="operate_before" type="string" />
+				<property name="operAfter" column="operate_after" type="string" />
+				<property name="operDesc" column="operate_desc" type="string" />
+	</class>
+
+	<query name="ido.loginfo.LogInfoDao.findRecordById">
+		<![CDATA[from LogInfoVO as logInfoDao where sno = ?]]>
+	</query>
+</hibernate-mapping>

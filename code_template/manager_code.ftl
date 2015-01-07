@@ -1,8 +1,8 @@
 <#include "/com.renjie120.codegenerate.common.ftl">package ${model.packageName};
 <#assign beanname = "${model.className?cap_first}"/>
 import java.util.Collection;
-import java.util.Map;
-
+import java.util.Map; 
+import java.io.File;
 import org.springframework.transaction.annotation.Transactional;
 
 import dwz.framework.core.business.BusinessObjectManager;
@@ -62,4 +62,10 @@ public interface ${model.className}Manager  extends BusinessObjectManager {
 	 * @return
 	 */
 	public ${beanname} get${model.className}(${model.keyType} ${model.keyName});
+
+	/**
+         * 从excel中导入数据.
+	 */
+	@Transactional
+	public void importFromExcel(File file);
 }

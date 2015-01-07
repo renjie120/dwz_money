@@ -10,6 +10,9 @@
 	<result name="editdetail">
 		/WEB-INF/jsp/${nm}/${bignm}edit.jsp
 	</result>
+	<result name="imort">
+		/WEB-INF/jsp/${nm}/${bignm}import.jsp
+	</result>
 </action>
 
 spring_manager_money.cfg.xml
@@ -32,7 +35,7 @@ spring_manager_money.cfg.xml
 	</property>
 </bean>
 
-hibernate_mysql.cfg.xml
+spring.cfg.xml
 <value>
 	hbm/${nm}.hbm.xml
 </value>

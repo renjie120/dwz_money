@@ -260,6 +260,14 @@ public class DateUtil {
 	public static Date now() {
 		return new Date();
 	}
+	
+	/**
+	 * 返回现在  格式：yyyy-MM-dd HH:mm:ss
+	 * @return
+	 */
+	public static String nowString() {
+		return DateUtil.toString(now(),"yyyy-MM-dd HH:mm:ss");
+	}
 
 	/**
 	 * 将日期格式转换为日历.

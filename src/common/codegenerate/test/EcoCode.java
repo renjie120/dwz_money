@@ -83,7 +83,11 @@ public class EcoCode {
 				return m;
 			}
 		}.setDirName(javaRoot, 1).make();
-
+		new Generate("import_jsp.ftl", beanName, "import.jsp", packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.setDirName(jspRoot, 2).make();		
 		new Generate("edit_jsp.ftl", beanName, "edit.jsp", packageName) {
 			public Object setData() {
 				return m;
@@ -109,12 +113,12 @@ public class EcoCode {
 			}
 		}.setDirName(hbmRoot, 3).make();
 
-//		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
-//				packageName) {
-//			public Object setData() {
-//				return m;
-//			}
-//		}.make();
+		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
+				packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.make();
 
 		System.out.println("生成完毕:d:\\" + beanName + "\\");
 	}

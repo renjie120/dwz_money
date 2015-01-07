@@ -16,7 +16,26 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/insuredunit/InsuredUnitedit.jsp
 			</result>
+			<result name="import">
+				/WEB-INF/jsp/insuredunit/InsuredUnitimport.jsp
+			</result>
 		</action>
+
+		<action name="loginfo" class="ido.loginfo.LogInfoAction">
+			<result name="list">
+				/WEB-INF/jsp/loginfo/LogInfolist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/loginfo/LogInfoinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/loginfo/LogInfoedit.jsp
+			</result>
+			<result name="imort">
+				/WEB-INF/jsp/loginfo/LogInfoimport.jsp
+			</result>
+		</action>
+
 
 		<!-- ido -->
 		<action name="filemanager" class="money.filemanage.FileManagerAction">

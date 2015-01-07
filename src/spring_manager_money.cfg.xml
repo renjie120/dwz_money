@@ -8,7 +8,9 @@
 	<bean id="insuredunitManager" class="ido.InsuredUnit.InsuredUnitManagerImpl">
 		<constructor-arg index="0" ref="insuredunitDao"></constructor-arg>
 	</bean>
-
+	<bean id="loginfoManager" class="ido.loginfo.LogInfoManagerImpl">
+		<constructor-arg index="0" ref="loginfoDao"></constructor-arg>
+	</bean>
 
 
 	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">

@@ -10,6 +10,9 @@
 	<result name="editdetail">
 		/WEB-INF/jsp/${nm}/${bignm}edit.jsp
 	</result>
+	<result name="imort">
+		/WEB-INF/jsp/${nm}/${bignm}import.jsp
+	</result>
 </action>
 
 spring_manager_money.cfg.xml

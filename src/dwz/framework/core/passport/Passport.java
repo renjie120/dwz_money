@@ -80,7 +80,7 @@ public abstract class Passport {
 	private static SysUser convertUser(MyUser myUser){
 		SysUser ans = new SysUser();
 		ans.setUserName(myUser.getUserName());
-		ans.setId(myUser.getLoginId());
+		ans.setId(myUser.getId().toString());
 		ans.setUserId(myUser.getUseId()+""); 
 		ans.setPassword(Coder.fromMyCoder(myUser.getPassword()));
 		ans.setPhone(myUser.getPhone());

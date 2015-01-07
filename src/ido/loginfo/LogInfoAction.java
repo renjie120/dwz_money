@@ -1,4 +1,5 @@
-<#include "/com.renjie120.codegenerate.common.ftl">package ${model.packageName};
+
+package ido.loginfo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,20 +16,20 @@ import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
 
 /**
- * 关于${model.classDesc}的Action操作类.
- * @author ${author}
- * ${auth}
- * ${website}
+ * 关于操作日志的Action操作类.
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
  */ 
-public class ${bignm}Action extends BaseAction {
+public class LogInfoAction extends BaseAction {
 	/**
 	 *  序列化对象.
 	 */
 	private static final long serialVersionUID = 1L;
 	//业务接口对象.
-	${bignm}Manager pMgr = bf.getManager(BeanManagerKey.${classarg}Manager);
+	LogInfoManager pMgr = bf.getManager(BeanManagerKey.loginfoManager);
 	//业务实体对象
-	private ${bignm} vo;
+	private LogInfo vo;
 	//当前页数
 	private int page = 1;
 	//每页显示数量
@@ -51,8 +52,8 @@ public class ${bignm}Action extends BaseAction {
 
 	public String doAdd() {
 		try {
-			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2notkey nm=model.attributes />);
-			pMgr.create${bignm}(${classarg}Impl);
+			LogInfoImpl loginfoImpl = new LogInfoImpl(operUser ,operUserName ,operTime ,operType ,operIp ,operUrl ,operBefore ,operAfter ,operDesc );
+			pMgr.createLogInfo(loginfoImpl);
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -127,19 +128,19 @@ public class ${bignm}Action extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
-		pMgr.remove${bignm}s(ids);
+		pMgr.removeLogInfos(ids);
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	public String beforeUpdate() {
-		vo = pMgr.get${bignm}(${model.keyName});
+		vo = pMgr.getLogInfo(sno);
 		return "editdetail";
 	}
 
 	public String doUpdate() {
 		try {
-			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
-			pMgr.update${bignm}(${classarg}Impl);
+			LogInfoImpl loginfoImpl = new LogInfoImpl( sno , operUser , operUserName , operTime , operType , operIp , operUrl , operBefore , operAfter , operDesc );
+			pMgr.updateLogInfo(loginfoImpl);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
@@ -148,8 +149,7 @@ public class ${bignm}Action extends BaseAction {
 	} 
 	
 	public enum ExportFiled {
-		<#assign index=0><#assign size=model.attributes?size>
-		<#list model.attributes as attr>  ${attr.name?upper_case}("${attr.desc}")<#assign index=index+1><#if index<size>,</#if></#list>;
+		  SNO("流水号"),  OPERUSER("用户id"),  OPERUSERNAME("用户"),  OPERTIME("时间 "),  OPERTYPE("操作类型"),  OPERIP("ip地址"),  OPERURL("操作地址"),  OPERBEFORE("修改前"),  OPERAFTER("修改后"),  OPERDESC("备注");
 		private String str;
 
 		ExportFiled(String str) {
@@ -167,14 +167,14 @@ public class ${bignm}Action extends BaseAction {
 
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=${bignm}List.xls");
+		response.addHeader("Content-Disposition","attachment;filename=LogInfoList.xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
-		Map<${bignm}SearchFields, Object> criterias = getCriterias();
+		Map<LogInfoSearchFields, Object> criterias = getCriterias();
 
-		Collection<${bignm}> ${classarg}List = pMgr.search${bignm}(criterias, realOrderField(),
+		Collection<LogInfo> loginfoList = pMgr.searchLogInfo(criterias, realOrderField(),
 				startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
@@ -185,16 +185,41 @@ public class ${bignm}Action extends BaseAction {
 			e.setCell(filed.ordinal(), filed.getName());
 		}
 
-		for (${bignm} ${classarg} : ${classarg}List) {
+		for (LogInfo loginfo : loginfoList) {
 			e.createRow(rowIndex++);
 
 			for (ExportFiled filed : ExportFiled.values()) {
 				switch (filed) {
-				<#list model.attributes as attr>
-					case ${attr.name?upper_case}:
-						 e.setCell(filed.ordinal(), ${classarg}.get${attr.name?cap_first}()); 
+					case SNO:
+						 e.setCell(filed.ordinal(), loginfo.getSno()); 
 					break;
-				</#list>  
+					case OPERUSER:
+						 e.setCell(filed.ordinal(), loginfo.getOperUser()); 
+					break;
+					case OPERUSERNAME:
+						 e.setCell(filed.ordinal(), loginfo.getOperUserName()); 
+					break;
+					case OPERTIME:
+						 e.setCell(filed.ordinal(), loginfo.getOperTime()); 
+					break;
+					case OPERTYPE:
+						 e.setCell(filed.ordinal(), loginfo.getOperType()); 
+					break;
+					case OPERIP:
+						 e.setCell(filed.ordinal(), loginfo.getOperIp()); 
+					break;
+					case OPERURL:
+						 e.setCell(filed.ordinal(), loginfo.getOperUrl()); 
+					break;
+					case OPERBEFORE:
+						 e.setCell(filed.ordinal(), loginfo.getOperBefore()); 
+					break;
+					case OPERAFTER:
+						 e.setCell(filed.ordinal(), loginfo.getOperAfter()); 
+					break;
+					case OPERDESC:
+						 e.setCell(filed.ordinal(), loginfo.getOperDesc()); 
+					break;
 				default:
 					break;
 				}
@@ -210,14 +235,14 @@ public class ${bignm}Action extends BaseAction {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
-		Map<${bignm}SearchFields, Object> criterias = getCriterias();
+		Map<LogInfoSearchFields, Object> criterias = getCriterias();
 
-		Collection<${bignm}> moneyList = pMgr.search${bignm}(criterias, realOrderField(),
+		Collection<LogInfo> moneyList = pMgr.searchLogInfo(criterias, realOrderField(),
 				startIndex, numPerPage);
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
-		int count = pMgr.search${bignm}Num(criterias);
+		int count = pMgr.searchLogInfoNum(criterias);
 		request.setAttribute("totalCount", count);
 		ActionContext.getContext().put("list", moneyList);
 		ActionContext.getContext().put("pageNum", pageNum);
@@ -254,41 +279,161 @@ public class ${bignm}Action extends BaseAction {
 		this.count = count;
 	}
 
-	private Map<${bignm}SearchFields, Object> getCriterias() {
-		Map<${bignm}SearchFields, Object> criterias = new HashMap<${bignm}SearchFields, Object>();
-		<#list model.attributes as attr>  
-		<#if "${attr.query}"='true'>
-		 	<#if '${attr.type}'='int'||'${attr.type}'='double'||'${attr.type}'='float'>
-			if (get${attr.name?cap_first}()!=null&&get${attr.name?cap_first}() !=0)
-				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, get${attr.name?cap_first}()); 
-			<#else>
-			 	<#if '${attr.type}'='string'>
-			 	<#if '${attr.selectType}'=''>
-			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}()))
-				<#else>
-			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}())&&!"-1".equals(get${attr.name?cap_first}())&&!"-2".equals(get${attr.name?cap_first}()))
-				</#if>
-				<#if '${attr.querylike}'='true'>
-				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, "%"+get${attr.name?cap_first}()+"%"); 
-				<#else>
-			 	criterias.put(${bignm}SearchFields.${attr.name?upper_case},  get${attr.name?cap_first}());
-				</#if>
-				</#if> 
-			</#if> 
-		</#if>
-		</#list>  
+	private Map<LogInfoSearchFields, Object> getCriterias() {
+		Map<LogInfoSearchFields, Object> criterias = new HashMap<LogInfoSearchFields, Object>();
+			if (getOperTime()!=null&&!"".equals(getOperTime()))
+			 	criterias.put(LogInfoSearchFields.OPERTIME,  getOperTime());
 		return criterias;
 	}
 
-	public ${bignm} getVo() {
+	public LogInfo getVo() {
 		return vo;
 	}
 
-	public void setVo(${bignm} vo) {
+	public void setVo(LogInfo vo) {
 		this.vo = vo;
 	} 
   
-  	<@allGetAndSet nm=model.attributes />
+	private Integer sno; 
+ 	/**
+ 	 * 获取流水号的属性值.
+ 	 */
+ 	public Integer getSno(){
+ 		return sno;
+ 	}
+ 	
+ 	/**
+ 	 * 设置流水号的属性值.
+ 	 */
+ 	public void setSno(Integer sno){
+ 		this.sno = sno;
+ 	}
+	private int operUser; 
+ 	/**
+ 	 * 获取用户id的属性值.
+ 	 */
+ 	public int getOperUser(){
+ 		return operUser;
+ 	}
+ 	
+ 	/**
+ 	 * 设置用户id的属性值.
+ 	 */
+ 	public void setOperUser(int operuser){
+ 		this.operUser = operuser;
+ 	}
+	private String operUserName; 
+ 	/**
+ 	 * 获取用户的属性值.
+ 	 */
+ 	public String getOperUserName(){
+ 		return operUserName;
+ 	}
+ 	
+ 	/**
+ 	 * 设置用户的属性值.
+ 	 */
+ 	public void setOperUserName(String operusername){
+ 		this.operUserName = operusername;
+ 	}
+	private String operTime; 
+ 	/**
+ 	 * 获取时间 的属性值.
+ 	 */
+ 	public String getOperTime(){
+ 		return operTime;
+ 	}
+ 	
+ 	/**
+ 	 * 设置时间 的属性值.
+ 	 */
+ 	public void setOperTime(String opertime){
+ 		this.operTime = opertime;
+ 	}
+	private String operType; 
+ 	/**
+ 	 * 获取操作类型的属性值.
+ 	 */
+ 	public String getOperType(){
+ 		return operType;
+ 	}
+ 	
+ 	/**
+ 	 * 设置操作类型的属性值.
+ 	 */
+ 	public void setOperType(String opertype){
+ 		this.operType = opertype;
+ 	}
+	private String operIp; 
+ 	/**
+ 	 * 获取ip地址的属性值.
+ 	 */
+ 	public String getOperIp(){
+ 		return operIp;
+ 	}
+ 	
+ 	/**
+ 	 * 设置ip地址的属性值.
+ 	 */
+ 	public void setOperIp(String operip){
+ 		this.operIp = operip;
+ 	}
+	private String operUrl; 
+ 	/**
+ 	 * 获取操作地址的属性值.
+ 	 */
+ 	public String getOperUrl(){
+ 		return operUrl;
+ 	}
+ 	
+ 	/**
+ 	 * 设置操作地址的属性值.
+ 	 */
+ 	public void setOperUrl(String operurl){
+ 		this.operUrl = operurl;
+ 	}
+	private String operBefore; 
+ 	/**
+ 	 * 获取修改前的属性值.
+ 	 */
+ 	public String getOperBefore(){
+ 		return operBefore;
+ 	}
+ 	
+ 	/**
+ 	 * 设置修改前的属性值.
+ 	 */
+ 	public void setOperBefore(String operbefore){
+ 		this.operBefore = operbefore;
+ 	}
+	private String operAfter; 
+ 	/**
+ 	 * 获取修改后的属性值.
+ 	 */
+ 	public String getOperAfter(){
+ 		return operAfter;
+ 	}
+ 	
+ 	/**
+ 	 * 设置修改后的属性值.
+ 	 */
+ 	public void setOperAfter(String operafter){
+ 		this.operAfter = operafter;
+ 	}
+	private String operDesc; 
+ 	/**
+ 	 * 获取备注的属性值.
+ 	 */
+ 	public String getOperDesc(){
+ 		return operDesc;
+ 	}
+ 	
+ 	/**
+ 	 * 设置备注的属性值.
+ 	 */
+ 	public void setOperDesc(String operdesc){
+ 		this.operDesc = operdesc;
+ 	}
   	
   	public File getUpload() {
 		return upload;

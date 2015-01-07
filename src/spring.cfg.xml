@@ -52,6 +52,9 @@
 					hbm/SysSession.hbm.xml
 				</value>
 				<value>
+					hbm/loginfo.hbm.xml
+				</value>
+				<value>
 					hbm/SysUserRole.hbm.xml
 				</value>
 				<value>

@@ -17,6 +17,18 @@
 		</property>
 	</bean>
 
+	<bean id="loginfoDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.loginfo.LogInfoDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.loginfo.LogInfoVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
 
 	<bean id="userrolerightDao" parent="daoProxy">
 		<property name="proxyInterfaces">

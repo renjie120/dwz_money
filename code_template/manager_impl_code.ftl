@@ -2,8 +2,15 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.io.File;
 import java.util.Map;
-
+ 
+import common.util.NPOIReader;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.util.CommonUtil;
+import common.util.DateTool;
+import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -42,6 +49,24 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 				(Object[]) quertParas[1]);
 
 		return totalCount.intValue();
+	}
+
+
+	public void importFromExcel(File file) {
+		NPOIReader excel = null;
+		try {
+			excel = new NPOIReader(file);
+			int index = excel.getSheetNames().indexOf("Sheet0");
+			String[][] contents = excel.read(index, true, true);
+			for (int i = 1; i < contents.length; i++) {
+				${vo} vo = new ${vo}();
+				
+				this.${daoarg}.insert(vo); 
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
