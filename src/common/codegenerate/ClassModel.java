@@ -12,7 +12,95 @@ public class ClassModel {
 	public List getAttributes() {
 		return attributes;
 	}
+	private boolean importF;
+	private boolean exportF;
+	private boolean add;
+	private boolean update;
+	private boolean delete; 
+	private String importRole;
+	private String exportRole;
+	private String addRole;
+	private String updateRole;
+	private String deleteRole;
+	public String getImportRole() {
+		return importRole;
+	}
 
+	public void setImportRole(String importRole) {
+		this.importRole = importRole;
+	}
+
+	public String getExportRole() {
+		return exportRole;
+	}
+
+	public void setExportRole(String exportRole) {
+		this.exportRole = exportRole;
+	}
+
+	public String getAddRole() {
+		return addRole;
+	}
+
+	public void setAddRole(String addRole) {
+		this.addRole = addRole;
+	}
+
+	public String getUpdateRole() {
+		return updateRole;
+	}
+
+	public void setUpdateRole(String updateRole) {
+		this.updateRole = updateRole;
+	}
+
+	public String getDeleteRole() {
+		return deleteRole;
+	}
+
+	public void setDeleteRole(String deleteRole) {
+		this.deleteRole = deleteRole;
+	}
+
+	public boolean isImportF() {
+		return importF;
+	}
+
+	public void setImportF(boolean importF) {
+		this.importF = importF;
+	}
+
+	public boolean isExportF() {
+		return exportF;
+	}
+
+	public void setExportF(boolean exportF) {
+		this.exportF = exportF;
+	}
+
+	public boolean isAdd() {
+		return add;
+	}
+
+	public void setAdd(boolean add) {
+		this.add = add;
+	}
+
+	public boolean isUpdate() {
+		return update;
+	}
+
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
+
+	public boolean isDelete() {
+		return delete;
+	}
+
+	public void setDelete(boolean delete) {
+		this.delete = delete;
+	}
 	private String arg1;
 	public String getArg1() {
 		return arg1;

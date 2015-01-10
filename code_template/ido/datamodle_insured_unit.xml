@@ -1,6 +1,5 @@
 <class name="InsuredUnit" table="Insured_unit" desc="投保单位"
-	importFile="true" exportFile="true" add="false" update="false" delete="false"
-	package="ido.InsuredUnit">
+	importFile="" exportFile="" add="" update="" delete="" package="ido.InsuredUnit">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		noedit="true" />
 	<property name="unitCode" column="unit_code" type="string"
@@ -22,11 +21,15 @@
 	<property name="unitRemark" column="unit_remark" type="string"
 		textarea="true" width="100" desc="备注" />
 	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true" />
+		noadd="true" currentUser="true" width="100" desc="创建用户" visible="false"
+		noedit="true" />
 	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true" />
+		noadd="true" currentTime="true" width="100" desc="创建时间" visible="false"
+		noedit="true" />
 	<property name="updateUser" column="update_user" type="int"
-		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true" />
+		noadd="true" currentUser="true" width="100" desc="更新用户" visible="false"
+		noedit="true" />
 	<property name="updateTime" column="update_time" type="string"
-		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间" />
+		noadd="true" currentTime="true" width="100" visible="false" noedit="true"
+		desc="更新时间" />
 </class>

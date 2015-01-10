@@ -10,8 +10,55 @@ public class ColumnModel {
 	// VO中的属性名
 	private String name;
 	private String noedit;
+	private String noadd;
+	private String currentUser;
+	private String currentTime;
+
+	public String getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public String getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(String currentTime) {
+		this.currentTime = currentTime;
+	}
+
+	public String getNoadd() {
+		return noadd;
+	}
+
+	public void setNoadd(String noadd) {
+		this.noadd = noadd;
+	}
+
 	private String querylike;
 	private String columnType;
+	private String tableColumn;
+
+	public String getTableColumn() {
+		return tableColumn;
+	}
+
+	public void setTableColumn(String tableColumn) {
+		this.tableColumn = tableColumn;
+	}
+
+	public String getShowType() {
+		return showType;
+	}
+
+	public void setShowType(String showType) {
+		this.showType = showType;
+	}
+
+	private String showType;
 	// 数据库中的列名
 	private String column;
 	private String textarea;
@@ -20,6 +67,7 @@ public class ColumnModel {
 	 * 浏览框对应的url地址.
 	 */
 	private String browerUrl;
+
 	public String getBrowerUrl() {
 		return browerUrl;
 	}
@@ -38,6 +86,7 @@ public class ColumnModel {
 	 * 是否出现在浏览框中.
 	 */
 	private String brower;
+
 	public String getBrower() {
 		return brower;
 	}
@@ -65,7 +114,7 @@ public class ColumnModel {
 	/**
 	 * 控件类型：默认为input，可选：resource depart customer textarea select checkbox radio
 	 */
-	//private String inputType;
+	// private String inputType;
 	/**
 	 * 下拉菜单的可选文本值
 	 */
@@ -116,13 +165,13 @@ public class ColumnModel {
 	 */
 	private String values;
 
-//	public String getInputType() {
-//		return inputType;
-//	}
-//
-//	public void setInputType(String inputType) {
-//		this.inputType = inputType;
-//	}
+	// public String getInputType() {
+	// return inputType;
+	// }
+	//
+	// public void setInputType(String inputType) {
+	// this.inputType = inputType;
+	// }
 
 	/**
 	 * 最小长度
@@ -145,7 +194,8 @@ public class ColumnModel {
 		this.minLength = minLength;
 	}
 
-	// 列类型:可选：resource int date double depart customer areatext select checkbox radio
+	// 列类型:可选：resource int date double depart customer areatext select checkbox
+	// radio
 	private String type;
 	// 节点类型：属性，或者id列
 	private String nodeType;

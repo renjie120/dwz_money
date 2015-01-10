@@ -4,6 +4,7 @@
 *.bak
 *.class
 WebRoot/WEB-INF/classes/
+WebRoot/WEB-INF/deleted_lib/
 src/db.properties
 src/hibernate_mysql.cfg.xml
 src/spring.cfg.xml

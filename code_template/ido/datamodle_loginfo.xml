@@ -1,9 +1,9 @@
-<class name="LogInfo" table="log_info" desc="操作日志" importFile="true"
-	exportFile="true" add="false" update="false" delete="false" package="ido.loginfo">
+<class name="LogInfo" table="log_info" desc="操作日志" package="ido.loginfo"
+	importFile="" exportFile="" add="" update="" delete="">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		noedit="true" />
 	<property name="operUser" column="operate_user" type="int"
-		visible="false" desc="用户id" width="100" />
+		showType="number" tableColumn="int" visible="false" desc="用户id" width="100" />
 	<property name="operUserName" column="operate_username" type="string"
 		desc="用户" width="100" />
 	<property name="operTime" column="operate_time" type="string"

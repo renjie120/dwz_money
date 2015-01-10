@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import brightmoon.jdbc.DbTool;
-
 public class MyStockUtil {
 	private static final String SELL="1";
 	private static final String BUY="0";

@@ -1,8 +1,0 @@
-<class name="Ziliao" table="crm_ziliao" desc="资料" package="eco.test">
-	<id name="zlId" column="id" type="int" desc="流水号" width="10"
-		visible="false" />
-	<property name="ZiliaoName" column="zl_name" columnType="varchar(300)"  maxLength="300"
-		brower="true" query="true" desc="资料名称" width="50%" notnull="true" />
-	<property name="ZiliaoDesc" column="zl_desc" columnType="varchar(300)"  maxLength="300"
-		brower="true" query="true" desc="详细描述" width="50%"   />
-</class> 

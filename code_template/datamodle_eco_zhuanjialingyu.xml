@@ -1,9 +1,0 @@
-<class name="ZhuanjiaLingyu" table="crm_zhuanzhulingyu" desc="专家类别" package="eco.test">
-	<id name="zjLyxId" column="id" type="int" desc="流水号" width="10"
-		visible="false" />
-	<property name="ZjlyName" column="zzly_name" columnType="varchar(300)"
-		maxLength="300" brower="true" query="true" desc="领域名称" width="50%"
-		notnull="true" />
-	<property name="ZjlyDesc" column="zzly_desc" columnType="varchar(300)"
-		maxLength="300" brower="true" query="true" desc="详细描述" width="50%" />
-</class> 
