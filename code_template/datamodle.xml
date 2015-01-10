@@ -1,32 +1,37 @@
 <class name="InsuredUnit" table="Insured_unit" desc="投保单位"
-	importFile="true" exportFile="true" add="false" update="false" delete="false"
+	importFile="true" exportFile="false" add="true" update="false" delete="true"
 	package="ido.InsuredUnit">
-	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false" columnType="int"
 		noedit="true" />
 	<property name="unitCode" column="unit_code" type="string"
-		desc="编号" width="100" notnull="true" query="true" querylike="true" />
+		maxLength="100" desc="编号" width="100" notnull="true" query="true"
+		querylike="true" />
 	<property name="unitName" column="unit_Name" type="string"
 		width="100" desc="投保单位 " query="true" querylike="true" />
 	<property name="contactName" column="contact_name" type="string"
-		desc="联系人" width="100" />
+		maxLength="50" desc="联系人" width="100" />
 	<property name="contactMobile" column="contact_mobile" type="string"
-		desc="手机" width="100" />
+		showType="digits" minLength="11" maxLength="11" desc="手机" width="100" />
 	<property name="contactEmail" column="contact_email" type="string"
-		width="100" desc="邮箱" />
+		showType="email" width="100" desc="邮箱" />
 	<property name="unitParentId" column="unit_parent_id" type="int"
 		desc="上级单位" />
-	<property name="unitState" column="unit_state" type="string"
+	<property name="unitState" column="unit_state" type="string" showType="select" selectCode=""
 		width="100" desc="状态" />
-	<property name="unitAddress" column="unit_address" type="string"
-		textarea="true" width="100" desc="地址" />
-	<property name="unitRemark" column="unit_remark" type="string"
-		textarea="true" width="100" desc="备注" />
+	<property name="unitAddress" column="unit_address" type="string" cols="40" rows="4"
+		showType="textarea" width="100" desc="地址" />
+	<property name="unitRemark" column="unit_remark" type="string" cols="40" rows="4"
+		showType="textarea" width="100" desc="备注" />
 	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true" />
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		noadd="true" />
 	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true" />
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		noadd="true" />
 	<property name="updateUser" column="update_user" type="int"
-		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true" />
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		noadd="true" />
 	<property name="updateTime" column="update_time" type="string"
-		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间" />
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		noadd="true" />
 </class>

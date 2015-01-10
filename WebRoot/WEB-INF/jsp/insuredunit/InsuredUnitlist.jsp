@@ -57,17 +57,8 @@
 				</a>
 			</li>
 			<li>
-				<a class="edit" href="/money/insuredunit!beforeUpdate.do?sno={sno}" mask="true"
-					target="dialog" title="修改"><span>修改</span> </a>
-			</li>
-			<li>
-				<a class="icon" href="/money/insuredunit!export.do" target="dwzExport"
-					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
-			</li>
-			<li>
 				<a class="icon" href="/money/insuredunit!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
 			</li> 
-
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">

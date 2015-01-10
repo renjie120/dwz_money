@@ -10,79 +10,55 @@
 						<label>
 							编号:
 						</label>
-									<input name="unitCode" class="textInput required" size="30" type="text"   />
+							<input name="unitCode" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							投保单位 :
 						</label>
-									<input name="unitName" class="textInput " size="30" type="text"   />
+							<input name="unitName" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							联系人:
 						</label>
-									<input name="contactName" class="textInput " size="30" type="text"   />
+							<input name="contactName" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							手机:
 						</label>
-									<input name="contactMobile" class="textInput " size="30" type="text"   />
+							<input name="contactMobile"  class="digits "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							邮箱:
 						</label>
-									<input name="contactEmail" class="textInput " size="30" type="text"   />
+							<input name="contactEmail"  class="email "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							上级单位:
 						</label>
-									<input name="unitParentId" class="textInput " size="30" type="text"   />
+							<input name="unitParentId" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							状态:
 						</label>
-									<input name="unitState" class="textInput " size="30" type="text"   />
+							<input name="unitState" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							地址:
 						</label>
-								<textarea class="" name="unitAddress" cols="30" rows="2"></textarea>
+							<textarea class="" name="unitAddress"  rows="4" cols="40"></textarea>
 					</div>
 					 <div class="unit">
 						<label>
 							备注:
 						</label>
-								<textarea class="" name="unitRemark" cols="30" rows="2"></textarea>
-					</div>
-					 <div class="unit">
-						<label>
-							创建用户:
-						</label>
-									<input name="createUser" class="textInput " size="30" type="text"   />
-					</div>
-					 <div class="unit">
-						<label>
-							创建时间:
-						</label>
-									<input name="createTime" class="textInput " size="30" type="text"   />
-					</div>
-					 <div class="unit">
-						<label>
-							更新用户:
-						</label>
-									<input name="updateUser" class="textInput " size="30" type="text"   />
-					</div>
-					 <div class="unit">
-						<label>
-							更新时间:
-						</label>
-									<input name="updateTime" class="textInput " size="30" type="text"   />
+							<textarea class="" name="unitRemark"  rows="4" cols="40"></textarea>
 					</div>
 		</div>
 		<div class="formBar">

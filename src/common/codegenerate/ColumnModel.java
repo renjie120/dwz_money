@@ -13,6 +13,16 @@ public class ColumnModel {
 	private String noadd;
 	private String currentUser;
 	private String currentTime;
+	//数据的最大长度.
+	private String size;
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
 
 	public String getCurrentUser() {
 		return currentUser;
@@ -39,17 +49,8 @@ public class ColumnModel {
 	}
 
 	private String querylike;
-	private String columnType;
-	private String tableColumn;
-
-	public String getTableColumn() {
-		return tableColumn;
-	}
-
-	public void setTableColumn(String tableColumn) {
-		this.tableColumn = tableColumn;
-	}
-
+	private String columnType; 
+  
 	public String getShowType() {
 		return showType;
 	}
@@ -60,9 +61,7 @@ public class ColumnModel {
 
 	private String showType;
 	// 数据库中的列名
-	private String column;
-	private String textarea;
-	private String selectType;
+	private String column; 
 	/**
 	 * 浏览框对应的url地址.
 	 */
@@ -103,6 +102,16 @@ public class ColumnModel {
 	private String clas;
 	// 长度
 	private String length;
+	// 下拉菜单对应的编码
+	private String selectCode;
+	public String getSelectCode() {
+		return selectCode;
+	}
+
+	public void setSelectCode(String selectCode) {
+		this.selectCode = selectCode;
+	}
+
 	/**
 	 * 是否是主键.
 	 */
@@ -225,22 +234,15 @@ public class ColumnModel {
 	public void setNoedit(String noedit) {
 		this.noedit = noedit;
 	}
+ 
 
-	public String getSelectType() {
-		return selectType;
-	}
-
-	public void setSelectType(String selectType) {
-		this.selectType = selectType;
-	}
-
-	public String getTextarea() {
-		return textarea;
-	}
-
-	public void setTextarea(String textarea) {
-		this.textarea = textarea;
-	}
+//	public String getTextarea() {
+//		return textarea;
+//	}
+//
+//	public void setTextarea(String textarea) {
+//		this.textarea = textarea;
+//	}
 
 	public String getVisible() {
 		return visible;

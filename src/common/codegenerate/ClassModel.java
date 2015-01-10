@@ -12,11 +12,11 @@ public class ClassModel {
 	public List getAttributes() {
 		return attributes;
 	}
-	private boolean importF;
-	private boolean exportF;
-	private boolean add;
-	private boolean update;
-	private boolean delete; 
+	private String canImport;
+	private String canExport;
+	private String canAdd;
+	private String canUpdate;
+	private String canDelete; 
 	private String importRole;
 	private String exportRole;
 	private String addRole;
@@ -61,49 +61,50 @@ public class ClassModel {
 	public void setDeleteRole(String deleteRole) {
 		this.deleteRole = deleteRole;
 	}
-
-	public boolean isImportF() {
-		return importF;
-	}
-
-	public void setImportF(boolean importF) {
-		this.importF = importF;
-	}
-
-	public boolean isExportF() {
-		return exportF;
-	}
-
-	public void setExportF(boolean exportF) {
-		this.exportF = exportF;
-	}
-
-	public boolean isAdd() {
-		return add;
-	}
-
-	public void setAdd(boolean add) {
-		this.add = add;
-	}
-
-	public boolean isUpdate() {
-		return update;
-	}
-
-	public void setUpdate(boolean update) {
-		this.update = update;
-	}
-
-	public boolean isDelete() {
-		return delete;
-	}
-
-	public void setDelete(boolean delete) {
-		this.delete = delete;
-	}
+  
 	private String arg1;
 	public String getArg1() {
 		return arg1;
+	}
+
+	public String getCanImport() {
+		return canImport;
+	}
+
+	public void setCanImport(String canImport) {
+		this.canImport = canImport;
+	}
+
+	public String getCanExport() {
+		return canExport;
+	}
+
+	public void setCanExport(String canExport) {
+		this.canExport = canExport;
+	}
+
+	public String getCanAdd() {
+		return canAdd;
+	}
+
+	public void setCanAdd(String canAdd) {
+		this.canAdd = canAdd;
+	}
+
+	public String getCanUpdate() {
+		return canUpdate;
+	}
+
+	public void setCanUpdate(String canUpdate) {
+		this.canUpdate = canUpdate;
+	}
+
+	public String getCanDelete() {
+		return canDelete;
+	}
+
+	public void setCanDelete(String canDelete) {
+		this.canDelete = canDelete;
 	}
 
 	public void setArg1(String arg1) {

@@ -27,72 +27,72 @@ public class EcoCode {
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
 
-		new Generate("action_code.ftl", beanName, "Action.java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("dao_code.ftl", beanName, "Dao.java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("beaninter_code.ftl", beanName, ".java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("manager_code.ftl", beanName, "Manager.java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("vo_code.ftl", beanName, "VO.java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("searchfield_code.ftl", beanName, "SearchFields.java",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("orderfield_code.ftl", beanName, "OrderByFields.java",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("bean_impl_code.ftl", beanName, "Impl.java", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-
-		new Generate("manager_impl_code.ftl", beanName, "ManagerImpl.java",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-		new Generate("import_jsp.ftl", beanName, "import.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).make();		
-		new Generate("edit_jsp.ftl", beanName, "edit.jsp", packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(jspRoot, 2).make();
+//		new Generate("action_code.ftl", beanName, "Action.java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("dao_code.ftl", beanName, "Dao.java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("beaninter_code.ftl", beanName, ".java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("manager_code.ftl", beanName, "Manager.java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("vo_code.ftl", beanName, "VO.java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("searchfield_code.ftl", beanName, "SearchFields.java",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("orderfield_code.ftl", beanName, "OrderByFields.java",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("bean_impl_code.ftl", beanName, "Impl.java", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//
+//		new Generate("manager_impl_code.ftl", beanName, "ManagerImpl.java",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//		new Generate("import_jsp.ftl", beanName, "import.jsp", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).make();		
+//		new Generate("edit_jsp.ftl", beanName, "edit.jsp", packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(jspRoot, 2).make();
 
 		new Generate("info_jsp.ftl", beanName, "info.jsp", packageName) {
 			public Object setData() {
@@ -105,20 +105,20 @@ public class EcoCode {
 				return m;
 			}
 		}.setDirName(jspRoot, 2).make();
-
-		new Generate("hbm_code.ftl", beanName.toLowerCase(), ".hbm.xml",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(hbmRoot, 3).make();
-
-		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.make();
+//
+//		new Generate("hbm_code.ftl", beanName.toLowerCase(), ".hbm.xml",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(hbmRoot, 3).make();
+//
+//		new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.make();
 
 		System.out.println("生成完毕:d:\\" + beanName + "\\");
 	}

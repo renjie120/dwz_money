@@ -56,27 +56,33 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
+			<#if  '${model.canAdd}'='true'>
 			<li>
 				<a class="add" href="/money/${nm}!beforeAdd.do" target="dialog" mask="true"
 					title="添加"><span>添加</span> </a>
 			</li>
+			</#if>
+			<#if  '${model.canDelete}'='true'>
 			<li>
 				<a class="delete" href="/money/${nm}!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
+			</#if><#if  '${model.canUpdate}'='true'>
 			<li>
 				<a class="edit" href="/money/${nm}!beforeUpdate.do?${model.keyName}={${model.keyName}}" mask="true"
 					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
+			</#if><#if  '${model.canExport}'='true'>
 			<li>
 				<a class="icon" href="/money/${nm}!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
+			</#if><#if  '${model.canImport}'='true'>
 			<li>
 				<a class="icon" href="/money/${nm}!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
 			</li> 
-
+			</#if>
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">

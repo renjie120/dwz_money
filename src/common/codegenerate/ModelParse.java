@@ -87,6 +87,8 @@ public class ModelParse {
 				config.setMinLength(DomUtil.getAttribute(child, "minLength"));
 				// 列属性名
 				config.setCols(DomUtil.getAttribute(child, "cols"));
+				// 数据的最大长度
+				config.setSize(DomUtil.getAttribute(child, "size"));
 				// 列属性名
 				config.setRows(DomUtil.getAttribute(child, "rows"));
 				// 下拉菜单对应的文本的值
@@ -101,11 +103,8 @@ public class ModelParse {
 				config.setName(DomUtil.getAttribute(child, "name"));
 				// 是否要检索
 				config.setQuery(DomUtil.getAttribute(child, "query"));
-				// 列类型
-				config.setColumnType(DomUtil.getAttribute(child, "columnType"));
-				// 列的数据类型
-				config.setTableColumn(DomUtil
-						.getAttribute(child, "tableColumn"));
+				// 列类型--对应数据库
+				config.setColumnType(DomUtil.getAttribute(child, "columnType")); 
 				// 列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				// 是否模糊匹配
@@ -113,7 +112,7 @@ public class ModelParse {
 				// 显示在list.jsp里面的列宽度
 				config.setWidth(DomUtil.getAttribute(child, "width"));
 				// 是否是文本域
-				config.setTextarea(DomUtil.getAttribute(child, "textarea"));
+//				config.setTextarea(DomUtil.getAttribute(child, "textarea"));
 				// 是否在list.jsp里面列表中显示出来
 				config.setVisible(DomUtil.getAttribute(child, "visible"));
 				// 对应数据库中的列名
@@ -127,7 +126,7 @@ public class ModelParse {
 					showType = type;
 				config.setShowType(showType);
 				// 是否是业务字典
-				config.setSelectType(DomUtil.getAttribute(child, "selectType"));
+				config.setSelectCode(DomUtil.getAttribute(child, "selectCode"));
 				// 是否必填字段
 				config.setNotnull(DomUtil.getAttribute(child, "notnull"));
 				// 是否在edit.jsp中可以编辑
@@ -159,27 +158,27 @@ public class ModelParse {
 		String delete = DomUtil.getAttribute(list, "delete");
 		//设置是否有导入按钮，以及导入的权限id.
 		if (importFile != null) {
-			model.setImportF(true);
+			model.setCanImport(importFile);
 			if (parseString(importFile) > 0)
 				model.setImportRole(importFile);
 		}
 		if (exportFile != null) {
-			model.setExportF(true);
+			model.setCanExport(exportFile);
 			if (parseString(exportFile) > 0)
 				model.setExportRole(exportFile);
 		}
 		if (add != null) {
-			model.setAdd(true);
+			model.setCanAdd(add);
 			if (parseString(add) > 0)
 				model.setAddRole(add);
 		}
 		if (update != null) {
-			model.setUpdate(true);
+			model.setCanUpdate(update);
 			if (parseString(update) > 0)
 				model.setUpdateRole(update);
 		}
 		if (delete != null) {
-			model.setDelete(true);
+			model.setCanDelete(delete);
 			if (parseString(delete) > 0)
 				model.setDeleteRole(delete);
 		}
