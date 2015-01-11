@@ -1,55 +1,46 @@
+
 package ido.InsuredUnit;
-
-import ido.loginfo.LogInfoImpl;
-import ido.loginfo.LogInfoManager;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.struts2.ServletActionContext;
+import java.io.FileOutputStream; 
+import java.util.*; 
 
 import com.alibaba.fastjson.JSON;
-import com.opensymphony.xwork2.ActionContext;
 import common.util.CommonUtil;
-import common.util.DateUtil;
+
+import com.opensymphony.xwork2.ActionContext; 
 
 import dwz.constants.BeanManagerKey;
-import dwz.framework.constants.Constants;
 import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
+import org.apache.struts2.ServletActionContext;
 
+import ido.loginfo.LogInfoManager;
 /**
  * 关于投保单位的Action操作类.
- * 
- * @author www(水清) 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名. http://www.iteye.com
- */
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
+ */ 
 public class InsuredUnitAction extends BaseAction {
 	/**
-	 * 序列化对象.
+	 *  序列化对象.
 	 */
 	private static final long serialVersionUID = 1L;
-	// 业务接口对象.
-	InsuredUnitManager pMgr = bf.getManager(BeanManagerKey.insuredunitManager);
 	// 操作日志接口对象.
 	LogInfoManager logMgr = bf.getManager(BeanManagerKey.loginfoManager);
-	// 业务实体对象
+	//业务接口对象.
+	InsuredUnitManager pMgr = bf.getManager(BeanManagerKey.insuredunitManager);
+	//业务实体对象
 	private InsuredUnit vo;
-	// 当前页数
+	//当前页数
 	private int page = 1;
-	// 每页显示数量
+	//每页显示数量
 	private int pageSize = 50;
-	// 总页数
+	//总页数
 	private long count;
-
+	
 	// 下面的两个属性是用来接收依赖注入的属性----如果定义了file上传的属性为xxx，还要再定义两个属性用来封装类型和文件名！（如果不写怎么样？）
 	private File upload;
 	private String uploadContentType;
@@ -58,25 +49,25 @@ public class InsuredUnitAction extends BaseAction {
 	private String allowTypes;
 	// 下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
 	private String savePath;
-
+	
 	public String beforeAdd() {
 		return "detail";
 	}
-
+ 
+ 	/**
+ 	 * 添加投保单位.
+ 	 */
 	public String doAdd() {
 		try {
-			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl(unitCode,
-					unitName, contactName, contactMobile, contactEmail,
-					unitParentId, unitState, unitAddress, unitRemark,
-					createUser, createTime, updateUser, updateTime);
+			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl(unitCode ,unitName ,contactName ,contactMobile ,contactEmail ,unitParentId ,unitState ,unitAddress ,unitRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredUnit(insuredunitImpl);
-			  
-			insertLog("添加保险单位","/add", "", "" ,JSON.toJSONString(insuredunitImpl));  
+			
+			insertLog(logMgr,"添加投保单位","/doAdd", "", "" ,JSON.toJSONString(insuredunitImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
 		}
-		writeToPage(response, getText("msg.operation.success"));
+		writeToPage(response,getText("msg.operation.success"));
 		return null;
 	}
 
@@ -99,7 +90,7 @@ public class InsuredUnitAction extends BaseAction {
 		e.exportXls(response);
 		return null;
 	}
-
+	
 	/**
 	 * 指向下载界面.
 	 * 
@@ -108,7 +99,7 @@ public class InsuredUnitAction extends BaseAction {
 	public String initImport() {
 		return "import";
 	}
-
+	
 	public String importExcel() throws Exception {
 		if (CommonUtil.isEmpty(uploadFileName)
 				|| !(uploadFileName.endsWith(".xls") || uploadFileName
@@ -139,35 +130,12 @@ public class InsuredUnitAction extends BaseAction {
 			// 导入excel中的数据到数据库.
 			pMgr.importFromExcel(f);
 		}
+		insertLog(logMgr,"导入投保单位","/importExcel", "", "" ,"");  
 		writeToPage(response, "导入成功!");
 		return null;
 	}
 
-	/**
-	 * 添加日志.
-	 * @param operType
-	 * @param url
-	 * @param before
-	 * @param after
-	 * @param desc
-	 */
-	private void insertLog(String operType,String url,String before,String after,String desc){
-		try {
-			// 添加操作记录
-			User currentUser = (UserImpl) request.getSession().getAttribute(
-					Constants.AUTHENTICATION_KEY);
-			LogInfoImpl loginfoImpl = new LogInfoImpl(
-					Integer.parseInt(currentUser.getId()),
-					currentUser.getUserName(), DateUtil.nowString(), operType,
-					request.getRemoteAddr(), url, before, after,
-					desc);
-			logMgr.createLogInfo(loginfoImpl);
-		} catch (ValidateFieldsException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		String[] allId = ids.split(",");
@@ -175,94 +143,94 @@ public class InsuredUnitAction extends BaseAction {
 		for(String _id:allId){
 			allDeleteIds.add(pMgr.getInsuredUnit(Integer.parseInt(_id)));
 		}
-		pMgr.removeInsuredUnits(ids); 
+		pMgr.removeInsuredUnits(ids);
 		
-		insertLog("删除保险单位","/delete", "", "" ,JSON.toJSONString(allDeleteIds)); 
-		
+		insertLog(logMgr,"删除投保单位","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	public String beforeUpdate() {
 		vo = pMgr.getInsuredUnit(sno);
 		return "editdetail";
-	}
-
-	public boolean compare(Object o,Object o2){
-		if(o==null&&o2!=null)
-			return false;
-		if(o!=null&&o2==null)
-			return false;
-		if(!o.equals(o2))
-			return false;
-		return true;
-	}
+	} 
+	
 	public String doUpdate() {
 		try {
 			InsuredUnit old = pMgr.getInsuredUnit( sno );
 			String oldObj= "";
-			String newObj= "";
+			String newObj= ""; 
+			if(!compare(old.getSno(),sno)){
+				oldObj += "sno="+old.getSno()+";";
+				newObj+= "sno="+sno+";";
+			} 
 			if(!compare(old.getUnitCode(),unitCode)){
 				oldObj += "unitCode="+old.getUnitCode()+";";
 				newObj+= "unitCode="+unitCode+";";
-			}
-			 
-			if(!compare(old.getUnitCode(),unitName)){
+			} 
+			if(!compare(old.getUnitName(),unitName)){
 				oldObj += "unitName="+old.getUnitName()+";";
 				newObj+= "unitName="+unitName+";";
-			}
-			
-			if(!compare(old.getUnitCode(),contactName)){
+			} 
+			if(!compare(old.getContactName(),contactName)){
 				oldObj += "contactName="+old.getContactName()+";";
 				newObj+= "contactName="+contactName+";";
-			}
-			
-			if(!compare(old.getUnitCode(),contactMobile)){
+			} 
+			if(!compare(old.getContactMobile(),contactMobile)){
 				oldObj += "contactMobile="+old.getContactMobile()+";";
 				newObj+= "contactMobile="+contactMobile+";";
-			}
-			
-			if(!compare(old.getUnitCode(),contactEmail)){
+			} 
+			if(!compare(old.getContactEmail(),contactEmail)){
 				oldObj += "contactEmail="+old.getContactEmail()+";";
 				newObj+= "contactEmail="+contactEmail+";";
-			}
-			
-			if(!compare(old.getUnitCode(),unitParentId)){
-				oldObj += "unitCode="+old.getUnitParentId()+";";
+			} 
+			if(!compare(old.getUnitParentId(),unitParentId)){
+				oldObj += "unitParentId="+old.getUnitParentId()+";";
 				newObj+= "unitParentId="+unitParentId+";";
-			}
-			if(!compare(old.getUnitCode(),unitState)){
+			} 
+			if(!compare(old.getUnitState(),unitState)){
 				oldObj += "unitState="+old.getUnitState()+";";
 				newObj+= "unitState="+unitState+";";
-			}
-			if(!compare(old.getUnitCode(),unitAddress)){
+			} 
+			if(!compare(old.getUnitAddress(),unitAddress)){
 				oldObj += "unitAddress="+old.getUnitAddress()+";";
 				newObj+= "unitAddress="+unitAddress+";";
-			}
-			if(!compare(old.getUnitCode(),unitRemark)){
+			} 
+			if(!compare(old.getUnitRemark(),unitRemark)){
 				oldObj += "unitRemark="+old.getUnitRemark()+";";
 				newObj+= "unitRemark="+unitRemark+";";
 			} 
-			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl(sno,
-					unitCode, unitName, contactName, contactMobile,
-					contactEmail, unitParentId, unitState, unitAddress,
-					unitRemark, createUser, createTime, updateUser, updateTime);
+			if(!compare(old.getCreateUser(),createUser)){
+				oldObj += "createUser="+old.getCreateUser()+";";
+				newObj+= "createUser="+createUser+";";
+			} 
+			if(!compare(old.getCreateTime(),createTime)){
+				oldObj += "createTime="+old.getCreateTime()+";";
+				newObj+= "createTime="+createTime+";";
+			} 
+			if(!compare(old.getUpdateUser(),updateUser)){
+				oldObj += "updateUser="+old.getUpdateUser()+";";
+				newObj+= "updateUser="+updateUser+";";
+			} 
+			if(!compare(old.getUpdateTime(),updateTime)){
+				oldObj += "updateTime="+old.getUpdateTime()+";";
+				newObj+= "updateTime="+updateTime+";";
+			} 
+			
+			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl( sno , unitCode , unitName , contactName , contactMobile , contactEmail , unitParentId , unitState , unitAddress , unitRemark , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredUnit(insuredunitImpl);
 			
-			insertLog("修改保险单位","/update", oldObj, 
+			insertLog(logMgr,"修改投保单位","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(insuredunitImpl));  
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
-		writeToPage(response, getText("msg.operation.success"));
+		writeToPage(response,getText("msg.operation.success"));
 		return null;
-	}
-
+	} 
+	
 	public enum ExportFiled {
-		SNO("流水号"), UNITCODE("编号"), UNITNAME("投保单位 "), CONTACTNAME("联系人"), CONTACTMOBILE(
-				"手机"), CONTACTEMAIL("邮箱"), UNITPARENTID("上级单位"), UNITSTATE("状态"), UNITADDRESS(
-				"地址"), UNITREMARK("备注"), CREATEUSER("创建用户"), CREATETIME("创建时间"), UPDATEUSER(
-				"更新用户"), UPDATETIME("更新时间");
+		  SNO("流水号")  ,UNITCODE("编号")  ,UNITNAME("投保单位 ")  ,CONTACTNAME("联系人")  ,CONTACTMOBILE("手机")  ,CONTACTEMAIL("邮箱")  ,UNITPARENTID("上级单位")  ,UNITSTATE("是否显示")  ,UNITADDRESS("地址");
 		private String str;
 
 		ExportFiled(String str) {
@@ -280,16 +248,15 @@ public class InsuredUnitAction extends BaseAction {
 
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition",
-				"attachment;filename=InsuredUnitList.xls");
+		response.addHeader("Content-Disposition","attachment;filename=InsuredUnitList.xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<InsuredUnitSearchFields, Object> criterias = getCriterias();
 
-		Collection<InsuredUnit> insuredunitList = pMgr.searchInsuredUnit(
-				criterias, realOrderField(), startIndex, numPerPage);
+		Collection<InsuredUnit> insuredunitList = pMgr.searchInsuredUnit(criterias, realOrderField(),
+				startIndex, numPerPage);
 
 		XlsExport e = new XlsExport();
 		int rowIndex = 0;
@@ -304,47 +271,32 @@ public class InsuredUnitAction extends BaseAction {
 
 			for (ExportFiled filed : ExportFiled.values()) {
 				switch (filed) {
-				case SNO:
-					e.setCell(filed.ordinal(), insuredunit.getSno());
+					case SNO:
+						 e.setCell(filed.ordinal(), insuredunit.getSno()); 
 					break;
-				case UNITCODE:
-					e.setCell(filed.ordinal(), insuredunit.getUnitCode());
+					case UNITCODE:
+						 e.setCell(filed.ordinal(), insuredunit.getUnitCode()); 
 					break;
-				case UNITNAME:
-					e.setCell(filed.ordinal(), insuredunit.getUnitName());
+					case UNITNAME:
+						 e.setCell(filed.ordinal(), insuredunit.getUnitName()); 
 					break;
-				case CONTACTNAME:
-					e.setCell(filed.ordinal(), insuredunit.getContactName());
+					case CONTACTNAME:
+						 e.setCell(filed.ordinal(), insuredunit.getContactName()); 
 					break;
-				case CONTACTMOBILE:
-					e.setCell(filed.ordinal(), insuredunit.getContactMobile());
+					case CONTACTMOBILE:
+						 e.setCell(filed.ordinal(), insuredunit.getContactMobile()); 
 					break;
-				case CONTACTEMAIL:
-					e.setCell(filed.ordinal(), insuredunit.getContactEmail());
+					case CONTACTEMAIL:
+						 e.setCell(filed.ordinal(), insuredunit.getContactEmail()); 
 					break;
-				case UNITPARENTID:
-					e.setCell(filed.ordinal(), insuredunit.getUnitParentId());
+					case UNITPARENTID:
+						 e.setCell(filed.ordinal(), insuredunit.getUnitParentId()); 
 					break;
-				case UNITSTATE:
-					e.setCell(filed.ordinal(), insuredunit.getUnitState());
+					case UNITSTATE:
+						 e.setCell(filed.ordinal(), insuredunit.getUnitState()); 
 					break;
-				case UNITADDRESS:
-					e.setCell(filed.ordinal(), insuredunit.getUnitAddress());
-					break;
-				case UNITREMARK:
-					e.setCell(filed.ordinal(), insuredunit.getUnitRemark());
-					break;
-				case CREATEUSER:
-					e.setCell(filed.ordinal(), insuredunit.getCreateUser());
-					break;
-				case CREATETIME:
-					e.setCell(filed.ordinal(), insuredunit.getCreateTime());
-					break;
-				case UPDATEUSER:
-					e.setCell(filed.ordinal(), insuredunit.getUpdateUser());
-					break;
-				case UPDATETIME:
-					e.setCell(filed.ordinal(), insuredunit.getUpdateTime());
+					case UNITADDRESS:
+						 e.setCell(filed.ordinal(), insuredunit.getUnitAddress()); 
 					break;
 				default:
 					break;
@@ -363,8 +315,8 @@ public class InsuredUnitAction extends BaseAction {
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<InsuredUnitSearchFields, Object> criterias = getCriterias();
 
-		Collection<InsuredUnit> moneyList = pMgr.searchInsuredUnit(criterias,
-				realOrderField(), startIndex, numPerPage);
+		Collection<InsuredUnit> moneyList = pMgr.searchInsuredUnit(criterias, realOrderField(),
+				startIndex, numPerPage);
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
@@ -373,7 +325,7 @@ public class InsuredUnitAction extends BaseAction {
 		ActionContext.getContext().put("list", moneyList);
 		ActionContext.getContext().put("pageNum", pageNum);
 		ActionContext.getContext().put("numPerPage", numPerPage);
-		ActionContext.getContext().put("totalCount", count);
+		ActionContext.getContext().put("totalCount",count);
 		return "list";
 	}
 
@@ -407,12 +359,10 @@ public class InsuredUnitAction extends BaseAction {
 
 	private Map<InsuredUnitSearchFields, Object> getCriterias() {
 		Map<InsuredUnitSearchFields, Object> criterias = new HashMap<InsuredUnitSearchFields, Object>();
-		if (getUnitCode() != null && !"".equals(getUnitCode()))
-			criterias.put(InsuredUnitSearchFields.UNITCODE, "%" + getUnitCode()
-					+ "%");
-		if (getUnitName() != null && !"".equals(getUnitName()))
-			criterias.put(InsuredUnitSearchFields.UNITNAME, "%" + getUnitName()
-					+ "%");
+		if (getUnitCode()!=null&&!"".equals(getUnitCode())&&!"-1".equals(getUnitCode())&&!"-2".equals(getUnitCode()))
+			criterias.put(InsuredUnitSearchFields.UNITCODE, "%"+getUnitCode()+"%"); 
+		if (getUnitName()!=null&&!"".equals(getUnitName())&&!"-1".equals(getUnitName())&&!"-2".equals(getUnitName()))
+			criterias.put(InsuredUnitSearchFields.UNITNAME, "%"+getUnitName()+"%"); 
 		return criterias;
 	}
 
@@ -422,233 +372,206 @@ public class InsuredUnitAction extends BaseAction {
 
 	public void setVo(InsuredUnit vo) {
 		this.vo = vo;
-	}
-
-	private Integer sno;
-
-	/**
-	 * 获取流水号的属性值.
-	 */
-	public Integer getSno() {
-		return sno;
-	}
-
-	/**
-	 * 设置流水号的属性值.
-	 */
-	public void setSno(Integer sno) {
-		this.sno = sno;
-	}
-
-	private String unitCode;
-
-	/**
-	 * 获取编号的属性值.
-	 */
-	public String getUnitCode() {
-		return unitCode;
-	}
-
-	/**
-	 * 设置编号的属性值.
-	 */
-	public void setUnitCode(String unitcode) {
-		this.unitCode = unitcode;
-	}
-
-	private String unitName;
-
-	/**
-	 * 获取投保单位 的属性值.
-	 */
-	public String getUnitName() {
-		return unitName;
-	}
-
-	/**
-	 * 设置投保单位 的属性值.
-	 */
-	public void setUnitName(String unitname) {
-		this.unitName = unitname;
-	}
-
-	private String contactName;
-
-	/**
-	 * 获取联系人的属性值.
-	 */
-	public String getContactName() {
-		return contactName;
-	}
-
-	/**
-	 * 设置联系人的属性值.
-	 */
-	public void setContactName(String contactname) {
-		this.contactName = contactname;
-	}
-
-	private String contactMobile;
-
-	/**
-	 * 获取手机的属性值.
-	 */
-	public String getContactMobile() {
-		return contactMobile;
-	}
-
-	/**
-	 * 设置手机的属性值.
-	 */
-	public void setContactMobile(String contactmobile) {
-		this.contactMobile = contactmobile;
-	}
-
-	private String contactEmail;
-
-	/**
-	 * 获取邮箱的属性值.
-	 */
-	public String getContactEmail() {
-		return contactEmail;
-	}
-
-	/**
-	 * 设置邮箱的属性值.
-	 */
-	public void setContactEmail(String contactemail) {
-		this.contactEmail = contactemail;
-	}
-
-	private int unitParentId;
-
-	/**
-	 * 获取上级单位的属性值.
-	 */
-	public int getUnitParentId() {
-		return unitParentId;
-	}
-
-	/**
-	 * 设置上级单位的属性值.
-	 */
-	public void setUnitParentId(int unitparentid) {
-		this.unitParentId = unitparentid;
-	}
-
-	private String unitState;
-
-	/**
-	 * 获取状态的属性值.
-	 */
-	public String getUnitState() {
-		return unitState;
-	}
-
-	/**
-	 * 设置状态的属性值.
-	 */
-	public void setUnitState(String unitstate) {
-		this.unitState = unitstate;
-	}
-
-	private String unitAddress;
-
-	/**
-	 * 获取地址的属性值.
-	 */
-	public String getUnitAddress() {
-		return unitAddress;
-	}
-
-	/**
-	 * 设置地址的属性值.
-	 */
-	public void setUnitAddress(String unitaddress) {
-		this.unitAddress = unitaddress;
-	}
-
-	private String unitRemark;
-
-	/**
-	 * 获取备注的属性值.
-	 */
-	public String getUnitRemark() {
-		return unitRemark;
-	}
-
-	/**
-	 * 设置备注的属性值.
-	 */
-	public void setUnitRemark(String unitremark) {
-		this.unitRemark = unitremark;
-	}
-
-	private int createUser;
-
-	/**
-	 * 获取创建用户的属性值.
-	 */
-	public int getCreateUser() {
-		return createUser;
-	}
-
-	/**
-	 * 设置创建用户的属性值.
-	 */
-	public void setCreateUser(int createuser) {
-		this.createUser = createuser;
-	}
-
-	private String createTime;
-
-	/**
-	 * 获取创建时间的属性值.
-	 */
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	/**
-	 * 设置创建时间的属性值.
-	 */
-	public void setCreateTime(String createtime) {
-		this.createTime = createtime;
-	}
-
-	private int updateUser;
-
-	/**
-	 * 获取更新用户的属性值.
-	 */
-	public int getUpdateUser() {
-		return updateUser;
-	}
-
-	/**
-	 * 设置更新用户的属性值.
-	 */
-	public void setUpdateUser(int updateuser) {
-		this.updateUser = updateuser;
-	}
-
-	private String updateTime;
-
-	/**
-	 * 获取更新时间的属性值.
-	 */
-	public String getUpdateTime() {
-		return updateTime;
-	}
-
-	/**
-	 * 设置更新时间的属性值.
-	 */
-	public void setUpdateTime(String updatetime) {
-		this.updateTime = updatetime;
-	}
-
-	public File getUpload() {
+	} 
+  
+	private Integer sno; 
+ 	/**
+ 	 * 获取流水号的属性值.
+ 	 */
+ 	public Integer getSno(){
+ 		return sno;
+ 	}
+ 	
+ 	/**
+ 	 * 设置流水号的属性值.
+ 	 */
+ 	public void setSno(Integer sno){
+ 		this.sno = sno;
+ 	}
+	private String unitCode; 
+ 	/**
+ 	 * 获取编号的属性值.
+ 	 */
+ 	public String getUnitCode(){
+ 		return unitCode;
+ 	}
+ 	
+ 	/**
+ 	 * 设置编号的属性值.
+ 	 */
+ 	public void setUnitCode(String unitcode){
+ 		this.unitCode = unitcode;
+ 	}
+	private String unitName; 
+ 	/**
+ 	 * 获取投保单位 的属性值.
+ 	 */
+ 	public String getUnitName(){
+ 		return unitName;
+ 	}
+ 	
+ 	/**
+ 	 * 设置投保单位 的属性值.
+ 	 */
+ 	public void setUnitName(String unitname){
+ 		this.unitName = unitname;
+ 	}
+	private String contactName; 
+ 	/**
+ 	 * 获取联系人的属性值.
+ 	 */
+ 	public String getContactName(){
+ 		return contactName;
+ 	}
+ 	
+ 	/**
+ 	 * 设置联系人的属性值.
+ 	 */
+ 	public void setContactName(String contactname){
+ 		this.contactName = contactname;
+ 	}
+	private String contactMobile; 
+ 	/**
+ 	 * 获取手机的属性值.
+ 	 */
+ 	public String getContactMobile(){
+ 		return contactMobile;
+ 	}
+ 	
+ 	/**
+ 	 * 设置手机的属性值.
+ 	 */
+ 	public void setContactMobile(String contactmobile){
+ 		this.contactMobile = contactmobile;
+ 	}
+	private String contactEmail; 
+ 	/**
+ 	 * 获取邮箱的属性值.
+ 	 */
+ 	public String getContactEmail(){
+ 		return contactEmail;
+ 	}
+ 	
+ 	/**
+ 	 * 设置邮箱的属性值.
+ 	 */
+ 	public void setContactEmail(String contactemail){
+ 		this.contactEmail = contactemail;
+ 	}
+	private int unitParentId; 
+ 	/**
+ 	 * 获取上级单位的属性值.
+ 	 */
+ 	public int getUnitParentId(){
+ 		return unitParentId;
+ 	}
+ 	
+ 	/**
+ 	 * 设置上级单位的属性值.
+ 	 */
+ 	public void setUnitParentId(int unitparentid){
+ 		this.unitParentId = unitparentid;
+ 	}
+	private String unitState; 
+ 	/**
+ 	 * 获取是否显示的属性值.
+ 	 */
+ 	public String getUnitState(){
+ 		return unitState;
+ 	}
+ 	
+ 	/**
+ 	 * 设置是否显示的属性值.
+ 	 */
+ 	public void setUnitState(String unitstate){
+ 		this.unitState = unitstate;
+ 	}
+	private String unitAddress; 
+ 	/**
+ 	 * 获取地址的属性值.
+ 	 */
+ 	public String getUnitAddress(){
+ 		return unitAddress;
+ 	}
+ 	
+ 	/**
+ 	 * 设置地址的属性值.
+ 	 */
+ 	public void setUnitAddress(String unitaddress){
+ 		this.unitAddress = unitaddress;
+ 	}
+	private String unitRemark; 
+ 	/**
+ 	 * 获取备注的属性值.
+ 	 */
+ 	public String getUnitRemark(){
+ 		return unitRemark;
+ 	}
+ 	
+ 	/**
+ 	 * 设置备注的属性值.
+ 	 */
+ 	public void setUnitRemark(String unitremark){
+ 		this.unitRemark = unitremark;
+ 	}
+	private int createUser; 
+ 	/**
+ 	 * 获取创建用户的属性值.
+ 	 */
+ 	public int getCreateUser(){
+ 		return createUser;
+ 	}
+ 	
+ 	/**
+ 	 * 设置创建用户的属性值.
+ 	 */
+ 	public void setCreateUser(int createuser){
+ 		this.createUser = createuser;
+ 	}
+	private String createTime; 
+ 	/**
+ 	 * 获取创建时间的属性值.
+ 	 */
+ 	public String getCreateTime(){
+ 		return createTime;
+ 	}
+ 	
+ 	/**
+ 	 * 设置创建时间的属性值.
+ 	 */
+ 	public void setCreateTime(String createtime){
+ 		this.createTime = createtime;
+ 	}
+	private int updateUser; 
+ 	/**
+ 	 * 获取更新用户的属性值.
+ 	 */
+ 	public int getUpdateUser(){
+ 		return updateUser;
+ 	}
+ 	
+ 	/**
+ 	 * 设置更新用户的属性值.
+ 	 */
+ 	public void setUpdateUser(int updateuser){
+ 		this.updateUser = updateuser;
+ 	}
+	private String updateTime; 
+ 	/**
+ 	 * 获取更新时间的属性值.
+ 	 */
+ 	public String getUpdateTime(){
+ 		return updateTime;
+ 	}
+ 	
+ 	/**
+ 	 * 设置更新时间的属性值.
+ 	 */
+ 	public void setUpdateTime(String updatetime){
+ 		this.updateTime = updatetime;
+ 	}
+  	
+  	public File getUpload() {
 		return upload;
 	}
 

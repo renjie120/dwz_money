@@ -21,7 +21,7 @@
 							<textarea class="<#if "${attr.notnull}"='true'>required</#if>" name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if> <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if>></textarea>
 							<#else>
 								<#if '${attr.showType}'='select'>
-							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" allSelected="true" />
+							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> />
 								<#else>
 									<#if '${attr.showType}'='email'>
 							<input name="${attr.name}"  class="email <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
@@ -32,7 +32,11 @@
 											<#if '${attr.showType}'='number'>
 							<input name="${attr.name}"  class="number <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
 											<#else>
+												<#if '${attr.showType}'='dict'>
+							<my:newselect tagName="${attr.name}"  tableName="${attr.fromTable}" nameColumn="${attr.nameColumn}" idColumn ="${attr.idCoulmn}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> />
+												<#else>
 							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+												</#if>
 											</#if>
 										</#if>
 									</#if>

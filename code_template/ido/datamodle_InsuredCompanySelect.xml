@@ -1,0 +1,30 @@
+<class name="InsuredCompanySelect" table="dict_Insured_company" desc="保险公司字典表"
+	importFile="false" exportFile="false" add="true" update="false" delete="true"
+	package="ido.Dict_InsuredCompany">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="comName" column="com_name" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
+		columnType="varchar(500)" desc="保险公司名称" width="100" notnull="true"
+		query="true" querylike="true" />
+
+	<property name="comStatus" column="com_status" type="string" showType="select"  selectCode="yesorno"
+		columnType="int"  desc="是否显示 " query="true"  />
+  
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

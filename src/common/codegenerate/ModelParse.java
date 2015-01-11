@@ -33,7 +33,7 @@ public class ModelParse {
 		this.arg1 = arg1;
 	}
 
-	private String classDesc; 
+	private String classDesc;
 	private String packageName;
 
 	public String getFileName() {
@@ -75,6 +75,7 @@ public class ModelParse {
 					model.setKeyName(DomUtil.getAttribute(child, "name"));
 					model.setKeyColumn(DomUtil.getAttribute(child, "column"));
 					model.setKeyType(DomUtil.getAttribute(child, "type"));
+					model.setKeyColumnType(DomUtil.getAttribute(child, "columnType"));
 				} else
 					config.setIskey("false");
 				// 节点类型
@@ -83,12 +84,30 @@ public class ModelParse {
 				config.setDesc(DomUtil.getAttribute(child, "desc"));
 				// 最大长度
 				config.setMaxLength(DomUtil.getAttribute(child, "maxLength"));
+				// 来自业务字典表的表名
+				config.setFromTable(DomUtil.getAttribute(child, "fromTable"));
+				// 来自业务字典表的id列
+				config.setIdCoulmn(DomUtil.getAttribute(child, "idCoulmn"));
+				// 来自业务字典表的name列
+				config.setNameColumn(DomUtil.getAttribute(child, "nameColumn"));
+				// 下拉菜单是否含有全选按钮
+				config.setAllSelect(DomUtil.getAttribute(child, "allSelect"));
 				// 最短长度
 				config.setMinLength(DomUtil.getAttribute(child, "minLength"));
+				// 是否可以导入该字段
+				config.setCanImport(DomUtil.getAttribute(child, "canImport"));
+				// 数据库中非空字段
+				config.setNotNullInDb(DomUtil
+						.getAttribute(child, "notNullInDb"));
+				// 是否可以导出
+				config.setCanExport(DomUtil.getAttribute(child, "canExport"));
 				// 列属性名
 				config.setCols(DomUtil.getAttribute(child, "cols"));
 				// 数据的最大长度
-				config.setSize(DomUtil.getAttribute(child, "size"));
+				String size = DomUtil.getAttribute(child, "size");
+				if(size==null)
+					size="30";
+				config.setSize(size);
 				// 列属性名
 				config.setRows(DomUtil.getAttribute(child, "rows"));
 				// 下拉菜单对应的文本的值
@@ -104,7 +123,7 @@ public class ModelParse {
 				// 是否要检索
 				config.setQuery(DomUtil.getAttribute(child, "query"));
 				// 列类型--对应数据库
-				config.setColumnType(DomUtil.getAttribute(child, "columnType")); 
+				config.setColumnType(DomUtil.getAttribute(child, "columnType"));
 				// 列属性名
 				config.setName(DomUtil.getAttribute(child, "name"));
 				// 是否模糊匹配
@@ -112,7 +131,7 @@ public class ModelParse {
 				// 显示在list.jsp里面的列宽度
 				config.setWidth(DomUtil.getAttribute(child, "width"));
 				// 是否是文本域
-//				config.setTextarea(DomUtil.getAttribute(child, "textarea"));
+				// config.setTextarea(DomUtil.getAttribute(child, "textarea"));
 				// 是否在list.jsp里面列表中显示出来
 				config.setVisible(DomUtil.getAttribute(child, "visible"));
 				// 对应数据库中的列名
@@ -125,7 +144,7 @@ public class ModelParse {
 				if (showType == null)
 					showType = type;
 				config.setShowType(showType);
-				// 是否是业务字典
+				// 对应的系统业务字段的id
 				config.setSelectCode(DomUtil.getAttribute(child, "selectCode"));
 				// 是否必填字段
 				config.setNotnull(DomUtil.getAttribute(child, "notnull"));
@@ -134,9 +153,11 @@ public class ModelParse {
 				// 是否在添加页面中可以添加
 				config.setNoadd(DomUtil.getAttribute(child, "noadd"));
 				// 使用当前时间
-				config.setCurrentTime(DomUtil.getAttribute(child, "currentTime"));
+				config.setCurrentTime(DomUtil
+						.getAttribute(child, "currentTime"));
 				// 使用当前用户
-				config.setCurrentUser(DomUtil.getAttribute(child, "currentUser"));
+				config.setCurrentUser(DomUtil
+						.getAttribute(child, "currentUser"));
 				// 对应的样式
 				config.setClas(DomUtil.getAttribute(child, "class"));
 				// 在数据库里面的字段长度.
@@ -156,7 +177,7 @@ public class ModelParse {
 		String add = DomUtil.getAttribute(list, "add");
 		String update = DomUtil.getAttribute(list, "update");
 		String delete = DomUtil.getAttribute(list, "delete");
-		//设置是否有导入按钮，以及导入的权限id.
+		// 设置是否有导入按钮，以及导入的权限id.
 		if (importFile != null) {
 			model.setCanImport(importFile);
 			if (parseString(importFile) > 0)

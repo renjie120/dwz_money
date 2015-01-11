@@ -83,7 +83,7 @@ public class InsuredUnitImpl implements InsuredUnit {
  		return this.insuredunitVO.getUnitParentId();
  	}
  	/**
- 	 * 获取状态的属性值.
+ 	 * 获取是否显示的属性值.
  	 */
  	public  String   getUnitState(){
  		return this.insuredunitVO.getUnitState();

@@ -88,11 +88,9 @@
 			</result>
 			<result name="login2">
 				/WEB-INF/jsp/management/login/login.jsp
-			</result>
+			</result>   
 		</action>
-
-		<!-- <action name="*/*" class="dwz.present.app.common.{1}Action" method="{2}"></action> -->
-	</package>
+ 	</package>
 
 
 	<package name="management" namespace="/management"

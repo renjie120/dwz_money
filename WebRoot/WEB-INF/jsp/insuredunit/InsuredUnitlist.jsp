@@ -16,11 +16,11 @@
 				<tr>
 					<td> 
 						编号</td><td>
-								<input name="unitCode" class="textInput" size="30" type="text"   />
+							<input name="unitCode"   class="textInput " type="text"  value="<s:property value="vo.unitCode"/>" />
 					</td> 
 					<td> 
 						投保单位 </td><td>
-								<input name="unitName" class="textInput" size="30" type="text"   />
+							<input name="unitName"   class="textInput " type="text"  value="<s:property value="vo.unitName"/>" />
 					</td> 
 				</tr>
 			</table>
@@ -86,7 +86,7 @@
 						上级单位 
 				</th> 
 				<th width="100"    orderField="UNITSTATE" >
-						状态 
+						是否显示 
 				</th> 
 				<th width="100"    orderField="UNITADDRESS" >
 						地址 

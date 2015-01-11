@@ -22,10 +22,22 @@
 							<input type="text" name="${attr.name}" class="date" size="30" />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
-						 	<#if '${attr.selectType}'!=''>
-								<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" />
+						 	<#if '${attr.showType}'='select'>
+							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" allSelected="true" />
 							<#else>
-								<input name="${attr.name}" class="textInput" size="30" type="text"   />
+								<#if '${attr.showType}'='email'>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="email"     type="text"  value="<s:property value="vo.${attr.name}"/>" />
+									<#else>
+										<#if '${attr.showType}'='digits'>
+							<input name="${attr.name}"<#if '${attr.size}'!=''>size="${attr.size}"</#if>   class="digits"   type="text"  value="<s:property value="vo.${attr.name}"/>" />
+										<#else>
+											<#if '${attr.showType}'='number'>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="number "  type="text"  value="<s:property value="vo.${attr.name}"/>" />
+											<#else>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="textInput " type="text"  value="<s:property value="vo.${attr.name}"/>" />
+											</#if>
+										</#if>
+									</#if>
 							</#if> 
 						</#if>
 					</td> 

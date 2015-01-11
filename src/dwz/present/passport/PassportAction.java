@@ -21,12 +21,15 @@ public class PassportAction extends BaseAction {
 				loginOk = true;
 			} else {
 				setStatusCode(300);
-				setMessage(this.getText("msg.validation.code.match"));
+				setMessage(this.getText("msg.validation.code.match")); 
 			}
 
 		} catch (AuthenticationException e) {
 			setStatusCode(300);
-			setMessage(e.getLocalizedMessage());
+			setMessage(e.getLocalizedMessage());  
+			backToUrl = "/management/index!login.do?errorCode=1";
+			request.setAttribute("loginError", "31");
+			return SUCCESS;
 		}
 
 		if (backToUrl == null || backToUrl.trim().length() == 0) {

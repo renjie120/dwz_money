@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.io.File;
 import java.util.Map;
- 
+
 import common.util.NPOIReader;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
@@ -13,6 +13,8 @@ import common.util.DateTool;
 import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -93,21 +95,21 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 	
 		<#list model.attributes as attr>
 		<#assign has_selec_type=0>
-		<#if '${attr.selectType}'!=''&&has_selec_type=0>
+		<#if '${attr.showType}'='select'&&has_selec_type=0>
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
 		<#assign has_selec_type=1>
 		</#if>
-		<#if '${attr.selectType}'!=''>
-		ParamSelect select_${attr.selectType} = allSelect
-				.getParamsByType(AllSelectContants.${attr.selectType?upper_case}.getName());
+		<#if '${attr.showType}'='select'>
+		ParamSelect select_${attr.selectCode} = allSelect
+				.getParamsByType(AllSelectContants.${attr.selectCode?upper_case}.getName());
 		</#if>
 		</#list>
 		
 		for (${vo} po : voList) {
 			<#list model.attributes as attr> 
-			<#if '${attr.selectType}'!=''>
-			po.set${attr.name?cap_first}(select_${attr.selectType}.getName("" + po.get${attr.name?cap_first}())); 
+			<#if '${attr.showType}'='select'>
+			po.set${attr.name?cap_first}(select_${attr.selectCode}.getName("" + po.get${attr.name?cap_first}())); 
 			</#if>
 			</#list>
 			eaList.add(new  ${model.className}Impl(po));

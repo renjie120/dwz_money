@@ -1,36 +1,27 @@
-<#include "/com.renjie120.codegenerate.common.ftl">
+
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<form id="pagerForm" method="post" action="/money/${nm}!query.do">
+<form id="pagerForm" method="post" action="/money/insuredcompanyselect!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
-	<input type="hidden" name="orderField" value="${orderField}" />
+	<input type="hidden" name="orderField" value="${param.orderField}" />
 	<input type="hidden" name="orderDirection"
-		value="${orderDirection}" />
+		value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
-		action="/money/${nm}!query.do" method="post">
+		action="/money/insuredcompanyselect!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
-					<#list model.attributes as attr>  
-					<#if "${attr.query}"='true'>
 					<td> 
-						${attr.desc}</td><td>
-						<#if '${attr.type}'='date'>
-							<input type="text" name="${attr.name}" class="date" size="30" />
-							<a class="inputDateButton" href="javascript:;">选择</a>
-						<#else>
-						 	<#if '${attr.selectType}'!=''>
-								<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" />
-							<#else>
-								<input name="${attr.name}" class="textInput" size="30" type="text"   />
-							</#if> 
-						</#if>
+						保险公司名称</td><td>
+							<input name="comName"   class="textInput " type="text"  value="<s:property value="vo.comName"/>" />
 					</td> 
-					</#if>
-					</#list>    
+					<td> 
+						是否显示 </td><td>
+							<my:newselect tagName="comStatus"  paraType="yesorno" width="100" allSelected="true" />
+					</td> 
 				</tr>
 			</table>
 			<div class="subBar">
@@ -45,7 +36,7 @@
 						</div>
 					</li>
 					<li>
-						<a class="button" href="/money/${nm}!beforeQuery.do"
+						<a class="button" href="/money/insuredcompanyselect!beforeQuery.do"
 							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
 					</li>
 				</ul>
@@ -57,23 +48,14 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add" href="/money/${nm}!beforeAdd.do" target="dialog" mask="true"
+				<a class="add" href="/money/insuredcompanyselect!beforeAdd.do" target="dialog" mask="true"
 					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
-				<a class="delete" href="/money/${nm}!doDelete.do" postType="string"
+				<a class="delete" href="/money/insuredcompanyselect!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
-			<li>
-				<a class="edit" href="/money/${nm}!beforeUpdate.do?${model.keyName}={${model.keyName}}" mask="true"
-					target="dialog" title="修改"><span>修改</span> </a>
-			</li>
-			<li>
-				<a class="icon" href="/money/${nm}!export.do" target="dwzExport"
-					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
-			</li>
-
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">
@@ -82,29 +64,27 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<#list model.attributes as attr> 
-				<#if "${attr.visible}"!='false'>
-				<th width="${attr.width}"    orderField="${attr.name?upper_case}" >
-						${attr.desc} 
+				<th width="100"    orderField="COMNAME" >
+						保险公司名称 
 				</th> 
-				</#if>
-				</#list>    
+				<th width=""    orderField="COMSTATUS" >
+						是否显示  
+				</th> 
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="list" status="stu">
-				<tr target="${model.keyName}" rel="<s:property value="${model.keyName}" />">
+				<tr target="sno" rel="<s:property value="sno" />">
 					<td>
-						<input name="ids" value="<s:property value="${model.keyName}" />"
+						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
-					<#list model.attributes as attr>  
-					<#if "${attr.visible}"!='false'>
 					<td>
-						<s:property value="${attr.name}" />
+						<s:property value="comName" />
 					</td> 
-					</#if>
-					</#list>   
+					<td>
+						<s:property value="comStatus" />
+					</td> 
 				</tr>
 			</s:iterator>
 		</tbody>

@@ -11,7 +11,12 @@
 	<bean id="loginfoManager" class="ido.loginfo.LogInfoManagerImpl">
 		<constructor-arg index="0" ref="loginfoDao"></constructor-arg>
 	</bean>
-
+	<bean id="insuredcompanyselectManager" class="ido.Dict_InsuredCompany.InsuredCompanySelectManagerImpl">
+		<constructor-arg index="0" ref="insuredcompanyselectDao"></constructor-arg>
+	</bean>
+	<bean id="insuredcompanyManager" class="ido.InsuredCompany.InsuredCompanyManagerImpl">
+		<constructor-arg index="0" ref="insuredcompanyDao"></constructor-arg>
+	</bean>
 
 	<bean id="rolewithmenuManager" class="money.rolemanager.RoleWithMenuManagerImpl">
 		<constructor-arg index="0" ref="rolewithmenuDao"></constructor-arg>

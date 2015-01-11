@@ -150,14 +150,14 @@ public class InsuredUnitVO implements Serializable {
  	}
 	private String unitState; 
  	/**
- 	 * 获取状态的属性值.
+ 	 * 获取是否显示的属性值.
  	 */
  	public String getUnitState(){
  		return unitState;
  	}
  	
  	/**
- 	 * 设置状态的属性值.
+ 	 * 设置是否显示的属性值.
  	 */
  	public void setUnitState(String unitstate){
  		this.unitState = unitstate;

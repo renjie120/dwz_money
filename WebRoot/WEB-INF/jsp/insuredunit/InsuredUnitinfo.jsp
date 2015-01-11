@@ -44,9 +44,9 @@
 					</div>
 					 <div class="unit">
 						<label>
-							状态:
+							是否显示:
 						</label>
-							<input name="unitState" class="textInput "  type="text"   />
+							<my:newselect tagName="unitState"  paraType="yesorno" width="100"  />
 					</div>
 					 <div class="unit">
 						<label>

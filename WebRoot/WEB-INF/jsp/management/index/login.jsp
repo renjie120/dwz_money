@@ -116,7 +116,7 @@ input.login-field {
 						<td>(默认为1)</td>
 					</tr>
 					<tr>
-						<td colspan="3"><input class="login-button" type="submit"
+						<td colspan="3" align="center"><span style='color:red'><%if(request.getParameter("errorCode")!=null) out.print("用户名密码不匹配");else System.out.println(123); %></span><input class="login-button" type="submit"
 							value="登陆" /></td>
 					</tr>
 				</table>

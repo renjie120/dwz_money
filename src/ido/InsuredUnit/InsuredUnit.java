@@ -39,7 +39,7 @@ public interface InsuredUnit extends BusinessObject {
  	 */
  	public  int   getUnitParentId();
  	/**
- 	 * 获取状态的属性值.
+ 	 * 获取是否显示的属性值.
  	 */
  	public  String   getUnitState();
  	/**

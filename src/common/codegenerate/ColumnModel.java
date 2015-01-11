@@ -10,9 +10,75 @@ public class ColumnModel {
 	// VO中的属性名
 	private String name;
 	private String noedit;
+	private String fromTable;
+	private String idCoulmn;
+	private String nameColumn;
+	private String allSelect;
+	public String getAllSelect() {
+		return allSelect;
+	}
+
+	public void setAllSelect(String allSelect) {
+		this.allSelect = allSelect;
+	}
+
+	public String getFromTable() {
+		return fromTable;
+	}
+
+	public void setFromTable(String fromTable) {
+		this.fromTable = fromTable;
+	}
+
+	public String getIdCoulmn() {
+		return idCoulmn;
+	}
+
+	public void setIdCoulmn(String idCoulmn) {
+		this.idCoulmn = idCoulmn;
+	}
+
+	public String getNameColumn() {
+		return nameColumn;
+	}
+
+	public void setNameColumn(String nameColumn) {
+		this.nameColumn = nameColumn;
+	}
+
 	private String noadd;
 	private String currentUser;
 	private String currentTime;
+	//是否可以导入
+	private String canImport;
+	//数据库中唯一字段
+	private String notNullInDb;
+	public String getNotNullInDb() {
+		return notNullInDb;
+	}
+
+	public void setNotNullInDb(String notNullInDb) {
+		this.notNullInDb = notNullInDb;
+	}
+
+	//是否可以导出该字段
+	private String canExport;
+	public String getCanExport() {
+		return canExport;
+	}
+
+	public void setCanExport(String canExport) {
+		this.canExport = canExport;
+	}
+
+	public String getCanImport() {
+		return canImport;
+	}
+
+	public void setCanImport(String canImport) {
+		this.canImport = canImport;
+	}
+
 	//数据的最大长度.
 	private String size;
 

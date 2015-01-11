@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.InsuredCompany.InsuredCompanyVO" table="Insured_company">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="comName" column="com_name" type="string" />
+				<property name="comNo" column="com_no" type="string" />
+				<property name="comShortName" column="Com_shortname" type="string" />
+				<property name="comPhone" column="Com_phone" type="string" />
+				<property name="comContactName" column="com_ContactName" type="string" />
+				<property name="comContactPhone" column="com_Contactphone" type="string" />
+				<property name="ownerCompany" column="Owner_company" type="string" />
+				<property name="comEmail" column="Com_email" type="string" />
+				<property name="comAddress" column="Com_address" type="string" />
+				<property name="comRemark" column="Com_remark" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.InsuredCompany.InsuredCompanyDao.findRecordById">
+		<![CDATA[from InsuredCompanyVO as insuredCompanyDao where sno = ?]]>
+	</query>
+</hibernate-mapping>

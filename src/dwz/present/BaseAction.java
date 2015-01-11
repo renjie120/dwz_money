@@ -1,5 +1,8 @@
 ﻿package dwz.present;
 
+import ido.loginfo.LogInfoImpl;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,19 +21,57 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionProxy;
 import com.opensymphony.xwork2.ActionSupport;
+import common.util.DateUtil;
 
 import dwz.framework.config.Configuration;
 import dwz.framework.constants.Constants;
 import dwz.framework.context.AppContext;
 import dwz.framework.context.AppContextHolder;
+import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.core.factory.BusinessFactory;
 import dwz.framework.el.ServerInfo;
 import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
 import dwz.framework.utils.StringUtils;
 
 public class BaseAction extends ActionSupport implements ServletRequestAware,
 		ServletResponseAware {
 
+	public boolean compare(Object o,Object o2){
+		if(o==null&&o2!=null)
+			return false;
+		if(o!=null&&o2==null)
+			return false;
+		if(!o.equals(o2))
+			return false;
+		return true;
+	}
+	
+	/**
+	 * 添加日志.
+	 * @param operType
+	 * @param url
+	 * @param before
+	 * @param after
+	 * @param desc
+	 */
+	public void insertLog(LogInfoManager logMgr,String operType,String url,String before,String after,String desc){
+		try {
+			// 添加操作记录
+			User currentUser = (UserImpl) request.getSession().getAttribute(
+					Constants.AUTHENTICATION_KEY);
+			LogInfoImpl loginfoImpl = new LogInfoImpl(
+					Integer.parseInt(currentUser.getId()),
+					currentUser.getUserName(), DateUtil.nowString(), operType,
+					request.getRemoteAddr(), url, before, after,
+					desc);
+			logMgr.createLogInfo(loginfoImpl);
+		} catch (ValidateFieldsException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * 
 	 */

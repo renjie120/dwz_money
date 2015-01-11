@@ -22,13 +22,29 @@
 							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"  value="<s:property value="vo.${attr.name}"/>" />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
-							<#if '${attr.textarea}'='true'>
-								<textarea  <#if "${attr.noedit}"='true'>readonly='true'</#if> class="<#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" name="${attr.name}" cols="30" rows="2"><s:property value="vo.${attr.name}"/></textarea>
+							<#if '${attr.showType}'='textarea'>
+							<textarea  <#if '${attr.size}'!=''>size="${attr.size}"</#if>  <#if "${attr.noedit}"='true'>readonly='true'</#if> class="<#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" name="${attr.name}" cols="30" rows="2"><s:property value="vo.${attr.name}"/></textarea>
 							<#else>
-								<#if '${attr.selectType}'!=''>
-									<my:newselect tagName="${attr.name}"  paraType="${attr.selectType}" width="100" allSelected="true" selectedValue="<%=vo.get${attr.name?cap_first}() %>"/>									
+								<#if '${attr.showType}'='select'>
+							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> selectedValue="<%=vo.get${attr.name?cap_first}() %>"/>									
 								<#else>
-									<input name="${attr.name}" class="textInput  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if> size="30" type="text"  value="<s:property value="vo.${attr.name}"/>" />
+									<#if '${attr.showType}'='email'>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="email  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if>   type="text"  value="<s:property value="vo.${attr.name}"/>" />
+									<#else>
+										<#if '${attr.showType}'='digits'>
+							<input name="${attr.name}"<#if '${attr.size}'!=''>size="${attr.size}"</#if>   class="digits  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if>  type="text"  value="<s:property value="vo.${attr.name}"/>" />
+										<#else>
+											<#if '${attr.showType}'='number'>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="number  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if>   type="text"  value="<s:property value="vo.${attr.name}"/>" />
+											<#else>
+												<#if '${attr.showType}'='dict'>
+							<my:newselect tagName="${attr.name}"   tableName="${attr.fromTable}" nameColumn="${attr.nameColumn}" idColumn ="${attr.idCoulmn}"  width="100"  <#if "${attr.allSelect}"='true'>allSelected="true"</#if> selectedValue="<%=vo.get${attr.name?cap_first}() %>"/>									
+												<#else>
+							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="textInput  <#if "${attr.notnull}"='true'&&"${attr.noedit}"!='true'>required</#if>" <#if "${attr.noedit}"='true'>readonly='true'</#if>   type="text"  value="<s:property value="vo.${attr.name}"/>" />
+												</#if>
+											</#if>
+										</#if>
+									</#if>
 								</#if>
 							</#if>							
 						</#if>

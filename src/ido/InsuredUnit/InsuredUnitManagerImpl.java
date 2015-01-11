@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.io.File;
 import java.util.Map;
- 
+
 import common.util.NPOIReader;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
@@ -14,6 +14,8 @@ import common.util.DateTool;
 import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -92,8 +94,13 @@ public class InsuredUnitManagerImpl extends AbstractBusinessObjectManager implem
 		if (voList == null || voList.size() == 0)
 			return eaList;
 	
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_yesorno = allSelect
+				.getParamsByType(AllSelectContants.YESORNO.getName());
 		
 		for (InsuredUnitVO po : voList) {
+			po.setUnitState(select_yesorno.getName("" + po.getUnitState())); 
 			eaList.add(new  InsuredUnitImpl(po));
 		}
 

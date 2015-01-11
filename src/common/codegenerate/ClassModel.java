@@ -174,6 +174,17 @@ public class ClassModel {
 	private String keyName;
 	private String keyColumn;
 	private String keyType;
+	/**
+	 * 主键对应的数据库字段类型
+	 */
+	private String keyColumnType;
+	public String getKeyColumnType() {
+		return keyColumnType;
+	}
+
+	public void setKeyColumnType(String keyColumnType) {
+		this.keyColumnType = keyColumnType;
+	}
 	private String keyDesc;
 	public String getKeyName() {
 		return keyName;

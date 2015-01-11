@@ -1,5 +1,7 @@
 package dwz.present.app.management;
 
+import org.hibernate.Session;
+
 import money.role.UserMenuRightManager;
 import money.tree.TreeManager;
 
@@ -52,6 +54,8 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 	}
 
 	public String login() {
+		System.out.println("loginError---"+request.getSession().getAttribute("loginError"));
+		if(request.getAttribute("errorCode")!=null) System.out.println(request.getAttribute("errorCode"));else System.out.println(123); 
 		if (ServerInfo.isAjax(request)) {
 			return "loginDialog";
 		}

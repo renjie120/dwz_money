@@ -1,19 +1,21 @@
 <#include "/com.renjie120.codegenerate.common.ftl">package ${model.packageName};
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Date;
+import java.io.FileOutputStream; 
+import java.util.*; 
+
+import com.alibaba.fastjson.JSON;
 import common.util.CommonUtil;
+
 import com.opensymphony.xwork2.ActionContext; 
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
 
+import ido.loginfo.LogInfoManager;
 /**
  * 关于${model.classDesc}的Action操作类.
  * @author ${author}
@@ -25,6 +27,8 @@ public class ${bignm}Action extends BaseAction {
 	 *  序列化对象.
 	 */
 	private static final long serialVersionUID = 1L;
+	// 操作日志接口对象.
+	LogInfoManager logMgr = bf.getManager(BeanManagerKey.loginfoManager);
 	//业务接口对象.
 	${bignm}Manager pMgr = bf.getManager(BeanManagerKey.${classarg}Manager);
 	//业务实体对象
@@ -48,11 +52,16 @@ public class ${bignm}Action extends BaseAction {
 	public String beforeAdd() {
 		return "detail";
 	}
-
+ 
+ 	/**
+ 	 * 添加${model.classDesc}.
+ 	 */
 	public String doAdd() {
 		try {
 			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2notkey nm=model.attributes />);
 			pMgr.create${bignm}(${classarg}Impl);
+			
+			insertLog(logMgr,"添加${model.classDesc}","/doAdd", "", "" ,JSON.toJSONString(${classarg}Impl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -120,6 +129,7 @@ public class ${bignm}Action extends BaseAction {
 			// 导入excel中的数据到数据库.
 			pMgr.importFromExcel(f);
 		}
+		insertLog(logMgr,"导入${model.classDesc}","/importExcel", "", "" ,"");  
 		writeToPage(response, "导入成功!");
 		return null;
 	}
@@ -127,19 +137,40 @@ public class ${bignm}Action extends BaseAction {
 
 	public String doDelete() {
 		String ids = request.getParameter("ids");
+		String[] allId = ids.split(",");
+		List<${bignm}> allDeleteIds = new ArrayList<${bignm}>();
+		for(String _id:allId){
+			allDeleteIds.add(pMgr.get${bignm}(Integer.parseInt(_id)));
+		}
 		pMgr.remove${bignm}s(ids);
+		
+		insertLog(logMgr,"删除${model.classDesc}","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
 	public String beforeUpdate() {
 		vo = pMgr.get${bignm}(${model.keyName});
 		return "editdetail";
-	}
-
+	} 
+	
 	public String doUpdate() {
 		try {
+			${bignm} old = pMgr.get${bignm}( sno );
+			String oldObj= "";
+			String newObj= ""; 
+			<#list model.attributes as attr>
+			if(!compare(old.get${attr.name?cap_first}(),${attr.name})){
+				oldObj += "${attr.name}="+old.get${attr.name?cap_first}()+";";
+				newObj+= "${attr.name}="+${attr.name}+";";
+			} 
+			</#list>
+			
 			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
 			pMgr.update${bignm}(${classarg}Impl);
+			
+			insertLog(logMgr,"修改${model.classDesc}","/doUpdate", oldObj, 
+						newObj,
+						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(${classarg}Impl));  
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}
@@ -148,8 +179,8 @@ public class ${bignm}Action extends BaseAction {
 	} 
 	
 	public enum ExportFiled {
-		<#assign index=0><#assign size=model.attributes?size>
-		<#list model.attributes as attr>  ${attr.name?upper_case}("${attr.desc}")<#assign index=index+1><#if index<size>,</#if></#list>;
+		<#assign index=0> 
+		<#list model.attributes as attr><#if attr.canExport='true'>  <#if index!=0>,</#if>${attr.name?upper_case}("${attr.desc}")<#assign index=index+1></#if></#list>;
 		private String str;
 
 		ExportFiled(String str) {
@@ -191,9 +222,11 @@ public class ${bignm}Action extends BaseAction {
 			for (ExportFiled filed : ExportFiled.values()) {
 				switch (filed) {
 				<#list model.attributes as attr>
+				<#if attr.canExport='true'>
 					case ${attr.name?upper_case}:
 						 e.setCell(filed.ordinal(), ${classarg}.get${attr.name?cap_first}()); 
 					break;
+				</#if>
 				</#list>  
 				default:
 					break;
@@ -257,24 +290,20 @@ public class ${bignm}Action extends BaseAction {
 	private Map<${bignm}SearchFields, Object> getCriterias() {
 		Map<${bignm}SearchFields, Object> criterias = new HashMap<${bignm}SearchFields, Object>();
 		<#list model.attributes as attr>  
-		<#if "${attr.query}"='true'>
-		 	<#if '${attr.type}'='int'||'${attr.type}'='double'||'${attr.type}'='float'>
-			if (get${attr.name?cap_first}()!=null&&get${attr.name?cap_first}() !=0)
-				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, get${attr.name?cap_first}()); 
-			<#else>
-			 	<#if '${attr.type}'='string'>
-			 	<#if '${attr.selectType}'=''>
-			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}()))
-				<#else>
-			if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}())&&!"-1".equals(get${attr.name?cap_first}())&&!"-2".equals(get${attr.name?cap_first}()))
-				</#if>
-				<#if '${attr.querylike}'='true'>
-				criterias.put(${bignm}SearchFields.${attr.name?upper_case}, "%"+get${attr.name?cap_first}()+"%"); 
-				<#else>
-			 	criterias.put(${bignm}SearchFields.${attr.name?upper_case},  get${attr.name?cap_first}());
-				</#if>
-				</#if> 
-			</#if> 
+		<#if "${attr.query}"='true'> 
+			 	<#if '${attr.type}'='int'||'${attr.type}'='double'||'${attr.type}'='float'>
+		if (get${attr.name?cap_first}()!=null&&get${attr.name?cap_first}() !=0)
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}, get${attr.name?cap_first}()); 
+				<#else><#if '${attr.type}'='select'>
+		if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}())) 		
+				 	<#else> 
+		if (get${attr.name?cap_first}()!=null&&!"".equals(get${attr.name?cap_first}())&&!"-1".equals(get${attr.name?cap_first}())&&!"-2".equals(get${attr.name?cap_first}()))
+					</#if><#if '${attr.querylike}'='true'>
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}, "%"+get${attr.name?cap_first}()+"%"); 
+					<#else>
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case},  get${attr.name?cap_first}());
+					</#if> 
+				</#if>  
 		</#if>
 		</#list>  
 		return criterias;

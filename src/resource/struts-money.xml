@@ -6,6 +6,22 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="insuredcompanyselect"
+			class="ido.Dict_InsuredCompany.InsuredCompanySelectAction">
+			<result name="list">
+				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectedit.jsp
+			</result>
+			<result name="imort">
+				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectimport.jsp
+			</result>
+		</action>
+
 		<action name="insuredunit" class="ido.InsuredUnit.InsuredUnitAction">
 			<result name="list">
 				/WEB-INF/jsp/insuredunit/InsuredUnitlist.jsp
@@ -20,6 +36,22 @@
 				/WEB-INF/jsp/insuredunit/InsuredUnitimport.jsp
 			</result>
 		</action>
+
+		<action name="insuredcompany" class="ido.InsuredCompany.InsuredCompanyAction">
+			<result name="list">
+				/WEB-INF/jsp/insuredcompany/InsuredCompanylist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/insuredcompany/InsuredCompanyinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/insuredcompany/InsuredCompanyedit.jsp
+			</result>
+			<result name="imort">
+				/WEB-INF/jsp/insuredcompany/InsuredCompanyimport.jsp
+			</result>
+		</action>
+
 
 		<action name="loginfo" class="ido.loginfo.LogInfoAction">
 			<result name="list">
