@@ -1,0 +1,39 @@
+<class name="AddMoneyDetail" table="addmoney_record_detail" desc="充值记录明细"
+	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	package="ido.BusinessShop">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="iuserId" column="iuser_id" type="string"
+		notNullInDb="true" canImport="true" canExport="true" columnType="int(10)"
+		desc="投保用户号" width="100" notnull="true" query="true" />
+
+	<property name="addType" column="add_type" type="string"
+		showType="dict" columnType="int(10)" width="100" desc="充值字段" query="true" />
+
+	<property name="addMoney" column="Add_money" type="double"
+		showType="number" columnType="double" width="100" desc="充值金额 " />
+
+	<property name="insuredFileId" column="Insured_file_Id" type="string"
+		columnType="int(10)" width="100" desc="投保单号 " query="true" />
+
+	<property name="addTime" column="add_time" type="string"
+		showType="date" canExport="true" columnType="varchar(20)" desc="充值时间"
+		width="100" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

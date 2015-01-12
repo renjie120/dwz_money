@@ -1,5 +1,7 @@
 ﻿package money.cache;
 
+import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +69,9 @@ public class CacheAction extends BaseAction {
 		tMgr.initMenuCache();
 		
 		tMgr.initOrgCache();
+		
+		InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
+		pMgr.addCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 

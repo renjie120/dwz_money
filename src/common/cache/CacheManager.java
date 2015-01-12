@@ -1,5 +1,8 @@
 ﻿package common.cache;
 
+import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
+import ido.Dict_InsuredCompany.InsuredCompanySelectManagerImpl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -143,6 +146,28 @@ public class CacheManager {
 			return cache;
 		} else
 			return null;
+	}
+	
+	/**
+	 * 如果找不到缓存就实时更新最新缓存.
+	 * @param key
+	 * @return
+	 */
+	public static Cache getCacheInfoNotNull(String key) {
+		if (hasCache(key)) {
+			Cache cache = getCache(key);
+			if (cacheExpired(cache)) { // 调用判断是否终止方法
+				cache.setExpired(true);
+			}
+			return cache;
+		} else{
+			BusinessFactory bf = BusinessFactory.getFactory();
+			if(InsuredCompanySelectManagerImpl.CACHE_ID.equals(key)){
+				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
+				pMgr.addCache();
+			}
+			return getCache(key);
+		} 
 	}
 
 	/**

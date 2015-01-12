@@ -18,4 +18,8 @@
 	<query name="${model.packageName}.${dao}.findRecordById">
 		<![CDATA[from ${vo} as ${class2}Dao where ${model.keyName} = ?]]>
 	</query>
+
+	<query name="${model.packageName}.${dao}.findAll">
+		<![CDATA[from ${vo}  ]]>
+	</query>
 </hibernate-mapping>

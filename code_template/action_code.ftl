@@ -3,12 +3,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream; 
 import java.util.*; 
-
+import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
 import common.util.CommonUtil;
-
+import common.util.DateTool;
 import com.opensymphony.xwork2.ActionContext; 
-
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
@@ -52,15 +53,26 @@ public class ${bignm}Action extends BaseAction {
 	public String beforeAdd() {
 		return "detail";
 	}
- 
+  
  	/**
  	 * 添加${model.classDesc}.
  	 */
 	public String doAdd() {
 		try {
+			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+			<#list model.attributes as attr>
+				<#if attr.currentTime='true'>
+			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+				</#if>
+				<#if attr.currentUser='true'>
+			${attr.name} = Integer.parseInt(currentUser.getId());
+				</#if>
+			</#list>
 			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2notkey nm=model.attributes />);
 			pMgr.create${bignm}(${classarg}Impl);
-			
+			<#if model.addToCache='true'>
+			pMgr.addCache();
+			</#if>
 			insertLog(logMgr,"添加${model.classDesc}","/doAdd", "", "" ,JSON.toJSONString(${classarg}Impl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -136,6 +148,15 @@ public class ${bignm}Action extends BaseAction {
 
 
 	public String doDelete() {
+		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+		<#list model.attributes as attr>
+				<#if attr.currentTime='true'>
+		${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+				</#if>
+				<#if attr.currentUser='true'>
+		${attr.name} = Integer.parseInt(currentUser.getId());
+				</#if>
+			</#list>
 		String ids = request.getParameter("ids");
 		String[] allId = ids.split(",");
 		List<${bignm}> allDeleteIds = new ArrayList<${bignm}>();
@@ -143,7 +164,9 @@ public class ${bignm}Action extends BaseAction {
 			allDeleteIds.add(pMgr.get${bignm}(Integer.parseInt(_id)));
 		}
 		pMgr.remove${bignm}s(ids);
-		
+		<#if model.addToCache='true'>
+		pMgr.addCache();
+		</#if>
 		insertLog(logMgr,"删除${model.classDesc}","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
@@ -155,6 +178,16 @@ public class ${bignm}Action extends BaseAction {
 	
 	public String doUpdate() {
 		try {
+			// 当前用户
+			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+			<#list model.attributes as attr>
+				<#if attr.currentTime='true'>
+			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+				</#if>
+				<#if attr.currentUser='true'>
+			${attr.name} = Integer.parseInt(currentUser.getId());
+				</#if>
+			</#list>
 			${bignm} old = pMgr.get${bignm}( sno );
 			String oldObj= "";
 			String newObj= ""; 
@@ -167,7 +200,9 @@ public class ${bignm}Action extends BaseAction {
 			
 			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2 nm=model.attributes />);
 			pMgr.update${bignm}(${classarg}Impl);
-			
+			<#if model.addToCache='true'>
+			pMgr.addCache();
+			</#if>
 			insertLog(logMgr,"修改${model.classDesc}","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(${classarg}Impl));  

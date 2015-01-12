@@ -18,4 +18,8 @@
 	<query name="ido.Dict_InsuredCompany.InsuredCompanySelectDao.findRecordById">
 		<![CDATA[from InsuredCompanySelectVO as insuredCompanySelectDao where sno = ?]]>
 	</query>
+
+	<query name="ido.Dict_InsuredCompany.InsuredCompanySelectDao.findAll">
+		<![CDATA[from InsuredCompanySelectVO  ]]>
+	</query>
 </hibernate-mapping>

@@ -1,0 +1,62 @@
+<class name="ConsoleCompensation" table="console_Compensation_info"
+	desc="理赔单" exportFile="false" add="true" update="false" delete="true"
+	package="ido.ConsoleCompensation">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="ConsoleCompenseSno" column="Console_compense_id"
+		type="string" notNullInDb="true" canExport="true" columnType="varchar(200)"
+		desc="理赔单编号" width="100" notnull="true" query="true" />
+
+	<property name="comId" column="Com_id" type="string" showType="dict"
+		columnType="int(10)" width="100" desc="保险公司" />
+
+	<property name="shopId" column="Shop_id" type="string" showType="dict"
+		columnType="int(10)" width="100" desc="商家 " />
+
+	<property name="consumeNum" column="Consume_num" type="int"
+		showType="digits" columnType="int" width="100" desc="消费记录数量 " />
+
+	<property name="consoleNum" column="Console_num" type="int"
+		showType="digits" canExport="true" columnType="int" desc="理赔数量" width="100" />
+
+	<property name="consoleMoney" column="Console_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="理赔金额"
+		width="100" />
+
+	<property name="consoleMonth" column="Console_month" type="int"
+		columnType="int(10)" showType="select" canExport="true" columnType="month"
+		desc="理赔月份" width="100" />
+
+	<property name="consoleYear" column="Console_year" type="int"
+		showType="select" canExport="true" selectCode="year" columnType="int(10)"
+		desc="理赔年度" width="100" />
+
+	<property name="consoleStep" column="Console_step" type="string"
+		showType="select" canExport="true" selectCode="yesorno" columnType="int(10)"
+		desc="理赔进度" width="100" />
+
+	<property name="consoleStatus" column="Console_status" type="string"
+		showType="select" canExport="true" selectCode="yesorno" columnType="int(10)"
+		desc="理赔状态" width="100" />
+
+	<property name="errorMsg" column="Error_msg" type="string"
+		maxLenght="2000" showType="textarea" rows="4" cols="40" columnType="varchar(4000)"
+		desc="异常情况" width="100" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

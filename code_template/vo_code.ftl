@@ -3,13 +3,14 @@
 import dwz.framework.core.business.BusinessObject;
 import java.util.Date;
 import java.io.Serializable;
+import common.base.SelectAble;
 /**
  * 关于${model.classDesc}的实体bean.
  * @author ${author}
  * ${auth}
  * ${website}
  */ 
-public class ${vo} implements Serializable {
+public class ${vo} implements Serializable<#if model.addToCache='true'>,SelectAble</#if> {
 	private static final long serialVersionUID = 1L;
 	
 	public ${vo}() {
@@ -31,4 +32,16 @@ public class ${vo} implements Serializable {
 	}
 	 
   <@allGetAndSet nm=model.attributes />
+
+	<#if model.addToCache='true'>
+	@Override
+	public String getOptionId() {
+		return this.get${model.cacheIdColumn?cap_first}()+"";
+	}
+
+	@Override
+	public String getOptionName() {
+		return this.get${model.cacheNameColumn?cap_first}()+"";
+	}
+	</#if>
 }

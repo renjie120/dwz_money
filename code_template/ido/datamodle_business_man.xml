@@ -1,0 +1,82 @@
+<class name="BusinessMan" table="business_man" desc="商家"
+	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	package="ido.BusinessMan">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="shopmSno" column="shopm_sno" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
+		columnType="varchar(500)" desc="商家编号" width="100" notnull="true"
+		query="true" />
+
+	<property name="shopmName" column="shopm _name" type="string"
+		maxLength="250" notNullInDb="true" canImport="true" canExport="true"
+		columnType="varchar(500)" width="100" desc="商家名称 " query="true"
+		querylike="true" />
+
+	<property name="shopmShortName" column="Shopm_shortname" type="string"
+		maxLength="100" notNullInDb="true" canImport="true" canExport="true"
+		columnType="varchar(200)" width="100" desc="商家简称 " query="true"
+		querylike="true" />
+
+	<property name="shopmType" column="Shopm_type" type="string"
+		showType="select" selectCode="shopmtype" columnType="int(10)" width="100"
+		desc="商家类型 " query="true" />
+
+	<property name="shopmEmail" column="shopm_email" type="string"
+		canImport="true" canExport="true" maxLength="250" columnType="varchar(500)"
+		showType="email" width="100" desc="邮箱" />
+
+	<property name="shopmConPhone" column="shopm_contact_phone"
+		type="string" canImport="true" canExport="true" maxLength="20"
+		columnType="varchar(20)" desc="联系人手机" width="100" />
+
+	<property name="shopmContactName" column="shopm_contactname"
+		type="string" canImport="true" canExport="true" maxLength="50"
+		columnType="varchar(100)" desc="联系人名称" width="100" />
+
+	<property name="shopmAddress" column="Shopm_address" type="string"
+		showType="textarea" rows="4" cols="40" canImport="true" canExport="true"
+		columnType="varchar(500)" maxLength="250" width="100" desc="地址" />
+
+	<property name="openBank" column="Open_Bank" type="string"
+		columnType="int(10)" showType="dict" width="100" desc="开户行" />
+
+	<property name="openBankName" column="Open_bank_name" type="string"
+		maxLength="100" columnType="varchar(100)" width="100" desc="户名" />
+
+	<property name="openBankNo" column="Open_bank_no" type="string"
+		columnType="varchar(100)" maxLength="100" desc="银行帐号" />
+
+	<property name="openTicketUnit" column="Open_ticket_unit"
+		type="string" columnType="Varchar(500)" maxLength="250" width="100"
+		desc="开票单位" />
+
+	<property name="OpenBankProvince" column="Open_bank_province"
+		type="string" columnType="int(10)" showType="select" selectCode="yesorno"
+		width="100" desc="开户所在省" />
+
+	<property name="OpenBankCity" column="Open_bank_city" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="开户所在市" />
+
+	<property name="compensationDay" column="Compensation_day"
+		type="string" columnType="varchar(20)" showType="date" width="100"
+		desc="理赔截止日期" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

@@ -41,3 +41,15 @@ spring.cfg.xml
 </value>
 
 /money/${nm}!query.do
+
+
+在money.cache.CacheAction中添加：
+${bignm}Manager p${bignm}Mgr = bf.getManager(BeanManagerKey.${classarg}Manager);
+p${bignm}Mgr.addCache();
+
+
+在CacheManager中：
+if(p${bignm}Impl.CACHE_ID.equals(key)){
+	${bignm}Manager p${bignm}Mgr = bf.getManager(BeanManagerKey.${classarg}Manager);
+	p${bignm}Mgr.addCache();
+}

@@ -18,19 +18,15 @@
 
 	<bean id="ds" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<!-- 
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/dwz4j" 
+			/> <property name="user" value="root" /> <property name="password" value="987425" 
+			/> <property name="jdbcUrl" value="jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120" 
+			/> <property name="user" value="renjie120" /> <property name="password" value="lisq2014ZSQ" 
+			/> -->
 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/dwz4j" />
 		<property name="user" value="root" />
 		<property name="password" value="987425" />
-		
-		<property name="jdbcUrl" value="jdbc:mysql://renjie120.gotoftp2.com:3306/renjie120" />
-		<property name="user" value="renjie120" />
-		<property name="password" value="lisq2014ZSQ" />
-		 -->
-		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/dwz4j" />
-		<property name="user" value="root" />
-		<property name="password" value="987425" />
-		
+
 		<property name="minPoolSize" value="10" />
 		<!--连接池中保留的最大连接数。Default: 15 -->
 		<property name="maxPoolSize" value="100" />
@@ -241,6 +237,5 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 
 	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
-	</bean>
-
+	</bean> 
 </beans>

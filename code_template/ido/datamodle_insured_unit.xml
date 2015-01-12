@@ -31,7 +31,7 @@
 
 	<property name="unitState" column="unit_state" type="string"
 		showType="select" selectCode="yesorno" canImport="true" canExport="true"
-		columnType="int" width="100" desc="是否显示" />
+		columnType="int(10)" width="100" desc="是否显示" />
 
 	<property name="unitAddress" column="unit_address" type="string"
 		canImport="true" canExport="true" maxLength="250" cols="40" rows="4"

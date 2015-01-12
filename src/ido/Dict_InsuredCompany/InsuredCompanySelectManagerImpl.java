@@ -1,19 +1,18 @@
 
 package ido.Dict_InsuredCompany;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -236,4 +235,19 @@ public class InsuredCompanySelectManagerImpl extends AbstractBusinessObjectManag
 		return new InsuredCompanySelectImpl(insuredcompanyselect);
 	}
 
+	public static final String CACHE_ID="insuredcompany_dict";
+	 
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<InsuredCompanySelectVO> all = this.insuredcompanyselectdao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(CACHE_ID);
+		Cache c = new Cache(); 
+		c.setKey(CACHE_ID);
+		c.setValue(ans);
+		c.setName("保险公司字典表"); 
+		CacheManager.putCache(CACHE_ID, c);
+	}
 }

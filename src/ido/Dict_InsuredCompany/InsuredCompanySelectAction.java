@@ -61,7 +61,7 @@ public class InsuredCompanySelectAction extends BaseAction {
 		try {
 			InsuredCompanySelectImpl insuredcompanyselectImpl = new InsuredCompanySelectImpl(comName ,comStatus ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredCompanySelect(insuredcompanyselectImpl);
-			
+			pMgr.addCache();
 			insertLog(logMgr,"添加保险公司字典表","/doAdd", "", "" ,JSON.toJSONString(insuredcompanyselectImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -144,7 +144,7 @@ public class InsuredCompanySelectAction extends BaseAction {
 			allDeleteIds.add(pMgr.getInsuredCompanySelect(Integer.parseInt(_id)));
 		}
 		pMgr.removeInsuredCompanySelects(ids);
-		
+		pMgr.addCache();
 		insertLog(logMgr,"删除保险公司字典表","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
@@ -190,7 +190,7 @@ public class InsuredCompanySelectAction extends BaseAction {
 			
 			InsuredCompanySelectImpl insuredcompanyselectImpl = new InsuredCompanySelectImpl( sno , comName , comStatus , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredCompanySelect(insuredcompanyselectImpl);
-			
+			pMgr.addCache();
 			insertLog(logMgr,"修改保险公司字典表","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(insuredcompanyselectImpl));  

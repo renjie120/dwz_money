@@ -13,7 +13,8 @@ import common.util.DateTool;
 import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
-
+import common.cache.Cache;
+import common.cache.CacheManager;
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -99,10 +100,14 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
 		<#assign has_selec_type=1>
-		</#if>
+		</#if>	
 		<#if '${attr.showType}'='select'>
 		ParamSelect select_${attr.selectCode} = allSelect
 				.getParamsByType(AllSelectContants.${attr.selectCode?upper_case}.getName());
+		</#if>
+		<#if '${attr.showType}'='dict'>
+		Cache cache_${attr.name} = CacheManager.getCacheInfoNotNull("${attr.useCacheId}");
+		ParamSelect select_${attr.name} = (ParamSelect)cache_${attr.name}.getValue();
 		</#if>
 		</#list>
 		
@@ -110,6 +115,9 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			<#list model.attributes as attr> 
 			<#if '${attr.showType}'='select'>
 			po.set${attr.name?cap_first}(select_${attr.selectCode}.getName("" + po.get${attr.name?cap_first}())); 
+			</#if>
+			<#if '${attr.showType}'='dict'>
+			po.set${attr.name?cap_first}(select_${attr.name}.getName("" + po.get${attr.name?cap_first}())); 
 			</#if>
 			</#list>
 			eaList.add(new  ${model.className}Impl(po));
@@ -201,4 +209,21 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		return new ${model.className}Impl(${classarg});
 	}
 
+	<#if model.addToCache='true'>
+	public static final String CACHE_ID="${model.cacheName}";
+	 
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<${vo}> all = this.${daoarg}.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(CACHE_ID);
+		Cache c = new Cache();
+		c.setKey(CACHE_ID);
+		c.setValue(ans);
+		c.setName("${model.classDesc}");
+		CacheManager.putCache(CACHE_ID, c);
+	}
+	</#if>
 }

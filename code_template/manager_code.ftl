@@ -26,6 +26,14 @@ public interface ${model.className}Manager  extends BusinessObjectManager {
 	public Collection<${beanname}> search${beanname}(Map<${beanname}SearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
+	<#if model.addToCache='true'>
+	/**
+	 * 添加到缓存.
+	 */
+	@Transactional
+	public void addCache() ;
+	</#if>
+
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件

@@ -1,0 +1,82 @@
+<class name="InsuredUser" table="Insured_user" desc="投保用户"
+	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	package="ido.BusinessShop">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="iuserNo" column="Iuser_no" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="50"
+		columnType="varchar(100)" desc="投保用户编号" width="100" notnull="true"
+		query="true" />
+
+	<property name="comId" column="Com_id" type="string" showType="dict"
+		columnType="int(10)" width="100" desc="所投保险公司 " query="true" />
+
+	<property name="unitId" column="unit_id" type="string"
+		showType="dict" columnType="int(10)" width="100" desc="所属投保单位 " query="true" />
+
+	<property name="iuserStatus" column="Iuser_status" type="string"
+		showType="select" selectCode="yesorno" columnType="int(10)" width="100"
+		desc="状态 " query="true" />
+
+	<property name="iuserNumber" column="Iuser_number" type="string"
+		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
+		desc="员工号" width="100" />
+
+	<property name="leftMoney" column="Left_money" type="string"
+		columnType="double" showType="number" width="100" desc="余额" />
+
+	<property name="emergencyMoney" column="Emergency_money" type="string"
+		columnType="double" showType="number" width="100" desc="门急诊额度" />
+
+	<property name="frozenMoney" column="Frozen_money" type="string"
+		columnType="double" showType="number" width="100" desc="冻结金额" />
+
+	<property name="hospitalMoney" column="Hospital_money" type="string"
+		columnType="double" showType="number" width="100" desc="住院报销额度" />
+
+	<property name="tesMoney" column="test_money" type="string"
+		showType="number" columnType="double" width="100" desc="体检额度" />
+
+	<property name="iuserName" column="Iuser_name" type="string"
+		maxLength="50" columnType="varchar(100)" maxLength="100" desc="姓名" />
+
+	<property name="iuserIsman" column="Iuser_isman" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="性别" />
+
+	<property name="iuserCardno" column="Iuser_cardno" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="省份" />
+
+	<property name="iuserPhone" column="Iuser_phone" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="市" />
+
+	<property name="iuserEmail" column="Iuser_email" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="区县" />
+
+	<property name="iuserBirthday" column="Iuser_birthday" type="string"
+		columnType="varchar(20)" showType="date" width="100" desc="生日" />
+
+	<property name="iuserRemark" column="Iuser_remark" type="string"
+		maxLength="1000" columnType="varchar(2000)" showType="date" width="100"
+		desc="备注" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

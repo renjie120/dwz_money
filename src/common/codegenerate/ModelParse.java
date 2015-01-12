@@ -54,11 +54,25 @@ public class ModelParse {
 		return true;
 	}
 
+	String cacheIdColumn,cacheNameColumn,cacheName;
 	public ClassModel parse() {
 		ClassModel model = new ClassModel();
 		Document doc = DomUtil.getXmlDocument(fileName);
 		Node list = doc.getElementsByTagName("class").item(0);
 		table = DomUtil.getAttribute(list, "table");
+		
+		//下面设置缓存相关配置信息.
+		cacheNameColumn = DomUtil.getAttribute(list, "cacheNameColumn");
+		cacheIdColumn = DomUtil.getAttribute(list, "cacheIdColumn");
+		cacheName = DomUtil.getAttribute(list, "cacheName");
+		if(cacheName!=null&&"".equals(cacheName.trim())){
+			model.setAddToCache("false");
+		}else
+			model.setAddToCache("true");
+		model.setCacheIdColumn(cacheIdColumn);
+		model.setCacheName(cacheName);
+		model.setCacheNameColumn(cacheNameColumn);
+		
 		packageName = DomUtil.getAttribute(list, "package");
 		className = DomUtil.getAttribute(list, "name");
 		arg1 = DomUtil.getAttribute(list, "arg1");
@@ -88,6 +102,10 @@ public class ModelParse {
 				config.setFromTable(DomUtil.getAttribute(child, "fromTable"));
 				// 来自业务字典表的id列
 				config.setIdCoulmn(DomUtil.getAttribute(child, "idCoulmn"));
+				/**
+				 * 使用缓存id的键.
+				 */
+				config.setUseCacheId(DomUtil.getAttribute(child, "useCacheId"));
 				// 来自业务字典表的name列
 				config.setNameColumn(DomUtil.getAttribute(child, "nameColumn"));
 				// 下拉菜单是否含有全选按钮

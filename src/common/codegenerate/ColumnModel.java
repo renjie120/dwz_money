@@ -14,6 +14,16 @@ public class ColumnModel {
 	private String idCoulmn;
 	private String nameColumn;
 	private String allSelect;
+	//使用缓存id.(在表单类型是select的时候才有用)
+	private String useCacheId;
+	public String getUseCacheId() {
+		return useCacheId;
+	}
+
+	public void setUseCacheId(String useCacheId) {
+		this.useCacheId = useCacheId;
+	}
+
 	public String getAllSelect() {
 		return allSelect;
 	}

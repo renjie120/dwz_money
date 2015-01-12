@@ -1,14 +1,17 @@
 
 package ido.Dict_InsuredCompany;
 
+import dwz.framework.core.business.BusinessObject;
+import java.util.Date;
 import java.io.Serializable;
+import common.base.SelectAble;
 /**
  * 关于保险公司字典表的实体bean.
  * @author www(水清)
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public class InsuredCompanySelectVO implements Serializable {
+public class InsuredCompanySelectVO implements Serializable,SelectAble {
 	private static final long serialVersionUID = 1L;
 	
 	public InsuredCompanySelectVO() {
@@ -132,4 +135,14 @@ public class InsuredCompanySelectVO implements Serializable {
  	public void setUpdateTime(String updatetime){
  		this.updateTime = updatetime;
  	}
+
+	@Override
+	public String getOptionId() {
+		return this.getSno()+"";
+	}
+
+	@Override
+	public String getOptionName() {
+		return this.getComName()+"";
+	}
 }

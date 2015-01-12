@@ -1,45 +1,51 @@
-<class name="InsuredUnit" table="Insured_unit" desc="投保单位"
-	importFile="true" exportFile="false" add="true" update="false" delete="true"
-	package="ido.InsuredUnit">
+<class name="InsuredCompany" table="Insured_company" desc="保险公司"
+	importFile="false" exportFile="true" add="true" update="true" delete="true"
+	package="ido.InsuredCompany">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="unitCode" column="unit_code" type="string"
+	<property name="comName" column="com_name" type="string"
 		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(500)" desc="编号" width="100" notnull="true" query="true"
+		columnType="varchar(500)" desc="保险公司名称" width="100" notnull="true"
+		query="true" querylike="true" />
+
+	<property name="comNo" column="com_no" type="string"  
+		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
+		columnType="varchar(1000)" width="100" desc="保险公司编号 " query="true"
 		querylike="true" />
 
-	<property name="unitName" column="unit_Name" type="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="500"
-		columnType="varchar(1000)" width="100" desc="投保单位 " query="true"
-		querylike="true" />
+	<property name="comShortName" column="Com_shortname" type="string"
+		canImport="true" canExport="true" maxLength="100" columnType="varchar(200)"
+		desc="简称" width="100" />
 
-	<property name="contactName" column="contact_name" type="string"
+	<property name="comPhone" column="Com_phone" type="string"
+		canImport="true" canExport="true" maxLength="15" columnType="varchar(20)"
+		showType="digits" desc="电话" width="100" />
+
+	<property name="comContactName" column="com_ContactName" type="string"
 		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
-		desc="联系人" width="100" />
+		width="100" desc="联系人名称" />
 
-	<property name="contactMobile" column="contact_mobile" type="string"
-		canImport="true" canExport="true" maxLength="11" columnType="varchar(20)"
-		showType="digits" desc="手机" width="100" />
+	<property name="comContactPhone" column="com_Contactphone"
+		maxLength="11" type="string" canImport="true" canExport="true"
+		columnType="varchar(20)" desc="联系人手机" />
 
-	<property name="contactEmail" column="contact_email" type="string"
-		canImport="true" canExport="true" maxLength="250" columnType="varchar(500)"
-		showType="email" width="100" desc="邮箱" />
+	<property name="ownerCompany" column="Owner_company" type="string"
+		canImport="true" canExport="true" showType="dict" fromTable="dict_Insured_company"
+		useCacheId="insuredcompany_dict"
+		idCoulmn="id" nameColumn="com_name" columnType="int" width="100" desc="所属保险公司" />
 
-	<property name="unitParentId" column="unit_parent_id" type="int"
-		canImport="true" canExport="true" columnType="int(10)" desc="上级单位" />
+	<property name="comEmail" column="Com_email" type="string"
+		showType="email" canImport="true" canExport="true" maxLength="250"
+		columnType="varchar(500)" width="100" desc="邮箱" />
 
-	<property name="unitState" column="unit_state" type="string"
-		showType="select" selectCode="yesorno" canImport="true" canExport="true"
-		columnType="int(10)" width="100" desc="是否显示" />
+	<property name="comAddress" column="Com_address" type="string"
+		maxLength="500" cols="40" rows="4" columnType="varchar(1000)"
+		showType="textarea" width="100" desc="地址" />
 
-	<property name="unitAddress" column="unit_address" type="string"
-		canImport="true" canExport="true" maxLength="250" cols="40" rows="4"
-		columnType="varchar(500)" showType="textarea" width="100" desc="地址" />
-
-	<property name="unitRemark" column="unit_remark" type="string"
-		maxLength="2000" cols="40" rows="4" columnType="varchar(4000)"
-		showType="textarea" width="100" desc="备注" />
+	<property name="comRemark" column="Com_remark" type="string"
+		maxLength="2500" showType="textarea" cols="40" rows="4" width="100"
+		desc="备注" columnType="varchar(5000)" />
 
 	<property name="createUser" column="create_user" type="int"
 		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"

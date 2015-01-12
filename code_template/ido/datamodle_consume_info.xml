@@ -1,0 +1,57 @@
+<class name="ConsumeInfo" table="consume_info" desc="消费记录"
+	exportFile="false" add="true" update="false" delete="true" package="ido.ConsumeInfo">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="iuserId" column="iuser_id" type="string"
+		notNullInDb="true" canExport="true" columnType="int(10)" desc="投保用户号"
+		width="100" notnull="true" query="true" />
+
+	<property name="comId" column="Com_id" type="string" showType="dict"
+		columnType="int(10)" width="100" desc="投保公司" query="true" />
+
+	<property name="shopmId" column="Shopm_id" type="string"
+		columnType="int(10)" width="100" desc="所属商家 " query="true" />
+
+	<property name="shopId" column="Shop_id" type="string"
+		columnType="int(10)" width="100" desc="所属商铺 " query="true" /> 
+
+	<property name="ownerCom" column="Owner_com" type="string"
+		columnType="int(10)" width="100" desc="所属分公司 " query="true" />
+
+	<property name="consumeStatus" column="Consume_status" type="string"
+		showType="select" selectCode="yesorno" canExport="true" columnType="int(10)"
+		desc="支付状态" width="100" />
+
+	<property name="consumeMoney" column="Consume_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="消费金额"
+		width="100" />
+
+	<property name="cardMoney" column="Card_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="刷卡消费"
+		width="100" />
+
+	<property name="cashMoney" column="Cash_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="现金支付"
+		width="100" />
+
+	<property name="consumeTime" column="Consume_time" type="string"
+		showType="date" canExport="true" columnType="varchar(20)" desc="消费时间"
+		width="100" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

@@ -221,6 +221,42 @@ public class ClassModel {
 	private List attributes = null;
 	private String idKey = "";
 	private String className = "";
+	//是否添加到缓存
+	private String addToCache = "";
+	private String cacheIdColumn = "";
+	private String cacheNameColumn = "";
+	public String getAddToCache() {
+		return addToCache;
+	}
+
+	public void setAddToCache(String addToCache) {
+		this.addToCache = addToCache;
+	}
+
+	public String getCacheIdColumn() {
+		return cacheIdColumn;
+	}
+
+	public void setCacheIdColumn(String cacheIdColumn) {
+		this.cacheIdColumn = cacheIdColumn;
+	}
+
+	public String getCacheNameColumn() {
+		return cacheNameColumn;
+	}
+
+	public void setCacheNameColumn(String cacheNameColumn) {
+		this.cacheNameColumn = cacheNameColumn;
+	}
+
+	public String getCacheName() {
+		return cacheName;
+	}
+
+	public void setCacheName(String cacheName) {
+		this.cacheName = cacheName;
+	}
+	private String cacheName = "";
 	private String packageName = "";
 	private String classDesc = "";
 	private String idColumn = "";

@@ -1,21 +1,16 @@
 
 package ido.InsuredCompany;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
 import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
-import common.base.AllSelect;
-import common.base.AllSelectContants;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.NPOIReader;
 
-import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -94,8 +89,11 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		if (voList == null || voList.size() == 0)
 			return eaList;
 	
+		Cache cache_ownerCompany = CacheManager.getCacheInfoNotNull("insuredcompany_dict");
+		ParamSelect select_ownerCompany = (ParamSelect)cache_ownerCompany.getValue();
 		
 		for (InsuredCompanyVO po : voList) {
+			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany())); 
 			eaList.add(new  InsuredCompanyImpl(po));
 		}
 

@@ -17,6 +17,7 @@ public class SpringContextUtil implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
 		SpringContextUtil.applicationContext = applicationContext; 
+		
 		System.out.println("applicationContext.getBeanDefinitionCount()="+applicationContext.getBeanDefinitionCount());
 		System.out.println("applicationContext.getBeanDefinitionNames()="+applicationContext.getBeanDefinitionNames().toString());
 	}

@@ -1,5 +1,6 @@
-<class name="InsuredCompanySelect" table="dict_Insured_company" desc="保险公司字典表"
-	importFile="false" exportFile="false" add="true" update="false" delete="true"
+<class name="InsuredCompanySelect" table="dict_Insured_company"
+	desc="保险公司字典表" importFile="false" exportFile="false" add="true" update="false"
+	delete="true" cacheIdColumn="sno" cacheNameColumn="comName" cacheName="insuredcompany_dict"
 	package="ido.Dict_InsuredCompany">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
@@ -9,9 +10,10 @@
 		columnType="varchar(500)" desc="保险公司名称" width="100" notnull="true"
 		query="true" querylike="true" />
 
-	<property name="comStatus" column="com_status" type="string" showType="select"  selectCode="yesorno"
-		columnType="int"  desc="是否显示 " query="true"  />
-  
+	<property name="comStatus" column="com_status" type="string"
+		showType="select" selectCode="yesorno" columnType="int" desc="是否显示 "
+		query="true" />
+
 	<property name="createUser" column="create_user" type="int"
 		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
 		columnType="int(10)" noadd="true" />

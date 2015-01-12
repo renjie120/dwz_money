@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream; 
 import java.util.*; 
-
+import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
 import common.util.CommonUtil;
-
+import common.util.DateTool;
 import com.opensymphony.xwork2.ActionContext; 
-
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
@@ -53,15 +54,19 @@ public class InsuredCompanyAction extends BaseAction {
 	public String beforeAdd() {
 		return "detail";
 	}
- 
+  
  	/**
  	 * 添加保险公司.
  	 */
 	public String doAdd() {
 		try {
+			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+			createUser = Integer.parseInt(currentUser.getId());
+			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+			updateUser = Integer.parseInt(currentUser.getId());
+			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl(comName ,comNo ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredCompany(insuredcompanyImpl);
-			
 			insertLog(logMgr,"添加保险公司","/doAdd", "", "" ,JSON.toJSONString(insuredcompanyImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -137,6 +142,11 @@ public class InsuredCompanyAction extends BaseAction {
 
 
 	public String doDelete() {
+		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+		createUser = Integer.parseInt(currentUser.getId());
+		createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+		updateUser = Integer.parseInt(currentUser.getId());
+		updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 		String ids = request.getParameter("ids");
 		String[] allId = ids.split(",");
 		List<InsuredCompany> allDeleteIds = new ArrayList<InsuredCompany>();
@@ -144,7 +154,6 @@ public class InsuredCompanyAction extends BaseAction {
 			allDeleteIds.add(pMgr.getInsuredCompany(Integer.parseInt(_id)));
 		}
 		pMgr.removeInsuredCompanys(ids);
-		
 		insertLog(logMgr,"删除保险公司","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
@@ -156,6 +165,12 @@ public class InsuredCompanyAction extends BaseAction {
 	
 	public String doUpdate() {
 		try {
+			// 当前用户
+			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+			createUser = Integer.parseInt(currentUser.getId());
+			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+			updateUser = Integer.parseInt(currentUser.getId());
+			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 			InsuredCompany old = pMgr.getInsuredCompany( sno );
 			String oldObj= "";
 			String newObj= ""; 
@@ -222,7 +237,6 @@ public class InsuredCompanyAction extends BaseAction {
 			
 			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl( sno , comName , comNo , comShortName , comPhone , comContactName , comContactPhone , ownerCompany , comEmail , comAddress , comRemark , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredCompany(insuredcompanyImpl);
-			
 			insertLog(logMgr,"修改保险公司","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(insuredcompanyImpl));  

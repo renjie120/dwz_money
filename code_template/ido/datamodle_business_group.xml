@@ -1,0 +1,51 @@
+<class name="BusinessGroup" table="business_group" desc="商家集团"
+	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	package="ido.BusinessGroup">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="groupSno" column="g_sno" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="100"
+		columnType="varchar(200)" desc="集团编号" width="100" notnull="true"
+		query="true" querylike="true" />
+
+	<property name="groupName" column="g_name" type="string"
+		maxLength="250" notNullInDb="true" canImport="true" canExport="true"
+		columnType="varchar(500)" width="100" desc="集团名称 " query="true" />
+
+	<property name="groupEmail" column="G_email" type="string"
+		canImport="true" canExport="true" maxLength="250" columnType="varchar(500)"
+		showType="email" width="100" desc="邮箱" />
+
+	<property name="groupContact" column="g_contactname" type="string"
+		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
+		desc="联系人名称" width="100" />
+
+	<property name="groupContactPhone" column="g_phone" type="string"
+		canImport="true" canExport="true" columnType="varchar(20)" maxLength="20"
+		width="100" desc="联系电话" />
+
+	<property name="groupContactMobile" column="g_contact_phone"
+		showType="digits" type="string" canImport="true" canExport="true"
+		maxLength="11" columnType="varchar(20)" width="100" desc="联系人手机" />
+
+	<property name="groupStatus" column="G_status" type="string"
+		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
+		desc="状态" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

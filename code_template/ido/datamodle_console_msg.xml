@@ -1,0 +1,39 @@
+<class name="ConsoleMsg" table="console_msg" desc="理赔审批记录表"
+	exportFile="false" add="true" update="false" delete="true" package="ido.ConsoleMsg">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="ConsoleCompenseSno" column="Console_compense_id"
+		type="string" notNullInDb="true" canExport="true" columnType="varchar(200)"
+		desc="理赔单编号" width="100" notnull="true" query="true" />
+
+	<property name="ConsoleTime" column="Console_time" type="string"
+		showType="date" columnType="varchar(20)" width="100" desc="审批时间" />
+
+	<property name="ConsoleOption" column="Console_option" type="string"
+		cols="40" rows="4" showType="textarea" columnType="varchar(4000)"
+		width="100" desc="审批意见 " />
+
+	<property name="ConsoleIp" column="Console_ip" type="string"
+		maxLength="20" columnType="varchar(20)" width="100" desc="Ip地址 " />
+
+	<property name="CurrentStep" column="Current_step" type="string"
+		selectCode='yesorno' showType="select" canExport="true" columnType="int(10)"
+		desc="当前步骤" width="100" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>
