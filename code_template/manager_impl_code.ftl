@@ -63,7 +63,16 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			String[][] contents = excel.read(index, true, true);
 			for (int i = 1; i < contents.length; i++) {
 				${vo} vo = new ${vo}();
+				<#assign import_index=0>
+				<#list model.attributes as attr>
+				<#if attr.canImport='true'>
+				//导入${attr.desc}
+				String ${attr.name}Str = contents[i][${import_index}];
+				vo.set${attr.name?cap_first}(${attr.name}Str);
 				
+				<#assign import_index=import_index+1>
+				</#if>
+				</#list>
 				this.${daoarg}.insert(vo); 
 			}
 
@@ -106,7 +115,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 				.getParamsByType(AllSelectContants.${attr.selectCode?upper_case}.getName());
 		</#if>
 		<#if '${attr.showType}'='dict'>
-		Cache cache_${attr.name} = CacheManager.getCacheInfoNotNull("${attr.useCacheId}");
+		Cache cache_${attr.name} = CacheManager.getCacheInfoNotNull(AllSelectContants.${attr.useCacheId?upper_case}.getName());
 		ParamSelect select_${attr.name} = (ParamSelect)cache_${attr.name}.getValue();
 		</#if>
 		</#list>
@@ -209,21 +218,19 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		return new ${model.className}Impl(${classarg});
 	}
 
-	<#if model.addToCache='true'>
-	public static final String CACHE_ID="${model.cacheName}";
-	 
+	<#if model.addToCache='true'> 	 
 	@Override
 	public void addCache() {
 		ParamSelect ans = null;
 		Collection<${vo}> all = this.${daoarg}.findAll();
 		ans = new ParamSelect(all);
-
-		CacheManager.clearOnly(CACHE_ID);
+		String _tempCacheId = AllSelectContants.${model.CacheName?upper_case}.getName();
+		CacheManager.clearOnly(_tempCacheId);
 		Cache c = new Cache();
-		c.setKey(CACHE_ID);
+		c.setKey(_tempCacheId);
 		c.setValue(ans);
 		c.setName("${model.classDesc}");
-		CacheManager.putCache(CACHE_ID, c);
+		CacheManager.putCache(_tempCacheId, c);
 	}
 	</#if>
 }

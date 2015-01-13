@@ -4,6 +4,7 @@ package ido.InsuredCompany;
 import dwz.framework.core.business.BusinessObject;
 import java.util.Date;
 import java.io.Serializable;
+import common.base.SelectAble;
 /**
  * 关于保险公司的实体bean.
  * @author www(水清)
@@ -17,10 +18,11 @@ public class InsuredCompanyVO implements Serializable {
 
 	}
 	
-	public InsuredCompanyVO( int sno , String comName , String comNo , String comShortName , String comPhone , String comContactName , String comContactPhone , String ownerCompany , String comEmail , String comAddress , String comRemark , int createUser , String createTime , int updateUser , String updateTime ) {
+	public InsuredCompanyVO( int sno , String comName , String comNo , String comStatus , String comShortName , String comPhone , String comContactName , String comContactPhone , String ownerCompany , String comEmail , String comAddress , String comRemark , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.comName = comName;
 		 this.comNo = comNo;
+		 this.comStatus = comStatus;
 		 this.comShortName = comShortName;
 		 this.comPhone = comPhone;
 		 this.comContactName = comContactName;
@@ -35,9 +37,10 @@ public class InsuredCompanyVO implements Serializable {
 		 this.updateTime = updateTime;
 	}
 	
-	public InsuredCompanyVO(String comName ,String comNo ,String comShortName ,String comPhone ,String comContactName ,String comContactPhone ,String ownerCompany ,String comEmail ,String comAddress ,String comRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
+	public InsuredCompanyVO(String comName ,String comNo ,String comStatus ,String comShortName ,String comPhone ,String comContactName ,String comContactPhone ,String ownerCompany ,String comEmail ,String comAddress ,String comRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
 			 this.comName = comName;
 			 this.comNo = comNo;
+			 this.comStatus = comStatus;
 			 this.comShortName = comShortName;
 			 this.comPhone = comPhone;
 			 this.comContactName = comContactName;
@@ -93,6 +96,20 @@ public class InsuredCompanyVO implements Serializable {
  	 */
  	public void setComNo(String comno){
  		this.comNo = comno;
+ 	}
+	private String comStatus; 
+ 	/**
+ 	 * 获取状态 的属性值.
+ 	 */
+ 	public String getComStatus(){
+ 		return comStatus;
+ 	}
+ 	
+ 	/**
+ 	 * 设置状态 的属性值.
+ 	 */
+ 	public void setComStatus(String comstatus){
+ 		this.comStatus = comstatus;
  	}
 	private String comShortName; 
  	/**
@@ -262,4 +279,5 @@ public class InsuredCompanyVO implements Serializable {
  	public void setUpdateTime(String updatetime){
  		this.updateTime = updatetime;
  	}
+
 }

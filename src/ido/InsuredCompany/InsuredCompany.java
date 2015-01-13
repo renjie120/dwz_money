@@ -23,6 +23,10 @@ public interface InsuredCompany extends BusinessObject {
  	 */
  	public  String   getComNo();
  	/**
+ 	 * 获取状态 的属性值.
+ 	 */
+ 	public  String   getComStatus();
+ 	/**
  	 * 获取简称的属性值.
  	 */
  	public  String   getComShortName();

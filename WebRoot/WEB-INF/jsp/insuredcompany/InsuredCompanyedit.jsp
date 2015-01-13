@@ -26,6 +26,12 @@
 					</div>
 					 <div class="unit">
 						<label>
+							状态 :
+						</label>
+							<my:newselect tagName="comStatus"  paraType="yesorno_status" width="100"  selectedValue="<%=vo.getComStatus() %>"/>									
+					</div>
+					 <div class="unit">
+						<label>
 							简称:
 						</label>
 							<input name="comShortName"   class="textInput  "    type="text"  value="<s:property value="vo.comShortName"/>" />

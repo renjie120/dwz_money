@@ -17,7 +17,7 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectedit.jsp
 			</result>
-			<result name="imort">
+			<result name="import">
 				/WEB-INF/jsp/insuredcompanyselect/InsuredCompanySelectimport.jsp
 			</result>
 		</action>
@@ -47,8 +47,11 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/insuredcompany/InsuredCompanyedit.jsp
 			</result>
-			<result name="imort">
+			<result name="import">
 				/WEB-INF/jsp/insuredcompany/InsuredCompanyimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/insuredcompany/InsuredCompanyquery.jsp
 			</result>
 		</action>
 
@@ -63,7 +66,7 @@
 			<result name="editdetail">
 				/WEB-INF/jsp/loginfo/LogInfoedit.jsp
 			</result>
-			<result name="imort">
+			<result name="import">
 				/WEB-INF/jsp/loginfo/LogInfoimport.jsp
 			</result>
 		</action>

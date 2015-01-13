@@ -79,7 +79,7 @@
 					<div class="buttonActive">
 						<div class="buttonContent">
 							<button type="submit">
-								保存
+								查询
 							</button>
 						</div>
 					</div>

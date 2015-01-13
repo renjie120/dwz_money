@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import common.base.AllSelectContants;
+
 import money.cache.CacheImpl;
 
 import dwz.constants.BeanManagerKey;
@@ -162,7 +164,7 @@ public class CacheManager {
 			return cache;
 		} else{
 			BusinessFactory bf = BusinessFactory.getFactory();
-			if(InsuredCompanySelectManagerImpl.CACHE_ID.equals(key)){
+			if(AllSelectContants.INSUREDCOMPANY_DICT.getName().equals(key)){
 				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
 				pMgr.addCache();
 			}

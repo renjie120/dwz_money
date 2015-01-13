@@ -31,7 +31,19 @@ public class ParamTypeVO implements Serializable,SelectAble {
 	}
 	 
 	private Integer paramTypeId; 
- 	/**
+	/**
+	 * 是否系统默认的，不允许修改参数类型！
+	 */
+	private Integer isSystem; 
+ 	public Integer getIsSystem() {
+		return isSystem;
+	}
+
+	public void setIsSystem(Integer isSystem) {
+		this.isSystem = isSystem;
+	}
+
+	/**
  	 * 获取参数类型流水号的属性值.
  	 */
  	public Integer getParamTypeId(){

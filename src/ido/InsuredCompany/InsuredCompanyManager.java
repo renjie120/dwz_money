@@ -26,6 +26,7 @@ public interface InsuredCompanyManager  extends BusinessObjectManager {
 	public Collection<InsuredCompany> searchInsuredCompany(Map<InsuredCompanySearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
+
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件

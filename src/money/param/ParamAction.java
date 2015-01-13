@@ -138,7 +138,7 @@ public class ParamAction extends BaseAction {
 					e.setCell(filed.ordinal(), param.getParamId());
 					break;
 				case PARAMTYPE:
-					e.setCell(filed.ordinal(), param.getParamType());
+					e.setCell(filed.ordinal(), param.getParamTypeName());
 					break;
 				case PARAMNAME:
 					e.setCell(filed.ordinal(), param.getParamName());

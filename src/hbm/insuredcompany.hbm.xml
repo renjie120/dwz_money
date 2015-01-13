@@ -9,6 +9,7 @@
 		</id>
 				<property name="comName" column="com_name" type="string" />
 				<property name="comNo" column="com_no" type="string" />
+				<property name="comStatus" column="com_status" type="string" />
 				<property name="comShortName" column="Com_shortname" type="string" />
 				<property name="comPhone" column="Com_phone" type="string" />
 				<property name="comContactName" column="com_ContactName" type="string" />
@@ -25,5 +26,9 @@
 
 	<query name="ido.InsuredCompany.InsuredCompanyDao.findRecordById">
 		<![CDATA[from InsuredCompanyVO as insuredCompanyDao where sno = ?]]>
+	</query>
+
+	<query name="ido.InsuredCompany.InsuredCompanyDao.findAll">
+		<![CDATA[from InsuredCompanyVO  ]]>
 	</query>
 </hibernate-mapping>

@@ -22,6 +22,10 @@
 						保险公司编号 </td><td>
 							<input name="comNo"   class="textInput " type="text"  value="<s:property value="vo.comNo"/>" />
 					</td> 
+					<td> 
+						状态 </td><td> 
+							<my:newselect tagName="list_comStatus"  paraType="yesorno_status" width="100" allSelected="true" />
+					</td> 
 				</tr>
 			</table>
 			<div class="subBar">
@@ -77,7 +81,7 @@
 				</th> 
 				<th width="100"    orderField="COMNO" >
 						保险公司编号  
-				</th> 
+				</th>  
 				<th width="100"    orderField="COMSHORTNAME" >
 						简称 
 				</th> 
@@ -102,6 +106,9 @@
 				<th width="100"    orderField="COMREMARK" >
 						备注 
 				</th> 
+				<th width="100"    orderField="COMSTATUS" >
+						状态  
+				</th> 
 			</tr>
 		</thead>
 		<tbody>
@@ -116,7 +123,7 @@
 					</td> 
 					<td>
 						<s:property value="comNo" />
-					</td> 
+					</td>  
 					<td>
 						<s:property value="comShortName" />
 					</td> 
@@ -140,6 +147,9 @@
 					</td> 
 					<td>
 						<s:property value="comRemark" />
+					</td> 
+					<td>
+						<div style='color:red;align:center;width:100%'><s:property value="comStatus" /></div>
 					</td> 
 				</tr>
 			</s:iterator>

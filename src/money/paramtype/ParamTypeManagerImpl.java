@@ -5,6 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.cache.Cache;
+import common.cache.CacheManager;
+
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -172,6 +177,20 @@ public class ParamTypeManagerImpl extends AbstractBusinessObjectManager implemen
 		ParamTypeVO paramtype = paramtypes.toArray(new ParamTypeVO[paramtypes.size()])[0];
 
 		return new ParamTypeImpl(paramtype);
+	}
+
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<ParamTypeVO> all = this.paramtypedao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(AllSelectContants.ALLPARAMTYPE.getName());
+		Cache c = new Cache(); 
+		c.setKey(AllSelectContants.ALLPARAMTYPE.getName());
+		c.setValue(ans);
+		c.setName("属性类型"); 
+		CacheManager.putCache(AllSelectContants.ALLPARAMTYPE.getName(), c);
 	}
 
 }

@@ -63,5 +63,11 @@ public class ParamTypeImpl implements ParamType {
  	public  String   getCode(){
  		return this.paramtypeVO.getCode();
  	}
+
+	@Override
+	public Integer getIsSystem() {
+		// TODO Auto-generated method stub
+		return this.paramtypeVO.getIsSystem();
+	}
  
 }

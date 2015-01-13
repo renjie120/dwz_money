@@ -17,12 +17,12 @@ public class InsuredCompanyImpl implements InsuredCompany {
 		this.insuredcompanyVO = insuredcompanyVO;
 	}
 
-	public InsuredCompanyImpl( int sno , String comName , String comNo , String comShortName , String comPhone , String comContactName , String comContactPhone , String ownerCompany , String comEmail , String comAddress , String comRemark , int createUser , String createTime , int updateUser , String updateTime ) {
-		this.insuredcompanyVO = new InsuredCompanyVO( sno , comName , comNo , comShortName , comPhone , comContactName , comContactPhone , ownerCompany , comEmail , comAddress , comRemark , createUser , createTime , updateUser , updateTime );
+	public InsuredCompanyImpl( int sno , String comName , String comNo , String comStatus , String comShortName , String comPhone , String comContactName , String comContactPhone , String ownerCompany , String comEmail , String comAddress , String comRemark , int createUser , String createTime , int updateUser , String updateTime ) {
+		this.insuredcompanyVO = new InsuredCompanyVO( sno , comName , comNo , comStatus , comShortName , comPhone , comContactName , comContactPhone , ownerCompany , comEmail , comAddress , comRemark , createUser , createTime , updateUser , updateTime );
 	} 
 	
-	public InsuredCompanyImpl(String comName ,String comNo ,String comShortName ,String comPhone ,String comContactName ,String comContactPhone ,String ownerCompany ,String comEmail ,String comAddress ,String comRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
-		this.insuredcompanyVO = new InsuredCompanyVO(comName ,comNo ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
+	public InsuredCompanyImpl(String comName ,String comNo ,String comStatus ,String comShortName ,String comPhone ,String comContactName ,String comContactPhone ,String ownerCompany ,String comEmail ,String comAddress ,String comRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
+		this.insuredcompanyVO = new InsuredCompanyVO(comName ,comNo ,comStatus ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
 	} 
 
 	public InsuredCompanyVO getInsuredCompanyVO() {
@@ -57,6 +57,12 @@ public class InsuredCompanyImpl implements InsuredCompany {
  	 */
  	public  String   getComNo(){
  		return this.insuredcompanyVO.getComNo();
+ 	}
+ 	/**
+ 	 * 获取状态 的属性值.
+ 	 */
+ 	public  String   getComStatus(){
+ 		return this.insuredcompanyVO.getComStatus();
  	}
  	/**
  	 * 获取简称的属性值.

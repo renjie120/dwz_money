@@ -26,6 +26,13 @@ public interface ParamTypeManager  extends BusinessObjectManager {
 	public Collection<ParamType> searchParamType(Map<ParamTypeSearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
+
+	/**
+	 * 添加到缓存.
+	 */
+	@Transactional
+	public void addCache() ;
+	
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件

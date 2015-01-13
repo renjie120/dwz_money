@@ -5,6 +5,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.base.AllSelect;
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -64,8 +72,12 @@ public class ParamManagerImpl extends AbstractBusinessObjectManager implements
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
-
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString()); 
+		Cache cache_allparamtype = CacheManager.getCacheInfoNotNull(AllSelectContants.ALLPARAMTYPE.getName());
+		ParamSelect select_allparamtype = (ParamSelect)cache_allparamtype.getValue();
 		for (ParamVO po : voList) {
+			po.setParamTypeName(select_allparamtype.getName("" + po.getParamType())); 
 			eaList.add(new  ParamImpl(po));
 		}
 

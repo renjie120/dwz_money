@@ -18,6 +18,8 @@ public interface Param extends BusinessObject {
  	 * 获取参数类型的属性值.
  	 */
  	public  int   getParamType();
+ 	
+ 	public  String   getParamTypeName();
  	/**
  	 * 获取参数描述的属性值.
  	 */

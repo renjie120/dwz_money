@@ -69,7 +69,7 @@
 					<td><input name="ids" value="<s:property value="paramId" />"
 						type="checkbox"></td>
 					<td><s:property value="paramId" /></td>
-					<td><s:property value="paramType" /></td>
+					<td><s:property value="paramTypeName" /></td>
 					<td><s:property value="paramName" /></td>
 					<td><s:property value="paramValue" /></td>
 					<td><s:property value="usevalue" /></td> 

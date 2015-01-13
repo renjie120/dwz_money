@@ -24,6 +24,11 @@ public class ParamImpl implements Param {
 	public ParamImpl(int paramType ,String paramName ,int paramValue ,String usevalue ,int orderId ) {
 		this.paramVO = new ParamVO(paramType ,paramName ,paramValue ,usevalue ,orderId );
 	} 
+ 
+	public String getParamTypeName() {
+		return this.paramVO.getParamTypeName(); 
+	}
+ 
 
 	public ParamVO getParamVO() {
 		return this.paramVO;

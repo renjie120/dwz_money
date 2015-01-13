@@ -62,7 +62,7 @@ public class ${bignm}Action extends BaseAction {
 			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
 			<#list model.attributes as attr>
 				<#if attr.currentTime='true'>
-			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改这里
 				</#if>
 				<#if attr.currentUser='true'>
 			${attr.name} = Integer.parseInt(currentUser.getId());
@@ -95,7 +95,7 @@ public class ${bignm}Action extends BaseAction {
 
 		XlsExport e = new XlsExport();
 		e.createRow(0);
-		for (ExportFiled filed : ExportFiled.values()) {
+		for (ImportFiled filed : ImportFiled.values()) {
 			e.setCell(filed.ordinal(), filed.toString());
 		}
 		e.exportXls(response);
@@ -151,7 +151,7 @@ public class ${bignm}Action extends BaseAction {
 		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
 		<#list model.attributes as attr>
 				<#if attr.currentTime='true'>
-		${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+		${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
 				</#if>
 				<#if attr.currentUser='true'>
 		${attr.name} = Integer.parseInt(currentUser.getId());
@@ -182,7 +182,7 @@ public class ${bignm}Action extends BaseAction {
 			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
 			<#list model.attributes as attr>
 				<#if attr.currentTime='true'>
-			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
 				</#if>
 				<#if attr.currentUser='true'>
 			${attr.name} = Integer.parseInt(currentUser.getId());
@@ -219,6 +219,20 @@ public class ${bignm}Action extends BaseAction {
 		private String str;
 
 		ExportFiled(String str) {
+			this.str = str;
+		}
+
+		public String getName() {
+			return this.str;
+		}
+	}
+	
+	public enum ImportFiled {
+		<#assign index=0> 
+		<#list model.attributes as attr><#if attr.canImport='true'>  <#if index!=0>,</#if>${attr.name?upper_case}("${attr.desc}")<#assign index=index+1></#if></#list>;
+		private String str;
+
+		ImportFiled(String str) {
 			this.str = str;
 		}
 

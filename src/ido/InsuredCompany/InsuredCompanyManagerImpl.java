@@ -1,16 +1,22 @@
 
 package ido.InsuredCompany;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.io.File;
 import java.util.Map;
 
+import common.util.NPOIReader;
 import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.util.CommonUtil;
+import common.util.DateTool;
+import common.util.NPOIReader; 
+import common.base.AllSelect;
+import common.base.AllSelectContants;
 import common.cache.Cache;
 import common.cache.CacheManager;
-import common.util.NPOIReader;
-
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -58,6 +64,41 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 			String[][] contents = excel.read(index, true, true);
 			for (int i = 1; i < contents.length; i++) {
 				InsuredCompanyVO vo = new InsuredCompanyVO();
+				//导入保险公司名称
+				String comNameStr = contents[i][0];
+				vo.setComName(comNameStr);
+				
+				//导入保险公司编号 
+				String comNoStr = contents[i][1];
+				vo.setComNo(comNoStr);
+				
+				//导入状态 
+				String comStatusStr = contents[i][2];
+				vo.setComStatus(comStatusStr);
+				
+				//导入简称
+				String comShortNameStr = contents[i][3];
+				vo.setComShortName(comShortNameStr);
+				
+				//导入电话
+				String comPhoneStr = contents[i][4];
+				vo.setComPhone(comPhoneStr);
+				
+				//导入联系人名称
+				String comContactNameStr = contents[i][5];
+				vo.setComContactName(comContactNameStr);
+				
+				//导入联系人手机
+				String comContactPhoneStr = contents[i][6];
+				vo.setComContactPhone(comContactPhoneStr);
+				
+				//导入所属保险公司
+				String ownerCompanyStr = contents[i][7];
+				vo.setOwnerCompany(ownerCompanyStr);
+				
+				//导入邮箱
+				String comEmailStr = contents[i][8];
+				vo.setComEmail(comEmailStr);
 				
 				this.insuredcompanydao.insert(vo); 
 			}
@@ -89,10 +130,15 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		if (voList == null || voList.size() == 0)
 			return eaList;
 	
-		Cache cache_ownerCompany = CacheManager.getCacheInfoNotNull("insuredcompany_dict");
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_yesorno_status = allSelect
+				.getParamsByType(AllSelectContants.YESORNO_STATUS.getName());
+		Cache cache_ownerCompany = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDCOMPANY_DICT.getName());
 		ParamSelect select_ownerCompany = (ParamSelect)cache_ownerCompany.getValue();
 		
 		for (InsuredCompanyVO po : voList) {
+			po.setComStatus(select_yesorno_status.getName("" + po.getComStatus())); 
 			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany())); 
 			eaList.add(new  InsuredCompanyImpl(po));
 		}
@@ -130,6 +176,12 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 						sb.append(count == 0 ? " where" : " and").append(
 								"  insuredcompany.comNo like ? ");
 						argList.add("%"+entry.getValue()+"%");
+						count++;
+					break;
+					case COMSTATUS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comStatus = ? ");
+						argList.add(entry.getValue());
 						count++;
 					break;
 					case COMSHORTNAME:
@@ -227,6 +279,9 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 			break;
 			case COMNO:
 				 sb.append(" order by insuredcompany.comNo");
+			break;
+			case COMSTATUS:
+				 sb.append(" order by insuredcompany.comStatus");
 			break;
 			case COMSHORTNAME:
 				 sb.append(" order by insuredcompany.comShortName");

@@ -233,9 +233,7 @@ public class InsuredCompanySelectManagerImpl extends AbstractBusinessObjectManag
 		InsuredCompanySelectVO insuredcompanyselect = insuredcompanyselects.toArray(new InsuredCompanySelectVO[insuredcompanyselects.size()])[0];
 
 		return new InsuredCompanySelectImpl(insuredcompanyselect);
-	}
-
-	public static final String CACHE_ID="insuredcompany_dict";
+	} 
 	 
 	@Override
 	public void addCache() {
@@ -243,11 +241,11 @@ public class InsuredCompanySelectManagerImpl extends AbstractBusinessObjectManag
 		Collection<InsuredCompanySelectVO> all = this.insuredcompanyselectdao.findAll();
 		ans = new ParamSelect(all);
 
-		CacheManager.clearOnly(CACHE_ID);
+		CacheManager.clearOnly(AllSelectContants.INSUREDCOMPANY_DICT.getName());
 		Cache c = new Cache(); 
-		c.setKey(CACHE_ID);
+		c.setKey(AllSelectContants.INSUREDCOMPANY_DICT.getName());
 		c.setValue(ans);
 		c.setName("保险公司字典表"); 
-		CacheManager.putCache(CACHE_ID, c);
+		CacheManager.putCache(AllSelectContants.INSUREDCOMPANY_DICT.getName(), c);
 	}
 }

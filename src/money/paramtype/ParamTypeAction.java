@@ -41,6 +41,7 @@ public class ParamTypeAction extends BaseAction {
 			ParamTypeImpl paramtypeImpl = new ParamTypeImpl(paramTypeName,
 					orderId, code);
 			pMgr.createParamType(paramtypeImpl);
+			pMgr.addCache();
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -52,6 +53,7 @@ public class ParamTypeAction extends BaseAction {
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeParamTypes(ids);
+		pMgr.addCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -64,6 +66,7 @@ public class ParamTypeAction extends BaseAction {
 		try {
 			ParamTypeImpl paramtypeImpl = new ParamTypeImpl(paramTypeId,
 					paramTypeName, orderId, code);
+			pMgr.addCache();
 			pMgr.updateParamType(paramtypeImpl);
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();

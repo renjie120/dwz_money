@@ -1,9 +1,8 @@
 
 package ido.Dict_InsuredCompany;
 
-import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 import java.io.Serializable;
+
 import common.base.SelectAble;
 /**
  * 关于保险公司字典表的实体bean.

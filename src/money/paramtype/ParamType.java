@@ -13,6 +13,12 @@ public interface ParamType extends BusinessObject {
  	 * 获取参数类型流水号的属性值.
  	 */
  	public  Integer   getParamTypeId();
+ 	
+ 	/**
+ 	 * 得到是否是系统默认的.
+ 	 * @return
+ 	 */
+ 	public  Integer   getIsSystem();
  	/**
  	 * 获取参数类型的属性值.
  	 */

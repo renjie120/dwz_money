@@ -10,8 +10,11 @@
 	<result name="editdetail">
 		/WEB-INF/jsp/${nm}/${bignm}edit.jsp
 	</result>
-	<result name="imort">
+	<result name="import">
 		/WEB-INF/jsp/${nm}/${bignm}import.jsp
+	</result>
+	<result name="query">
+		/WEB-INF/jsp/${nm}/${bignm}query.jsp
 	</result>
 </action>
 
@@ -49,7 +52,7 @@ p${bignm}Mgr.addCache();
 
 
 ÔÚCacheManagerÖÐ£º
-if(p${bignm}Impl.CACHE_ID.equals(key)){
+if(AllSelectContants.${model.CacheName?upper_case}.equals(key)){
 	${bignm}Manager p${bignm}Mgr = bf.getManager(BeanManagerKey.${classarg}Manager);
 	p${bignm}Mgr.addCache();
 }

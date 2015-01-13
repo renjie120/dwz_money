@@ -62,10 +62,10 @@ public class InsuredCompanyAction extends BaseAction {
 		try {
 			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
 			createUser = Integer.parseInt(currentUser.getId());
-			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
-			updateUser = Integer.parseInt(currentUser.getId());
-			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
-			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl(comName ,comNo ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
+			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
+//			updateUser = Integer.parseInt(currentUser.getId());
+//			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改这里
+			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl(comName ,comNo ,comStatus ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredCompany(insuredcompanyImpl);
 			insertLog(logMgr,"添加保险公司","/doAdd", "", "" ,JSON.toJSONString(insuredcompanyImpl));  
 		} catch (ValidateFieldsException e) {
@@ -89,7 +89,7 @@ public class InsuredCompanyAction extends BaseAction {
 
 		XlsExport e = new XlsExport();
 		e.createRow(0);
-		for (ExportFiled filed : ExportFiled.values()) {
+		for (ImportFiled filed : ImportFiled.values()) {
 			e.setCell(filed.ordinal(), filed.toString());
 		}
 		e.exportXls(response);
@@ -143,8 +143,8 @@ public class InsuredCompanyAction extends BaseAction {
 
 	public String doDelete() {
 		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-		createUser = Integer.parseInt(currentUser.getId());
-		createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+//		createUser = Integer.parseInt(currentUser.getId());
+//		createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
 		updateUser = Integer.parseInt(currentUser.getId());
 		updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 		String ids = request.getParameter("ids");
@@ -167,8 +167,8 @@ public class InsuredCompanyAction extends BaseAction {
 		try {
 			// 当前用户
 			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-			createUser = Integer.parseInt(currentUser.getId());
-			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+//			createUser = Integer.parseInt(currentUser.getId());
+//			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 			updateUser = Integer.parseInt(currentUser.getId());
 			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
 			InsuredCompany old = pMgr.getInsuredCompany( sno );
@@ -185,6 +185,10 @@ public class InsuredCompanyAction extends BaseAction {
 			if(!compare(old.getComNo(),comNo)){
 				oldObj += "comNo="+old.getComNo()+";";
 				newObj+= "comNo="+comNo+";";
+			} 
+			if(!compare(old.getComStatus(),comStatus)){
+				oldObj += "comStatus="+old.getComStatus()+";";
+				newObj+= "comStatus="+comStatus+";";
 			} 
 			if(!compare(old.getComShortName(),comShortName)){
 				oldObj += "comShortName="+old.getComShortName()+";";
@@ -235,7 +239,7 @@ public class InsuredCompanyAction extends BaseAction {
 				newObj+= "updateTime="+updateTime+";";
 			} 
 			
-			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl( sno , comName , comNo , comShortName , comPhone , comContactName , comContactPhone , ownerCompany , comEmail , comAddress , comRemark , createUser , createTime , updateUser , updateTime );
+			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl( sno , comName , comNo , comStatus , comShortName , comPhone , comContactName , comContactPhone , ownerCompany , comEmail , comAddress , comRemark , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredCompany(insuredcompanyImpl);
 			insertLog(logMgr,"修改保险公司","/doUpdate", oldObj, 
 						newObj,
@@ -248,10 +252,23 @@ public class InsuredCompanyAction extends BaseAction {
 	} 
 	
 	public enum ExportFiled {
-		  SNO("流水号")  ,COMNAME("保险公司名称")  ,COMNO("保险公司编号 ")  ,COMSHORTNAME("简称")  ,COMPHONE("电话")  ,COMCONTACTNAME("联系人名称")  ,COMCONTACTPHONE("联系人手机")  ,OWNERCOMPANY("所属保险公司")  ,COMEMAIL("邮箱");
+		  SNO("流水号")  ,COMNAME("保险公司名称")  ,COMNO("保险公司编号 ")  ,COMSTATUS("状态 ")  ,COMSHORTNAME("简称")  ,COMPHONE("电话")  ,COMCONTACTNAME("联系人名称")  ,COMCONTACTPHONE("联系人手机")  ,OWNERCOMPANY("所属保险公司")  ,COMEMAIL("邮箱");
 		private String str;
 
 		ExportFiled(String str) {
+			this.str = str;
+		}
+
+		public String getName() {
+			return this.str;
+		}
+	}
+	
+	public enum ImportFiled {
+		  COMNAME("保险公司名称")  ,COMNO("保险公司编号 ")  ,COMSTATUS("状态 ")  ,COMSHORTNAME("简称")  ,COMPHONE("电话")  ,COMCONTACTNAME("联系人名称")  ,COMCONTACTPHONE("联系人手机")  ,OWNERCOMPANY("所属保险公司")  ,COMEMAIL("邮箱");
+		private String str;
+
+		ImportFiled(String str) {
 			this.str = str;
 		}
 
@@ -297,6 +314,9 @@ public class InsuredCompanyAction extends BaseAction {
 					break;
 					case COMNO:
 						 e.setCell(filed.ordinal(), insuredcompany.getComNo()); 
+					break;
+					case COMSTATUS:
+						 e.setCell(filed.ordinal(), insuredcompany.getComStatus()); 
 					break;
 					case COMSHORTNAME:
 						 e.setCell(filed.ordinal(), insuredcompany.getComShortName()); 
@@ -381,6 +401,8 @@ public class InsuredCompanyAction extends BaseAction {
 			criterias.put(InsuredCompanySearchFields.COMNAME, "%"+getComName()+"%"); 
 		if (getComNo()!=null&&!"".equals(getComNo())&&!"-1".equals(getComNo())&&!"-2".equals(getComNo()))
 			criterias.put(InsuredCompanySearchFields.COMNO, "%"+getComNo()+"%"); 
+		if (getComStatus()!=null&&!"".equals(getComStatus())&&!"-1".equals(getComStatus())&&!"-2".equals(getComStatus()))
+			criterias.put(InsuredCompanySearchFields.COMSTATUS,  getComStatus());
 		return criterias;
 	}
 
@@ -433,6 +455,20 @@ public class InsuredCompanyAction extends BaseAction {
  	 */
  	public void setComNo(String comno){
  		this.comNo = comno;
+ 	}
+	private String comStatus; 
+ 	/**
+ 	 * 获取状态 的属性值.
+ 	 */
+ 	public String getComStatus(){
+ 		return comStatus;
+ 	}
+ 	
+ 	/**
+ 	 * 设置状态 的属性值.
+ 	 */
+ 	public void setComStatus(String comstatus){
+ 		this.comStatus = comstatus;
  	}
 	private String comShortName; 
  	/**

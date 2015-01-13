@@ -17,6 +17,15 @@ public class ParamVO implements Serializable,SelectAble  {
 
 	}
 	
+	private String paramTypeName;
+	public String getParamTypeName() {
+		return paramTypeName;
+	}
+
+	public void setParamTypeName(String paramTypeName) {
+		this.paramTypeName = paramTypeName;
+	}
+
 	public ParamVO( int paramId , int paramType , String paramName , int paramValue , String usevalue , int orderId ) {
 		 this.paramId = paramId;
 		 this.paramType = paramType;

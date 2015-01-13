@@ -81,20 +81,20 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 	 * @return
 	 */
 	public ParamSelect getAllParamType() {
-		if (CacheManager.getCacheInfo("allparamtype") == null) {
+		if (CacheManager.getCacheInfo(AllSelectContants.ALLPARAMTYPE.getName()) == null) {
 			ParamSelect ans = null;
 			Collection<ParamTypeVO> all = this.paramTypeDao.findAll();
 			ans = new ParamSelect(all); 
 			
 			Cache c = new Cache();
-			c.setKey("allparamtype");
+			c.setKey(AllSelectContants.ALLPARAMTYPE.getName());
 			c.setValue(ans);
 			c.setName("属性类型");
-			CacheManager.putCache("allparamtype", c);
+			CacheManager.putCache(AllSelectContants.ALLPARAMTYPE.getName(), c);
 
 			return ans;
 		} else
-			return (ParamSelect) CacheManager.getCacheInfo("allparamtype")
+			return (ParamSelect) CacheManager.getCacheInfo(AllSelectContants.ALLPARAMTYPE.getName())
 					.getValue();
 	} 
 	
