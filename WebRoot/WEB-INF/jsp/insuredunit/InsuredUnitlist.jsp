@@ -57,6 +57,10 @@
 				</a>
 			</li>
 			<li>
+				<a class="edit" href="/money/insuredunit!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<li>
 				<a class="icon" href="/money/insuredunit!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
 			</li> 
 		</ul>
@@ -99,35 +103,35 @@
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
-					<td>
+					<td style="text-align:center;">
 						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitCode" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitName" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="contactName" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="contactMobile" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="contactEmail" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitParentId" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitState" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitAddress" />
 					</td> 
-					<td>
+					<td style="text-align:center;">
 						<s:property value="unitRemark" />
 					</td> 
 				</tr>

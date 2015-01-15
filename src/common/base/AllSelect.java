@@ -22,29 +22,32 @@ import dwz.framework.core.business.BusinessObjectManager;
  * @author renjie120 connect my:(QQ)1246910068
  * 
  */
-public class AllSelect extends AbstractBusinessObjectManager implements BusinessObjectManager{
+public class AllSelect extends AbstractBusinessObjectManager implements
+		BusinessObjectManager {
 	public static final String BEANNAME = "allSelectManager";
 	ParamTypeDao paramTypeDao = null;
-	ParamDao paramDao = null; 
-	public AllSelect(ParamTypeDao paramTypeDao,ParamDao paramDao ) {
-		this.paramTypeDao = paramTypeDao; 
-		this.paramDao = paramDao;  
+	ParamDao paramDao = null;
+
+	public AllSelect(ParamTypeDao paramTypeDao, ParamDao paramDao) {
+		this.paramTypeDao = paramTypeDao;
+		this.paramDao = paramDao;
 	}
 
 	/**
 	 * 得到全部的参数类型id和参数代码的映射.
+	 * 
 	 * @return
 	 */
 	public ParamSelect getAllParamTypeCode() {
 		if (CacheManager.getCacheInfo("allparamtypecode") == null) {
 			ParamSelect ans = null;
 			Collection<ParamTypeVO> all = this.paramTypeDao.findAllTypeCode();
-			Iterator<ParamTypeVO> it  =all.iterator();
+			Iterator<ParamTypeVO> it = all.iterator();
 			Collection<ParamTypeVO> newALl = new ArrayList();
-			while(it.hasNext()){
+			while (it.hasNext()) {
 				ParamTypeVO co = it.next();
 				co.setCode(co.getCode());
-				newALl.add(co); 
+				newALl.add(co);
 			}
 			ans = new ParamSelect(all);
 
@@ -59,33 +62,35 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 			return (ParamSelect) CacheManager.getCacheInfo("allparamtypecode")
 					.getValue();
 	}
-	
+
 	/**
 	 * 缓存全部的参数！
 	 */
-	public void cacheAllParams(){
-		ParamSelect select =getAllParamTypeCode();
+	public void cacheAllParams() {
+		ParamSelect select = getAllParamTypeCode();
 		List all = select.names;
-		//初始化参数类型的时候，同时将参数类型下面的全部属性一起加载到缓存中！！
-		if(all!=null){
+		// 初始化参数类型的时候，同时将参数类型下面的全部属性一起加载到缓存中！！
+		if (all != null) {
 			Iterator<String> it = all.iterator();
-			while(it.hasNext()){ 
+			while (it.hasNext()) {
 				String cacheId = it.next();
-				log.info("缓存..."+cacheId);
+				log.info("缓存..." + cacheId);
 				getParamsByType(cacheId);
 			}
 		}
 	}
+
 	/**
 	 * 得到全部的参数类型id和参数类型描述的映射.
+	 * 
 	 * @return
 	 */
 	public ParamSelect getAllParamType() {
 		if (CacheManager.getCacheInfo(AllSelectContants.ALLPARAMTYPE.getName()) == null) {
 			ParamSelect ans = null;
 			Collection<ParamTypeVO> all = this.paramTypeDao.findAll();
-			ans = new ParamSelect(all); 
-			
+			ans = new ParamSelect(all);
+
 			Cache c = new Cache();
 			c.setKey(AllSelectContants.ALLPARAMTYPE.getName());
 			c.setValue(ans);
@@ -94,19 +99,45 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 
 			return ans;
 		} else
-			return (ParamSelect) CacheManager.getCacheInfo(AllSelectContants.ALLPARAMTYPE.getName())
-					.getValue();
-	} 
-	
-	 
+			return (ParamSelect) CacheManager.getCacheInfo(
+					AllSelectContants.ALLPARAMTYPE.getName()).getValue();
+	}
+
 	/**
 	 * 查询指定的参数类型的全部参数值.
-	 * @param paraType 参数类型流水号
-	 * @param paraTypeName 参数类型描述--和paramType里面的code相等.
+	 * 
+	 * @param paraType
+	 *            参数类型流水号
+	 * @param paraTypeName
+	 *            参数类型描述--和paramType里面的code相等.
 	 * @return
 	 */
-	public ParamSelect getParamsByType(int paraType,String paraTypeName) {
-		String cacheId = "paramtype" + paraType; 
+	public ParamSelect getParamsByType(int paraType, String paraTypeName) {
+		String cacheId = "paramtype" + paraType;
+		if (CacheManager.getCacheInfo(cacheId) == null) {
+			ParamSelect ans = null;
+			Collection all = this.paramDao.findParmByType(paraType);
+			ans = new ParamSelect(all);
+
+			Cache c = new Cache();
+			c.setKey(cacheId);
+			c.setValue(ans);
+			c.setName("参数:" + paraTypeName);
+			CacheManager.putCache(cacheId, c);
+			return ans;
+		} else
+			return (ParamSelect) CacheManager.getCacheInfo(cacheId).getValue();
+	}
+
+	/**
+	 * 得到指定参数类型下面的全部参数.
+	 * 
+	 * @param paraType
+	 *            参数类型流水号.
+	 * @return
+	 */
+	public ParamSelect getParamsByType(int paraType) {
+		String cacheId = "paramtype" + paraType;
 		if (CacheManager.getCacheInfo(cacheId) == null) {
 			ParamSelect ans = null;
 			Collection<ParamVO> all = this.paramDao.findParmByType(paraType);
@@ -115,46 +146,25 @@ public class AllSelect extends AbstractBusinessObjectManager implements Business
 			Cache c = new Cache();
 			c.setKey(cacheId);
 			c.setValue(ans);
-			c.setName("参数:"+paraTypeName);
+			c.setName("参数:" + getAllParamTypeCode().getName("" + paraType));
 			CacheManager.putCache(cacheId, c);
 			return ans;
 		} else
 			return (ParamSelect) CacheManager.getCacheInfo(cacheId).getValue();
 	}
-	
-	/**
-	 * 得到指定参数类型下面的全部参数.
-	 * @param paraType 参数类型流水号.
-	 * @return
-	 */
-	public ParamSelect getParamsByType(int paraType) {
-		String cacheId = "paramtype" + paraType; 
-		if (CacheManager.getCacheInfo(cacheId) == null) {
-			ParamSelect ans = null;
-			Collection<ParamVO> all = this.paramDao.findParmByType(paraType);
-			ans = new ParamSelect(all);
 
-			Cache c = new Cache();
-			c.setKey(cacheId);
-			c.setValue(ans); 
-			c.setName("参数:"+getAllParamTypeCode().getName(""+paraType));
-			CacheManager.putCache(cacheId, c);
-			return ans;
-		} else
-			return (ParamSelect) CacheManager.getCacheInfo(cacheId).getValue();
-	}
-	
 	/**
 	 * 根据参数类型描述得到该参数类型下面的全部参数组成的key，value.
+	 * 
 	 * @param paraType
 	 * @return
 	 */
-	public ParamSelect getParamsByType(String paraType) { 
+	public ParamSelect getParamsByType(String paraType) {
 		ParamSelect paramTypeCodes = getAllParamTypeCode();
-		if(paramTypeCodes.getValue(paraType)!=null){
-			int val = Integer.parseInt(paramTypeCodes.getValue(paraType)); 
-			return getParamsByType(val,paraType);
+		if (paramTypeCodes.getValue(paraType) != null) {
+			int val = Integer.parseInt(paramTypeCodes.getValue(paraType));
+			return getParamsByType(val, paraType);
 		}
 		return null;
-	} 
+	}
 }

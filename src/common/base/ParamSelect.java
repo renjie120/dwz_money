@@ -42,6 +42,19 @@ public class ParamSelect<T extends SelectAble> {
 	public Collection<T> getDatas() {
 		return datas;
 	} 
+	
+	public List<SimpleOption> getSelectAbles() {
+		List<SimpleOption> ans = new ArrayList<SimpleOption>();
+		if(datas!=null){
+			for(SelectAble o:datas){ 
+				SimpleOption op = new SimpleOption();
+				op.setText(o.getOptionName());
+				op.setValue(o.getOptionId()); 
+				ans.add(op);
+			}
+		}
+		return ans;
+	} 
 
 	public String getName(String value){
 		int index = values.indexOf(value);

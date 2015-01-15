@@ -1,5 +1,5 @@
 <class name="InsuredUnit" table="Insured_unit" desc="投保单位"
-	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	importFile="true" exportFile="false" add="true" update="true" delete="true"
 	package="ido.InsuredUnit">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />

@@ -27,11 +27,11 @@ public class EcoCode {
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
 
-//		new Generate("action_code.ftl", beanName, "Action.java", packageName) {
-//			public Object setData() {
-//				return m;
-//			}
-//		}.setDirName(javaRoot, 1).make();
+		new Generate("action_code.ftl", beanName, "Action.java", packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.setDirName(javaRoot, 1).make();
 //
 //		new Generate("dao_code.ftl", beanName, "Dao.java", packageName) {
 //			public Object setData() {
@@ -76,14 +76,14 @@ public class EcoCode {
 //				return m;
 //			}
 //		}.setDirName(javaRoot, 1).make();
-
-		new Generate("manager_impl_code.ftl", beanName, "ManagerImpl.java",
-				packageName) {
-			public Object setData() {
-				return m;
-			}
-		}.setDirName(javaRoot, 1).make();
-		
+//
+//		new Generate("manager_impl_code.ftl", beanName, "ManagerImpl.java",
+//				packageName) {
+//			public Object setData() {
+//				return m;
+//			}
+//		}.setDirName(javaRoot, 1).make();
+//		
 //		new Generate("import_jsp.ftl", beanName, "import.jsp", packageName) {
 //			public Object setData() {
 //				return m;
@@ -108,6 +108,12 @@ public class EcoCode {
 //				return m;
 //			}
 //		}.setDirName(jspRoot, 2).make(); 
+//		
+		new Generate("query_jsp.ftl", beanName, "query.jsp", packageName) {
+			public Object setData() {
+				return m;
+			}
+		}.setDirName(jspRoot, 2).make(); 
 //		
 //		new Generate("dwz_database.ftl", beanName, "db.txt", packageName) {
 //			public Object setData() {

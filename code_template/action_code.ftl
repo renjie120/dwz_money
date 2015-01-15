@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.util.*; 
 import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.util.CommonUtil;
 import common.util.DateTool;
 import com.opensymphony.xwork2.ActionContext; 
@@ -15,8 +17,11 @@ import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
-
+import common.cache.Cache;
+import common.cache.CacheManager;
 import ido.loginfo.LogInfoManager;
+import common.base.AllSelect;
+import common.base.AllSelectContants;
 /**
  * 关于${model.classDesc}的Action操作类.
  * @author ${author}
@@ -59,15 +64,7 @@ public class ${bignm}Action extends BaseAction {
  	 */
 	public String doAdd() {
 		try {
-			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-			<#list model.attributes as attr>
-				<#if attr.currentTime='true'>
-			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改这里
-				</#if>
-				<#if attr.currentUser='true'>
-			${attr.name} = Integer.parseInt(currentUser.getId());
-				</#if>
-			</#list>
+			setCurrentUser(false);
 			${bignm}Impl ${classarg}Impl = new ${bignm}Impl(<@allfield2notkey nm=model.attributes />);
 			pMgr.create${bignm}(${classarg}Impl);
 			<#if model.addToCache='true'>
@@ -148,15 +145,7 @@ public class ${bignm}Action extends BaseAction {
 
 
 	public String doDelete() {
-		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-		<#list model.attributes as attr>
-				<#if attr.currentTime='true'>
-		${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
-				</#if>
-				<#if attr.currentUser='true'>
-		${attr.name} = Integer.parseInt(currentUser.getId());
-				</#if>
-			</#list>
+		setCurrentUser(true);
 		String ids = request.getParameter("ids");
 		String[] allId = ids.split(",");
 		List<${bignm}> allDeleteIds = new ArrayList<${bignm}>();
@@ -176,18 +165,20 @@ public class ${bignm}Action extends BaseAction {
 		return "editdetail";
 	} 
 	
+	private void setCurrentUser(boolean isUpdate){
+		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+		if(!isUpdate){
+			createUser = Integer.parseInt(currentUser.getId());
+			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
+		}else{
+			updateUser = Integer.parseInt(currentUser.getId());
+			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
+		}
+	}
+	
 	public String doUpdate() {
 		try {
-			// 当前用户
-			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-			<#list model.attributes as attr>
-				<#if attr.currentTime='true'>
-			${attr.name} = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
-				</#if>
-				<#if attr.currentUser='true'>
-			${attr.name} = Integer.parseInt(currentUser.getId());
-				</#if>
-			</#list>
+			setCurrentUser(true);
 			${bignm} old = pMgr.get${bignm}( sno );
 			String oldObj= "";
 			String newObj= ""; 
@@ -240,11 +231,34 @@ public class ${bignm}Action extends BaseAction {
 			return this.str;
 		}
 	}
-
+ 
+	
+	/**
+	 * 弹出高级查询界面.
+	 * @return
+	 */
 	public String beforeQuery() {
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		<#list model.attributes as attr> 
+		<#if '${attr.showType}'='select'>
+		ParamSelect select_${attr.selectCode} = allSelect
+				.getParamsByType(AllSelectContants.${attr.selectCode?upper_case}.getName()); 
+		request.setAttribute("${attr.name?lower_case} _list", select_${attr.selectCode}.getSelectAbles()); 
+		</#if>
+		<#if '${attr.showType}'='dict'>
+		Cache cache_${attr.name} = CacheManager.getCacheInfoNotNull(AllSelectContants.${attr.useCacheId?upper_case}.getName());
+		ParamSelect select_${attr.name} = (ParamSelect)cache_${attr.name}.getValue();
+		request.setAttribute("${attr.name?lower_case} _list", select_${attr.name}.getSelectAbles()); 
+		</#if>
+		</#list>
 		return "query";
 	}
 
+	/**
+	 * 导出界面.
+	 * @return
+	 */
 	public String export() {
 		response.setContentType("Application/excel");
 		response.addHeader("Content-Disposition","attachment;filename=${bignm}List.xls");
@@ -289,6 +303,26 @@ public class ${bignm}Action extends BaseAction {
 	}
 
 	public String query() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<${bignm}SearchFields, Object> criterias = getCriterias();
+
+		Collection<${bignm}> moneyList = pMgr.search${bignm}(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.search${bignm}Num(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "list";
+	}
+	
+	public String newQuery() {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
@@ -407,4 +441,71 @@ public class ${bignm}Action extends BaseAction {
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
+	
+	/*************  下面自动生成高级查询相关代码           ********************/
+	<#list model.attributes as attr> 
+		<#if  '${attr.showType}'='digits'||'${attr.showType}'='number'||'${attr.showType}'='date'>
+	private String condition1_${attr.name};
+	
+	public String getCondition1_${attr.name}(){
+		return this.condition1_${attr.name};
+	}
+	
+	public void setCondition1_${attr.name}(String s){
+		this.condition1_${attr.name} = s;
+	}
+	
+	private String condition2_${attr.name};
+	
+	public String getCondition2_${attr.name}(){
+		return this.condition2_${attr.name};
+	}
+	
+	public void setCondition2_${attr.name}(String s){
+		this.condition2_${attr.name} = s;
+	}
+	
+	private String query1_${attr.name};
+	
+	public String getQuery1_${attr.name}(){
+		return this.query1_${attr.name};
+	}
+	
+	public void setQuery1_${attr.name}(String s){
+		this.query1_${attr.name} = s;
+	}
+	
+	private String query2_${attr.name};
+		
+	public String getQuery2_${attr.name}(){
+		return this.query2_${attr.name};
+	}
+	
+	public void setQuery2_${attr.name}(String s){
+		this.query2_${attr.name} = s;
+	}
+	
+		<#else> 
+	private String condition_${attr.name};
+	
+	public String getCondition_${attr.name}(){
+		return this.condition_${attr.name};
+	}
+	
+	public void setCondition_${attr.name}(String s){
+		this.condition_${attr.name} = s;
+	}
+	
+	private String query_${attr.name};
+		
+	public String getQuery_${attr.name}(){
+		return this.query_${attr.name};
+	}
+	
+	public void setQuery_${attr.name}(String s){
+		this.query_${attr.name} = s;
+	}
+	
+		</#if>
+	</#list>
 }

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
 <div class="pageContent">
-	<form method="post" action="/money/${nm}!query.do"
+	<form method="post" action="/money/${nm}!newQuery.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<div class="pageFormContent" layoutH="57">
@@ -14,28 +14,38 @@
 							${attr.desc}:
 						</label>
 						<#if '${attr.showType}'='date'>
-							<input type="text" name="${attr.name}" class="date <#if "${attr.notnull}"='true'>required</#if>" size="30" readOnly="true"   />
+							<my:newselect tagName="condition1_${attr.name}" paraType="query_num" width="140" /><input type="text" name="query1_${attr.name}" class="date " size="30" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
+							<my:newselect tagName="condition2_${attr.name}" paraType="query_num" width="140" /><input type="text" name="query2_${attr.name}" class="date " size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a> 
 						<#else>
 							<#if '${attr.showType}'='textarea'>
-							<textarea class="<#if "${attr.notnull}"='true'>required</#if>" name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if> <#if '${attr.rows}'!=''>rows="${attr.rows}"</#if> <#if '${attr.cols}'!=''>cols="${attr.cols}"</#if>></textarea>
+							<my:newselect tagName="condition_${attr.name}" paraType="query_str" width="140" /><input name="query_${attr.name}" class="textInput" type="text" />
 							<#else>
 								<#if '${attr.showType}'='select'>
-							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> />
+							<my:newselect tagName="condition_${attr.name}"  paraType="common_option" width="100"/>
+							<s:iterator value="#request.${attr.name?lower_case}_list"  >
+							 <input type="checkbox" name="query_${attr.name}" value='<s:property value="value" />' /> <s:property value="text" />  
+							</s:iterator> 
 								<#else>
 									<#if '${attr.showType}'='email'>
-							<input name="${attr.name}"  class="email <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+							<my:newselect tagName="condition_${attr.name}" paraType="query_str" width="140" /><input name="${attr.name}" class="email" type="text" /> 
 									<#else>
 										<#if '${attr.showType}'='digits'>
-							<input name="${attr.name}"  class="digits <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+							<my:newselect tagName="condition1_${attr.name}" paraType="query_num" width="140" /><input name="query1_${attr.name}" class="digits" type="text" /> 
+							<my:newselect tagName="condition2_${attr.name}" paraType="query_num" width="140" /><input name="query2_${attr.name}" class="digits" type="text" /> 
 										<#else>
 											<#if '${attr.showType}'='number'>
-							<input name="${attr.name}"  class="number <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+							<my:newselect tagName="condition1_${attr.name}" paraType="query_num" width="140" /><input name="query1_${attr.name}" class="number" type="text" /> 
+							<my:newselect tagName="condition2_${attr.name}" paraType="query_num" width="140" /><input name="query2_${attr.name}" class="number" type="text" /> 
 											<#else>
 												<#if '${attr.showType}'='dict'>
-							<my:newselect tagName="${attr.name}"  tableName="${attr.fromTable}" nameColumn="${attr.nameColumn}" idColumn ="${attr.idCoulmn}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> />
+							<my:newselect tagName="condition_${attr.name}"  paraType="common_option" width="140"/>
+							<s:iterator value="#request.${attr.name?lower_case}_list"  >
+							 <input type="checkbox" name="query_${attr.name}" value='<s:property value="value" />' /> <s:property value="text" />  
+							</s:iterator>  
 												<#else>
-							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+							<my:newselect tagName="condition_${attr.name}"  paraType="common_option" width="140"/><input name="query_${attr.name}" class="text" type="text" /> 
 												</#if>
 											</#if>
 										</#if>

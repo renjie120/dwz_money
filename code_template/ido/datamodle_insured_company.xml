@@ -9,10 +9,14 @@
 		columnType="varchar(500)" desc="保险公司名称" width="100" notnull="true"
 		query="true" querylike="true" />
 
-	<property name="comNo" column="com_no" type="string"  
+	<property name="comNo" column="com_no" type="string"
 		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
 		columnType="varchar(1000)" width="100" desc="保险公司编号 " query="true"
 		querylike="true" />
+
+	<property name="comStatus" column="com_status" type="string"
+		showType="select" selectCode="yesorno_status" canImport="true"
+		canExport="true" columnType="int(10)" width="100" desc="状态 " query="true" />
 
 	<property name="comShortName" column="Com_shortname" type="string"
 		canImport="true" canExport="true" maxLength="100" columnType="varchar(200)"
@@ -32,7 +36,8 @@
 
 	<property name="ownerCompany" column="Owner_company" type="string"
 		canImport="true" canExport="true" showType="dict" fromTable="dict_Insured_company"
-		idCoulmn="id" nameColumn="com_name" columnType="int" width="100" desc="所属保险公司" />
+		useCacheId="insuredcompany_dict" idCoulmn="id" nameColumn="com_name"
+		columnType="int" width="100" desc="所属保险公司" />
 
 	<property name="comEmail" column="Com_email" type="string"
 		showType="email" canImport="true" canExport="true" maxLength="250"

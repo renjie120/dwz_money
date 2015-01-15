@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.util.*; 
 import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.util.CommonUtil;
 import common.util.DateTool;
 import com.opensymphony.xwork2.ActionContext; 
@@ -16,8 +18,11 @@ import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
-
+import common.cache.Cache;
+import common.cache.CacheManager;
 import ido.loginfo.LogInfoManager;
+import common.base.AllSelect;
+import common.base.AllSelectContants;
 /**
  * 关于保险公司的Action操作类.
  * @author www(水清)
@@ -60,11 +65,7 @@ public class InsuredCompanyAction extends BaseAction {
  	 */
 	public String doAdd() {
 		try {
-			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-			createUser = Integer.parseInt(currentUser.getId());
-			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
-//			updateUser = Integer.parseInt(currentUser.getId());
-//			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改这里
+			setCurrentUser(false);
 			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl(comName ,comNo ,comStatus ,comShortName ,comPhone ,comContactName ,comContactPhone ,ownerCompany ,comEmail ,comAddress ,comRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredCompany(insuredcompanyImpl);
 			insertLog(logMgr,"添加保险公司","/doAdd", "", "" ,JSON.toJSONString(insuredcompanyImpl));  
@@ -142,11 +143,7 @@ public class InsuredCompanyAction extends BaseAction {
 
 
 	public String doDelete() {
-		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-//		createUser = Integer.parseInt(currentUser.getId());
-//		createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");/修改
-		updateUser = Integer.parseInt(currentUser.getId());
-		updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+		setCurrentUser(true);
 		String ids = request.getParameter("ids");
 		String[] allId = ids.split(",");
 		List<InsuredCompany> allDeleteIds = new ArrayList<InsuredCompany>();
@@ -163,14 +160,20 @@ public class InsuredCompanyAction extends BaseAction {
 		return "editdetail";
 	} 
 	
+	private void setCurrentUser(boolean isUpdate){
+		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+		if(!isUpdate){
+			createUser = Integer.parseInt(currentUser.getId());
+			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
+		}else{
+			updateUser = Integer.parseInt(currentUser.getId());
+			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss"); 
+		}
+	}
+	
 	public String doUpdate() {
 		try {
-			// 当前用户
-			User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
-//			createUser = Integer.parseInt(currentUser.getId());
-//			createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
-			updateUser = Integer.parseInt(currentUser.getId());
-			updateTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");
+			setCurrentUser(true);
 			InsuredCompany old = pMgr.getInsuredCompany( sno );
 			String oldObj= "";
 			String newObj= ""; 
@@ -277,10 +280,26 @@ public class InsuredCompanyAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * 弹出高级查询界面.
+	 * @return
+	 */
 	public String beforeQuery() {
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_yesorno_status = allSelect
+				.getParamsByType(AllSelectContants.YESORNO_STATUS.getName()); 
+		request.setAttribute("comstatus _list", select_yesorno_status.getSelectAbles()); 
+		Cache cache_ownerCompany = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDCOMPANY_DICT.getName());
+		ParamSelect select_ownerCompany = (ParamSelect)cache_ownerCompany.getValue();
+		request.setAttribute("ownercompany _list", select_ownerCompany.getSelectAbles()); 
 		return "query";
 	}
 
+	/**
+	 * 导出界面.
+	 * @return
+	 */
 	public String export() {
 		response.setContentType("Application/excel");
 		response.addHeader("Content-Disposition","attachment;filename=InsuredCompanyList.xls");
@@ -366,7 +385,7 @@ public class InsuredCompanyAction extends BaseAction {
 		ActionContext.getContext().put("totalCount",count);
 		return "list";
 	}
-
+	 
 	public String reQuery() {
 		return "list";
 	}
@@ -678,4 +697,346 @@ public class InsuredCompanyAction extends BaseAction {
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
+	
+	/*************  下面自动生成高级查询相关代码           ********************/
+	private String condition_sno;
+	
+	public String getCondition_sno(){
+		return this.condition_sno;
+	}
+	
+	public void setCondition_sno(String s){
+		this.condition_sno = s;
+	}
+	
+	private String query_sno;
+		
+	public String getQuery_sno(){
+		return this.query_sno;
+	}
+	
+	public void setQuery_sno(String s){
+		this.query_sno = s;
+	}
+	
+	private String condition_comName;
+	
+	public String getCondition_comName(){
+		return this.condition_comName;
+	}
+	
+	public void setCondition_comName(String s){
+		this.condition_comName = s;
+	}
+	
+	private String query_comName;
+		
+	public String getQuery_comName(){
+		return this.query_comName;
+	}
+	
+	public void setQuery_comName(String s){
+		this.query_comName = s;
+	}
+	
+	private String condition_comNo;
+	
+	public String getCondition_comNo(){
+		return this.condition_comNo;
+	}
+	
+	public void setCondition_comNo(String s){
+		this.condition_comNo = s;
+	}
+	
+	private String query_comNo;
+		
+	public String getQuery_comNo(){
+		return this.query_comNo;
+	}
+	
+	public void setQuery_comNo(String s){
+		this.query_comNo = s;
+	}
+	
+	private String condition_comStatus;
+	
+	public String getCondition_comStatus(){
+		return this.condition_comStatus;
+	}
+	
+	public void setCondition_comStatus(String s){
+		this.condition_comStatus = s;
+	}
+	
+	private String query_comStatus;
+		
+	public String getQuery_comStatus(){
+		return this.query_comStatus;
+	}
+	
+	public void setQuery_comStatus(String s){
+		this.query_comStatus = s;
+	}
+	
+	private String condition_comShortName;
+	
+	public String getCondition_comShortName(){
+		return this.condition_comShortName;
+	}
+	
+	public void setCondition_comShortName(String s){
+		this.condition_comShortName = s;
+	}
+	
+	private String query_comShortName;
+		
+	public String getQuery_comShortName(){
+		return this.query_comShortName;
+	}
+	
+	public void setQuery_comShortName(String s){
+		this.query_comShortName = s;
+	}
+	
+	private String condition1_comPhone;
+	
+	public String getCondition1_comPhone(){
+		return this.condition1_comPhone;
+	}
+	
+	public void setCondition1_comPhone(String s){
+		this.condition1_comPhone = s;
+	}
+	
+	private String condition2_comPhone;
+	
+	public String getCondition2_comPhone(){
+		return this.condition2_comPhone;
+	}
+	
+	public void setCondition2_comPhone(String s){
+		this.condition2_comPhone = s;
+	}
+	
+	private String query1_comPhone;
+	
+	public String getQuery1_comPhone(){
+		return this.query1_comPhone;
+	}
+	
+	public void setQuery1_comPhone(String s){
+		this.query1_comPhone = s;
+	}
+	
+	private String query2_comPhone;
+		
+	public String getQuery2_comPhone(){
+		return this.query2_comPhone;
+	}
+	
+	public void setQuery2_comPhone(String s){
+		this.query2_comPhone = s;
+	}
+	
+	private String condition_comContactName;
+	
+	public String getCondition_comContactName(){
+		return this.condition_comContactName;
+	}
+	
+	public void setCondition_comContactName(String s){
+		this.condition_comContactName = s;
+	}
+	
+	private String query_comContactName;
+		
+	public String getQuery_comContactName(){
+		return this.query_comContactName;
+	}
+	
+	public void setQuery_comContactName(String s){
+		this.query_comContactName = s;
+	}
+	
+	private String condition_comContactPhone;
+	
+	public String getCondition_comContactPhone(){
+		return this.condition_comContactPhone;
+	}
+	
+	public void setCondition_comContactPhone(String s){
+		this.condition_comContactPhone = s;
+	}
+	
+	private String query_comContactPhone;
+		
+	public String getQuery_comContactPhone(){
+		return this.query_comContactPhone;
+	}
+	
+	public void setQuery_comContactPhone(String s){
+		this.query_comContactPhone = s;
+	}
+	
+	private String condition_ownerCompany;
+	
+	public String getCondition_ownerCompany(){
+		return this.condition_ownerCompany;
+	}
+	
+	public void setCondition_ownerCompany(String s){
+		this.condition_ownerCompany = s;
+	}
+	
+	private String query_ownerCompany;
+		
+	public String getQuery_ownerCompany(){
+		return this.query_ownerCompany;
+	}
+	
+	public void setQuery_ownerCompany(String s){
+		this.query_ownerCompany = s;
+	}
+	
+	private String condition_comEmail;
+	
+	public String getCondition_comEmail(){
+		return this.condition_comEmail;
+	}
+	
+	public void setCondition_comEmail(String s){
+		this.condition_comEmail = s;
+	}
+	
+	private String query_comEmail;
+		
+	public String getQuery_comEmail(){
+		return this.query_comEmail;
+	}
+	
+	public void setQuery_comEmail(String s){
+		this.query_comEmail = s;
+	}
+	
+	private String condition_comAddress;
+	
+	public String getCondition_comAddress(){
+		return this.condition_comAddress;
+	}
+	
+	public void setCondition_comAddress(String s){
+		this.condition_comAddress = s;
+	}
+	
+	private String query_comAddress;
+		
+	public String getQuery_comAddress(){
+		return this.query_comAddress;
+	}
+	
+	public void setQuery_comAddress(String s){
+		this.query_comAddress = s;
+	}
+	
+	private String condition_comRemark;
+	
+	public String getCondition_comRemark(){
+		return this.condition_comRemark;
+	}
+	
+	public void setCondition_comRemark(String s){
+		this.condition_comRemark = s;
+	}
+	
+	private String query_comRemark;
+		
+	public String getQuery_comRemark(){
+		return this.query_comRemark;
+	}
+	
+	public void setQuery_comRemark(String s){
+		this.query_comRemark = s;
+	}
+	
+	private String condition_createUser;
+	
+	public String getCondition_createUser(){
+		return this.condition_createUser;
+	}
+	
+	public void setCondition_createUser(String s){
+		this.condition_createUser = s;
+	}
+	
+	private String query_createUser;
+		
+	public String getQuery_createUser(){
+		return this.query_createUser;
+	}
+	
+	public void setQuery_createUser(String s){
+		this.query_createUser = s;
+	}
+	
+	private String condition_createTime;
+	
+	public String getCondition_createTime(){
+		return this.condition_createTime;
+	}
+	
+	public void setCondition_createTime(String s){
+		this.condition_createTime = s;
+	}
+	
+	private String query_createTime;
+		
+	public String getQuery_createTime(){
+		return this.query_createTime;
+	}
+	
+	public void setQuery_createTime(String s){
+		this.query_createTime = s;
+	}
+	
+	private String condition_updateUser;
+	
+	public String getCondition_updateUser(){
+		return this.condition_updateUser;
+	}
+	
+	public void setCondition_updateUser(String s){
+		this.condition_updateUser = s;
+	}
+	
+	private String query_updateUser;
+		
+	public String getQuery_updateUser(){
+		return this.query_updateUser;
+	}
+	
+	public void setQuery_updateUser(String s){
+		this.query_updateUser = s;
+	}
+	
+	private String condition_updateTime;
+	
+	public String getCondition_updateTime(){
+		return this.condition_updateTime;
+	}
+	
+	public void setCondition_updateTime(String s){
+		this.condition_updateTime = s;
+	}
+	
+	private String query_updateTime;
+		
+	public String getQuery_updateTime(){
+		return this.query_updateTime;
+	}
+	
+	public void setQuery_updateTime(String s){
+		this.query_updateTime = s;
+	}
+	
 }
