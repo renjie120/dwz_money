@@ -274,4 +274,10 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 		return menuTree.toZTreeJson(true);
 	}
+
+	@Override
+	public String getInsuredTree(String pid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

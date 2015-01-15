@@ -10,6 +10,7 @@
 				<property name="paramType" column="parameterType" type="int" />
 				<property name="paramName" column="parameterName" type="string" />
 				<property name="paramValue" column="paramvalue" type="int" />
+				<property name="isSystem" column="isSystem" type="int" />
 				<property name="usevalue" column="usevalue" type="string" />
 				<property name="orderId" column="orderId" type="int" />
 	</class>

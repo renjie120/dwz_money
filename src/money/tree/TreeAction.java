@@ -75,6 +75,16 @@ public class TreeAction extends BaseAction {
 		return null;
 	}
 	
+	/**
+	 * 返回参保单位的架构树.
+	 * @return
+	 */
+	public String getInsuredTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getInsuredTree(id));
+		return null;
+	}
+	
 	private String id; 
 
 	public String getId() {

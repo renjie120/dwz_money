@@ -64,10 +64,10 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100"    orderField="COMNAME" >
+				<th width="200"    orderField="COMNAME" >
 						保险公司名称 
 				</th> 
-				<th width=""    orderField="COMSTATUS" >
+				<th width="100"    orderField="COMSTATUS" >
 						是否显示  
 				</th> 
 			</tr>

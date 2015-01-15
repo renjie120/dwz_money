@@ -15,6 +15,11 @@ public interface Param extends BusinessObject {
  	 */
  	public  Integer   getParamId();
  	/**
+ 	 * 得到是否是系统默认的.
+ 	 * @return
+ 	 */
+ 	public  Integer   getIsSystem();
+ 	/**
  	 * 获取参数类型的属性值.
  	 */
  	public  int   getParamType();

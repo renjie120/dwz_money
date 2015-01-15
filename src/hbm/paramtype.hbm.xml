@@ -9,6 +9,7 @@
 		</id>
 				<property name="paramTypeName" column="parameter_type_name" type="string" />
 				<property name="orderId" column="orderId" type="int" />
+				<property name="isSystem" column="isSystem" type="int" />
 				<property name="code" column="code" type="string" />
 	</class>
 

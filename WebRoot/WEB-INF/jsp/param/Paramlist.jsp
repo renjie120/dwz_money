@@ -66,13 +66,14 @@
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="paramId" rel="<s:property value="paramId" />">
-					<td><input name="ids" value="<s:property value="paramId" />"
-						type="checkbox"></td>
-					<td><s:property value="paramId" /></td>
-					<td><s:property value="paramTypeName" /></td>
-					<td><s:property value="paramName" /></td>
-					<td><s:property value="paramValue" /></td>
-					<td><s:property value="usevalue" /></td> 
+					<td><s:if test="%{isSystem!=1}"><input name="ids" value="<s:property value="paramId" />"
+						type="checkbox">
+						</s:if></td>
+					<td  style="text-align:center;"><s:property value="paramId" />--- <s:property value="isSystem" /></td>
+					<td  style="text-align:center;"><s:property value="paramTypeName" /></td>
+					<td  style="text-align:center;"><s:property value="paramName" /></td>
+					<td  style="text-align:center;"><s:property value="paramValue" /></td>
+					<td  style="text-align:center;"><s:property value="usevalue" /></td> 
 				</tr>
 			</s:iterator>
 		</tbody>

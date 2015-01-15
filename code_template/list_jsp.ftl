@@ -115,13 +115,13 @@
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="${model.keyName}" rel="<s:property value="${model.keyName}" />">
-					<td>
+					<td style="text-align:center;">
 						<input name="ids" value="<s:property value="${model.keyName}" />"
 							type="checkbox">
 					</td>
 					<#list model.attributes as attr>  
 					<#if "${attr.visible}"!='false'>
-					<td>
+					<td style="text-align:center;">
 						<s:property value="${attr.name}" />
 					</td> 
 					</#if>

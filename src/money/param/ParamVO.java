@@ -12,7 +12,19 @@ import common.base.SelectAble;
  */ 
 public class ParamVO implements Serializable,SelectAble  {
 	private static final long serialVersionUID = 1L;
-	
+	/**
+ 	 * 得到是否是系统默认的.
+ 	 * @return
+ 	 */
+ 	private   Integer   isSystem ;
+	public Integer getIsSystem() {
+		return isSystem;
+	}
+
+	public void setIsSystem(Integer isSystem) {
+		this.isSystem = isSystem;
+	}
+
 	public ParamVO() {
 
 	}

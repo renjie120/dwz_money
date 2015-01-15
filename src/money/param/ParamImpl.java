@@ -2,7 +2,6 @@
 package money.param;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
  * 关于参数的业务实体类.
  * @author www(水清)
@@ -81,5 +80,11 @@ public class ParamImpl implements Param {
  	public  int   getOrderId(){
  		return this.paramVO.getOrderId();
  	}
+
+	@Override
+	public Integer getIsSystem() {
+		// TODO Auto-generated method stub
+		return this.paramVO.getIsSystem();
+	}
  
 }
