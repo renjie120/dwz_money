@@ -1,16 +1,16 @@
 ﻿package common.cache;
 
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
-import ido.Dict_InsuredCompany.InsuredCompanySelectManagerImpl;
+import ido.InsuredUnit.InsuredUnitManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import common.base.AllSelectContants;
-
 import money.cache.CacheImpl;
+
+import common.base.AllSelectContants;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -166,6 +166,10 @@ public class CacheManager {
 			BusinessFactory bf = BusinessFactory.getFactory();
 			if(AllSelectContants.INSUREDCOMPANY_DICT.getName().equals(key)){
 				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
+				pMgr.addCache();
+			}
+			if(AllSelectContants.INSUREDUNIT_DICT.getName().equals(key)){
+				InsuredUnitManager pMgr = bf.getManager(BeanManagerKey.insuredunitManager);
 				pMgr.addCache();
 			}
 			return getCache(key);

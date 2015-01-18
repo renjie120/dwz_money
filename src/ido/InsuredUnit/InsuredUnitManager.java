@@ -27,6 +27,12 @@ public interface InsuredUnitManager  extends BusinessObjectManager {
 			String orderField, int startIndex, int count);
 
 	/**
+	 * 添加到缓存.
+	 */
+	@Transactional
+	public void addCache() ;
+	
+	/**
 	 * 查询总数.
 	 * @param criterias 查询条件
 	 * @return

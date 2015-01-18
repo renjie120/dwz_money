@@ -68,8 +68,11 @@ public class CacheAction extends BaseAction {
 		//初始化业务菜单缓存.
 		tMgr.initMenuCache();
 		
+		//组织机构树
 		tMgr.initOrgCache();
 		
+		//投保单位树.
+		tMgr.initInsuredCache();
 		InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
 		pMgr.addCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));

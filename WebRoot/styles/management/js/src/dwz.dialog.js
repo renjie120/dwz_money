@@ -33,7 +33,7 @@
 			var op = $.extend({},$.pdialog._op, options);
 			var dialog = $("body").data(dlgid); 
 			//重复打开一个层
-			if(dialog) {
+			if(dialog) { 
 				if(dialog.is(":hidden")) {
 					dialog.show();
 				}
@@ -52,8 +52,7 @@
 					});
 				}
 			
-			} else { //打开一个全新的层
-			
+			} else { //打开一个全新的层 
 				$("body").append(DWZ.frag["dialogFrag"]);
 				dialog = $(">.dialog:last-child", "body");
 				dialog.data("id",dlgid);

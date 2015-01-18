@@ -56,6 +56,13 @@ public interface InsuredCompanyManager  extends BusinessObjectManager {
 	 */
 	@Transactional
 	public void removeInsuredCompanys(String sno);
+	
+	/**
+	 * 注销操作.
+	 * @param sno
+	 */
+	@Transactional
+	public void zhuxiaoInsuredCompanys(String sno);
 
 	/**
 	 * 根据主键取值.

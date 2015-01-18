@@ -38,6 +38,13 @@ public interface InsuredUnit extends BusinessObject {
  	 * 获取上级单位的属性值.
  	 */
  	public  int   getUnitParentId();
+ 	
+ 	/**
+ 	 * 获取上级单位的名称
+ 	 * @return
+ 	 */
+ 	public  String   getUnitParentName();
+ 	
  	/**
  	 * 获取是否显示的属性值.
  	 */

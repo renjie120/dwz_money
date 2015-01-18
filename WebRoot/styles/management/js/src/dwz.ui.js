@@ -411,17 +411,25 @@ function initUI(_box) {
 									options.close = eval($this.attr("close")
 											|| "");
 									options.param = $this.attr("param") || "";
-
+									 
 									var url = unescape($this.attr("href"))
 											.replaceTmById(
 													$(event.target).parents(
 															".unitBox:first"));
+									//alert($this.attr("addToUrl"));
+									if($this.attr("addToUrl")){
+										var ans = eval($this.attr("addToUrl")+"()");  
+										if(url.indexOf("?")==-1)
+											url = url+"?"+ans;
+										else
+											url = url+"&"+ans; 
+									}
 									DWZ.debug(url);
 									if (!url.isFinishedTm()) {
 										alertMsg.error($this.attr("warn")
 												|| DWZ.msg("alertSelectMsg"));
 										return false;
-									}
+									} 
 									$.pdialog.open(url, rel, title, options);
 
 									return false;

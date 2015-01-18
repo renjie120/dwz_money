@@ -79,7 +79,7 @@ public class TreeAction extends BaseAction {
 	 * 返回参保单位的架构树.
 	 * @return
 	 */
-	public String getInsuredTree(){
+	public String getInsuredLazyTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getInsuredTree(id));
 		return null;
@@ -102,6 +102,16 @@ public class TreeAction extends BaseAction {
 	public String getMenuTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getMenuTree());
+		return null;
+	} 
+	
+	/**
+	 * 投保单位树
+	 * @return
+	 */
+	public String getInsuredTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getInsuredTree());
 		return null;
 	} 
 	

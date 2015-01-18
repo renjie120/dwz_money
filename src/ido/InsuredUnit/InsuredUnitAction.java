@@ -6,6 +6,12 @@ import java.io.FileOutputStream;
 import java.util.*; 
 
 import com.alibaba.fastjson.JSON;
+
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
 import common.util.CommonUtil;
 
 import com.opensymphony.xwork2.ActionContext; 
@@ -14,6 +20,8 @@ import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
+import money.tree.TreeManager;
+
 import org.apache.struts2.ServletActionContext;
 
 import ido.loginfo.LogInfoManager;
@@ -51,6 +59,14 @@ public class InsuredUnitAction extends BaseAction {
 	private String savePath;
 	
 	public String beforeAdd() {
+		request.setAttribute("unitParentId", unitParentId);
+		if(unitParentId!=0){
+			Cache cache_insuredunit = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+			ParamSelect select_insuredunit = (ParamSelect)cache_insuredunit.getValue();
+			request.setAttribute("ddd", select_insuredunit.getName(""+unitParentId));
+		}
+		else
+			request.setAttribute("ddd", "投保单位");
 		return "detail";
 	}
  
@@ -61,7 +77,11 @@ public class InsuredUnitAction extends BaseAction {
 		try {
 			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl(unitCode ,unitName ,contactName ,contactMobile ,contactEmail ,unitParentId ,unitState ,unitAddress ,unitRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredUnit(insuredunitImpl);
-			
+			pMgr.addCache();
+			//刷新保险单位树
+			CacheManager.clearOnly(AllSelectContants.INSUREDTREE.getName());
+			TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
+			tMgr.initInsuredCache();
 			insertLog(logMgr,"添加投保单位","/doAdd", "", "" ,JSON.toJSONString(insuredunitImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -131,6 +151,11 @@ public class InsuredUnitAction extends BaseAction {
 			pMgr.importFromExcel(f);
 		}
 		insertLog(logMgr,"导入投保单位","/importExcel", "", "" ,"");  
+		pMgr.addCache();
+		CacheManager.clearOnly(AllSelectContants.INSUREDTREE.getName());
+		//刷新保险单位树
+		TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
+		tMgr.initInsuredCache();
 		writeToPage(response, "导入成功!");
 		return null;
 	}
@@ -144,7 +169,11 @@ public class InsuredUnitAction extends BaseAction {
 			allDeleteIds.add(pMgr.getInsuredUnit(Integer.parseInt(_id)));
 		}
 		pMgr.removeInsuredUnits(ids);
-		
+		pMgr.addCache();
+		CacheManager.clearOnly(AllSelectContants.INSUREDTREE.getName());
+		//刷新保险单位树
+		TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
+		tMgr.initInsuredCache();
 		insertLog(logMgr,"删除投保单位","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
@@ -218,7 +247,11 @@ public class InsuredUnitAction extends BaseAction {
 			
 			InsuredUnitImpl insuredunitImpl = new InsuredUnitImpl( sno , unitCode , unitName , contactName , contactMobile , contactEmail , unitParentId , unitState , unitAddress , unitRemark , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredUnit(insuredunitImpl);
-			
+			pMgr.addCache();
+			CacheManager.clearOnly(AllSelectContants.INSUREDTREE.getName());
+			//刷新保险单位树
+			TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
+			tMgr.initInsuredCache();
 			insertLog(logMgr,"修改投保单位","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(insuredunitImpl));  
@@ -328,6 +361,38 @@ public class InsuredUnitAction extends BaseAction {
 		ActionContext.getContext().put("totalCount",count);
 		return "list";
 	}
+	
+	/**
+	 * 查询子保险单位.
+	 * @return
+	 */
+	public String queryByParent() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<InsuredUnitSearchFields, Object> criterias = getCriterias();
+
+		Collection<InsuredUnit> moneyList = pMgr.searchInsuredUnit(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchInsuredUnitNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "list_small";
+	}
+	
+	/**
+	 * 返回新的保险单位的首页，左侧有一个树形.
+	 * @return
+	 */
+	public String newList() { 
+		return "newList";
+	}
 
 	public String reQuery() {
 		return "list";
@@ -363,6 +428,8 @@ public class InsuredUnitAction extends BaseAction {
 			criterias.put(InsuredUnitSearchFields.UNITCODE, "%"+getUnitCode()+"%"); 
 		if (getUnitName()!=null&&!"".equals(getUnitName())&&!"-1".equals(getUnitName())&&!"-2".equals(getUnitName()))
 			criterias.put(InsuredUnitSearchFields.UNITNAME, "%"+getUnitName()+"%"); 
+		if (getUnitParentId()!=0)
+			criterias.put(InsuredUnitSearchFields.UNITPARENTID,  getUnitParentId() ); 
 		return criterias;
 	}
 

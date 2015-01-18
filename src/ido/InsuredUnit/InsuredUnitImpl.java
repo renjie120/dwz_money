@@ -124,5 +124,10 @@ public class InsuredUnitImpl implements InsuredUnit {
  	public  String   getUpdateTime(){
  		return this.insuredunitVO.getUpdateTime();
  	}
+
+	@Override
+	public String getUnitParentName() { 
+		return this.insuredunitVO.getUnitParentName();
+	}
  
 }

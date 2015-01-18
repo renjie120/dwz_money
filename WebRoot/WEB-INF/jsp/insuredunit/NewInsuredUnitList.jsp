@@ -1,75 +1,38 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<style type="text/css">
-ul.rightTools {
-	float: right;
-	display: block;
-}
-
-ul.rightTools li {
-	float: left;
-	display: block;
-	margin-left: 5px
-}
-</style>
+<form id="pagerForm" method="post" action="/money/insuredunit!query.do">
+	<input type="hidden" name="pageNum" value="${pageNum}" />
+	<input type="hidden" name="numPerPage" value="${numPerPage}" />
+	<input type="hidden" name="orderField" value="${param.orderField}" />
+	<input type="hidden" name="orderDirection"
+		value="${param.orderDirection}" />
+</form> 
 <script type="text/javascript"> 
-	function onClick(e, treeId, treeNode) { 
+	function onClick(e, treeId, treeNode) {  
 		var zTree = $.fn.zTree.getZTreeObj(treeId), nodes = zTree
 				.getSelectedNodes(), v = "", v2 = "";
- 
-		if (nodes.length > 0 && !nodes[0].isParent) {
-			for ( var i = 0, l = nodes.length; i < l; i++) {
-				v += nodes[i].name + ",";
-				v2 += nodes[i].id + ",";
-			}
-			if (v.length > 0)
-				v = v.substring(0, v.length - 1);
-			if (v2.length > 0)
-				v2 = v2.substring(0, v2.length - 1); 
-			//用户菜单权限的列表界面 
-			if(treeId=='userMenuRight_menutree'){ 
-				var $this = $('#jbsxBox');
-				var wdt = $this.parent().width() - $('#'+treeId).width() - 15;
-				$this.height($('#' + $this.attr('relHeight')).height()).width(wdt).loadUrl(
-					"/money/menu!queryByUser.do?userId=" + v2,
-					{},
-					function() {
-						var _b = $('#tableArea');
-						var _pgContaint = _b.parents(
-								"div.pageContent:first").parents(
-								"div:first");
-						var __int = _pgContaint.height()
-								- _pgContaint.find(
-										'div.pageHeader:first')
-										.height()
-								- _b.attr('modifyHeight');
-						_b.height(__int);
-					});
-			}else{ 
-			   //查询显示右边的用户拥有的角色列表
-				var $this = $('#jbsxBox2');
-				$this.find('#myUserRoleDiv_userId').val(v2);
-				var wdt = $this.parent().width() - $('#'+treeId).width() - 15; 
-				$this.height($('#' + $this.attr('relHeight')).height()).width(wdt).loadUrl(
-					"/money/role!queryRoleByUserId.do?userId="+v2,
-					{},
-					function() {
-						var _b = $('#tableArea2');
-						var _pgContaint = _b.parents(
-								"div.pageContent:first").parents(
-								"div:first");
-						var __int = _pgContaint.height()
-								- _pgContaint.find(
-										'div.pageHeader:first')
-										.height()
-								- _b.attr('modifyHeight');
-						_b.height(300);
-					});
-			}
-		} else { 
-			zTree.expandNode(nodes[0]); 
+		//得到选中的节点id和名字的集合.
+ 		for ( var i = 0, l = nodes.length; i < l; i++) {
+			v += nodes[i].name + ",";
+			v2 += nodes[i].id + ",";
 		}
+		if (v.length > 0)
+			v = v.substring(0, v.length - 1);
+		if (v2.length > 0)
+			v2 = v2.substring(0, v2.length - 1); 
+				
+		if (nodes.length > 0 && !nodes[0].isParent) { 
+		   zTree.expandNode(nodes[0]); 
+		} 
+		
+		if(treeId=='insuredUnit_tree'){ 
+			var $this = $('#jbsxBox3');
+			var wdt = $this.parent().width() - $('#'+treeId).width() - 15; 
+			$('#selectedUnitId').val(v2)
+			$this.height(700).width(wdt).loadUrl(
+				"/money/insuredunit!queryByParent.do?unitParentId=" + v2 );
+		}  
 	}
 
 	function filter(treeId, parentNode, childNodes) {
@@ -82,10 +45,10 @@ ul.rightTools li {
 	}
 
 	function resizeGrid() {
-		$this = $('#jbsxBox');
+		$this = $('#jbsxBox3');
 		var wdt = $this.parents().width() - $('#userMenuRight_menutree').width() - 15;
 		$this.width(wdt);
-		$('#tbtb').width(wdt); 
+		$('#tbtb3').width(wdt); 
 		$this.find('div.gridScroller').wdt(wdt + "px");
 	}
 	function initMyUI() {
@@ -103,6 +66,8 @@ ul.rightTools li {
 			changeTable('jbsxBox','tbtb','userMenuRight_menutree');
 		if($('#jbsxBox2:visible').size()>0)
 			changeTable('jbsxBox2','tbtb2','userMenuRight_menutree2');
+		if($('#jbsxBox3:visible').size()>0)
+			changeTable('jbsxBox3','tbtb3','insuredUnit_tree');
 	}
 
 	function changeTable(boxId,tableId,treeId){ 
@@ -133,19 +98,56 @@ ul.rightTools li {
 		});
 		return false;
 	}
+	
+	function refreshInsuredUnit(txt) {
+		// 提示返回结果.
+		if (txt.responseText)
+			alertMsg.info(txt.responseText);
+		else
+			alertMsg.info(txt);
+		// 关闭当前页面
+		$.pdialog.closeCurrent();
+		 
+	} 
+	
+	function addUnitParent(){ 
+		return "unitParentId="+$('#selectedUnitId').val();
+	}
  	//角色管理主界面.
 //-->
-</script>
-<div class="pageContent" style="padding:5px">
-	<div>
-				<div class="zTreeDemoBackground left" id='userMenuRight2'
-					style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
-					autoHeight>  
-					 <ul id="userMenuRight_menutree2" class="ztree" lazy="true" url="/money/tree!getOrgWithPeopleTree.do" autoParam="[ 'id', 'name']"></ul>
-				</div>
-				<div id="jbsxBox2" class="unitBox"  relHeight='userMenuRight2'
-					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;">
-					 
-				</div>
-			</div> 
+</script> 
+<input type="hidden" id="selectedUnitId" value="0"/>
+<div class="pageContent"> 
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li> 
+				<a class="add" addToUrl="addUnitParent" href="/money/insuredunit!beforeAdd.do" target="dialog" mask="true"  
+					title="添加"><span>添加</span> </a>
+			</li>
+			<li>
+				<a class="delete" href="/money/insuredunit!doDelete.do" postType="string"
+					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+				</a>
+			</li>
+			<li>
+				<a class="edit" href="/money/insuredunit!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<!-- li>
+				<a class="icon" href="/money/insuredunit!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+			</li -->
+		</ul>
+	</div>
+	<div id='insuredUnit_Div'>
+		<div class="zTreeDemoBackground left" id='newInsuredUnit'
+			style="float:left; display:block;overflow:hidden; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
+			autoHeight>  
+			 <ul id="insuredUnit_tree" class="ztree"  url="/money/tree!getInsuredTree.do" autoParam="[ 'id', 'name']"></ul>
+		</div>
+		<div id="jbsxBox3" class="unitBox"   
+			style="height:700px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;"> 
+		</div>
+	</div>  
+	</div>
 </div>
+

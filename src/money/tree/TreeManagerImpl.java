@@ -3,7 +3,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +13,7 @@ import money.rolemanager.RoleWithMenuVO;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import common.MyJdbcTool;
-import common.base.TreeTool;
+import common.base.AllSelectContants;
 import common.cache.Cache;
 import common.cache.CacheManager;
 import common.tree.ITreeNodeTravel;
@@ -52,7 +51,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 	@Override
 	public Tree initMenuCache() {
 		Tree tree = null;
-		if (CacheManager.getCacheInfo("menuTree") == null) {
+		if (CacheManager.getCacheInfo(AllSelectContants.MENUTREE.getName()) == null) {
 			tree = new Tree("0", "菜单树");
 			LinkedList<TreeNode> allP = new LinkedList();
 			allP.add(tree.getRoot());
@@ -84,12 +83,12 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			} while (allP.size() > 0);
 
 			Cache c = new Cache();
-			c.setKey("menuTree");
+			c.setKey(AllSelectContants.MENUTREE.getName());
 			c.setValue(tree);
 			c.setName("菜单树");
-			CacheManager.putCache("menuTree", c);
+			CacheManager.putCache(AllSelectContants.MENUTREE.getName(), c);
 		} else {
-			tree = (Tree) CacheManager.getCacheInfo("menuTree").getValue();
+			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.MENUTREE.getName()).getValue();
 		}
 		return tree;
 	}
@@ -102,7 +101,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 	@Override
 	public Tree initOrgCache() {
 		Tree tree = null;
-		if (CacheManager.getCacheInfo("orgTree") == null) {
+		if (CacheManager.getCacheInfo(AllSelectContants.ORGTREE.getName()) == null) {
 			tree = new Tree("0", "组织机构树");
 			LinkedList<TreeNode> allP = new LinkedList();
 			allP.add(tree.getRoot());
@@ -131,12 +130,12 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			} while (allP.size() > 0);
 
 			Cache c = new Cache();
-			c.setKey("orgTree");
+			c.setKey(AllSelectContants.ORGTREE.getName());
 			c.setValue(tree);
 			c.setName("组织机构树");
-			CacheManager.putCache("orgTree", c);
+			CacheManager.putCache(AllSelectContants.ORGTREE.getName(), c);
 		} else {
-			tree = (Tree) CacheManager.getCacheInfo("orgTree").getValue();
+			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.ORGTREE.getName()).getValue();
 		}
 		return tree;
 	}
@@ -169,6 +168,11 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		return buil.toString();
 	}
 
+	/**
+	 * 初始化人员组织机构树.
+	 * @param pid
+	 * @return
+	 */
 	public List<TreeNode> initOrgWithPeopleTree(String pid) {
 		List<TreeNode> ans = new ArrayList<TreeNode>();
 		if (pid == null)
@@ -196,6 +200,41 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			_nd.isParent = false;
 			ans.add(_nd);
 		}
+		return ans;
+	}
+	
+	/**
+	 * 判断一个保险单位是否有孩子单位.
+	 * @param pid
+	 * @return
+	 */
+	private boolean hasChildInsuredUnit(String pid){
+		int count= jdbc.queryForInt(
+				"select count(1) from insured_unit where unit_parent_id = ? ",
+				new Object[] { pid });
+		return count>0;
+	}
+	
+	/**
+	 * 初始化保险单位机构树.
+	 * @param pid
+	 * @return
+	 */
+	public List<TreeNode> initInsuredTree(String pid) {
+		List<TreeNode> ans = new ArrayList<TreeNode>();
+		if (pid == null)
+			pid = "0";
+		List child = jdbc.queryForList(
+				"select id,unit_name from insured_unit where unit_parent_id = ? ",
+				new Object[] { pid });
+		for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+			LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+					.get(ii);
+			TreeNode _nd = new TreeNode(_objs.get("id") + "",
+					_objs.get("unit_name") + "");
+			_nd.isParent = hasChildInsuredUnit(""+_objs.get("id"));
+			ans.add(_nd);
+		} 
 		return ans;
 	}
 
@@ -277,7 +316,54 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 
 	@Override
 	public String getInsuredTree(String pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return toZTreeJson(initInsuredTree(pid));
+	}
+
+	@Override
+	public String getInsuredTree() {
+		return initInsuredCache().toZTreeJson();
+	}
+
+	@Override
+	public Tree initInsuredCache() {
+		Tree tree = null;
+		if (CacheManager.getCacheInfo(AllSelectContants.INSUREDTREE.getName()) == null) {
+			tree = new Tree("0", "投保单位树");
+			LinkedList<TreeNode> allP = new LinkedList();
+			allP.add(tree.getRoot());
+
+			do {
+				TreeNode nd = allP.poll();
+				int totalCount = jdbc
+						.queryForInt(
+								"select count(1) from insured_unit where unit_parent_id=?",
+								new Object[] { nd.getId() });
+				nd.open = "true";
+				if (totalCount > 0) {
+					List child = jdbc
+							.queryForList(
+									"select id,unit_name  from insured_unit where unit_parent_id=? ",
+									new Object[] { nd.getId() });
+					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+								.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("id") + "",
+								_objs.get("unit_name") + "");
+						_nd.level = nd.level + 1;
+						nd.addChild(_nd);
+						allP.add(_nd);
+					}
+				}
+			} while (allP.size() > 0);
+
+			Cache c = new Cache();
+			c.setKey(AllSelectContants.INSUREDTREE.getName());
+			c.setValue(tree);
+			c.setName("投保单位树");
+			CacheManager.putCache(AllSelectContants.INSUREDTREE.getName(), c);
+		} else {
+			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.INSUREDTREE.getName()).getValue();
+		}
+		return tree;
 	}
 }

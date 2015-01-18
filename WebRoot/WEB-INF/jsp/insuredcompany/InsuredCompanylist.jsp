@@ -65,6 +65,10 @@
 					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
 			<li>
+				<a class="edit" href="/money/insuredcompany!doZhuxiao.do" postType="string"  
+					target="selectedTodo" rel="ids" title="确定要注销嘛?"><span>注销</span> </a>
+			</li>
+			<li>
 				<a class="icon" href="/money/insuredcompany!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
@@ -149,7 +153,12 @@
 						<s:property value="comRemark" />
 					</td> 
 					<td>
-						<div style='color:red;align:center;width:100%'><s:property value="comStatus" /></div>
+					<s:if test="%{comStatus=='失效'}">
+						<div style='color:red;align:center;width:100%'>失效</div>
+					</s:if>
+					<s:if test="%{comStatus=='有效'}">
+						有效
+					</s:if>
 					</td> 
 				</tr>
 			</s:iterator>

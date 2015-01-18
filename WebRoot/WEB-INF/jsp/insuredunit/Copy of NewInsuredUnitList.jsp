@@ -26,7 +26,7 @@ ul.rightTools li {
 			if (v.length > 0)
 				v = v.substring(0, v.length - 1);
 			if (v2.length > 0)
-				v2 = v2.substring(0, v2.length - 1);  
+				v2 = v2.substring(0, v2.length - 1); 
 			//用户菜单权限的列表界面 
 			if(treeId=='userMenuRight_menutree'){ 
 				var $this = $('#jbsxBox');
@@ -46,30 +46,18 @@ ul.rightTools li {
 								- _b.attr('modifyHeight');
 						alert( _pgContaint.height()+"---"+_pgContaint.find(
 										'div.pageHeader:first')
-										.height());		
+										.height());
 						_b.height(__int);
 					});
 			}
 			//用户菜单权限的列表界面 
-			else if(treeId=='userMenuRight_menutree'){ 
-				var $this = $('#jbsxBox');
+			else if(treeId=='insuredUnit_tree'){ 
+				var $this = $('#jbsxBox3');
 				var wdt = $this.parent().width() - $('#'+treeId).width() - 15;
-				$this.height($('#' + $this.attr('relHeight')).height()).width(wdt).loadUrl(
-					"/money/menu!queryByUser.do?userId=" + v2,
-					{},
-					function() {
-						var _b = $('#tableArea');
-						var _pgContaint = _b.parents(
-								"div.pageContent:first").parents(
-								"div:first");
-						var __int = _pgContaint.height()
-								- _pgContaint.find(
-										'div.pageHeader:first')
-										.height()
-								- _b.attr('modifyHeight');
-						_b.height(__int);
-					});
-			}else{ 
+				$this.height(700).width(wdt).loadUrl(
+					"/money/insuredunit!queryByParent.do?unitParentId=" + v2 );
+			}
+			else{ 
 			   //查询显示右边的用户拥有的角色列表
 				var $this = $('#jbsxBox2');
 				$this.find('#myUserRoleDiv_userId').val(v2);
@@ -161,14 +149,14 @@ ul.rightTools li {
 </script>
 <div class="pageContent" style="padding:5px">
 	<div>
-				<div class="zTreeDemoBackground left" id='userMenuRight2'
-					style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
-					autoHeight>  
-					 <ul id="userMenuRight_menutree2" class="ztree" lazy="true" url="/money/tree!getOrgWithPeopleTree.do" autoParam="[ 'id', 'name']"></ul>
-				</div>
-				<div id="jbsxBox2" class="unitBox"  relHeight='userMenuRight2'
-					style="height:0px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;">
-					 
-				</div>
-			</div> 
+		<div class="zTreeDemoBackground left" id='newInsuredUnit'
+			style="float:left; display:block;overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff"
+			autoHeight>  
+			 <ul id="insuredUnit_tree" class="ztree" lazy="true" url="/money/tree!getInsuredTree.do" autoParam="[ 'id', 'name']"></ul>
+		</div>
+		<div id="jbsxBox3" class="unitBox"   
+			style="height:700px;margin-left:246px;border:1px #BAD1D7 solid;overflow:hidden;">
+			 
+		</div>
+	</div> 
 </div>

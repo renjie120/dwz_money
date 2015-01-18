@@ -18,7 +18,7 @@
 			treeId:"menuTree"
 		};
 		$('#parentName').treeCombox(content);
-	});
+	}); 
 </script>
 <%@ page import="money.menu.Menu"%>
 <% 
@@ -43,7 +43,7 @@
 						</label>
 						<input name="parentId" id="parentId" type="hidden" value="<s:property value="vo.parentId"/>"/> 
 						<input name="parentName" size="30" id="parentName" type="text" readonly="true"
-							onclick="showMenu(); return false;" value="<s:property value="vo.parentName"/>"/> 
+							  value="<s:property value="vo.parentName"/>"/> 
 					</div>
 					 <div class="unit">
 						<label>

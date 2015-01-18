@@ -6,7 +6,9 @@ public enum AllSelectContants {
 			"plantype"), USER_TYPE("usertype"), MENU_TARGET("menutarget"), QUESTION_STATUS(
 			"questionStatus"), DIARY_TYPE("diarytype"), DEAL_TYPE("dealType"), INSURE_COMPANY(
 			"insure_company"), YESORNO_STATUS("yesorno_status"), INSUREDCOMPANY_DICT(
-			"insuredcompany_dict"),ALLPARAMTYPE("allparamtype");
+			"insuredcompany_dict"), ALLPARAMTYPE("allparamtype"), MENUTREE(
+			"menuTree"), ORGTREE("orgTree"), INSUREDTREE(
+			"insuredTree"),INSUREDUNIT_DICT("insuredunit_dict");
 	private String name;
 
 	AllSelectContants(String name) {

@@ -25,4 +25,8 @@
 	<query name="ido.InsuredUnit.InsuredUnitDao.findRecordById">
 		<![CDATA[from InsuredUnitVO as insuredUnitDao where sno = ?]]>
 	</query>
+	
+	<query name="ido.InsuredUnit.InsuredUnitDao.findAll">
+		<![CDATA[from InsuredUnitVO  ]]>
+	</query>
 </hibernate-mapping>

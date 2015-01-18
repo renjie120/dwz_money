@@ -154,6 +154,19 @@ public class InsuredCompanyAction extends BaseAction {
 		insertLog(logMgr,"删除保险公司","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
+	
+	public String doZhuxiao() {
+		setCurrentUser(true);
+		String ids = request.getParameter("ids");
+		String[] allId = ids.split(",");
+		List<InsuredCompany> allDeleteIds = new ArrayList<InsuredCompany>();
+		for(String _id:allId){
+			allDeleteIds.add(pMgr.getInsuredCompany(Integer.parseInt(_id)));
+		}
+		pMgr.zhuxiaoInsuredCompanys(ids);
+		insertLog(logMgr,"注销保险公司","/doZhuxiao", "", "" ,JSON.toJSONString(allDeleteIds));   
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
 
 	public String beforeUpdate() {
 		vo = pMgr.getInsuredCompany(sno);

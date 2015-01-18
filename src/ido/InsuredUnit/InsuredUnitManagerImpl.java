@@ -1,19 +1,18 @@
 
 package ido.InsuredUnit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -98,9 +97,12 @@ public class InsuredUnitManagerImpl extends AbstractBusinessObjectManager implem
 				.getBean(BeanManagerKey.allSelectManager.toString());
 		ParamSelect select_yesorno = allSelect
 				.getParamsByType(AllSelectContants.YESORNO.getName());
+		Cache cache_insuredunit = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+		ParamSelect select_insuredunit = (ParamSelect)cache_insuredunit.getValue();
 		
 		for (InsuredUnitVO po : voList) {
 			po.setUnitState(select_yesorno.getName("" + po.getUnitState())); 
+			po.setUnitParentName(select_insuredunit.getName(""+po.getUnitParentId()));
 			eaList.add(new  InsuredUnitImpl(po));
 		}
 
@@ -293,10 +295,26 @@ public class InsuredUnitManagerImpl extends AbstractBusinessObjectManager implem
 
 		if (insuredunits == null || insuredunits.size() < 1)
 			return null;
-
+		Cache cache_insuredunit = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+		ParamSelect select_insuredunit = (ParamSelect)cache_insuredunit.getValue();
+		
 		InsuredUnitVO insuredunit = insuredunits.toArray(new InsuredUnitVO[insuredunits.size()])[0];
-
+		insuredunit.setUnitParentName(select_insuredunit.getName(""+insuredunit.getUnitParentId()));
 		return new InsuredUnitImpl(insuredunit);
+	}
+
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<InsuredUnitVO> all = this.insuredunitdao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(AllSelectContants.INSUREDUNIT_DICT.getName());
+		Cache c = new Cache(); 
+		c.setKey(AllSelectContants.INSUREDUNIT_DICT.getName());
+		c.setValue(ans);
+		c.setName("投保单位"); 
+		CacheManager.putCache(AllSelectContants.INSUREDUNIT_DICT.getName(), c);
 	}
 
 }

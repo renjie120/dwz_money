@@ -1,21 +1,20 @@
 
 package ido.InsuredCompany;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
+import common.MyJdbcTool;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -138,6 +137,7 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		ParamSelect select_ownerCompany = (ParamSelect)cache_ownerCompany.getValue();
 		
 		for (InsuredCompanyVO po : voList) {
+			System.out.println("状态-----" + po.getComStatus()+"---select_yesorno_status---"+select_yesorno_status.getName("" + po.getComStatus()));
 			po.setComStatus(select_yesorno_status.getName("" + po.getComStatus())); 
 			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany())); 
 			eaList.add(new  InsuredCompanyImpl(po));
@@ -354,6 +354,13 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		InsuredCompanyVO insuredcompany = insuredcompanys.toArray(new InsuredCompanyVO[insuredcompanys.size()])[0];
 
 		return new InsuredCompanyImpl(insuredcompany);
+	}
+
+	@Override
+	public void zhuxiaoInsuredCompanys(String sno) { 
+		MyJdbcTool jdbcTool = (MyJdbcTool) SpringContextUtil
+				.getBean("jdbcTool");
+		jdbcTool.exeSql("update insured_company set com_status = 70 where id in ("+sno+")");
 	}
 
 }

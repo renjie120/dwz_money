@@ -9,7 +9,7 @@
 		value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
-	<form onsubmit="return navTabSearch(this);" rel=""
+	<form onsubmit="return navTabSearch(this);" rel="notitle_insuredUnits"
 		action="/money/insuredunit!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
@@ -34,37 +34,13 @@
 								</button>
 							</div>
 						</div>
-					</li>
-					<li>
-						<a class="button" href="/money/insuredunit!beforeQuery.do"
-							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
-					</li>
+					</li> 
 				</ul>
 			</div>
 		</div>
 	</form>
 </div>
-<div class="pageContent"  >
-	<div class="panelBar">
-		<ul class="toolBar">
-			<li>
-				<a class="add" href="/money/insuredunit!beforeAdd.do" target="dialog" mask="true"
-					title="添加"><span>添加</span> </a>
-			</li>
-			<li>
-				<a class="delete" href="/money/insuredunit!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
-				</a>
-			</li>
-			<li>
-				<a class="edit" href="/money/insuredunit!beforeUpdate.do?sno={sno}" mask="true"
-					target="dialog" title="修改"><span>修改</span> </a>
-			</li>
-			<li>
-				<a class="icon" href="/money/insuredunit!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
-			</li> 
-		</ul>
-	</div>
+<div class="pageContent" id="notitle_insuredUnits"> 
 	<table class="table" layoutH="-138" id="tbtb3">
 		<thead>
 			<tr>
@@ -123,7 +99,7 @@
 						<s:property value="contactEmail" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="unitParentId" />
+						<s:property value="unitParentName" />
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="unitState" />

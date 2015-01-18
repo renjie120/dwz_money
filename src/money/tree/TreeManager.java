@@ -20,6 +20,12 @@ public interface TreeManager extends BusinessObjectManager {
 	public String getMenuTree();
 	
 	/**
+	 * 查询保险单位树的json串。
+	 * @return
+	 */
+	public String getInsuredTree();
+	
+	/**
 	 * 组织机构树的json串.
 	 * @return
 	 */
@@ -57,4 +63,10 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public common.tree.Tree initOrgCache();
+	
+	/**
+	 * 得到保险单位树形的缓存.
+	 * @return
+	 */
+	public common.tree.Tree initInsuredCache();
 }

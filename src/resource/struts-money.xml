@@ -26,6 +26,12 @@
 			<result name="list">
 				/WEB-INF/jsp/insuredunit/InsuredUnitlist.jsp
 			</result>
+			<result name="list_small">
+				/WEB-INF/jsp/insuredunit/InsuredUnitlist_notitle.jsp
+			</result>
+			<result name="newList">
+				/WEB-INF/jsp/insuredunit/NewInsuredUnitList.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/insuredunit/InsuredUnitinfo.jsp
 			</result>
@@ -87,7 +93,7 @@
 		<action name="role" class="money.rolemanager.RoleAction">
 			<result name="list">
 				/WEB-INF/jsp/role/Rolelist.jsp
-			</result>
+			</result>  
 			<result name="detail">
 				/WEB-INF/jsp/role/Roleinfo.jsp
 			</result>
