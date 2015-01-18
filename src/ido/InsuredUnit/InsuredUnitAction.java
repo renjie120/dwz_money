@@ -166,7 +166,8 @@ public class InsuredUnitAction extends BaseAction {
 		String[] allId = ids.split(",");
 		List<InsuredUnit> allDeleteIds = new ArrayList<InsuredUnit>();
 		for(String _id:allId){
-			allDeleteIds.add(pMgr.getInsuredUnit(Integer.parseInt(_id)));
+			if(!"".equals(_id))
+				allDeleteIds.add(pMgr.getInsuredUnit(Integer.parseInt(_id)));
 		}
 		pMgr.removeInsuredUnits(ids);
 		pMgr.addCache();
@@ -377,6 +378,7 @@ public class InsuredUnitAction extends BaseAction {
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("numPerPage", numPerPage);
+		request.setAttribute("unitParentId", unitParentId);
 		int count = pMgr.searchInsuredUnitNum(criterias);
 		request.setAttribute("totalCount", count);
 		ActionContext.getContext().put("list", moneyList);

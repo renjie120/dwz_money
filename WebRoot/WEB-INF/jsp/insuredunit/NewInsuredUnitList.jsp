@@ -27,11 +27,13 @@
 		} 
 		
 		if(treeId=='insuredUnit_tree'){ 
-			var $this = $('#jbsxBox3');
-			var wdt = $this.parent().width() - $('#'+treeId).width() - 15; 
+			var $this = $('#jbsxBox3'); 
 			$('#selectedUnitId').val(v2)
-			$this.height(700).width(wdt).loadUrl(
-				"/money/insuredunit!queryByParent.do?unitParentId=" + v2 );
+			$this.loadUrl(
+				"/money/insuredunit!queryByParent.do?unitParentId=" + v2 ,null,function(){
+					
+				});
+			
 		}  
 	}
 
@@ -46,7 +48,7 @@
 
 	function resizeGrid() {
 		$this = $('#jbsxBox3');
-		var wdt = $this.parents().width() - $('#userMenuRight_menutree').width() - 15;
+		var wdt = $this.parents().width() - $('#insuredUnit_tree').width() - 15;
 		$this.width(wdt);
 		$('#tbtb3').width(wdt); 
 		$this.find('div.gridScroller').wdt(wdt + "px");
@@ -98,20 +100,33 @@
 		});
 		return false;
 	}
-	
-	function refreshInsuredUnit(txt) {
-		// 提示返回结果.
-		if (txt.responseText)
-			alertMsg.info(txt.responseText);
-		else
-			alertMsg.info(txt);
-		// 关闭当前页面
-		$.pdialog.closeCurrent();
-		 
-	} 
+	 
 	
 	function addUnitParent(){ 
 		return "unitParentId="+$('#selectedUnitId').val();
+	}
+	 
+	function xixixi(json) {
+	 DWZ.ajaxDone(json);
+	 //刷新一个tab页里面的某一个div
+	 navTabPageBreak({}, 'notitle_insuredUnitlist');
+	 //navTab.reload(json.forwardUrl); //或者直接写url
+	}
+	
+	function testDeleteInsuredUnit(url, data){
+		var ids = '';
+		if($('[tag=insuredUnit]:checked').size()>0){
+		     $('[tag=insuredUnit]:checked').each(function(){
+		     	ids+=$(this).val();
+		     }) 
+		     url=url+ids;
+		     alert(url);
+			alertMsg.confirm("确定删除该投保单位么?", {
+				okCall: function(){
+					$.post(url, data, xixixi, "json");
+				}
+			});
+		}
 	}
  	//角色管理主界面.
 //-->
@@ -125,8 +140,9 @@
 					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
-				<a class="delete" href="/money/insuredunit!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+				<a class="delete"    href="javascript:;"
+				   onclick="testDeleteInsuredUnit('/money/insuredunit!doDelete.do?ids=')"
+					 ><span>删除</span>
 				</a>
 			</li>
 			<li>

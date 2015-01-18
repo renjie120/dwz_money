@@ -1,14 +1,30 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<form id="pagerForm" method="post" action="/money/insuredunit!query.do">
+<script type="text/javascript">
+function refreshInsuredUnit(txt) {
+		// 提示返回结果.
+		if (txt.responseText)
+			alertMsg.info(txt.responseText);
+		else
+			alertMsg.info(txt);
+		// 关闭当前页面
+		$.pdialog.closeCurrent();
+		//location.reload();
+		navTabPageBreak({}, 'notitle_insuredUnitlist');
+		 
+	} 
+</script>
+<div id="notitle_insuredUnitlist">
+<form id="pagerForm" method="post" action="/money/insuredunit!queryByParent.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
+	<input type="hidden" name="unitParentId" value="${unitParentId}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
 </form>
-<div class="pageHeader">
+<div class="pageHeader"  >
 	<form onsubmit="return navTabSearch(this);" rel="notitle_insuredUnits"
 		action="/money/insuredunit!query.do" method="post">
 		<div class="searchBar">
@@ -80,7 +96,7 @@
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="ids" value="<s:property value="sno" />"
+						<input name="ids"  tag='insuredUnit' value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
@@ -146,4 +162,4 @@
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>
-
+</div>

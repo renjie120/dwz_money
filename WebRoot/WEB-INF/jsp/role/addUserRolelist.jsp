@@ -14,7 +14,7 @@
 	
 	function mydone(json){
 		 DWZ.ajaxDone(json);
-		 $.pdialog.closeCurrent();  
+		 $.pdialog.closeCurrent();   
 		 navTabPageBreak({}, 'myUserRoleDiv');
 	}
 	
