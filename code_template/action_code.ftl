@@ -389,8 +389,91 @@ public class ${bignm}Action extends BaseAction {
 				</#if>  
 		</#if>
 		</#list>  
+		
+		//下面是高级查询的时候添加的条件
+		<#list model.attributes as attr> 
+				<#if '${attr.name}'!='${model.keyName}'>
+					<#if  attr.complexQueryType??>
+						<#if '${attr.complexQueryType}'='number'||'${attr.complexQueryType}'='date'>
+		add${attr.name?cap_first}Condition(criterias,getCondition1_${attr.name}(),getQuery1_${attr.name}());
+		add${attr.name?cap_first}Condition(criterias,getCondition2_${attr.name}(),getQuery2_${attr.name}());
+						<#else>
+		add${attr.name?cap_first}Condition(criterias,getCondition_${attr.name}(),getQuery_${attr.name}());
+						</#if>
+					</#if>
+				</#if>
+		</#list>
 		return criterias;
 	}
+	
+	//下面是添加高级查询的条件
+	<#list model.attributes as attr> 
+				<#if '${attr.name}'!='${model.keyName}'>
+					<#if  attr.complexQueryType??> 
+	public void add${attr.name?cap_first}Condition(Map<${bignm}SearchFields, Object> criterias,String condition,String value){
+		if("-1".equals(condition))
+			return ;
+	<#if '${attr.complexQueryType}'='date'>
+		if(Constants.DATE_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_DATE_EQUALS, value);
+		} 
+		else if(Constants.DATE_NOT_LATTER.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_DATE_NOT_LATTER, value);
+		} 
+		else if(Constants.DATE_NOT_EARLY.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_DATE_NOT_EARLY, value);
+		} 
+		else if(Constants.DATE_LATTER.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_DATE_LATTER, value);
+		} 
+		else if(Constants.DATE_EARLY.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_DATE_EARLY, value);
+		} 
+	<#else>
+		<#if '${attr.complexQueryType}'='number'>
+		if(Constants.NUM_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_NUM_EQUALS, value);
+		} 
+		else if(Constants.NUM_SMALL.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_NUM_SMALL, value);
+		} 
+		else if(Constants.NUM_NOT_SMALL.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_NUM_NOT_SMALL, value);
+		} 
+		else if(Constants.NUM_BIG.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_NUM_BIG, value);
+		} 
+		else if(Constants.NUM_NOT_BIG.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_NUM_NOT_BIG, value);
+		} 
+		<#else>
+			<#if '${attr.complexQueryType}'='string'>
+		if(Constants.STR_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_STR_EQUALS, value);
+		} 
+		else if(Constants.STR_LIKE.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_STR_LIKE, value);
+		} 
+		else if(Constants.STR_NOT_LIKE.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_STR_NOT_LIKE, value);
+		} 
+		else if(Constants.STR_NOT_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_STR_NOT_EQUALS, value);
+		}  
+			<#else>
+		if(Constants.COM_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_COM_EQUALS, value);
+		} 
+		else if(Constants.COM_NOT_EQUALS.equals(condition)){
+			criterias.put(${bignm}SearchFields.${attr.name?upper_case}_COM_NOT_EQUALS, value);
+		} 
+				</#if>
+			</#if>
+		</#if>
+		} 
+		 				</#if>
+					</#if> 
+		</#list>
 
 	public ${bignm} getVo() {
 		return vo;
@@ -444,7 +527,8 @@ public class ${bignm}Action extends BaseAction {
 	
 	/*************  下面自动生成高级查询相关代码           ********************/
 	<#list model.attributes as attr> 
-		<#if  '${attr.showType}'='digits'||'${attr.showType}'='number'||'${attr.showType}'='date'>
+		<#if attr.complexQueryType??>
+		<#if  '${attr.complexQueryType}'='number'||'${attr.complexQueryType}'='date'>
 	private String condition1_${attr.name};
 	
 	public String getCondition1_${attr.name}(){
@@ -506,6 +590,6 @@ public class ${bignm}Action extends BaseAction {
 		this.query_${attr.name} = s;
 	}
 	
-		</#if>
+		</#if></#if>
 	</#list>
 }

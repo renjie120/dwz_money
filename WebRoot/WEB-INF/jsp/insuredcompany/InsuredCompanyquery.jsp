@@ -1,28 +1,27 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
-<div class="pageContent">
-	<form method="post" action="/money/insuredcompany!newQuery.do"
-		class="pageForm required-validate"
-		onsubmit="return myCallback(this, closeDialogWindow);">
+<div class="pageContent"> 
+	<form method="post" action="/money/insuredcompany!query.do" onsubmit="return navTabSearch(this);" rel=""
+		class="pageForm required-validate" ">
 		<div class="pageFormContent" layoutH="57">
 					 <div class="unit">
 						<label>
 							保险公司名称:
 						</label>
-							<my:newselect tagName="condition_comName"  paraType="common_option" width="140"/><input name="query_comName" class="text" type="text" /> 
+							<my:newselect tagName="condition_comName" paraType="query_str" width="140" /><input name="query_comName" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							保险公司编号 :
 						</label>
-							<my:newselect tagName="condition_comNo"  paraType="common_option" width="140"/><input name="query_comNo" class="text" type="text" /> 
+							<my:newselect tagName="condition_comNo" paraType="query_str" width="140" /><input name="query_comNo" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							状态 :
 						</label>
-							<my:newselect tagName="condition_comStatus"  paraType="common_option" width="100"/>
+							<my:newselect tagName="condition_comStatus" selectFlag="true"   paraType="common_option" width="100"/>
 							<s:iterator value="#request.comstatus_list"  >
 							 <input type="checkbox" name="query_comStatus" value='<s:property value="value" />' /> <s:property value="text" />  
 							</s:iterator> 
@@ -31,32 +30,31 @@
 						<label>
 							简称:
 						</label>
-							<my:newselect tagName="condition_comShortName"  paraType="common_option" width="140"/><input name="query_comShortName" class="text" type="text" /> 
+							<my:newselect tagName="condition_comShortName" paraType="query_str" width="140" /><input name="query_comShortName" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							电话:
 						</label>
-							<my:newselect tagName="condition1_comPhone" paraType="query_num" width="140" /><input name="query1_comPhone" class="digits" type="text" /> 
-							<my:newselect tagName="condition2_comPhone" paraType="query_num" width="140" /><input name="query2_comPhone" class="digits" type="text" /> 
+							<my:newselect tagName="condition_comPhone" paraType="query_str" width="140" /><input name="query_comPhone" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							联系人名称:
 						</label>
-							<my:newselect tagName="condition_comContactName"  paraType="common_option" width="140"/><input name="query_comContactName" class="text" type="text" /> 
+							<my:newselect tagName="condition_comContactName" paraType="query_str" width="140" /><input name="query_comContactName" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							联系人手机:
 						</label>
-							<my:newselect tagName="condition_comContactPhone"  paraType="common_option" width="140"/><input name="query_comContactPhone" class="text" type="text" /> 
+							<my:newselect tagName="condition_comContactPhone" paraType="query_str" width="140" /><input name="query_comContactPhone" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
 							所属保险公司:
 						</label>
-							<my:newselect tagName="condition_ownerCompany"  paraType="common_option" width="140"/>
+							<my:newselect  selectFlag="true" tagName="condition_ownerCompany"  paraType="common_option" width="140"/>
 							<s:iterator value="#request.ownercompany_list"  >
 							 <input type="checkbox" name="query_ownerCompany" value='<s:property value="value" />' /> <s:property value="text" />  
 							</s:iterator>  
@@ -65,7 +63,7 @@
 						<label>
 							邮箱:
 						</label>
-							<my:newselect tagName="condition_comEmail" paraType="query_str" width="140" /><input name="comEmail" class="email" type="text" /> 
+							<my:newselect tagName="condition_comEmail" paraType="query_str" width="140" /><input name="query_comEmail" class="textInput" type="text" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -79,14 +77,44 @@
 						</label>
 							<my:newselect tagName="condition_comRemark" paraType="query_str" width="140" /><input name="query_comRemark" class="textInput" type="text" />
 					</div>
+					 <div class="unit">
+						<label>
+							创建用户:
+						</label>
+							<my:newselect  selectFlag="true" tagName="condition_createUser"  paraType="common_option" width="140"/><input name="query_createUser" class="text" type="text" /> 
+					</div>
+					 <div class="unit">
+						<label>
+							创建时间:
+						</label>
+							<my:newselect tagName="condition1_createTime" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query1_createTime" class="date " size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a>
+							<my:newselect tagName="condition2_createTime" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query2_createTime" class="date " size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a> 
+					</div>
+					 <div class="unit">
+						<label>
+							更新用户:
+						</label>
+							<my:newselect  selectFlag="true" tagName="condition_updateUser"  paraType="common_option" width="140"/><input name="query_updateUser" class="text" type="text" /> 
+					</div>
+					 <div class="unit">
+						<label>
+							更新时间:
+						</label>
+							<my:newselect tagName="condition1_updateTime" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query1_updateTime" class="date " size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a>
+							<my:newselect tagName="condition2_updateTime" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query2_updateTime" class="date " size="30" readOnly="true"   />
+							<a class="inputDateButton" href="javascript:;">选择</a> 
+					</div>
 		</div>
 		<div class="formBar">
 			<ul>
 				<li>
 					<div class="buttonActive">
 						<div class="buttonContent">
-							<button type="submit">
-								保存
+							<button type="submit" onclick="javascript:$.pdialog.closeCurrent();">
+								查询
 							</button>
 						</div>
 					</div>

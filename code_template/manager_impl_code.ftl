@@ -161,6 +161,118 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 						count++;
 					break;
 				</#list> 
+				//下面拼接高级查询条件
+				<#list model.attributes as attr>
+					<#if '${attr.name}'!='${model.keyName}'>
+						<#if attr.complexQueryType??> 
+							<#if '${attr.complexQueryType}'='date'>
+					case ${attr.name?upper_case}_DATE_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_DATE_NOT_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} <=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_DATE_NOT_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} >=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_DATE_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name}  > ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_DATE_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} <  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+							<#else>
+								<#if '${attr.complexQueryType}'='number'>
+					case ${attr.name?upper_case}_NUM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_NUM_SMALL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} <  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_NUM_NOT_SMALL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} >=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_NUM_BIG:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} >  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_NUM_NOT_BIG:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} <=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+								<#else>
+									<#if '${attr.complexQueryType}'='string'>
+					case ${attr.name?upper_case}_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name}  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+									<#else>
+					case ${attr.name?upper_case}_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name}  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case ${attr.name?upper_case}_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+									</#if>
+								</#if>
+							</#if>
+						</#if>	 
+					</#if>	 
+				</#list> 
 				default:
 					break;
 				}

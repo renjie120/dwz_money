@@ -137,7 +137,6 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		ParamSelect select_ownerCompany = (ParamSelect)cache_ownerCompany.getValue();
 		
 		for (InsuredCompanyVO po : voList) {
-			System.out.println("状态-----" + po.getComStatus()+"---select_yesorno_status---"+select_yesorno_status.getName("" + po.getComStatus()));
 			po.setComStatus(select_yesorno_status.getName("" + po.getComStatus())); 
 			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany())); 
 			eaList.add(new  InsuredCompanyImpl(po));
@@ -165,7 +164,7 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 								"  insuredcompany.sno = ? ");
 						argList.add(entry.getValue());
 						count++;
-					break;
+					break; 
 					case COMNAME:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  insuredcompany.comName like ? ");
@@ -254,6 +253,331 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 						sb.append(count == 0 ? " where" : " and").append(
 								"  insuredcompany.updateTime = ? ");
 						argList.add(entry.getValue());
+						count++;
+					break;
+					//下面拼接高级查询条件
+					case COMNAME_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comName  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMNAME_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comName like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMNAME_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comName not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMNAME_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comName !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMNO_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comNo  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMNO_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comNo like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMNO_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comNo not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMNO_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comNo !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMSTATUS_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comStatus  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMSTATUS_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comStatus =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case COMSHORTNAME_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comShortName  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMSHORTNAME_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comShortName like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMSHORTNAME_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comShortName not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMSHORTNAME_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comShortName !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMPHONE_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comPhone  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMPHONE_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comPhone like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMPHONE_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comPhone not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMPHONE_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comPhone !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMCONTACTNAME_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactName  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMCONTACTNAME_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactName like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMCONTACTNAME_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactName not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMCONTACTNAME_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactName !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMCONTACTPHONE_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactPhone  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMCONTACTPHONE_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactPhone like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMCONTACTPHONE_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactPhone not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMCONTACTPHONE_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comContactPhone !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OWNERCOMPANY_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.ownerCompany  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OWNERCOMPANY_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.ownerCompany =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case COMEMAIL_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comEmail  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMEMAIL_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comEmail like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMEMAIL_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comEmail not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMEMAIL_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comEmail !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMADDRESS_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comAddress  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMADDRESS_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comAddress like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMADDRESS_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comAddress not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMADDRESS_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comAddress !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMREMARK_STR_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comRemark  =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case COMREMARK_STR_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comRemark like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMREMARK_STR_NOT_LIKE:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comRemark not like  ? "); 
+						argList.add("%"+entry.getValue()+"%"); 
+						count++;
+					break;
+					case COMREMARK_STR_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.comRemark !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATEUSER_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createUser  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATEUSER_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createUser =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case CREATETIME_DATE_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createTime =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATETIME_DATE_NOT_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createTime <=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATETIME_DATE_NOT_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createTime >=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATETIME_DATE_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createTime  > ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case CREATETIME_DATE_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.createTime <  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATEUSER_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateUser  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATEUSER_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateUser =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case UPDATETIME_DATE_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateTime =  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATETIME_DATE_NOT_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateTime <=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATETIME_DATE_NOT_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateTime >=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATETIME_DATE_LATTER:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateTime  > ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case UPDATETIME_DATE_EARLY:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  insuredcompany.updateTime <  ? "); 
+						argList.add(entry.getValue()); 
 						count++;
 					break;
 				default:

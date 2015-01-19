@@ -108,6 +108,8 @@ public class ModelParse {
 				config.setUseCacheId(DomUtil.getAttribute(child, "useCacheId"));
 				// 来自业务字典表的name列
 				config.setNameColumn(DomUtil.getAttribute(child, "nameColumn"));
+				//设置复杂搜索类型
+				config.setComplexQueryType(DomUtil.getAttribute(child, "complexQueryType"));
 				// 下拉菜单是否含有全选按钮
 				config.setAllSelect(DomUtil.getAttribute(child, "allSelect"));
 				// 最短长度

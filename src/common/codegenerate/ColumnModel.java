@@ -12,6 +12,16 @@ public class ColumnModel {
 	private String noedit;
 	private String fromTable;
 	private String idCoulmn;
+	//复杂搜索类型(select,string,dict,common,date,number)
+	private String complexQueryType;//
+	public String getComplexQueryType() {
+		return complexQueryType;
+	}
+
+	public void setComplexQueryType(String complexQueryType) {
+		this.complexQueryType = complexQueryType;
+	}
+
 	private String nameColumn;
 	private String allSelect;
 	//使用缓存id.(在表单类型是select的时候才有用)

@@ -119,8 +119,7 @@
 		     $('[tag=insuredUnit]:checked').each(function(){
 		     	ids+=$(this).val();
 		     }) 
-		     url=url+ids;
-		     alert(url);
+		     url=url+ids; 
 			alertMsg.confirm("确定删除该投保单位么?", {
 				okCall: function(){
 					$.post(url, data, xixixi, "json");

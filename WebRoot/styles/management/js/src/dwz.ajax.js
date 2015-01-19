@@ -215,6 +215,8 @@ function navTabSearch(form, navTabId) {
 			});
 	return false;
 }
+ 
+
 /**
  * 处理dialog弹出层上的查询, 会重新载入当前dialog
  * 

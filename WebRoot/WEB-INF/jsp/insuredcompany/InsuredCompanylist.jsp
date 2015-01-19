@@ -1,6 +1,9 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<script type="text/javascript"> 
+ 
+</script>
 <form id="pagerForm" method="post" action="/money/insuredcompany!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />

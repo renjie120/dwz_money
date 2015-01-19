@@ -97,4 +97,15 @@ public interface Constants {
 	int SYSTEM_COMPANY_ID = 1; // system database reference key
 
 	String VALIDATION_CODE = "validation_code";
+	
+	String DATE_EQUALS="79",DATE_NOT_LATTER="74",DATE_NOT_EARLY="73",
+			DATE_LATTER="72",DATE_EARLY="71";//日期比较符号
+	
+	String NUM_EQUALS="",NUM_SMALL="77",NUM_NOT_SMALL="",
+			NUM_BIG="75",NUM_NOT_BIG="";//数字比较符号(仅仅大于小于)
+	
+	String STR_EQUALS="",STR_LIKE="82",STR_NOT_LIKE="83",
+			STR_NOT_EQUALS="81" ;//字符串比较符号（等于？）
+	
+	String COM_EQUALS="84",COM_NOT_EQUALS="85"  ;//一般比较符号
 }
