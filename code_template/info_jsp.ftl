@@ -35,7 +35,11 @@
 												<#if '${attr.showType}'='dict'>
 							<my:newselect tagName="${attr.name}"  tableName="${attr.fromTable}" nameColumn="${attr.nameColumn}" idColumn ="${attr.idCoulmn}" width="100" <#if "${attr.allSelect}"='true'>allSelected="true"</#if> />
 												<#else>
+													<#if '${attr.showType}'='password'>
+							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="password"   />
+													<#else>
 							<input name="${attr.name}" class="textInput <#if "${attr.notnull}"='true'>required</#if>" <#if '${attr.size}'!=''>size="${attr.size}"</#if> type="text"   />
+													</#if>
 												</#if>
 											</#if>
 										</#if>

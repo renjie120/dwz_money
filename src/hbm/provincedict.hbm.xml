@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.province.ProvinceDictVO" table="dict_province">
+		<id name="sno" column="n_provid" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="provName" column="s_provname" type="string" />
+				<property name="provType" column="s_type" type="string" />
+				<property name="provState" column="s_state" type="string" />
+	</class>
+
+	<query name="ido.province.ProvinceDictDao.findRecordById">
+		<![CDATA[from ProvinceDictVO as provinceDictDao where sno = ?]]>
+	</query>
+
+	<query name="ido.province.ProvinceDictDao.findAll">
+		<![CDATA[from ProvinceDictVO  ]]>
+	</query>
+</hibernate-mapping>

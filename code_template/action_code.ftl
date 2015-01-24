@@ -395,9 +395,12 @@ public class ${bignm}Action extends BaseAction {
 				<#if '${attr.name}'!='${model.keyName}'>
 					<#if  attr.complexQueryType??>
 						<#if '${attr.complexQueryType}'='number'||'${attr.complexQueryType}'='date'>
+		
+		//添加${attr.desc}的查询条件
 		add${attr.name?cap_first}Condition(criterias,getCondition1_${attr.name}(),getQuery1_${attr.name}());
 		add${attr.name?cap_first}Condition(criterias,getCondition2_${attr.name}(),getQuery2_${attr.name}());
 						<#else>
+		//添加${attr.desc}的查询条件
 		add${attr.name?cap_first}Condition(criterias,getCondition_${attr.name}(),getQuery_${attr.name}());
 						</#if>
 					</#if>
@@ -410,6 +413,9 @@ public class ${bignm}Action extends BaseAction {
 	<#list model.attributes as attr> 
 				<#if '${attr.name}'!='${model.keyName}'>
 					<#if  attr.complexQueryType??> 
+	/**
+	 * 添加查询${attr.desc}的查询条件.
+	 */
 	public void add${attr.name?cap_first}Condition(Map<${bignm}SearchFields, Object> criterias,String condition,String value){
 		if("-1".equals(condition))
 			return ;
@@ -470,7 +476,7 @@ public class ${bignm}Action extends BaseAction {
 				</#if>
 			</#if>
 		</#if>
-		} 
+	} 
 		 				</#if>
 					</#if> 
 		</#list>

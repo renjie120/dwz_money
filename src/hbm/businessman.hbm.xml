@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.BusinessMan.BusinessManVO" table="business_man">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="shopmSno" column="shopm_sno" type="string" />
+				<property name="shopmName" column="shopm_name" type="string" />
+				<property name="shopmShortName" column="Shopm_shortname" type="string" />
+				<property name="shopmType" column="Shopm_type" type="string" />
+				<property name="shopmEmail" column="shopm_email" type="string" />
+				<property name="shopmConPhone" column="shopm_contact_phone" type="string" />
+				<property name="shopmContactName" column="shopm_contactname" type="string" />
+				<property name="shopmAddress" column="Shopm_address" type="string" />
+				<property name="openBank" column="Open_Bank" type="string" />
+				<property name="openBankName" column="Open_bank_name" type="string" />
+				<property name="openBankNo" column="Open_bank_no" type="string" />
+				<property name="openTicketUnit" column="Open_ticket_unit" type="string" />
+				<property name="OpenBankProvince" column="Open_bank_province" type="string" />
+				<property name="OpenBankCity" column="Open_bank_city" type="string" />
+				<property name="compensationDay" column="Compensation_day" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.BusinessMan.BusinessManDao.findRecordById">
+		<![CDATA[from BusinessManVO as businessManDao where sno = ?]]>
+	</query>
+
+	<query name="ido.BusinessMan.BusinessManDao.findAll">
+		<![CDATA[from BusinessManVO  ]]>
+	</query>
+</hibernate-mapping>

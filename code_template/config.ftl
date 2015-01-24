@@ -46,13 +46,22 @@ spring.cfg.xml
 /money/${nm}!query.do
 
 
-在money.cache.CacheAction中添加：
-${bignm}Manager p${bignm}Mgr = bf.getManager(BeanManagerKey.${classarg}Manager);
-p${bignm}Mgr.addCache();
+
+<#if "${model.cacheName}"!='' >
+insert into class :money.cache.CacheAction  line 76:
+${bignm}Manager ${classarg}Manager = bf.getManager(BeanManagerKey.${classarg}Manager);
+${classarg}Manager.addCache();
 
 
-在CacheManager中：
-if(AllSelectContants.${model.CacheName?upper_case}.equals(key)){
+insert into class :common.cache.CacheManager line 160:
+
+if(AllSelectContants.${model.cacheName?upper_case}.getName().equals(key)){
 	${bignm}Manager p${bignm}Mgr = bf.getManager(BeanManagerKey.${classarg}Manager);
 	p${bignm}Mgr.addCache();
 }
+
+
+insert into class :  AllSelectContants.java :
+,${model.cacheName?upper_case}("${model.cacheName}")
+ 
+</#if>

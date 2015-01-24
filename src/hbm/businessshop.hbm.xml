@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.BusinessShop.BusinessShopVO" table="business_shop">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="shopmId" column="Shopm_id" type="string" />
+				<property name="shopName" column="Shop_name" type="string" />
+				<property name="shopSno" column="shop_sno" type="string" />
+				<property name="shopStatus" column="shop_status" type="string" />
+				<property name="shopContactName" column="shop_contactname" type="string" />
+				<property name="shopConPhone" column="shop_contact_phone" type="string" />
+				<property name="shopEmail" column="shop_email" type="string" />
+				<property name="shopAddress" column="Shop_address" type="string" />
+				<property name="shopDate" column="Shop_date" type="string" />
+				<property name="shopJingdu" column="Shop_Jingdu" type="string" />
+				<property name="shopWeidu" column="Shop_Weidu" type="string" />
+				<property name="shopProvince" column="Shop_province" type="string" />
+				<property name="shopCity" column="Shop_city" type="string" />
+				<property name="shopxian" column="Shop_xian" type="string" />
+				<property name="shopRemark" column="Shop_remark" type="string" />
+				<property name="shopMain" column="Shop_main" type="string" />
+				<property name="shopIntroduce" column="Shop_introduce" type="string" />
+				<property name="shopSpecial" column="Shop_special" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.BusinessShop.BusinessShopDao.findRecordById">
+		<![CDATA[from BusinessShopVO as businessShopDao where sno = ?]]>
+	</query>
+
+	<query name="ido.BusinessShop.BusinessShopDao.findAll">
+		<![CDATA[from BusinessShopVO  ]]>
+	</query>
+</hibernate-mapping>

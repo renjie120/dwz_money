@@ -388,7 +388,7 @@
 							error: DWZ.ajaxError
 						});
 					} 
-					var title = $this.attr("title"); 
+					var title = $this.attr("title");  
 					if (title) {
 						alertMsg.confirm(title, {okCall: _doPost});
 					} else {

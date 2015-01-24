@@ -1,7 +1,12 @@
 ﻿package common.cache;
 
+import ido.BusinessGroup.BusinessGroupManager;
+import ido.BusinessMan.BusinessManManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
 import ido.InsuredUnit.InsuredUnitManager;
+import ido.LoginUser.LoginUserManager;
+import ido.city.CityDictManager;
+import ido.province.ProvinceDictManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -167,6 +172,26 @@ public class CacheManager {
 			if(AllSelectContants.INSUREDCOMPANY_DICT.getName().equals(key)){
 				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
 				pMgr.addCache();
+			}
+			if(AllSelectContants.IDOUSER_DICT.getName().equals(key)){
+				LoginUserManager pLoginUserMgr = bf.getManager(BeanManagerKey.loginuserManager);
+				pLoginUserMgr.addCache();
+			} 
+			if(AllSelectContants.BUSINESSMAN_DICT.getName().equals(key)){
+				BusinessManManager pBusinessManMgr = bf.getManager(BeanManagerKey.businessmanManager);
+				pBusinessManMgr.addCache();
+			}
+			if(AllSelectContants.CITY_DICT.getName().equals(key)){
+				CityDictManager pCityDictMgr = bf.getManager(BeanManagerKey.citydictManager);
+				pCityDictMgr.addCache();
+			}
+			if(AllSelectContants.BUSINESSGROUP_DICT.getName().equals(key)){
+				BusinessGroupManager pBusinessGroupMgr = bf.getManager(BeanManagerKey.businessgroupManager);
+				pBusinessGroupMgr.addCache();
+			}
+			if(AllSelectContants.PROVINCE_DICT.getName().equals(key)){
+				ProvinceDictManager pProvinceDictMgr = bf.getManager(BeanManagerKey.provincedictManager);
+				pProvinceDictMgr.addCache();
 			}
 			if(AllSelectContants.INSUREDUNIT_DICT.getName().equals(key)){
 				InsuredUnitManager pMgr = bf.getManager(BeanManagerKey.insuredunitManager);

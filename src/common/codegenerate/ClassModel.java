@@ -22,6 +22,15 @@ public class ClassModel {
 	private String addRole;
 	private String updateRole;
 	private String deleteRole;
+	private String canComplexQuery; 
+	public String getCanComplexQuery() {
+		return canComplexQuery;
+	}
+
+	public void setCanComplexQuery(String canComplexQuery) {
+		this.canComplexQuery = canComplexQuery;
+	}
+
 	public String getImportRole() {
 		return importRole;
 	}

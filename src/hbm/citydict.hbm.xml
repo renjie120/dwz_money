@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.city.CityDictVO" table="dict_city">
+		<id name="sno" column="n_cityid" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="cityName" column="s_cityname" type="string" />
+				<property name="provId" column="n_provid" type="string" />
+				<property name="cityState" column="s_state" type="string" />
+	</class>
+
+	<query name="ido.city.CityDictDao.findRecordById">
+		<![CDATA[from CityDictVO as cityDictDao where sno = ?]]>
+	</query>
+
+	<query name="ido.city.CityDictDao.findAll">
+		<![CDATA[from CityDictVO  ]]>
+	</query>
+</hibernate-mapping>

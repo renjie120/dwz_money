@@ -8,6 +8,24 @@
 	<bean id="insuredunitManager" class="ido.InsuredUnit.InsuredUnitManagerImpl">
 		<constructor-arg index="0" ref="insuredunitDao"></constructor-arg>
 	</bean>
+	<bean id="loginuserManager" class="ido.LoginUser.LoginUserManagerImpl">
+		<constructor-arg index="0" ref="loginuserDao"></constructor-arg>
+	</bean>
+	<bean id="citydictManager" class="ido.city.CityDictManagerImpl">
+		<constructor-arg index="0" ref="citydictDao"></constructor-arg>
+	</bean>
+	<bean id="businessshopManager" class="ido.BusinessShop.BusinessShopManagerImpl">
+		<constructor-arg index="0" ref="businessshopDao"></constructor-arg>
+	</bean>
+	<bean id="provincedictManager" class="ido.province.ProvinceDictManagerImpl">
+		<constructor-arg index="0" ref="provincedictDao"></constructor-arg>
+	</bean>
+	<bean id="businessmanManager" class="ido.BusinessMan.BusinessManManagerImpl">
+		<constructor-arg index="0" ref="businessmanDao"></constructor-arg>
+	</bean>
+	<bean id="businessgroupManager" class="ido.BusinessGroup.BusinessGroupManagerImpl">
+		<constructor-arg index="0" ref="businessgroupDao"></constructor-arg>
+	</bean>
 	<bean id="loginfoManager" class="ido.loginfo.LogInfoManagerImpl">
 		<constructor-arg index="0" ref="loginfoDao"></constructor-arg>
 	</bean>

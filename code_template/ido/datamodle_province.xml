@@ -1,0 +1,18 @@
+<class name="ProvinceDict" table="dict_province" desc="省份字典表"
+	package="ido.province" importFile="false" exportFile="false" add="true"
+	update="true" delete="true" cacheIdColumn="sno" cacheNameColumn="provName"
+	cacheName="province_dict">
+
+	<id name="sno" column="n_provid" type="int" desc="流水号" width="10"
+		visible="false" noedit="true" />
+
+	<property name="provName" column="s_provname" type="string"
+		query="true" showType="number" tableColumn="int" desc="省份" width="100" />
+
+	<property name="provType" column="s_type" type="string" desc="类型"
+		showType="select" selectCode="prov_type" width="100" />
+
+	<property name="provState" column="s_state" showType="select"
+		type="string" selectCode="yesorno_status" columnType="int(10)" width="100"
+		desc="状态 " />
+</class>

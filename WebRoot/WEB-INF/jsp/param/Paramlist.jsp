@@ -26,9 +26,7 @@
 							<div class="buttonContent">
 								<button type="submit">检索</button>
 							</div>
-						</div></li>
-					<li><a class="button" href="/money/param!beforeQuery.do"
-						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a></li>
+						</div></li> 
 				</ul>
 			</div>
 		</div>

@@ -7,19 +7,19 @@
 		<div class="pageFormContent" layoutH="57">
 			<#list model.attributes as attr> 
 				<#if '${attr.name}'!='${model.keyName}'>
-					<#if  attr.complexQueryType??>
+					<#if  '${attr.complexQueryType}'!='' >
 					 <div class="unit">
 						<label>
 							${attr.desc}:
 						</label>
 						<#if '${attr.complexQueryType}'='date'>
-							<my:newselect tagName="condition1_${attr.name}" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query1_${attr.name}" class="date " size="30" readOnly="true"   />
+							<my:newselect tagName="condition1_${attr.name}" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query1_${attr.name}" class="date " size="25" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
-							<my:newselect tagName="condition2_${attr.name}" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query2_${attr.name}" class="date " size="30" readOnly="true"   />
+							<my:newselect tagName="condition2_${attr.name}" selectFlag="true" paraType="query_num" width="140" /><input type="text" name="query2_${attr.name}" class="date " size="25" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a> 
 						<#else>
 							<#if '${attr.complexQueryType}'='string'>
-							<my:newselect tagName="condition_${attr.name}" paraType="query_str" width="140" /><input name="query_${attr.name}" class="textInput" type="text" />
+							<my:newselect tagName="condition_${attr.name}" selectFlag="true" paraType="query_str" width="140" /><input name="query_${attr.name}" class="textInput" type="text" />
 							<#else>
 								<#if '${attr.complexQueryType}'='select'>
 							<my:newselect tagName="condition_${attr.name}" selectFlag="true"   paraType="common_option" width="100"/>
@@ -45,8 +45,8 @@
 								</#if>
 							</#if>
 						</#if>
-					</div>
-				</#if>
+					</div> 
+				        </#if>
 				</#if>
 			</#list>  
 		</div>

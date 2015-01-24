@@ -1,69 +1,58 @@
-<class name="InsuredCompany" table="Insured_company" desc="保险公司"
-	importFile="false" exportFile="true" add="true" update="true" delete="true"
-	package="ido.InsuredCompany">
+<class name="LoginUser" table="ido_user" desc="系统用户" importFile="true"
+	cacheIdColumn="sno" cacheNameColumn="userName" cacheName="idouser_dict"
+	exportFile="true" add="true" update="true" delete="true" package="ido.LoginUser">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="comName" column="com_name" type="string" complexQueryType="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(500)" desc="保险公司名称" width="100" notnull="true"
-		query="true" querylike="true" />
+	<property name="userName" column="user_Name" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="50"
+		columnType="varchar(100)" desc="用户姓名" width="100" notnull="true"
+		query="true" />
 
-	<property name="comNo" column="com_no" type="string" complexQueryType="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(1000)" width="100" desc="保险公司编号 " query="true"
-		querylike="true" />
+	<property name="userId" column="user_id" type="string"
+		notnull="true" maxLength="100" columnType="varchar(100)" width="100"
+		desc="登录名称 " query="true" />
 
-	<property name="comStatus" column="com_status" type="string" complexQueryType="select"
-		showType="select" selectCode="yesorno_status" canImport="true"
-		canExport="true" columnType="int(10)" width="100" desc="状态 " query="true" />
+	<property name="userType" column="user_type" type="string"
+		selectCode="aiduyonghu" maxLength="100" columnType="varchar(100)"
+		width="100" desc="所属类别 " showType="select" query="true" />
 
-	<property name="comShortName" column="Com_shortname" type="string" complexQueryType="string"
-		canImport="true" canExport="true" maxLength="100" columnType="varchar(200)"
-		desc="简称" width="100" />
+	<property name="userUnit" column="user_unit" type="string"
+		notnull="true" query="true" queryLike="true" maxLength="100"
+		columnType="varchar(100)" width="100" desc="所属单位 " />
 
-	<property name="comPhone" column="Com_phone" type="string" complexQueryType="string"
-		canImport="true" canExport="true" maxLength="15" columnType="varchar(20)"
-		showType="digits" desc="电话" width="100" />
+	<property name="userPass" column="user_pass" type="string"
+		maxLength="100" columnType="varchar(100)" width="100" desc="用户密码" />
 
-	<property name="comContactName" column="com_ContactName" type="string" complexQueryType="string"
-		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
-		width="100" desc="联系人名称" />
+	<property name="userStatus" column="user_status" type="string"
+		showType="select" selectCode="yesorno_status" columnType="int(10)"
+		width="100" desc="用户状态 " query="true" />
 
-	<property name="comContactPhone" column="com_Contactphone" complexQueryType="string"
-		maxLength="11" type="string" canImport="true" canExport="true"
-		columnType="varchar(20)" desc="联系人手机" />
+	<property name="userPhone" column="user_phone" type="string"
+		canImport="true" canExport="true" maxLength="20" columnType="varchar(50)"
+		desc="联系电话" width="100" />
 
-	<property name="ownerCompany" column="Owner_company" type="string" complexQueryType="dict"
-		canImport="true" canExport="true" showType="dict" fromTable="dict_Insured_company"
-		useCacheId="insuredcompany_dict" idCoulmn="id" nameColumn="com_name"
-		columnType="int" width="100" desc="所属保险公司" />
+	<property name="userEmail" column="user_email" type="string"
+		maxLength="200" columnType="varchar(200)" showType="email" width="100"
+		desc="邮箱" />
 
-	<property name="comEmail" column="Com_email" type="string" complexQueryType="string"
-		showType="email" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(500)" width="100" desc="邮箱" />
- 
-	<property name="comAddress" column="Com_address" type="string" complexQueryType="string"
-		maxLength="500" cols="40" rows="4" columnType="varchar(1000)"
-		showType="textarea" width="100" desc="地址" />
+	<property name="userAddress" column="user_address" type="string"
+		rows="3" cols="40" columnType="varchar(1000)" showType="textarea"
+		width="100" desc="地址" />
 
-	<property name="comRemark" column="Com_remark" type="string" complexQueryType="string"
-		maxLength="2500" showType="textarea" cols="40" rows="4" width="100"
-		desc="备注" columnType="varchar(5000)" />
-
-	<property name="createUser" column="create_user" type="int" complexQueryType="common"
+	<property name="createUser" column="create_user" type="int"
 		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
 		columnType="int(10)" noadd="true" />
 
-	<property name="createTime" column="create_time" type="string" complexQueryType="date"
+	<property name="createTime" column="create_time" type="string"
 		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
 		columnType="varchar(20)" noadd="true" />
 
-	<property name="updateUser" column="update_user" type="int"  complexQueryType="common"
+	<property name="updateUser" column="update_user" type="int"
 		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
 		columnType="int(10)" noadd="true" />
 
-	<property name="updateTime" column="update_time" type="string" complexQueryType="date"
+	<property name="updateTime" column="update_time" type="string"
 		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
 		columnType="varchar(20)" noadd="true" />
 </class>

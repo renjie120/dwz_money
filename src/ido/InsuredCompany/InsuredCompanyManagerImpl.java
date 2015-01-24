@@ -162,6 +162,7 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 					case SNO:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  insuredcompany.sno = ? ");
+						
 						argList.add(entry.getValue());
 						count++;
 					break; 
@@ -306,14 +307,30 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 					break;
 					case COMSTATUS_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  insuredcompany.comStatus  !=  ? "); 
-						argList.add(entry.getValue()); 
+								"  insuredcompany.comStatus  not in (  "); 
+						String _temp_ComStatus1 = ""+entry.getValue();
+						String[] _temp_arr_ComStatus1 = _temp_ComStatus1.split(",");
+						int _int_ComStatus1 = _temp_arr_ComStatus1.length;
+						for(int _i=0;_i<_int_ComStatus1;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_ComStatus1[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
 						count++;
 					break;
 					case COMSTATUS_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  insuredcompany.comStatus =  ? "); 
-						argList.add( entry.getValue() ); 
+								"  insuredcompany.comStatus in  (   "); 
+						String _temp_ComStatus2 = ""+entry.getValue();
+						String[] _temp_arr_ComStatus2 = _temp_ComStatus2.split(",");
+						int _int_ComStatus2 = _temp_arr_ComStatus2.length;
+						for(int _i=0;_i<_int_ComStatus2;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_ComStatus2[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
 						count++;
 					break;
 					case COMSHORTNAME_STR_EQUALS:
@@ -414,14 +431,30 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 					break;
 					case OWNERCOMPANY_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  insuredcompany.ownerCompany  !=  ? "); 
-						argList.add(entry.getValue()); 
+								"  insuredcompany.ownerCompany  not in (  "); 
+						String _temp_OwnerCompany1 = ""+entry.getValue();
+						String[] _temp_arr_OwnerCompany1 = _temp_OwnerCompany1.split(",");
+						int _int_OwnerCompany1 = _temp_arr_OwnerCompany1.length;
+						for(int _i=0;_i<_int_OwnerCompany1;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_OwnerCompany1[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
 						count++;
 					break;
 					case OWNERCOMPANY_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  insuredcompany.ownerCompany =  ? "); 
-						argList.add( entry.getValue() ); 
+								"  insuredcompany.ownerCompany in  (   "); 
+						String _temp_OwnerCompany2 = ""+entry.getValue();
+						String[] _temp_arr_OwnerCompany2 = _temp_OwnerCompany2.split(",");
+						int _int_OwnerCompany2 = _temp_arr_OwnerCompany2.length;
+						for(int _i=0;_i<_int_OwnerCompany2;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_OwnerCompany2[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
 						count++;
 					break;
 					case COMEMAIL_STR_EQUALS:

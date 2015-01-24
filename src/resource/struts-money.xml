@@ -6,6 +6,111 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="loginuser" class="ido.LoginUser.LoginUserAction">
+			<result name="list">
+				/WEB-INF/jsp/loginuser/LoginUserlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/loginuser/LoginUserinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/loginuser/LoginUseredit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/loginuser/LoginUserimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/loginuser/LoginUserquery.jsp
+			</result>
+		</action>
+
+		<action name="businessshop" class="ido.BusinessShop.BusinessShopAction">
+			<result name="list">
+				/WEB-INF/jsp/businessshop/BusinessShoplist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/businessshop/BusinessShopinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/businessshop/BusinessShopedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/businessshop/BusinessShopimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/businessshop/BusinessShopquery.jsp
+			</result>
+		</action>
+
+		<action name="citydict" class="ido.city.CityDictAction">
+			<result name="list">
+				/WEB-INF/jsp/citydict/CityDictlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/citydict/CityDictinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/citydict/CityDictedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/citydict/CityDictimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/citydict/CityDictquery.jsp
+			</result>
+		</action>
+
+		<action name="provincedict" class="ido.province.ProvinceDictAction">
+			<result name="list">
+				/WEB-INF/jsp/provincedict/ProvinceDictlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/provincedict/ProvinceDictinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/provincedict/ProvinceDictedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/provincedict/ProvinceDictimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/provincedict/ProvinceDictquery.jsp
+			</result>
+		</action>
+		<action name="businessman" class="ido.BusinessMan.BusinessManAction">
+			<result name="list">
+				/WEB-INF/jsp/businessman/BusinessManlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/businessman/BusinessManinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/businessman/BusinessManedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/businessman/BusinessManimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/businessman/BusinessManquery.jsp
+			</result>
+		</action>
+		<action name="businessgroup" class="ido.BusinessGroup.BusinessGroupAction">
+			<result name="list">
+				/WEB-INF/jsp/businessgroup/BusinessGrouplist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/businessgroup/BusinessGroupinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/businessgroup/BusinessGroupedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/businessgroup/BusinessGroupimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/businessgroup/BusinessGroupquery.jsp
+			</result>
+		</action>
 		<action name="insuredcompanyselect"
 			class="ido.Dict_InsuredCompany.InsuredCompanySelectAction">
 			<result name="list">
@@ -93,7 +198,7 @@
 		<action name="role" class="money.rolemanager.RoleAction">
 			<result name="list">
 				/WEB-INF/jsp/role/Rolelist.jsp
-			</result>  
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/role/Roleinfo.jsp
 			</result>

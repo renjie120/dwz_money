@@ -12,11 +12,7 @@
 		action="/money/menu!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
-				<tr>
-					<td>菜单流水号</td>
-					<td><input name="menuId" class="textInput" size="30"
-						type="text" />
-					</td>
+				<tr> 
 					<td>菜单名称</td>
 					<td><input name="menuName" class="textInput" size="30"
 						type="text" />
@@ -35,10 +31,7 @@
 								<button type="submit">检索</button>
 							</div>
 						</div>
-					</li>
-					<li><a class="button" href="/money/menu!beforeQuery.do"
-						target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
-					</li>
+					</li> 
 				</ul>
 			</div>
 		</div>

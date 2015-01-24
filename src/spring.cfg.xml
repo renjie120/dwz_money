@@ -148,7 +148,24 @@
 				<value>
 					hbm/insuredcompanyselect.hbm.xml
 				</value>
-
+				<value>
+					hbm/businessgroup.hbm.xml
+				</value>
+				<value>
+					hbm/businessman.hbm.xml
+				</value>
+				<value>
+					hbm/citydict.hbm.xml
+				</value>
+				<value>
+					hbm/provincedict.hbm.xml
+				</value>
+				<value>
+					hbm/businessshop.hbm.xml
+				</value>
+				<value>
+					hbm/loginuser.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -237,5 +254,5 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 
 	<bean id="SpringContextUtil" class="common.base.SpringContextUtil">
-	</bean> 
+	</bean>
 </beans>

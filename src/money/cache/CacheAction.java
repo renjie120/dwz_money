@@ -1,6 +1,11 @@
 ﻿package money.cache;
 
+import ido.BusinessGroup.BusinessGroupManager;
+import ido.BusinessMan.BusinessManManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
+import ido.LoginUser.LoginUserManager;
+import ido.city.CityDictManager;
+import ido.province.ProvinceDictManager;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -73,8 +78,23 @@ public class CacheAction extends BaseAction {
 		
 		//投保单位树.
 		tMgr.initInsuredCache();
+		ProvinceDictManager provincedictManager = bf.getManager(BeanManagerKey.provincedictManager);
+		provincedictManager.addCache();
+
+		LoginUserManager loginuserManager = bf.getManager(BeanManagerKey.loginuserManager);
+		loginuserManager.addCache();
+		
+		CityDictManager citydictManager = bf.getManager(BeanManagerKey.citydictManager);
+		citydictManager.addCache();
+		
 		InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
 		pMgr.addCache();
+		
+		BusinessManManager businessmanManager = bf.getManager(BeanManagerKey.businessmanManager);
+		businessmanManager.addCache();
+		
+		BusinessGroupManager pBusinessGroupMgr = bf.getManager(BeanManagerKey.businessgroupManager);
+		pBusinessGroupMgr.addCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 

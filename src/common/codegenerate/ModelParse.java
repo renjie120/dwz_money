@@ -54,25 +54,26 @@ public class ModelParse {
 		return true;
 	}
 
-	String cacheIdColumn,cacheNameColumn,cacheName;
+	String cacheIdColumn, cacheNameColumn, cacheName;
+
 	public ClassModel parse() {
 		ClassModel model = new ClassModel();
 		Document doc = DomUtil.getXmlDocument(fileName);
 		Node list = doc.getElementsByTagName("class").item(0);
 		table = DomUtil.getAttribute(list, "table");
-		
-		//下面设置缓存相关配置信息.
+
+		// 下面设置缓存相关配置信息.
 		cacheNameColumn = DomUtil.getAttribute(list, "cacheNameColumn");
 		cacheIdColumn = DomUtil.getAttribute(list, "cacheIdColumn");
 		cacheName = DomUtil.getAttribute(list, "cacheName");
-		if(cacheName!=null&&"".equals(cacheName.trim())){
+		if (cacheName != null && "".equals(cacheName.trim())) {
 			model.setAddToCache("false");
-		}else
+		} else
 			model.setAddToCache("true");
 		model.setCacheIdColumn(cacheIdColumn);
 		model.setCacheName(cacheName);
 		model.setCacheNameColumn(cacheNameColumn);
-		
+
 		packageName = DomUtil.getAttribute(list, "package");
 		className = DomUtil.getAttribute(list, "name");
 		arg1 = DomUtil.getAttribute(list, "arg1");
@@ -89,7 +90,8 @@ public class ModelParse {
 					model.setKeyName(DomUtil.getAttribute(child, "name"));
 					model.setKeyColumn(DomUtil.getAttribute(child, "column"));
 					model.setKeyType(DomUtil.getAttribute(child, "type"));
-					model.setKeyColumnType(DomUtil.getAttribute(child, "columnType"));
+					model.setKeyColumnType(DomUtil.getAttribute(child,
+							"columnType"));
 				} else
 					config.setIskey("false");
 				// 节点类型
@@ -108,8 +110,11 @@ public class ModelParse {
 				config.setUseCacheId(DomUtil.getAttribute(child, "useCacheId"));
 				// 来自业务字典表的name列
 				config.setNameColumn(DomUtil.getAttribute(child, "nameColumn"));
-				//设置复杂搜索类型
-				config.setComplexQueryType(DomUtil.getAttribute(child, "complexQueryType"));
+				// 设置复杂搜索类型
+				config.setComplexQueryType(DomUtil.getAttribute(child,
+						"complexQueryType"));
+				System.out.println(DomUtil.getAttribute(child, "name") + ","
+						+ DomUtil.getAttribute(child, "complexQueryType"));
 				// 下拉菜单是否含有全选按钮
 				config.setAllSelect(DomUtil.getAttribute(child, "allSelect"));
 				// 最短长度
@@ -125,8 +130,8 @@ public class ModelParse {
 				config.setCols(DomUtil.getAttribute(child, "cols"));
 				// 数据的最大长度
 				String size = DomUtil.getAttribute(child, "size");
-				if(size==null)
-					size="30";
+				if (size == null)
+					size = "30";
 				config.setSize(size);
 				// 列属性名
 				config.setRows(DomUtil.getAttribute(child, "rows"));
@@ -194,35 +199,33 @@ public class ModelParse {
 
 		String importFile = DomUtil.getAttribute(list, "importFile");
 		String exportFile = DomUtil.getAttribute(list, "exportFile");
+		String complexQuery = DomUtil.getAttribute(list, "complexQuery");
 		String add = DomUtil.getAttribute(list, "add");
 		String update = DomUtil.getAttribute(list, "update");
 		String delete = DomUtil.getAttribute(list, "delete");
 		// 设置是否有导入按钮，以及导入的权限id.
-		if (importFile != null) {
-			model.setCanImport(importFile);
-			if (parseString(importFile) > 0)
-				model.setImportRole(importFile);
-		}
-		if (exportFile != null) {
-			model.setCanExport(exportFile);
-			if (parseString(exportFile) > 0)
-				model.setExportRole(exportFile);
-		}
-		if (add != null) {
-			model.setCanAdd(add);
-			if (parseString(add) > 0)
-				model.setAddRole(add);
-		}
-		if (update != null) {
-			model.setCanUpdate(update);
-			if (parseString(update) > 0)
-				model.setUpdateRole(update);
-		}
-		if (delete != null) {
-			model.setCanDelete(delete);
-			if (parseString(delete) > 0)
-				model.setDeleteRole(delete);
-		}
+		model.setCanImport(importFile);
+		if (parseString(importFile) > 0)
+			model.setImportRole(importFile);
+
+		model.setCanComplexQuery(complexQuery);
+
+		model.setCanExport(exportFile);
+		if (parseString(exportFile) > 0)
+			model.setExportRole(exportFile);
+
+		model.setCanAdd(add);
+		if (parseString(add) > 0)
+			model.setAddRole(add);
+
+		model.setCanUpdate(update);
+		if (parseString(update) > 0)
+			model.setUpdateRole(update);
+
+		model.setCanDelete(delete);
+		if (parseString(delete) > 0)
+			model.setDeleteRole(delete);
+
 		return model;
 	}
 

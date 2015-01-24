@@ -26,11 +26,7 @@
 								</button>
 							</div>
 						</div>
-					</li>
-					<li>
-						<a class="button" href="demo_page6.html" target="dialog"
-							mask="true" title="查询框"><span>高级检索</span> </a>
-					</li>
+					</li> 
 				</ul>
 			</div>
 		</div>
@@ -40,15 +36,10 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="delete" href="/money/cache!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+			<a class="delete" href="/money/cache!doUpdateAll.do" postType="string"
+					target="selectedTodo" ><span>刷新</span>
 				</a>
-			</li> 
-			<li>
-				<a class="delete" href="/money/cache!doUpdateAll.do" postType="string"
-					target="selectedTodo" ><span>刷新全部</span>
-				</a>
-			</li> 
+			</li>  
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">

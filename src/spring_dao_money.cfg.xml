@@ -16,7 +16,74 @@
 			</bean>
 		</property>
 	</bean>
-	
+	<bean id="loginuserDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.LoginUser.LoginUserDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.LoginUser.LoginUserVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="businessshopDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.BusinessShop.BusinessShopDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.BusinessShop.BusinessShopVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="provincedictDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.province.ProvinceDictDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.province.ProvinceDictVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="citydictDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.city.CityDictDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.city.CityDictVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="businessmanDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.BusinessMan.BusinessManDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.BusinessMan.BusinessManVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="businessgroupDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.BusinessGroup.BusinessGroupDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.BusinessGroup.BusinessGroupVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
 	<bean id="insuredcompanyselectDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>ido.Dict_InsuredCompany.InsuredCompanySelectDao</value>
@@ -28,7 +95,7 @@
 			</bean>
 		</property>
 	</bean>
-	
+
 	<bean id="insuredcompanyDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>ido.InsuredCompany.InsuredCompanyDao</value>

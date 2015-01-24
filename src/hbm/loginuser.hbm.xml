@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.LoginUser.LoginUserVO" table="ido_user">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="userName" column="user_Name" type="string" />
+				<property name="userId" column="user_id" type="string" />
+				<property name="userType" column="user_type" type="string" />
+				<property name="userUnit" column="user_unit" type="string" />
+				<property name="userPass" column="user_pass" type="string" />
+				<property name="userStatus" column="user_status" type="string" />
+				<property name="userPhone" column="user_phone" type="string" />
+				<property name="userEmail" column="user_email" type="string" />
+				<property name="userAddress" column="user_address" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.LoginUser.LoginUserDao.findRecordById">
+		<![CDATA[from LoginUserVO as loginUserDao where sno = ?]]>
+	</query>
+
+	<query name="ido.LoginUser.LoginUserDao.findAll">
+		<![CDATA[from LoginUserVO  ]]>
+	</query>
+</hibernate-mapping>

@@ -56,10 +56,12 @@
 							</div>
 						</div>
 					</li>
+					<#if  '${model.canComplexQuery}'='true'>
 					<li>
 						<a class="button" href="/money/${nm}!beforeQuery.do"
 							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
 					</li>
+					</#if>
 				</ul>
 			</div>
 		</div>

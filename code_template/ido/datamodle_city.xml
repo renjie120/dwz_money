@@ -1,0 +1,18 @@
+<class name="CityDict" table="dict_city" desc="城市字典表" package="ido.city"
+	importFile="false" exportFile="false" add="true" update="true" delete="true"
+	cacheIdColumn="sno" cacheNameColumn="cityName" cacheName="city_dict">
+
+	<id name="sno" column="n_cityid" type="int" desc="流水号" width="10"
+		visible="false" noedit="true" />
+
+	<property name="cityName" column="s_cityname" type="string" query="true"
+		showType="number" tableColumn="s"   desc="名称" width="100" />
+
+	<property name="provId" column="n_provid" type="string" desc="省份"
+		idCoulmn="n_provid" nameColumn="s_provname" fromTable="dict_province"
+		useCacheId="province_dict"  showType="dict"    
+		width="100" />
+
+	<property name="cityState" column="s_state" showType="select" type="string"
+		selectCode="yesorno_status" columnType="int(10)" width="100" desc="状态 " />
+</class>

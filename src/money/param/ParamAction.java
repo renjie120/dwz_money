@@ -1,5 +1,7 @@
 package money.param;
 
+import ido.BusinessGroup.BusinessGroupSearchFields;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -213,6 +215,8 @@ public class ParamAction extends BaseAction {
 
 	private Map<ParamSearchFields, Object> getCriterias() {
 		Map<ParamSearchFields, Object> criterias = new HashMap<ParamSearchFields, Object>();
+		if (getParamType()>0)
+			criterias.put(ParamSearchFields.PARAMTYPE,getParamType()); 
 		return criterias;
 	}
 

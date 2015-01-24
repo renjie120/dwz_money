@@ -255,6 +255,36 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 						count++;
 					break;
 									<#else>
+										<#if '${attr.complexQueryType}'='dict'||'${attr.complexQueryType}'='select'>
+					case ${attr.name?upper_case}_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name}  not in (  "); 
+						String _temp_${attr.name?cap_first}1 = ""+entry.getValue();
+						String[] _temp_arr_${attr.name?cap_first}1 = _temp_${attr.name?cap_first}1.split(",");
+						int _int_${attr.name?cap_first}1 = _temp_arr_${attr.name?cap_first}1.length;
+						for(int _i=0;_i<_int_${attr.name?cap_first}1;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_${attr.name?cap_first}1[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
+						count++;
+					break;
+					case ${attr.name?upper_case}_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  ${classarg}.${attr.name} in  (   "); 
+						String _temp_${attr.name?cap_first}2 = ""+entry.getValue();
+						String[] _temp_arr_${attr.name?cap_first}2 = _temp_${attr.name?cap_first}2.split(",");
+						int _int_${attr.name?cap_first}2 = _temp_arr_${attr.name?cap_first}2.length;
+						for(int _i=0;_i<_int_${attr.name?cap_first}2;_i++){
+							sb.append(" ? ,");
+							argList.add(_temp_arr_${attr.name?cap_first}2[_i]); 
+						}
+						sb = sb.deleteCharAt(sb.length()-1); 
+						sb.append(" ) ");
+						count++;
+					break;
+										<#else>
 					case ${attr.name?upper_case}_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  ${classarg}.${attr.name}  !=  ? "); 
@@ -267,6 +297,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
+										</#if>
 									</#if>
 								</#if>
 							</#if>
@@ -336,7 +367,7 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 		ParamSelect ans = null;
 		Collection<${vo}> all = this.${daoarg}.findAll();
 		ans = new ParamSelect(all);
-		String _tempCacheId = AllSelectContants.${model.CacheName?upper_case}.getName();
+		String _tempCacheId = AllSelectContants.${model.cacheName?upper_case}.getName();
 		CacheManager.clearOnly(_tempCacheId);
 		Cache c = new Cache();
 		c.setKey(_tempCacheId);

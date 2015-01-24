@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.BusinessGroup.BusinessGroupVO" table="business_group">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="groupSno" column="g_sno" type="string" />
+				<property name="groupName" column="g_name" type="string" />
+				<property name="groupEmail" column="G_email" type="string" />
+				<property name="groupContact" column="g_contactname" type="string" />
+				<property name="groupContactPhone" column="g_phone" type="string" />
+				<property name="groupContactMobile" column="g_contact_phone" type="string" />
+				<property name="groupStatus" column="G_status" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.BusinessGroup.BusinessGroupDao.findRecordById">
+		<![CDATA[from BusinessGroupVO as businessGroupDao where sno = ?]]>
+	</query>
+
+	<query name="ido.BusinessGroup.BusinessGroupDao.findAll">
+		<![CDATA[from BusinessGroupVO  ]]>
+	</query>
+</hibernate-mapping>
