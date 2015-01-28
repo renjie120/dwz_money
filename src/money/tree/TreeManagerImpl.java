@@ -322,8 +322,9 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 	@Override
 	public String getInsuredTree() {
 		return initInsuredCache().toZTreeJson();
-	}
-
+	} 
+	
+	
 	@Override
 	public Tree initInsuredCache() {
 		Tree tree = null;
@@ -363,6 +364,54 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			CacheManager.putCache(AllSelectContants.INSUREDTREE.getName(), c);
 		} else {
 			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.INSUREDTREE.getName()).getValue();
+		}
+		return tree;
+	}
+
+	@Override
+	public String getCityTree() {
+		return initCityCache().toZTreeJson();
+	}
+
+	@Override
+	public Tree initCityCache() {
+		Tree tree = null;
+		if (CacheManager.getCacheInfo(AllSelectContants.CITYTREE.getName()) == null) {
+			tree = new Tree("0", "城市树");
+			LinkedList<TreeNode> allP = new LinkedList();
+			allP.add(tree.getRoot());
+
+			do {
+				TreeNode nd = allP.poll();
+				int totalCount = jdbc
+						.queryForInt(
+								"select count(1) from dict_province where unit_parent_id=?",
+								new Object[] { nd.getId() });
+				nd.open = "true";
+				if (totalCount > 0) {
+					List child = jdbc
+							.queryForList(
+									"select id,unit_name  from insured_unit where unit_parent_id=? ",
+									new Object[] { nd.getId() });
+					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+								.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("id") + "",
+								_objs.get("unit_name") + "");
+						_nd.level = nd.level + 1;
+						nd.addChild(_nd);
+						allP.add(_nd);
+					}
+				}
+			} while (allP.size() > 0);
+
+			Cache c = new Cache();
+			c.setKey(AllSelectContants.CITYTREE.getName());
+			c.setValue(tree);
+			c.setName("城市树");
+			CacheManager.putCache(AllSelectContants.CITYTREE.getName(), c);
+		} else {
+			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.CITYTREE.getName()).getValue();
 		}
 		return tree;
 	}

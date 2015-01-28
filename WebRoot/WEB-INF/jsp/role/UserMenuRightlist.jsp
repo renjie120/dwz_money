@@ -43,10 +43,7 @@ ul.rightTools li {
 								- _pgContaint.find(
 										'div.pageHeader:first')
 										.height()
-								- _b.attr('modifyHeight');
-						alert( _pgContaint.height()+"---"+_pgContaint.find(
-										'div.pageHeader:first')
-										.height());		
+								- _b.attr('modifyHeight'); 
 						_b.height(__int);
 					});
 			}

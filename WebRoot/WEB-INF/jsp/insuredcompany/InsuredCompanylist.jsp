@@ -1,8 +1,18 @@
-
-<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
 <%@ include file="/include.inc.jsp"%>
 <script type="text/javascript"> 
- 
+ function addCompanyUser(url,obj){
+ 	var checkedItem =  $('input[type=checkbox][name=company_ids]:checked');
+ 	if(checkedItem.size()==1){
+ 		var sno = checkedItem.val();
+ 		var unitName = checkedItem.parent().parent().parent().find('[name=cname]').val(); 
+	 	var options = {mask:true};
+		$.pdialog.open(url+"?companySno="+sno+"&userUnit="+encodeURIComponent(unitName), '', "保险公司用户管理", options); 
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个保险公司！");
+ 		return false;
+ 	}
+ }
 </script>
 <form id="pagerForm" method="post" action="/money/insuredcompany!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
@@ -60,7 +70,7 @@
 			</li>
 			<li>
 				<a class="delete" href="/money/insuredcompany!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+					target="selectedTodo" rel="company_ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
 			<li>
@@ -69,7 +79,12 @@
 			</li>
 			<li>
 				<a class="edit" href="/money/insuredcompany!doZhuxiao.do" postType="string"  
-					target="selectedTodo" rel="ids" title="确定要注销嘛?"><span>注销</span> </a>
+					target="selectedTodo" rel="company_ids" title="确定要注销嘛?"><span>注销</span> </a>
+			</li>
+			<li>
+				<a class="add" href="javascript:;" 
+					onclick="addCompanyUser('/money/loginuser!getCompanyUser.do',this)"  mask="true"  
+					 ><span>用户管理</span> </a> 
 			</li>
 			<li>
 				<a class="icon" href="/money/insuredcompany!export.do" target="dwzExport"
@@ -81,7 +96,7 @@
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="ids" class="checkboxCtrl">
+					<input type="checkbox" group="company_ids" class="checkboxCtrl">
 				</th>
 				<th width="100"    orderField="COMNAME" >
 						保险公司名称 
@@ -122,11 +137,13 @@
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td>
-						<input name="ids" value="<s:property value="sno" />"
+						<input name="company_ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td>
 						<s:property value="comName" />
+						<input name="cname" value="<s:property value="comName" />"
+							type="hidden">
 					</td> 
 					<td>
 						<s:property value="comNo" />

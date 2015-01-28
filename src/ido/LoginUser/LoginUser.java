@@ -9,7 +9,14 @@ import java.util.Date;
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public interface LoginUser extends BusinessObject {  
+public interface LoginUser extends BusinessObject {
+	String USER_TYPE_COMPANY="98";
+	String USER_TYPE_INSURED_UNIT="99";
+	String USER_TYPE_BUSINESS_GROUP="100";
+	String USER_TYPE_BUSINESS_MAN="101";
+	String USER_TYPE_SHOP="102";
+	String USER_TYPE_SUPER="103";
+	String USER_TYPE_GUEST="104";
  	/**
  	 * 获取流水号的属性值.
  	 */

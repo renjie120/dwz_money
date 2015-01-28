@@ -150,7 +150,7 @@ public class InsuredCompanyAction extends BaseAction {
 
 	public String doDelete() {
 		setCurrentUser(true);
-		String ids = request.getParameter("ids");
+		String ids = request.getParameter("company_ids");
 		String[] allId = ids.split(",");
 		List<InsuredCompany> allDeleteIds = new ArrayList<InsuredCompany>();
 		for (String _id : allId) {
@@ -164,7 +164,7 @@ public class InsuredCompanyAction extends BaseAction {
 
 	public String doZhuxiao() {
 		setCurrentUser(true);
-		String ids = request.getParameter("ids");
+		String ids = request.getParameter("company_ids");
 		String[] allId = ids.split(",");
 		List<InsuredCompany> allDeleteIds = new ArrayList<InsuredCompany>();
 		for (String _id : allId) {

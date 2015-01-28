@@ -17,11 +17,11 @@
 		selectCode="aiduyonghu" maxLength="100" columnType="varchar(100)"
 		width="100" desc="所属类别 " showType="select" query="true" />
 
-	<property name="userUnit" column="user_unit" type="string"
+	<property name="userUnit" column="user_unit" type="string" noedit="true"
 		notnull="true" query="true" queryLike="true" maxLength="100"
 		columnType="varchar(100)" width="100" desc="所属单位 " />
 
-	<property name="userPass" column="user_pass" type="string"
+	<property name="userPass" column="user_pass" type="string" visible="false"
 		maxLength="100" columnType="varchar(100)" width="100" desc="用户密码" />
 
 	<property name="userStatus" column="user_status" type="string"

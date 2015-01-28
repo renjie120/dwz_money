@@ -26,6 +26,12 @@ public interface TreeManager extends BusinessObjectManager {
 	public String getInsuredTree();
 	
 	/**
+	 * 返回城市树.
+	 * @return
+	 */
+	public String getCityTree();
+	
+	/**
 	 * 组织机构树的json串.
 	 * @return
 	 */
@@ -69,4 +75,10 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public common.tree.Tree initInsuredCache();
+	
+	/**
+	 * 得到城市树形的缓存.
+	 * @return
+	 */
+	public common.tree.Tree initCityCache(); 
 }

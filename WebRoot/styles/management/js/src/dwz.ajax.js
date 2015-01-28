@@ -72,6 +72,7 @@ function closeDialogWindow(txt) {
 	// 刷新当前tab页.
 	navTab.reload();
 }
+ 
 /**
  * 带文件上传的ajax表单提交
  * 
@@ -186,7 +187,7 @@ function navTabAjaxDone(json) {
  * form提交后返回json数据结构,json格式和navTabAjaxDone一致
  */
 function dialogAjaxDone(json) {
-	DWZ.ajaxDone(json);
+	DWZ.ajaxDone(json); 
 	if (json.statusCode == DWZ.statusCode.ok) {
 		if (json.navTabId) {
 			navTab.reload(json.forwardUrl, {

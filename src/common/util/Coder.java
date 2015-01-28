@@ -104,7 +104,8 @@ public abstract class Coder {
 
 	public static void main(String[] args) {
 //		System.out.println(fromMyCoder("FsVc`4CL@fUxCm=W").trim());
-		try {
+		try { 
+			System.out.println(getMyCoder("hjsdkjshkdj"));
 			System.out.println(toMyCoder("1"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -147,7 +148,17 @@ public abstract class Coder {
 //		return inT.toString(16);
 		return DigestUtils.md5Hex(data);
 	}
-
+	
+	public static String CODER_SEED="ido!@#";
+	/**
+	 * 计算新的密码,使用MD5加密算法.
+	 * @param data
+	 * @return
+	 */
+	public static String getMyCoder(String data){
+		return DigestUtils.md5Hex(CODER_SEED+data).toUpperCase();
+	}
+	 
 	/**
 	 * SHA加密
 	 * 

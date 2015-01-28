@@ -1,10 +1,32 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script type="text/javascript"> 
+function refreshCompanyUser(txt){
+	// 提示返回结果.
+	if (txt.responseText)
+		alertMsg.info(txt.responseText);
+	else 
+		alertMsg.info(txt);
+	cancelthis();
+}
+
+/**
+ * 重新打开查询保险公司用户界面
+ */
+function cancelthis(){
+	var url = "/money/loginuser!getCompanyUser.do";
+	var unitName = $('#userUnit').val();
+ 	var options = {mask:true};
+	$.pdialog.open(url+"?userUnit="+encodeURIComponent(unitName), '', "保险公司用户管理", options); 
+	
+}
+
+</script>
 <div class="pageContent">
-	<form method="post" action="/money/loginuser!doAdd.do"
+	<form method="post" action="/money/loginuser!doAdd.do"  
 		class="pageForm required-validate"
-		onsubmit="return myCallback(this, closeDialogWindow);">
+		onsubmit="return myCallback(this, refreshCompanyUser);">
 		<div class="pageFormContent" layoutH="57">
 					 <div class="unit">
 						<label>
@@ -17,30 +39,25 @@
 							登录名称 :
 						</label>
 							<input name="userId" class="textInput required"  type="text"   />
-					</div>
-					 <div class="unit">
+							
+					</div> 
+					<div class="unit">
 						<label>
 							所属类别 :
 						</label>
-							<my:newselect tagName="userType"  paraType="aiduyonghu" width="100"  />
+						<input name="userType" value="${userType}"  type="text"  readOnly="true"  /> 
 					</div>
 					 <div class="unit">
 						<label>
 							所属单位 :
 						</label>
-							<input name="userUnit" class="textInput required" type="text"   />
+							<input name="userUnit" id="userUnit" class="textInput required" readOnly="true" value="${userUnit}" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							用户密码:
 						</label>
-							<input name="userPass" id="w_userPass" class="textInput required"  type="password" minlength="6" maxlength="20"  />
-					</div>
-					 <div class="unit">
-						<label>
-							确认密码:
-						</label>
-							<input name="userPass2" class="textInput required" equalto="#w_userPass" type="password"   />
+							<input name="userPass" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
@@ -81,7 +98,7 @@
 				<li>
 					<div class="button">
 						<div class="buttonContent">
-							<button type="button" class="close">
+							<button type="button" onclick="cancelthis()" >
 								取消
 							</button>
 						</div>

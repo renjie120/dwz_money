@@ -1,28 +1,35 @@
 
 package ido.LoginUser;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream; 
-import java.util.*; 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext; 
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.util.Coder;
+import common.util.CommonUtil;
+import common.util.DateTool;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 /**
  * 关于系统用户的Action操作类.
  * @author www(水清)
@@ -59,13 +66,25 @@ public class LoginUserAction extends BaseAction {
 	public String beforeAdd() {
 		return "detail";
 	}
-  
- 	/**
+	
+	/**
+	 * 添加保险公司下面的用户
+	 * @return
+	 */
+	public String beforeAddCompanyUser() {
+		request.setAttribute("userType", LoginUser.USER_TYPE_COMPANY);
+		request.setAttribute("userUnit", changeStr(getUserUnit()));
+		System.out.println("userUnit---"+changeStr(getUserUnit())+",,USER_TYPE_COMPANY=="+LoginUser.USER_TYPE_COMPANY);
+		return "companyUserDetail";
+	}
+	
+	/**
  	 * 添加系统用户.
  	 */
-	public String doAdd() {
+	public String doAddCompanyUser() {
 		try {
 			setCurrentUser(false);
+			userPass = Coder.getMyCoder(userPass);
 			LoginUserImpl loginuserImpl = new LoginUserImpl(userName ,userId ,userType ,userUnit ,userPass ,userStatus ,userPhone ,userEmail ,userAddress ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createLoginUser(loginuserImpl);
 			pMgr.addCache();
@@ -77,6 +96,65 @@ public class LoginUserAction extends BaseAction {
 		writeToPage(response,getText("msg.operation.success"));
 		return null;
 	}
+	
+  
+ 	/**
+ 	 * 添加系统用户.
+ 	 */
+	public String doAdd() {
+		try {
+			setCurrentUser(false);
+			userPass = Coder.getMyCoder(userPass);
+			LoginUserImpl loginuserImpl = new LoginUserImpl(userName ,userId ,userType ,userUnit ,userPass ,userStatus ,userPhone ,userEmail ,userAddress ,createUser ,createTime ,updateUser ,updateTime );
+			pMgr.createLoginUser(loginuserImpl);
+			pMgr.addCache();
+			insertLog(logMgr,"添加系统用户","/doAdd", "", "" ,JSON.toJSONString(loginuserImpl));  
+		} catch (ValidateFieldsException e) {
+			log.error(e);
+			return ajaxForwardError(e.getLocalizedMessage());
+		}
+		writeToPage(response,getText("msg.operation.success"));
+		return null;
+	}
+	
+	protected String changeStr(String oldStr){
+        try{   
+        return new String(oldStr.getBytes("ISO-8859-1"),"UTF-8");
+        }catch(Exception e){
+                return oldStr;
+	    }
+	}
+	
+	/**
+	 * 返回保险公司用户
+	 * @return
+	 */
+	public String getCompanyUser() {
+		int pageNum = 1;
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<LoginUserSearchFields, Object> criterias = new HashMap<LoginUserSearchFields, Object>(); 
+		//用户公司类型
+		criterias.put(LoginUserSearchFields.USERTYPE,  LoginUser.USER_TYPE_COMPANY);
+		//用户单位名称
+		userUnit = changeStr(getUserUnit());
+		criterias.put(LoginUserSearchFields.USERUNIT,  userUnit);
+		
+		Collection<LoginUser> moneyList = pMgr.searchLoginUser(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("userType", LoginUser.USER_TYPE_COMPANY);
+		request.setAttribute("userUnit", userUnit);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchLoginUserNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "companyUsers";
+	} 
 
 	/**
 	 * 模板下载.
@@ -198,11 +276,7 @@ public class LoginUserAction extends BaseAction {
 			if(!compare(old.getUserUnit(),userUnit)){
 				oldObj += "userUnit="+old.getUserUnit()+";";
 				newObj+= "userUnit="+userUnit+";";
-			} 
-			if(!compare(old.getUserPass(),userPass)){
-				oldObj += "userPass="+old.getUserPass()+";";
-				newObj+= "userPass="+userPass+";";
-			} 
+			}  
 			if(!compare(old.getUserStatus(),userStatus)){
 				oldObj += "userStatus="+old.getUserStatus()+";";
 				newObj+= "userStatus="+userStatus+";";
@@ -236,6 +310,11 @@ public class LoginUserAction extends BaseAction {
 				newObj+= "updateTime="+updateTime+";";
 			} 
 			
+			//密码
+			if(CommonUtil.isEmpty(userPass))
+				userPass = old.getUserPass();
+			else
+				userPass = Coder.getMyCoder(userPass);
 			LoginUserImpl loginuserImpl = new LoginUserImpl( sno , userName , userId , userType , userUnit , userPass , userStatus , userPhone , userEmail , userAddress , createUser , createTime , updateUser , updateTime );
 			pMgr.updateLoginUser(loginuserImpl);
 			pMgr.addCache();

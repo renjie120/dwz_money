@@ -10,8 +10,14 @@
 			<result name="list">
 				/WEB-INF/jsp/loginuser/LoginUserlist.jsp
 			</result>
+			<result name="companyUsers">
+				/WEB-INF/jsp/loginuser/CompanyUserLists.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/loginuser/LoginUserinfo.jsp
+			</result>
+			<result name="companyUserDetail">
+				/WEB-INF/jsp/loginuser/CompanyUserinfo.jsp
 			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/loginuser/LoginUseredit.jsp

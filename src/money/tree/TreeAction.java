@@ -26,6 +26,16 @@ public class TreeAction extends BaseAction {
 	}
 	
 	/**
+	 * 得到城市树.
+	 * @return
+	 */
+	public String cityTree(){ 
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		request.setAttribute("treeType", "city");
+		return "tree";
+	}
+	
+	/**
 	 * 得到菜单树.
 	 * @return
 	 */
@@ -112,6 +122,16 @@ public class TreeAction extends BaseAction {
 	public String getInsuredTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getInsuredTree());
+		return null;
+	} 
+	
+	/**
+	 * 返回城市树.
+	 * @return
+	 */
+	public String getCityTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getCityTree());
 		return null;
 	} 
 	
