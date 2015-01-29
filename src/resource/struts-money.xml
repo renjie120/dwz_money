@@ -33,11 +33,17 @@
 			<result name="unitUsers">
 				/WEB-INF/jsp/loginuser/UnitUserLists.jsp
 			</result>
+			<result name="groupUsers">
+				/WEB-INF/jsp/loginuser/GroupUserLists.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/loginuser/LoginUserinfo.jsp
 			</result>
 			<result name="companyUserDetail">
 				/WEB-INF/jsp/loginuser/CompanyUserinfo.jsp
+			</result>
+			<result name="groupUserDetail">
+				/WEB-INF/jsp/loginuser/GroupUserinfo.jsp
 			</result>
 			<result name="unitUserDetail">
 				/WEB-INF/jsp/loginuser/UnitUserinfo.jsp

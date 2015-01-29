@@ -1,6 +1,21 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<%@ page import="common.util.DateUtil"%>
+<script type="text/javascript"> 
+ function addGroupUser(url,obj){
+ 	var checkedItem =  $('input[type=checkbox][name=group_ids]:checked');
+ 	if(checkedItem.size()==1){
+ 		var sno = checkedItem.val();
+ 		var unitName = checkedItem.parent().parent().parent().find('[name=cname]').val(); 
+	 	var options = {mask:true};
+		$.pdialog.open(url+"?companySno="+sno+"&userUnit="+encodeURIComponent(unitName), '', "商家集团用户管理", options); 
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个商家集团！");
+ 		return false;
+ 	}
+ }
+</script>
 <form id="pagerForm" method="post" action="/money/businessgroup!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
@@ -53,13 +68,20 @@
 			</li>
 			<li>
 				<a class="delete" href="/money/businessgroup!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+					target="selectedTodo" rel="group_ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
 			<li>
 				<a class="edit" href="/money/businessgroup!beforeUpdate.do?sno={sno}" mask="true"
 					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
+			<%if(DateUtil.now().compareTo(DateUtil.getDate(2015, 1, 31))>0){ %>
+			<li>
+				<a class="add" href="javascript:;" 
+					onclick="addGroupUser('/money/loginuser!getGroupUser.do',this)"  mask="true"  
+					 ><span>用户管理</span> </a> 
+			</li>
+			<%} %>
 			<li>
 				<a class="icon" href="/money/businessgroup!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
@@ -70,7 +92,7 @@
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="ids" class="checkboxCtrl">
+					<input type="checkbox" group="group_ids" class="checkboxCtrl">
 				</th>
 				<th width="100"    orderField="GROUPSNO" >
 						集团编号 
@@ -99,7 +121,7 @@
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="ids" value="<s:property value="sno" />"
+						<input name="group_ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
@@ -107,6 +129,8 @@
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="groupName" />
+						<input name="cname" value="<s:property value="groupName" />"
+							type="hidden">
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="groupEmail" />

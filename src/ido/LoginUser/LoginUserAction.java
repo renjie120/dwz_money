@@ -96,6 +96,21 @@ public class LoginUserAction extends BaseAction {
 	}
 	
 	/**
+	 * 添加商家集团用户
+	 * @return
+	 */
+	public String beforeAddGroupUser() {
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_aiduyonghu = allSelect
+				.getParamsByType(AllSelectContants.AIDUYONGHU.getName()); 
+		request.setAttribute("userType", LoginUser.USER_TYPE_BUSINESS_GROUP);
+		request.setAttribute("userTypeName", select_aiduyonghu.getName(LoginUser.USER_TYPE_BUSINESS_GROUP));
+		request.setAttribute("userUnit", changeStr(getUserUnit()));
+		return "groupUserDetail";
+	}
+	
+	/**
 	 * 添加保险公司下面的用户
 	 * @return
 	 */
@@ -120,7 +135,7 @@ public class LoginUserAction extends BaseAction {
 			LoginUserImpl loginuserImpl = new LoginUserImpl(userName ,userId ,userType ,userUnit ,userPass ,userStatus ,userPhone ,userEmail ,userAddress ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createLoginUser(loginuserImpl);
 			pMgr.addCache();
-			insertLog(logMgr,"添加系统用户","/doAdd", "", "" ,JSON.toJSONString(loginuserImpl));  
+			insertLog(logMgr,"添加保险公司用户","/doAdd", "", "" ,JSON.toJSONString(loginuserImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -129,7 +144,25 @@ public class LoginUserAction extends BaseAction {
 		return null;
 	}
 	
-  
+	/**
+ 	 * 添加系统用户.
+ 	 */
+	public String doAddGroupUser() {
+		try {
+			setCurrentUser(false);
+			userPass = Coder.getMyCoder(userPass);
+			LoginUserImpl loginuserImpl = new LoginUserImpl(userName ,userId ,userType ,userUnit ,userPass ,userStatus ,userPhone ,userEmail ,userAddress ,createUser ,createTime ,updateUser ,updateTime );
+			pMgr.createLoginUser(loginuserImpl);
+			pMgr.addCache();
+			insertLog(logMgr,"添加商家集团用户","/doAdd", "", "" ,JSON.toJSONString(loginuserImpl));  
+		} catch (ValidateFieldsException e) {
+			log.error(e);
+			return ajaxForwardError(e.getLocalizedMessage());
+		}
+		writeToPage(response,getText("msg.operation.success"));
+		return null;
+	}
+	
  	/**
  	 * 添加系统用户.
  	 */
@@ -156,6 +189,37 @@ public class LoginUserAction extends BaseAction {
                 return oldStr;
 	    }
 	}
+	
+	/**
+	 * 返回保险公司用户
+	 * @return
+	 */
+	public String getGroupUser() {
+		int pageNum = 1;
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<LoginUserSearchFields, Object> criterias = new HashMap<LoginUserSearchFields, Object>(); 
+		//用户公司类型
+		criterias.put(LoginUserSearchFields.USERTYPE,  LoginUser.USER_TYPE_BUSINESS_GROUP);
+		//用户单位名称
+		userUnit = changeStr(getUserUnit());
+		criterias.put(LoginUserSearchFields.USERUNIT,  userUnit);
+		
+		Collection<LoginUser> moneyList = pMgr.searchLoginUser(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("userType", LoginUser.USER_TYPE_BUSINESS_GROUP);
+		request.setAttribute("userUnit", userUnit);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchLoginUserNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "groupUsers";
+	} 
 	
 	/**
 	 * 返回保险公司用户
