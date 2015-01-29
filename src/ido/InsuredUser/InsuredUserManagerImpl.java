@@ -102,7 +102,7 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 		if (voList == null || voList.size() == 0)
 			return eaList;
 	
-		Cache cache_comId = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDCOMPANY_DICT.getName());
+		Cache cache_comId = CacheManager.getCacheInfoNotNull(AllSelectContants.INSURED_COM_DICT.getName());
 		ParamSelect select_comId = (ParamSelect)cache_comId.getValue();
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());

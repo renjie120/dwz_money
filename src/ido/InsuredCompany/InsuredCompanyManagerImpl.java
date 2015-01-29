@@ -1,5 +1,7 @@
 
 package ido.InsuredCompany;
+import ido.Dict_InsuredCompany.InsuredCompanySelectVO;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -718,6 +720,20 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		MyJdbcTool jdbcTool = (MyJdbcTool) SpringContextUtil
 				.getBean("jdbcTool");
 		jdbcTool.exeSql("update insured_company set com_status = 70 where id in ("+sno+")");
+	}
+
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<InsuredCompanyVO> all = this.insuredcompanydao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(AllSelectContants.INSURED_COM_DICT.getName());
+		Cache c = new Cache(); 
+		c.setKey(AllSelectContants.INSURED_COM_DICT.getName());
+		c.setValue(ans);
+		c.setName("保险公司"); 
+		CacheManager.putCache(AllSelectContants.INSURED_COM_DICT.getName(), c);
 	}
 
 }

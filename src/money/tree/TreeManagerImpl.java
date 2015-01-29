@@ -379,6 +379,49 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		return initCityCache().toZTreeJson();
 	}
 
+	@Override 
+	public Tree initInsuredUnitCache() {
+		Tree tree = null;
+		if (CacheManager.getCacheInfo(AllSelectContants.INSURED_UNIT_TREE.getName()) == null) {
+			tree = new Tree("0", "投保单位树");
+			LinkedList<TreeNode> allP = new LinkedList();
+			allP.add(tree.getRoot());
+
+			do {
+				TreeNode nd = allP.poll();
+				int totalCount = jdbc
+						.queryForInt(
+								"select count(1) from insured_unit where unit_parent_id=?",
+								new Object[] { nd.getId() });
+				nd.open = "false";
+				if (totalCount > 0) {
+					List child = jdbc
+							.queryForList(
+									"select id,unit_name  from insured_unit where unit_parent_id=? ",
+									new Object[] { nd.getId() });
+					for (int ii = 0, jj = child.size(); ii < jj; ii++) {
+						LinkedCaseInsensitiveMap _objs = (LinkedCaseInsensitiveMap) child
+								.get(ii);
+						TreeNode _nd = new TreeNode(_objs.get("id") + "",
+								_objs.get("unit_name") + "");
+						_nd.level = nd.level + 1;
+						nd.addChild(_nd);
+						allP.add(_nd);
+					}
+				}
+			} while (allP.size() > 0);
+
+			Cache c = new Cache();
+			c.setKey(AllSelectContants.INSURED_UNIT_TREE.getName());
+			c.setValue(tree);
+			c.setName("投保单位树");
+			CacheManager.putCache(AllSelectContants.INSURED_UNIT_TREE.getName(), c);
+		} else {
+			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.INSURED_UNIT_TREE.getName()).getValue();
+		}
+		return tree;
+	}
+	
 	@Override
 	public Tree initCityCache() {
 		Tree tree = null;
@@ -420,5 +463,10 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 			tree = (Tree) CacheManager.getCacheInfo(AllSelectContants.CITYTREE.getName()).getValue();
 		}
 		return tree;
+	}
+
+	@Override
+	public String getInsuredUnitTree() {
+		return initInsuredUnitCache().toZTreeJson();
 	}
 }

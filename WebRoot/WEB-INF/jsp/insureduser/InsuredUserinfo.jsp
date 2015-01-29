@@ -1,6 +1,26 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script src="/js/treeCombox.js" type="text/javascript" />
+<script type="text/javascript">
+	/**
+	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
+	 */
+	function myOperation() {
+		$('#unitName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	
+	$(document).ready(function() {
+		var content = {
+			action : '/money/tree!getInsuredUnitTree.do',
+			nameInput : 'unitName',
+			height : '200px',
+			idInput : 'unitId',
+			treeId : "insuredUser_UnitTree"
+		};
+		$('#unitName').treeCombox(content);
+	});
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/insureduser!doAdd.do"
 		class="pageForm required-validate"
@@ -10,91 +30,94 @@
 						<label>
 							投保用户编号:
 						</label>
-							<input name="iuserNo" class="textInput required"  type="text"   />
+							<input name="iuserNo" size="30" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							所投保险公司 :
 						</label>
-							<my:newselect tagName="comId"  tableName="dict_Insured_company" nameColumn="com_name" idColumn ="id" width="100"  />
+							<my:newselect tagName="comId"    tableName="Insured_company" nameColumn="com_name" idColumn ="id" width="100"  />
 					</div>
 					 <div class="unit">
 						<label>
 							所属投保单位 :
 						</label>
-							<input name="unitId" class="textInput required"  type="text"   />
+							<input name="unitId" class="textInput required"  type="hidden"   / >
+			 			<input name="unitName" size="30" id="unitName" type="text" readonly="true"  class="required"
+					  /> 
+					
 					</div>
 					 <div class="unit">
 						<label>
 							状态 :
 						</label>
-							<my:newselect tagName="iuserStatus"  paraType="yesorno" width="100"  />
+							<my:newselect tagName="iuserStatus"   paraType="yesorno" width="100"  />
 					</div>
 					 <div class="unit">
 						<label>
 							员工号:
 						</label>
-							<input name="iuserNumber" class="textInput required"  type="text"   />
+							<input name="iuserNumber" size="30" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							余额:
 						</label>
-							<input name="leftMoney"  class="number required"  type="text"   />
+							<input name="leftMoney"  size="30" class="number required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							门急诊额度:
 						</label>
-							<input name="emergencyMoney"  class="number required"  type="text"   />
+							<input name="emergencyMoney" size="30"  class="number required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							冻结金额:
 						</label>
-							<input name="frozenMoney"  class="number required"  type="text"   />
+							<input name="frozenMoney"  size="30" class="number required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							住院报销额度:
 						</label>
-							<input name="hospitalMoney"  class="number required"  type="text"   />
+							<input name="hospitalMoney" size="30"  class="number required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							体检额度:
 						</label>
-							<input name="tesMoney"  class="number required"  type="text"   />
+							<input name="tesMoney"  size="30" class="number required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							姓名:
 						</label>
-							<input name="iuserName" class="textInput required"  type="text"   />
+							<input name="iuserName" size="30"  class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							性别:
 						</label>
-							<my:newselect tagName="iuserIsman"  paraType="yesorno" width="100"  />
+							<my:newselect tagName="iuserIsman"    paraType="yesorno" width="100"  />
 					</div>
 					 <div class="unit">
 						<label>
 							证件号:
 						</label>
-							<input name="iuserCardno" class="textInput "  type="text"   />
+							<input name="iuserCardno" size="30" class="textInput "  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							手机号:
 						</label>
-							<input name="iuserPhone" class="textInput required"  type="text"   />
+							<input name="iuserPhone" size="30" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							邮箱:
 						</label>
-							<input name="iuserEmail"  class="email required"  type="text"   />
+							<input name="iuserEmail" size="30"  class="email required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>

@@ -22,7 +22,7 @@
 						<label>
 							所投保险公司 :
 						</label>
-							<my:newselect tagName="comId"   tableName="dict_Insured_company" nameColumn="com_name" idColumn ="id"  width="100"   selectedValue="<%=vo.getComId() %>"/>									
+							<my:newselect tagName="comId"   tableName="Insured_company" nameColumn="com_name" idColumn ="id"  width="100"   selectedValue="<%=vo.getComId() %>"/>									
 					</div>
 					 <div class="unit">
 						<label>

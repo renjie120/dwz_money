@@ -3,6 +3,7 @@
 import ido.BusinessGroup.BusinessGroupManager;
 import ido.BusinessMan.BusinessManManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
+import ido.InsuredCompany.InsuredCompanyManager;
 import ido.InsuredUnit.InsuredUnitManager;
 import ido.LoginUser.LoginUserManager;
 import ido.city.CityDictManager;
@@ -171,6 +172,10 @@ public class CacheManager {
 			BusinessFactory bf = BusinessFactory.getFactory();
 			if(AllSelectContants.INSUREDCOMPANY_DICT.getName().equals(key)){
 				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
+				pMgr.addCache();
+			}
+			if(AllSelectContants.INSURED_COM_DICT.getName().equals(key)){
+				InsuredCompanyManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyManager);
 				pMgr.addCache();
 			}
 			if(AllSelectContants.IDOUSER_DICT.getName().equals(key)){

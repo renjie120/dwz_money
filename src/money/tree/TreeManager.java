@@ -1,5 +1,7 @@
 ﻿package money.tree;
 
+import common.tree.Tree;
+
 import dwz.framework.constants.user.UserType;
 import dwz.framework.core.business.BusinessObjectManager;
 
@@ -49,6 +51,12 @@ public interface TreeManager extends BusinessObjectManager {
 	 * @return
 	 */
 	public String getInsuredTree(String pid); 
+	
+	 /**
+	  * 投保单位树.
+	  * @return
+	  */
+	 public String getInsuredUnitTree();
 
 	/**
 	 * 得到菜单树形的缓存.
@@ -63,6 +71,11 @@ public interface TreeManager extends BusinessObjectManager {
 	 */
 	public common.tree.Tree initMenuWithRight(String userId,UserType tp);
 	 
+	/**
+	 * 投保单位树形的缓存.
+	 * @return
+	 */
+	public  common.tree.Tree initInsuredUnitCache();
 	
 	/**
 	 * 得到组织机构树形的缓存.

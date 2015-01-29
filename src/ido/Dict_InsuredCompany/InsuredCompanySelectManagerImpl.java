@@ -245,7 +245,7 @@ public class InsuredCompanySelectManagerImpl extends AbstractBusinessObjectManag
 		Cache c = new Cache(); 
 		c.setKey(AllSelectContants.INSUREDCOMPANY_DICT.getName());
 		c.setValue(ans);
-		c.setName("保险公司字典表"); 
+		c.setName("保险公司业务字典"); 
 		CacheManager.putCache(AllSelectContants.INSUREDCOMPANY_DICT.getName(), c);
 	}
 }

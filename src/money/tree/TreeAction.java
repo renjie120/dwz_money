@@ -46,6 +46,16 @@ public class TreeAction extends BaseAction {
 	}
 	
 	/**
+	 * 得到投保单位树.
+	 * @return
+	 */
+	public String insuredUnitTree(){ 
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		request.setAttribute("treeType", "insured");
+		return "tree";
+	}
+	
+	/**
 	 * 组织机构树 .
 	 * @return
 	 */
@@ -72,6 +82,16 @@ public class TreeAction extends BaseAction {
 	public String getOrgTree(){
 		HttpServletResponse response = ServletActionContext.getResponse(); 
 		writeToPage(response,tMgr.getOrgTree());
+		return null;
+	}
+	
+	/**
+	 * 得到投保单位树.
+	 * @return
+	 */
+	public String getInsuredUnitTree(){
+		HttpServletResponse response = ServletActionContext.getResponse(); 
+		writeToPage(response,tMgr.getInsuredUnitTree());
 		return null;
 	}
 	
