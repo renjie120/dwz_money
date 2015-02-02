@@ -60,18 +60,33 @@ public class UserImpl extends AbstractBusinessObject implements User {
 				.getBean(BeanManagerKey.paramManager.toString());
 		try {
 			Param p = pm.getParam(Integer.parseInt(this.sysUser.getUserType()));
-			// 如果是1，就是超级用户
+			// 保险公司
 			if ("1".equals(p.getUsevalue())) {
-				return UserType.SUPER;
+				return UserType.COMPANY;
 			}
-			// 2就是管理员.
+			// 投保单位
 			else if ("2".equals(p.getUsevalue()))
-				return UserType.ADMIN;
+				return UserType.UNIT;
+			// 商家集团
+			else if ("3".equals(p.getUsevalue()))
+				return UserType.GROUP;
+			// 商家
+			else if ("4".equals(p.getUsevalue()))
+				return UserType.SHOPMAN;
+			// 商铺.
+			else if ("5".equals(p.getUsevalue()))
+				return UserType.SHOP;
+			// 爱都公司.
+			else if ("6".equals(p.getUsevalue()))
+				return UserType.IDO;
+			// 超级管理员.
+			else if ("7".equals(p.getUsevalue()))
+				return UserType.SUPER;
 			// 其他都是普通用户.
 			else
-				return UserType.PERSON;
+				return UserType.Guest;
 		} catch (Exception e) {
-			return UserType.PERSON;
+			return UserType.Guest;
 		}
 	}
 

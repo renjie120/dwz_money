@@ -3,6 +3,8 @@ package ido.LoginUser;
 
 import java.util.Collection;
 
+import money.myuser.MyUserVO;
+
 import dwz.dal.BaseDao; 
 
 /**
@@ -17,6 +19,15 @@ public interface LoginUserDao extends BaseDao<LoginUserVO, Integer> {
 	 */
 	public Collection<LoginUserVO> findRecordById(int sno); 
 	
+	public void updateAllPasswdById(String pass, int id);
+	
+	/**
+	 * 根据登录名称查询信息
+	 * @param loginId
+	 * @return
+	 */
+	public Collection<LoginUserVO> findByUserId(String loginId);
+
 	/**
 	 * 查询全部集合.
 	 */

@@ -1,5 +1,5 @@
 <class name="InsuredCompany" table="Insured_company" desc="保险公司"
-	importFile="false" exportFile="true" add="true" update="true" delete="true"
+	importFile="false" exportFile="true" add="true" update="true" delete="true"cacheIdColumn="sno" cacheNameColumn="comName" cacheName="insuredcompany_dict"
 	package="ido.InsuredCompany">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />

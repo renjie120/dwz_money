@@ -26,7 +26,15 @@
 		<![CDATA[from LoginUserVO as loginUserDao where sno = ?]]>
 	</query>
 
+	<query name="ido.LoginUser.LoginUserDao.updateAllPasswdById">
+		<![CDATA[update LoginUserVO set userPass=? where sno = ?]]>
+	</query> 
+		
 	<query name="ido.LoginUser.LoginUserDao.findAll">
 		<![CDATA[from LoginUserVO  ]]>
+	</query>
+	
+	<query name="ido.LoginUser.LoginUserDao.findByUserId">
+		<![CDATA[from LoginUserVO where userId = ? ]]>
 	</query>
 </hibernate-mapping>

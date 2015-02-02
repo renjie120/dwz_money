@@ -35,12 +35,12 @@
 							所属单位 :
 						</label>
 							<input name="userUnit"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.userUnit"/>" />
-					</div>
+					</div> 
 					 <div class="unit">
 						<label>
 							用户密码:
 						</label>
-							<input name="userPass"  id="w_userPass" class="textInput  "    type="password"  value="" /><label style="color:red">不填则不修改密码</label>
+							<input name="userPass"  id="w_userPass" class="textInput  "    type="password"  value="" /> <label style="color:red">不填则不修改密码</label>
 					</div>
 					 <div class="unit">
 						<label>

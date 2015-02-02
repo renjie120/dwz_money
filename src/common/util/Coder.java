@@ -150,6 +150,7 @@ public abstract class Coder {
 	}
 	
 	public static String CODER_SEED="ido!@#";
+	public static String INIT_CODER="888888";
 	/**
 	 * 计算新的密码,使用MD5加密算法.
 	 * @param data

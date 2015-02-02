@@ -1,5 +1,8 @@
 ﻿package dwz.framework.core.passport;
 
+import ido.LoginUser.LoginUserDao;
+import ido.LoginUser.LoginUserVO;
+
 import java.util.Collection;
 
 import javax.servlet.http.Cookie;
@@ -7,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import money.myuser.MyUserDao;
 import money.myuser.MyUserVO;
 
 import common.util.Coder;
@@ -21,24 +23,42 @@ public class StandardPassport extends Passport {
 	public void login(HttpServletRequest request, String appUserName,
 			String appPassword, String appUserType) throws AuthenticationException{ 
 		
-		Collection<MyUserVO> ids = null;
-		MyUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.myuserDao);
+		Collection<LoginUserVO> ids = null;
+//		MyUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.myuserDao);
+//		
+//		ids = userDao.findByLoginId2(appUserName); 
+//		if (ids == null || ids.size() < 1) {
+//			System.out.println("login failed: " + appUserType + ": "
+//					+ appUserName);
+//			throw new AuthenticationException("msg.login.failure1");
+//		} 
+//		MyUserVO userVo = ids.iterator().next();
+//		String pass = userVo.getPassword();  
+//		if(!Coder.fromMyCoder(pass).equals(appPassword)){
+//			
+//			System.out.println("login failed: " + appUserType + ": "
+//					+ appUserName);
+//			throw new AuthenticationException("msg.login.failure2");
+//		} 
 		
-		ids = userDao.findByLoginId2(appUserName); 
+		LoginUserDao userDao = BusinessFactory.getFactory().getDao(BeanDaoKey.loginuserDao);
+		
+		ids = userDao.findByUserId(appUserName); 
 		if (ids == null || ids.size() < 1) {
 			System.out.println("login failed: " + appUserType + ": "
 					+ appUserName);
 			throw new AuthenticationException("msg.login.failure1");
 		} 
-		MyUserVO userVo = ids.iterator().next();
-		String pass = userVo.getPassword();  
-		if(!Coder.fromMyCoder(pass).equals(appPassword)){
+		LoginUserVO userVo = ids.iterator().next();
+		String pass = userVo.getUserPass();  
+		if(!Coder.getMyCoder(appPassword).equals(pass)){
 			
 			System.out.println("login failed: " + appUserType + ": "
 					+ appUserName);
 			throw new AuthenticationException("msg.login.failure2");
 		} 
-		setSessionUser(request, userVo.getUseId());
+		 
+		setSessionUser(request, userVo.getSno());
 		
 	}
 

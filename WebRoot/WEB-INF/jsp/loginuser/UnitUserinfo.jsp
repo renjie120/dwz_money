@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
 <script type="text/javascript"> 
-function refreshCompanyUser(txt){
+function refreshUnitUser(txt){
 	// 提示返回结果.
 	if (txt.responseText)
 		alertMsg.info(txt.responseText);
@@ -15,10 +15,10 @@ function refreshCompanyUser(txt){
  * 重新打开查询保险公司用户界面
  */
 function cancelthis(){
-	var url = "/money/loginuser!getCompanyUser.do";
+	var url = "/money/loginuser!getUnitUser.do";
 	var unitName = $('#userUnit').val();
  	var options = {mask:true};
-	$.pdialog.open(url+"?userUnit="+encodeURIComponent(unitName), '', "保险公司用户管理", options); 
+	$.pdialog.open(url+"?userUnit="+encodeURIComponent(unitName), '', "投保单位用户管理", options); 
 	
 }
 
@@ -26,7 +26,7 @@ function cancelthis(){
 <div class="pageContent">
 	<form method="post" action="/money/loginuser!doAdd.do"  
 		class="pageForm required-validate"
-		onsubmit="return myCallback(this, refreshCompanyUser);">
+		onsubmit="return myCallback(this, refreshUnitUser);">
 		<div class="pageFormContent" layoutH="57">
 					 <div class="unit">
 						<label>
@@ -45,12 +45,12 @@ function cancelthis(){
 						<label>
 							所属类别 :
 						</label>
-						<input name="userTypeName" value="${userType}"  type="hidden"  /> 
-						<input name="userType" value="${userTypeName}"  type="text"  readOnly="true"  /> 
+						<input name="userTypeName" value="${userTypeName}"   type="text"  readOnly="true"  /> 
+						<input name="userType" value="${userType}" type="hidden"   /> 
 					</div>
 					 <div class="unit">
 						<label>
-							保险公司 :
+							投保单位 :
 						</label>
 							<input name="userUnit" id="userUnit" class="textInput required" readOnly="true" value="${userUnit}" type="text"   />
 					</div>

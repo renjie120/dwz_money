@@ -6,6 +6,23 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="insureduser" class="ido.InsuredUser.InsuredUserAction">
+			<result name="list">
+				/WEB-INF/jsp/insureduser/InsuredUserlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/insureduser/InsuredUserinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/insureduser/InsuredUseredit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/insureduser/InsuredUserimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/insureduser/InsuredUserquery.jsp
+			</result>
+		</action>
 		<action name="loginuser" class="ido.LoginUser.LoginUserAction">
 			<result name="list">
 				/WEB-INF/jsp/loginuser/LoginUserlist.jsp
@@ -13,11 +30,17 @@
 			<result name="companyUsers">
 				/WEB-INF/jsp/loginuser/CompanyUserLists.jsp
 			</result>
+			<result name="unitUsers">
+				/WEB-INF/jsp/loginuser/UnitUserLists.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/loginuser/LoginUserinfo.jsp
 			</result>
 			<result name="companyUserDetail">
 				/WEB-INF/jsp/loginuser/CompanyUserinfo.jsp
+			</result>
+			<result name="unitUserDetail">
+				/WEB-INF/jsp/loginuser/UnitUserinfo.jsp
 			</result>
 			<result name="editdetail">
 				/WEB-INF/jsp/loginuser/LoginUseredit.jsp

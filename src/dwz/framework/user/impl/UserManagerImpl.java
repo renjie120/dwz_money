@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import common.MyJdbcTool;
+import common.util.DateUtil;
 
 import dwz.framework.constants.user.UserOrderByFields;
 import dwz.framework.constants.user.UserSearchFields;
@@ -378,8 +379,10 @@ public class UserManagerImpl extends AbstractBusinessObjectManager implements
 	public String getRights(String userId, UserType tp) {
 		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
 		List menuList = null;
+		//如果是超级管理员 就可以查询全部的菜单
 		if (UserType.SUPER.equals(tp)) {
-			orgSql = "(select  menuid from menu_t)";
+			orgSql = "(select  menuid from menu_t where 1=1 "; 
+			orgSql+=" ) ";
 			menuList = jdbc.queryForList(orgSql);
 		}else{
 			menuList = jdbc.queryForList(orgSql,new Object[]{userId});

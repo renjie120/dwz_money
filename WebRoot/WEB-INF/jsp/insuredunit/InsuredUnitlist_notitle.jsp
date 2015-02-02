@@ -14,6 +14,20 @@ function refreshInsuredUnit(txt) {
 		navTabPageBreak({}, 'notitle_insuredUnitlist');
 		 
 	} 
+	
+	 function addUnitUser(url,obj){
+ 	var checkedItem =  $('input[type=checkbox][name=unitIds]:checked');
+ 	if(checkedItem.size()==1){
+ 		var sno = checkedItem.val(); 
+ 		var unitName = checkedItem.parent().parent().parent().find('[name=unitName]').val(); 
+ 		
+	 	var options = {mask:true};
+		$.pdialog.open(url+"?companySno="+sno+"&userUnit="+encodeURIComponent(unitName), '', "投保单位用户管理", options); 
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个投保单位！");
+ 		return false;
+ 	}
+ }
 </script>
 <div id="notitle_insuredUnitlist">
 <form id="pagerForm" method="post" action="/money/insuredunit!queryByParent.do">
@@ -57,11 +71,20 @@ function refreshInsuredUnit(txt) {
 	</form>
 </div>
 <div class="pageContent" id="notitle_insuredUnits"> 
+<div class="panelBar">
+		<ul class="toolBar"> 
+			<li>
+				<a class="add" href="javascript:;" 
+					onclick="addUnitUser('/money/loginuser!getUnitUser.do',this)"  mask="true"  
+					 ><span>用户管理</span> </a> 
+			</li> 
+		</ul>
+	</div>
 	<table class="table" layoutH="-138" id="tbtb3">
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="ids" class="checkboxCtrl">
+					<input type="checkbox" group="unitIds" class="checkboxCtrl">
 				</th>
 				<th width="100"    orderField="UNITCODE" >
 						编号 
@@ -96,7 +119,7 @@ function refreshInsuredUnit(txt) {
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="ids"  tag='insuredUnit' value="<s:property value="sno" />"
+						<input name="unitIds"  tag='insuredUnit' value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
@@ -104,6 +127,8 @@ function refreshInsuredUnit(txt) {
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="unitName" />
+						<input name="unitName" value="<s:property value="unitName" />"
+							type="hidden">
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="contactName" />

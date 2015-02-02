@@ -1,11 +1,13 @@
 ﻿package dwz.framework.core.passport;
 
+import ido.LoginUser.LoginUser;
+import ido.LoginUser.LoginUserManager;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import money.myuser.MyUser;
-import money.myuser.MyUserManager;
 
 import common.util.Coder;
 
@@ -64,10 +66,14 @@ public abstract class Passport {
 		if (request instanceof AppHttpRequestWrapper) {
 			session.setAttribute(Constants.AUTHENTICATION_KEY, userId);
 		} else {
-			MyUserManager uMgr = BusinessFactory.getFactory().getManager(
-					BeanManagerKey.myuserManager);
-			MyUser  user = uMgr.getSimpleMyUser(userId);  
-			session.setAttribute(Constants.AUTHENTICATION_KEY, new UserImpl(convertUser(user))); 
+//			MyUserManager uMgr = BusinessFactory.getFactory().getManager(
+//					BeanManagerKey.myuserManager);
+//			MyUser  user = uMgr.getSimpleMyUser(userId);  
+//			session.setAttribute(Constants.AUTHENTICATION_KEY, new UserImpl(convertUser(user))); 
+			LoginUserManager uMgr = BusinessFactory.getFactory().getManager(
+					BeanManagerKey.loginuserManager);
+			LoginUser  user = uMgr.getLoginUser(userId);  
+			session.setAttribute(Constants.AUTHENTICATION_KEY, new UserImpl(convertIdoUser(user))); 
 		}
 	}
 	
@@ -85,8 +91,24 @@ public abstract class Passport {
 		ans.setPassword(Coder.fromMyCoder(myUser.getPassword()));
 		ans.setPhone(myUser.getPhone());
 		ans.setEmail(myUser.getEmail());  
-		ans.setUserType(myUser.getUserType());
+		ans.setUserType(myUser.getUserType()); 
+		return ans;
+	} 
+	
+	/**
+	 * 将爱都信息化系统的用户转化为系统默认的用户.
+	 * @param myUser
+	 * @return
+	 */
+	private static SysUser convertIdoUser(LoginUser myUser){
+		SysUser ans = new SysUser();
 		ans.setUserName(myUser.getUserName());
+		ans.setId(myUser.getId().toString());
+		ans.setUserId(myUser.getUserId()+""); 
+		ans.setPassword(myUser.getUserPass());
+		ans.setPhone(myUser.getUserPhone());
+		ans.setEmail(myUser.getUserEmail());  
+		ans.setUserType(myUser.getUserType()); 
 		return ans;
 	} 
 }

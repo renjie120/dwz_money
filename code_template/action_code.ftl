@@ -244,12 +244,12 @@ public class ${bignm}Action extends BaseAction {
 		<#if '${attr.showType}'='select'>
 		ParamSelect select_${attr.selectCode} = allSelect
 				.getParamsByType(AllSelectContants.${attr.selectCode?upper_case}.getName()); 
-		request.setAttribute("${attr.name?lower_case} _list", select_${attr.selectCode}.getSelectAbles()); 
+		request.setAttribute("${attr.name?lower_case}_list", select_${attr.selectCode}.getSelectAbles()); 
 		</#if>
 		<#if '${attr.showType}'='dict'>
 		Cache cache_${attr.name} = CacheManager.getCacheInfoNotNull(AllSelectContants.${attr.useCacheId?upper_case}.getName());
 		ParamSelect select_${attr.name} = (ParamSelect)cache_${attr.name}.getValue();
-		request.setAttribute("${attr.name?lower_case} _list", select_${attr.name}.getSelectAbles()); 
+		request.setAttribute("${attr.name?lower_case}_list", select_${attr.name}.getSelectAbles()); 
 		</#if>
 		</#list>
 		return "query";

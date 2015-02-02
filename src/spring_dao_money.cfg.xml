@@ -16,6 +16,17 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="insureduserDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.InsuredUser.InsuredUserDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.InsuredUser.InsuredUserVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="loginuserDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>ido.LoginUser.LoginUserDao</value>

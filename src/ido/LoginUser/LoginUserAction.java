@@ -68,14 +68,46 @@ public class LoginUserAction extends BaseAction {
 	}
 	
 	/**
+	 * 初始化密码
+	 * @return
+	 */
+	public String initPass() {
+		String ids = request.getParameter("ids");
+		pMgr.initPassword(ids);
+		writeToPage(response,getText("msg.operation.success"));
+//		System.out.println("-----"+getText("msg.operation.success"));
+		//return ajaxForwardSuccess("密码已经初始化为\""+Coder.INIT_CODER+"\"");
+		return ajaxForwardSuccess("密码修改成功初始化为"+Coder.INIT_CODER);
+	}
+	
+	/**
 	 * 添加保险公司下面的用户
 	 * @return
 	 */
 	public String beforeAddCompanyUser() {
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_aiduyonghu = allSelect
+				.getParamsByType(AllSelectContants.AIDUYONGHU.getName()); 
 		request.setAttribute("userType", LoginUser.USER_TYPE_COMPANY);
+		request.setAttribute("userTypeName", select_aiduyonghu.getName(LoginUser.USER_TYPE_COMPANY));
 		request.setAttribute("userUnit", changeStr(getUserUnit()));
-		System.out.println("userUnit---"+changeStr(getUserUnit())+",,USER_TYPE_COMPANY=="+LoginUser.USER_TYPE_COMPANY);
 		return "companyUserDetail";
+	}
+	
+	/**
+	 * 添加保险公司下面的用户
+	 * @return
+	 */
+	public String beforeAddUnitUser() {
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_aiduyonghu = allSelect
+				.getParamsByType(AllSelectContants.AIDUYONGHU.getName()); 
+		request.setAttribute("userTypeName", select_aiduyonghu.getName(LoginUser.USER_TYPE_INSURED_UNIT));
+		request.setAttribute("userType", LoginUser.USER_TYPE_INSURED_UNIT);
+		request.setAttribute("userUnit", changeStr(getUserUnit()));
+		return "unitUserDetail";
 	}
 	
 	/**
@@ -154,6 +186,37 @@ public class LoginUserAction extends BaseAction {
 		ActionContext.getContext().put("numPerPage", numPerPage);
 		ActionContext.getContext().put("totalCount",count);
 		return "companyUsers";
+	} 
+	
+	/**
+	 * 返回保险公司用户
+	 * @return
+	 */
+	public String getUnitUser() {
+		int pageNum = 1;
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<LoginUserSearchFields, Object> criterias = new HashMap<LoginUserSearchFields, Object>(); 
+		//用户公司类型
+		criterias.put(LoginUserSearchFields.USERTYPE,  LoginUser.USER_TYPE_INSURED_UNIT);
+		//用户单位名称
+		userUnit = changeStr(getUserUnit());
+		criterias.put(LoginUserSearchFields.USERUNIT,  userUnit);
+		
+		Collection<LoginUser> moneyList = pMgr.searchLoginUser(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("userType", LoginUser.USER_TYPE_INSURED_UNIT);
+		request.setAttribute("userUnit", userUnit);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchLoginUserNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "unitUsers";
 	} 
 
 	/**
@@ -781,7 +844,19 @@ public class LoginUserAction extends BaseAction {
  		this.userUnit = userunit;
  	}
 	private String userPass; 
- 	/**
+	/**
+	 * 原来密码
+	 */
+	private String oldPass; 
+ 	public String getOldPass() {
+		return oldPass;
+	}
+
+	public void setOldPass(String oldPass) {
+		this.oldPass = oldPass;
+	}
+
+	/**
  	 * 获取用户密码的属性值.
  	 */
  	public String getUserPass(){

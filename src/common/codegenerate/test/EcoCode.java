@@ -30,7 +30,7 @@ public class EcoCode {
 		boolean java = false;//是否生成java文件
 		boolean jsp = true;//是否生成jsp文件
 		boolean hbm = false;//是否生成hbm文件
-		boolean other = true;//是否生成其他文件
+		boolean other = false;//是否生成其他文件
 
 		if (java) {
 			new Generate("action_code.ftl", beanName, "Action.java",

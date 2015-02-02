@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.InsuredUser.InsuredUserVO" table="Insured_user">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="iuserNo" column="Iuser_no" type="string" />
+				<property name="comId" column="Com_id" type="string" />
+				<property name="unitId" column="unit_id" type="string" />
+				<property name="iuserStatus" column="Iuser_status" type="string" />
+				<property name="iuserNumber" column="Iuser_number" type="string" />
+				<property name="leftMoney" column="Left_money" type="double" />
+				<property name="emergencyMoney" column="Emergency_money" type="double" />
+				<property name="frozenMoney" column="Frozen_money" type="double" />
+				<property name="hospitalMoney" column="Hospital_money" type="double" />
+				<property name="tesMoney" column="test_money" type="double" />
+				<property name="iuserName" column="Iuser_name" type="string" />
+				<property name="iuserIsman" column="Iuser_isman" type="string" />
+				<property name="iuserCardno" column="Iuser_cardno" type="string" />
+				<property name="iuserPhone" column="Iuser_phone" type="string" />
+				<property name="iuserEmail" column="Iuser_email" type="string" />
+				<property name="iuserBirthday" column="Iuser_birthday" type="string" />
+				<property name="iuserRemark" column="Iuser_remark" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.InsuredUser.InsuredUserDao.findRecordById">
+		<![CDATA[from InsuredUserVO as insuredUserDao where sno = ?]]>
+	</query>
+
+	<query name="ido.InsuredUser.InsuredUserDao.findAll">
+		<![CDATA[from InsuredUserVO  ]]>
+	</query>
+</hibernate-mapping>

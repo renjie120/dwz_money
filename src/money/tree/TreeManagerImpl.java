@@ -19,6 +19,7 @@ import common.cache.CacheManager;
 import common.tree.ITreeNodeTravel;
 import common.tree.Tree;
 import common.tree.TreeNode;
+import common.util.DateUtil;
 
 import dwz.framework.constants.user.UserType;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -246,7 +247,12 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		allP.add(tree.getRoot());
 		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
 		if (UserType.SUPER.equals(tp)) {
-			orgSql = "(select  menuid from menu_t)";
+			orgSql = "(select  menuid from menu_t where 1=1 ";
+			//如果没有到1月31号，就不显示指定菜单 87！
+			if(DateUtil.now().compareTo(DateUtil.getDate(2015, 1, 31))<=0){
+				orgSql+=" and  menuid not in (87) ";
+			}
+			orgSql+=" ) ";
 		}
 		// 查询一个人的角色里面全部的菜单.
 		// select distinct r.menuid from user_role_right t,role_menu_right r

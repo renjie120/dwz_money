@@ -1,15 +1,69 @@
-
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<script type="text/javascript"> 
+ /**
+  * 新建一个保险公司用户.
+  */
+ function addUser(url,obj){ 
+	var unitName = $('#userUnit').val();
+ 	var options = {mask:true};
+	$.pdialog.open(url+"?userUnit="+encodeURIComponent(unitName), '', "投保单位用户管理", options); 
+	 
+ }
+ 
+ function refreshThisDialog(json){  
+ 		//$form = $(obj); 
+ 		//alert($("#companyUserLists").size());
+		//$("#jbsxBox").reload($form.attr('action'), {data: $form.serializeArray()},function(){});
+		/*$("#companyUserLists").loadUrl($form.attr('action'), {
+			 
+		}, function() {
+		}); */ 
+ }
+ 
+  /**
+   * 删除一个保险公司用户之后，弹出提示信息，并刷新界面.
+   */
+  function myDialogAjaxDone(json){  
+ 		DWZ.ajaxDone(json); 
+		if (json.statusCode == DWZ.statusCode.ok) {
+			var url = "/money/loginuser!getUnitUser.do";
+			var unitName = $('#userUnit').val();
+		 	var options = {mask:true};
+			$.pdialog.open(url+"?userUnit="+encodeURIComponent(unitName), '', "投保单位用户管理", options); 
+		}
+  }
+ 
+  /**
+   * 删除投保单位用户.
+   */
+  function deleteUser(url,obj){   
+   var checkedItem =  $('input[type=checkbox][name=companyUsers]:checked');
+ 	if(checkedItem.size()==1){ 
+	  $.ajax({
+		  type:'POST', 
+		  url:'/money/loginuser!doDelete.do',
+		  dataType:'json',
+		  data: {'ids':checkedItem.val()},
+		  success:myDialogAjaxDone,
+		  error: DWZ.ajaxError
+		 });	  
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个用户！");
+ 		return false;
+ 	}
+ }
+</script>
+<div id='companyUserLists'>
 <form id="pagerForm" method="post" action="/money/loginuser!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
-</form>
+</form> 
 <div class="pageHeader">
-	<form onsubmit="return navTabSearch(this);"
+	<form onsubmit="return dialogSearch(this,'companyUserLists');"  
 		action="/money/loginuser!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
@@ -19,21 +73,11 @@
 							<input name="userName"   class="textInput " type="text"  value="<s:property value="vo.userName"/>" />
 					</td> 
 					<td> 
-						登录名称 </td><td>
-							<input name="userId"   class="textInput " type="text"  value="<s:property value="vo.userId"/>" />
-					</td> 
-					<td> 
-						所属类别 </td><td>
-							<my:newselect tagName="userType"  paraType="aiduyonghu" width="100" allSelected="true" />
-					</td> 
-					<td> 
-						所属单位 </td><td>
-							<input name="userUnit"   class="textInput " type="text"  value="<s:property value="vo.userUnit"/>" />
-					</td> 
-					<td> 
 						用户状态 </td><td>
 							<my:newselect tagName="userStatus"  paraType="yesorno_status" width="100" allSelected="true" />
-					</td> 
+					</td>  
+					<input name="userType"    type="hidden"  value="${userType}" />
+					<input name="userUnit"  id="userUnit"  type="hidden" value="${userUnit}" />  
 				</tr>
 			</table>
 			<div class="subBar">
@@ -56,36 +100,23 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add" href="/money/loginuser!beforeAdd.do" target="dialog" mask="true"
-					title="添加"><span>添加</span> </a>
+				<a class="add" href="javascript:;" 
+					onclick="addUser('/money/loginuser!beforeAddUnitUser.do',this)"  mask="true"  
+					 ><span>添加</span> </a>
 			</li>
 			<li>
-				<a class="delete" href="/money/loginuser!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+				<a class="delete" href="javascript:;" 
+					onclick="deleteUser('/money/loginuser!deleteUnitUser.do',this)"     
+					 > <span>删除</span>
 				</a>
-			</li>
-			<li>
-				<a class="edit" href="/money/loginuser!beforeUpdate.do?sno={sno}" mask="true"
-					target="dialog" title="修改"><span>修改</span> </a>
-			</li>
-			<li>
-				<a class="edit" href="/money/loginuser!initPass.do" postType="string"
-					target="selectedTodo" rel="ids"  title="密码初始化"><span>密码初始化</span> </a>
-			</li>
-			<li>
-				<a class="icon" href="/money/loginuser!export.do" target="dwzExport"
-					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
-			</li>
-			<li>
-				<a class="icon" href="/money/loginuser!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
-			</li> 
+			</li>  
 		</ul>
 	</div>
-	<table class="table" layoutH="-138">
+	<table class="table" >
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="ids" class="checkboxCtrl">
+					<input type="checkbox" group="companyUsers" class="checkboxCtrl">
 				</th>
 				<th width="100"    orderField="USERNAME" >
 						用户姓名 
@@ -98,26 +129,20 @@
 				</th> 
 				<th width="100"    orderField="USERUNIT" >
 						所属单位  
-				</th> 
+				</th>  
 				<th width="100"    orderField="USERSTATUS" >
 						用户状态  
 				</th> 
 				<th width="100"    orderField="USERPHONE" >
 						联系电话 
-				</th> 
-				<th width="100"    orderField="USEREMAIL" >
-						邮箱 
-				</th> 
-				<th width="100"    orderField="USERADDRESS" >
-						地址 
-				</th> 
+				</th>  
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="ids" value="<s:property value="sno" />"
+						<input name="companyUsers" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
@@ -131,19 +156,13 @@
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="userUnit" />
-					</td> 
+					</td>  
 					<td style="text-align:center;">
 						<s:property value="userStatus" />
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="userPhone" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="userEmail" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="userAddress" />
-					</td> 
+					</td>  
 				</tr>
 			</s:iterator>
 		</tbody>
@@ -180,4 +199,4 @@
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
 	</div>
 </div>
-
+</div>

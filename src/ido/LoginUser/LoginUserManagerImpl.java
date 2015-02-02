@@ -9,6 +9,7 @@ import java.util.Map;
 import common.util.NPOIReader;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
+import common.util.Coder;
 import common.util.CommonUtil;
 import common.util.DateTool;
 import common.util.NPOIReader; 
@@ -479,5 +480,19 @@ public class LoginUserManagerImpl extends AbstractBusinessObjectManager implemen
 		c.setValue(ans);
 		c.setName("系统用户");
 		CacheManager.putCache(_tempCacheId, c);
+	}
+
+	@Override
+	public void initPassword(String useId) {
+		String[] idArr = useId.split(",");
+		String newPassword = "";
+		try {
+			newPassword = Coder.getMyCoder(Coder.INIT_CODER);
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		for (String s : idArr) { 
+			 this.loginuserdao.updateAllPasswdById(newPassword, Integer.parseInt(s));
+		}
 	}
 }

@@ -2,7 +2,6 @@
 package ido.LoginUser;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
  * 关于系统用户的业务类接口
  * @author www(水清)
@@ -11,10 +10,11 @@ import java.util.Date;
  */ 
 public interface LoginUser extends BusinessObject {
 	String USER_TYPE_COMPANY="98";
-	String USER_TYPE_INSURED_UNIT="99";
-	String USER_TYPE_BUSINESS_GROUP="100";
-	String USER_TYPE_BUSINESS_MAN="101";
-	String USER_TYPE_SHOP="102";
+	String USER_TYPE_INSURED_UNIT="97";
+	String USER_TYPE_BUSINESS_GROUP="99";
+	String USER_TYPE_BUSINESS_MAN="100";
+	String USER_TYPE_SHOP="101";
+	String USER_TYPE_IDO="102";
 	String USER_TYPE_SUPER="103";
 	String USER_TYPE_GUEST="104";
  	/**

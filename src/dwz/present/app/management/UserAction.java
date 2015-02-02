@@ -33,7 +33,7 @@ public class UserAction extends BaseAction {
 
 	private String userName;
 	private UserStatus userStatus;
-	private UserType userType = UserType.PERSON;
+	private UserType userType = UserType.Guest;
 	UserManager uMgr = bf.getManager(BeanManagerKey.userManager);
 	private User user = uMgr.newUser("", userType);
 

@@ -16,7 +16,7 @@
 						<label>
 							登录名称 :
 						</label>
-							<input name="userId" class="textInput required"  type="text"   />
+							<input name="userId" class="alphanumeric required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
