@@ -9,8 +9,8 @@
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<div class="pageFormContent" layoutH="57">
 			<div class="unit">
-				<label> 编号: </label> <input name="unitCode" size="30"
-					class="textInput required" type="text" />
+				<label> 编号: </label> <input name="unitCode" size="30" value="${unitCode }"
+					class="textInput required" type="text" readOnly="true"/>
 			</div>
 			<div class="unit">
 				<label> 投保单位 : </label> <input name="unitName" class="textInput " size="30"

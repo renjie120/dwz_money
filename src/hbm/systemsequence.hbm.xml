@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.sequence.SystemSequenceVO" table="System_Sequence_t">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="sequenceCode" column="sequence_code" type="string" />
+				<property name="sequenceName" column="sequence_name" type="string" />
+				<property name="sequenceContent" column="content" type="integer" />
+	</class>
+
+	<query name="money.sequence.SystemSequenceDao.findRecordById">
+		<![CDATA[from SystemSequenceVO as systemSequenceDao where sno = ?]]>
+	</query>
+
+	<query name="money.sequence.SystemSequenceDao.findAll">
+		<![CDATA[from SystemSequenceVO  ]]>
+	</query>
+</hibernate-mapping>

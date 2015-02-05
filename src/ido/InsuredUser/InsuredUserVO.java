@@ -18,7 +18,7 @@ public class InsuredUserVO implements Serializable {
 
 	}
 	
-	public InsuredUserVO( int sno , String iuserNo , String comId , String unitId , String iuserStatus , String iuserNumber , Double leftMoney , Double emergencyMoney , Double frozenMoney , Double hospitalMoney , Double tesMoney , String iuserName , String iuserIsman , String iuserCardno , String iuserPhone , String iuserEmail , String iuserBirthday , String iuserRemark , int createUser , String createTime , int updateUser , String updateTime ) {
+	public InsuredUserVO( int sno , String iuserNo , String comId , String unitId , String iuserStatus , String iuserNumber , double leftMoney , double emergencyMoney , double frozenMoney , double hospitalMoney , double tesMoney , String iuserName , String iuserIsman , String iuserCardno , String iuserPhone , String iuserEmail , String iuserBirthday , String iuserRemark , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.iuserNo = iuserNo;
 		 this.comId = comId;
@@ -43,7 +43,7 @@ public class InsuredUserVO implements Serializable {
 		 this.updateTime = updateTime;
 	}
 	
-	public InsuredUserVO(String iuserNo ,String comId ,String unitId ,String iuserStatus ,String iuserNumber ,Double leftMoney ,Double emergencyMoney ,Double frozenMoney ,Double hospitalMoney ,Double tesMoney ,String iuserName ,String iuserIsman ,String iuserCardno ,String iuserPhone ,String iuserEmail ,String iuserBirthday ,String iuserRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
+	public InsuredUserVO(String iuserNo ,String comId ,String unitId ,String iuserStatus ,String iuserNumber ,double leftMoney ,double emergencyMoney ,double frozenMoney ,double hospitalMoney ,double tesMoney ,String iuserName ,String iuserIsman ,String iuserCardno ,String iuserPhone ,String iuserEmail ,String iuserBirthday ,String iuserRemark ,int createUser ,String createTime ,int updateUser ,String updateTime ) {
 			 this.iuserNo = iuserNo;
 			 this.comId = comId;
 			 this.unitId = unitId;
@@ -151,74 +151,74 @@ public class InsuredUserVO implements Serializable {
  	public void setIuserNumber(String iusernumber){
  		this.iuserNumber = iusernumber;
  	}
-	private Double leftMoney; 
+	private double leftMoney; 
  	/**
  	 * 获取余额的属性值.
  	 */
- 	public Double getLeftMoney(){
+ 	public double getLeftMoney(){
  		return leftMoney;
  	}
  	
  	/**
  	 * 设置余额的属性值.
  	 */
- 	public void setLeftMoney(Double leftmoney){
+ 	public void setLeftMoney(double leftmoney){
  		this.leftMoney = leftmoney;
  	}
-	private Double emergencyMoney; 
+	private double emergencyMoney; 
  	/**
  	 * 获取门急诊额度的属性值.
  	 */
- 	public Double getEmergencyMoney(){
+ 	public double getEmergencyMoney(){
  		return emergencyMoney;
  	}
  	
  	/**
  	 * 设置门急诊额度的属性值.
  	 */
- 	public void setEmergencyMoney(Double emergencymoney){
+ 	public void setEmergencyMoney(double emergencymoney){
  		this.emergencyMoney = emergencymoney;
  	}
-	private Double frozenMoney; 
+	private double frozenMoney; 
  	/**
  	 * 获取冻结金额的属性值.
  	 */
- 	public Double getFrozenMoney(){
+ 	public double getFrozenMoney(){
  		return frozenMoney;
  	}
  	
  	/**
  	 * 设置冻结金额的属性值.
  	 */
- 	public void setFrozenMoney(Double frozenmoney){
+ 	public void setFrozenMoney(double frozenmoney){
  		this.frozenMoney = frozenmoney;
  	}
-	private Double hospitalMoney; 
+	private double hospitalMoney; 
  	/**
  	 * 获取住院报销额度的属性值.
  	 */
- 	public Double getHospitalMoney(){
+ 	public double getHospitalMoney(){
  		return hospitalMoney;
  	}
  	
  	/**
  	 * 设置住院报销额度的属性值.
  	 */
- 	public void setHospitalMoney(Double hospitalmoney){
+ 	public void setHospitalMoney(double hospitalmoney){
  		this.hospitalMoney = hospitalmoney;
  	}
-	private Double tesMoney; 
+	private double tesMoney; 
  	/**
  	 * 获取体检额度的属性值.
  	 */
- 	public Double getTesMoney(){
+ 	public double getTesMoney(){
  		return tesMoney;
  	}
  	
  	/**
  	 * 设置体检额度的属性值.
  	 */
- 	public void setTesMoney(Double tesmoney){
+ 	public void setTesMoney(double tesmoney){
  		this.tesMoney = tesmoney;
  	}
 	private String iuserName; 

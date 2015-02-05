@@ -31,12 +31,12 @@
 		<input type='hidden' name="sno" value="<s:property value="vo.sno"/>">
 		<div class="pageFormContent" layoutH="57">
 			<div class="unit">
-				<label> 编号: </label> <input name="unitCode"
+				<label> 编号: </label> <input name="unitCode" readOnly="true"
 					class="textInput  required" type="text"  size="30"
 					value="<s:property value="vo.unitCode"/>" />
 			</div>
 			<div class="unit">
-				<label> 投保单位 : </label> <input name="unitName" class="textInput  "  size="30"
+				<label> 投保单位 : </label> <input name="unitName" readOnly="true" class="textInput  "  size="30"
 					type="text" value="<s:property value="vo.unitName"/>" />
 			</div>
 			<div class="unit">

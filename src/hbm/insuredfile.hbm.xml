@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.InsuredFile.InsuredFileVO" table="Insured_file">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="insuredFileName" column="f_name" type="string" />
+				<property name="insuredFileId" column="f_id" type="string" />
+				<property name="insuredFileUnit" column="unit_id" type="string" />
+				<property name="insuredFileCompany" column="com_id" type="string" />
+				<property name="insuredFileEmail" column="f_email" type="string" />
+				<property name="insuredFileContact" column="f_linkman" type="string" />
+				<property name="insuredFileConTel" column="f_linktel" type="string" />
+				<property name="insuredFileConMobile" column="f_linkmobile" type="string" />
+				<property name="insuredFileBegin" column="f_begindate" type="string" />
+				<property name="insuredFileEnd" column="f_enddate" type="string" />
+				<property name="insuredFileStatus" column="f_status" type="string" />
+				<property name="insuredFileDuijie" column="f_duijie" type="string" />
+				<property name="insuredFileDuijieFlag" column="f_duijieflag" type="string" />
+				<property name="insuredFileRemark" column="f_remark" type="string" />
+				<property name="insuredFileTotal" column="f_total" type="double" />
+				<property name="insuredFileEmerg" column="f_emergency" type="double" />
+				<property name="insuredFileHospital" column="f_hospital" type="double" />
+				<property name="insuredFileExam" column="f_examination" type="double" />
+				<property name="insuredFileConsumer" column="f_consumer" type="string" />
+				<property name="insuredFileConsRule" column="f_consumerrule" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.InsuredFile.InsuredFileDao.findRecordById">
+		<![CDATA[from InsuredFileVO as insuredFileDao where sno = ?]]>
+	</query>
+
+	<query name="ido.InsuredFile.InsuredFileDao.findAll">
+		<![CDATA[from InsuredFileVO  ]]>
+	</query>
+</hibernate-mapping>

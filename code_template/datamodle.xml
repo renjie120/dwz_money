@@ -1,84 +1,17 @@
-<class name="InsuredUser" table="Insured_user" desc="投保用户"
-	importFile="true" exportFile="false" add="true" update="false" delete="true"
-	package="ido.InsuredUser">
+<class name="SystemSequence" table="System_Sequence_t" desc="系统序列号"
+	importFile="true" exportFile="false" add="true" update="false" delete="false"
+	package="money.sequence">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="iuserNo" column="Iuser_no" type="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="50"
-		columnType="varchar(100)" desc="投保用户编号" width="100" notnull="true"
+	<property name="sequenceCode" column="sequence_code" type="string" notnull="true"
+		notNullInDb="true" columnType="varchar(100)" width="250" desc="序列代码 "
 		query="true" />
 
-	<property name="comId" column="Com_id" type="string" showType="dict"
-		fromTable="dict_Insured_company" useCacheId="insuredcompany_dict"
-		idCoulmn="id" nameColumn="com_name" columnType="int(10)" width="100"
-		desc="所投保险公司 " query="true" />
-
-	<property name="unitId" column="unit_id" type="string" notnull="true"
-		showType="string" columnType="int(10)" width="100" desc="所属投保单位 "
+	<property name="sequenceName" column="sequence_name" type="string"
+		columnType="varchar(100)" desc="序列名称" width="250" notnull="true"
 		query="true" />
-
-	<property name="iuserStatus" column="Iuser_status" type="string" 
-		showType="select" selectCode="yesorno" columnType="int(10)" width="100"
-		desc="状态 " query="true" />
-
-	<property name="iuserNumber" column="Iuser_number" type="string" notnull="true"
-		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
-		desc="员工号" width="100" />
-
-	<property name="leftMoney" column="Left_money" type="double" notnull="true"
-		columnType="double" showType="number" width="100" desc="余额" />
-
-	<property name="emergencyMoney" column="Emergency_money" type="double" notnull="true"
-		columnType="double" showType="number" width="100" desc="门急诊额度" />
-
-	<property name="frozenMoney" column="Frozen_money" type="double" notnull="true"
-		columnType="double" showType="number" width="100" desc="冻结金额" />
-
-	<property name="hospitalMoney" column="Hospital_money" type="double" notnull="true"
-		columnType="double" showType="number" width="100" desc="住院报销额度" />
-
-	<property name="tesMoney" column="test_money" type="double" notnull="true"
-		showType="number" columnType="double" width="100" desc="体检额度" />
-
-	<property name="iuserName" column="Iuser_name" type="string" notnull="true"
-		maxLength="50" columnType="varchar(100)" desc="姓名" />
-
-	<property name="iuserIsman" column="Iuser_isman" type="string"
-		columnType="int(10)" showType="select" selectCode="yesorno" width="100"
-		desc="性别" />
-
-	<property name="iuserCardno" column="Iuser_cardno" type="string" 
-		columnType="varchar(20)" showType="string" width="100" desc="证件号" />
-
-	<property name="iuserPhone" column="Iuser_phone" type="string" notnull="true"
-		columnType="varchar(20)" showType="string" maxLength="15" width="100"
-		desc="手机号" />
-
-	<property name="iuserEmail" column="Iuser_email" type="string" notnull="true"
-		columnType="varchar(500)" showType="email" maxLength="500" width="100"
-		desc="邮箱" />
-
-	<property name="iuserBirthday" column="Iuser_birthday" type="string"
-		columnType="varchar(20)" showType="date" width="100" desc="生日" />
-
-	<property name="iuserRemark" column="Iuser_remark" type="string"
-		maxLength="1000" columnType="varchar(2000)" showType="textarea" cols="35"
-		rows="4" width="100" desc="备注" />
-
-	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
-		columnType="int(10)" noadd="true" />
-
-	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
-		columnType="varchar(20)" noadd="true" />
-
-	<property name="updateUser" column="update_user" type="int"
-		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
-		columnType="int(10)" noadd="true" />
-
-	<property name="updateTime" column="update_time" type="string"
-		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
-		columnType="varchar(20)" noadd="true" />
+ 
+	<property name="sequenceContent" column="content" type="integer" query="true" notnull="true"
+		columnType="int" desc="序列值" width="80" />
 </class>

@@ -87,6 +87,11 @@
 					 ><span>用户管理</span> </a> 
 			</li>
 			<li>
+				<a class="add" href="javascript:;" 
+					onclick="addCompanyUser('/money/loginuser!getCompanyUser.do',this)"  mask="true"  
+					 ><span>附件管理</span> </a> 
+			</li>
+			<li>
 				<a class="icon" href="/money/insuredcompany!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
@@ -98,10 +103,10 @@
 				<th width="30">
 					<input type="checkbox" group="company_ids" class="checkboxCtrl">
 				</th>
-				<th width="100"    orderField="COMNAME" >
+				<th width="150"    orderField="COMNAME" >
 						保险公司名称 
 				</th> 
-				<th width="100"    orderField="COMNO" >
+				<th width="150"    orderField="COMNO" >
 						保险公司编号  
 				</th>  
 				<th width="100"    orderField="COMSHORTNAME" >
@@ -112,22 +117,10 @@
 				</th> 
 				<th width="100"    orderField="COMCONTACTNAME" >
 						联系人名称 
-				</th> 
-				<th width=""    orderField="COMCONTACTPHONE" >
-						联系人手机 
-				</th> 
-				<th width="100"    orderField="OWNERCOMPANY" >
+				</th>  
+				<th width="150"    orderField="OWNERCOMPANY" >
 						所属保险公司 
-				</th> 
-				<th width="100"    orderField="COMEMAIL" >
-						邮箱 
-				</th> 
-				<th width="100"    orderField="COMADDRESS" >
-						地址 
-				</th> 
-				<th width="100"    orderField="COMREMARK" >
-						备注 
-				</th> 
+				</th>  
 				<th width="100"    orderField="COMSTATUS" >
 						状态  
 				</th> 
@@ -156,21 +149,9 @@
 					</td> 
 					<td>
 						<s:property value="comContactName" />
-					</td> 
-					<td>
-						<s:property value="comContactPhone" />
-					</td> 
+					</td>  
 					<td>
 						<s:property value="ownerCompany" />
-					</td> 
-					<td>
-						<s:property value="comEmail" />
-					</td> 
-					<td>
-						<s:property value="comAddress" />
-					</td> 
-					<td>
-						<s:property value="comRemark" />
 					</td> 
 					<td>
 					<s:if test="%{comStatus=='失效'}">

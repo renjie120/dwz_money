@@ -20,22 +20,7 @@ import common.util.DomUtil;
 public class ModelParse {
 	protected static Log log = LogFactory.getLog(ModelParse.class);
 	private String fileName;
-	private List<ColumnModel> attributes = new ArrayList<ColumnModel>();
-	private String table;
-	private String className;
-	private String arg1;
-
-	public String getArg1() {
-		return arg1;
-	}
-
-	public void setArg1(String arg1) {
-		this.arg1 = arg1;
-	}
-
-	private String classDesc;
-	private String packageName;
-
+	
 	public String getFileName() {
 		return fileName;
 	}
@@ -45,28 +30,27 @@ public class ModelParse {
 	}
 
 	public boolean parseValidate() {
-		Document doc = DomUtil.getXmlDocument(fileName);
-		NodeList list = doc.getElementsByTagName("class");
-		if (list == null) {
-			log.error("必须有class节点!");
-			return false;
-		}
+	 
 		return true;
 	}
 
-	String cacheIdColumn, cacheNameColumn, cacheName;
-
-	public ClassModel parse() {
-		ClassModel model = new ClassModel();
-		Document doc = DomUtil.getXmlDocument(fileName);
-		Node list = doc.getElementsByTagName("class").item(0);
+	/**
+	 * 解析class节点里面的内容返回一个classModel对象准备进行文件解析.
+	 * @param list
+	 * @return
+	 */
+	public ClassModel parseClass(Node list){
+		List<ColumnModel> attributes = new ArrayList<ColumnModel>(); 
+		String cacheIdColumn, cacheNameColumn, cacheName,table,className,arg1,classDesc,packageName;
 		table = DomUtil.getAttribute(list, "table");
-
+		ClassModel model = new ClassModel();
+		
 		// 下面设置缓存相关配置信息.
 		cacheNameColumn = DomUtil.getAttribute(list, "cacheNameColumn");
 		cacheIdColumn = DomUtil.getAttribute(list, "cacheIdColumn");
 		cacheName = DomUtil.getAttribute(list, "cacheName");
-		if (cacheName != null && "".equals(cacheName.trim())) {
+		System.out.println("cacheName==="+cacheName);
+		if (isEmpty(cacheName)) {
 			model.setAddToCache("false");
 		} else
 			model.setAddToCache("true");
@@ -113,8 +97,6 @@ public class ModelParse {
 				// 设置复杂搜索类型
 				config.setComplexQueryType(DomUtil.getAttribute(child,
 						"complexQueryType"));
-				System.out.println(DomUtil.getAttribute(child, "name") + ","
-						+ DomUtil.getAttribute(child, "complexQueryType"));
 				// 下拉菜单是否含有全选按钮
 				config.setAllSelect(DomUtil.getAttribute(child, "allSelect"));
 				// 最短长度
@@ -130,7 +112,7 @@ public class ModelParse {
 				config.setCols(DomUtil.getAttribute(child, "cols"));
 				// 数据的最大长度
 				String size = DomUtil.getAttribute(child, "size");
-				if (size == null)
+				if (isEmpty(size))
 					size = "30";
 				config.setSize(size);
 				// 列属性名
@@ -228,6 +210,32 @@ public class ModelParse {
 
 		return model;
 	}
+	
+	/**
+	 * 解析第一个class节点.
+	 * @return
+	 */
+	public ClassModel parse() {
+		Document doc = DomUtil.getXmlDocument(fileName);
+		System.out.println( doc.getElementsByTagName("class").getLength());
+		Node list = doc.getElementsByTagName("class").item(1);
+		return parseClass(list);
+	}
+	
+	/**
+	 * 解析一个文件里面的多个class节点.
+	 * @return
+	 */
+	public List<ClassModel> parseClasses() {
+		Document doc = DomUtil.getXmlDocument(fileName);
+		List<ClassModel> ans= new ArrayList<ClassModel>();
+		int size = doc.getElementsByTagName("class").getLength();
+		for(int i=0,j=size;i<j;i++){
+			Node list = doc.getElementsByTagName("class").item(i);
+			ans.add(parseClass(list));
+		}
+		return ans;
+	}
 
 	private int parseString(String str) {
 		try {
@@ -235,5 +243,9 @@ public class ModelParse {
 		} catch (Exception e) {
 			return -1;
 		}
+	}
+	
+	private static boolean isEmpty(String str) { 
+			return str==null||"".equals(str.trim()); 
 	}
 }

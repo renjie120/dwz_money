@@ -1,23 +1,27 @@
-<class name="LogInfo" table="log_info" desc="操作日志" package="ido.loginfo"
-	importFile="" exportFile="" add="" update="" delete="">
-	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
-		noedit="true" />
-	<property name="operUser" column="operate_user" type="int"
-		showType="number" tableColumn="int" visible="false" desc="用户id" width="100" />
-	<property name="operUserName" column="operate_username" type="string"
-		desc="用户" width="100" />
-	<property name="operTime" column="operate_time" type="string"
-		width="100" desc="时间 " query="true" />
-	<property name="operType" column="operate_type" type="string"
-		desc="操作类型" width="30" />
-	<property name="operIp" column="operate_ip" type="string"
-		desc="ip地址" width="100" />
-	<property name="operUrl" column="operate_url" type="string"
-		width="120" desc="操作地址" />
-	<property name="operBefore" column="operate_before" type="string"
-		desc="修改前" />
-	<property name="operAfter" column="operate_after" type="string"
-		width="100" desc="修改后" />
-	<property name="operDesc" column="operate_desc" type="string"
-		textarea="true" width="300" desc="备注" />
-</class>
+<classes>
+	<class name="LogInfo" table="log_info" desc="操作日志" package="ido.loginfo"
+		importFile="false" exportFile="true" add="false" update="false"
+		delete="true">
+		<id name="sno" column="id" type="int" desc="流水号" width="10"
+			visible="false" noedit="true" />
+		<property name="operUser" column="operate_user" type="int"
+			showType="number" tableColumn="int" visible="false" desc="用户id"
+			width="100" />
+		<property name="operUserName" column="operate_username" type="string"
+			desc="用户" width="100" />
+		<property name="operTime" column="operate_time" type="string"
+			width="140" desc="时间 " query="true" />
+		<property name="operType" column="operate_type" type="string"
+			desc="操作类型" width="100" />
+		<property name="operIp" column="operate_ip" type="string"
+			desc="ip地址" width="100" />
+		<property name="operUrl" column="operate_url" type="string"
+			width="120" desc="操作地址" />
+		<property name="operBefore" column="operate_before" type="string"
+			width="100" desc="修改前" />
+		<property name="operAfter" column="operate_after" type="string"
+			width="100" desc="修改后" />
+		<property name="operDesc" column="operate_desc" type="string"
+			textarea="true" width="300" desc="备注" />
+	</class>
+</classes>

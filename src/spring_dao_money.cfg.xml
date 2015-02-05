@@ -5,6 +5,29 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="systemsequenceDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.sequence.SystemSequenceDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.sequence.SystemSequenceVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="userupdateloggerDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.UserUpdateLogger.UserUpdateLoggerDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.UserUpdateLogger.UserUpdateLoggerVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="insuredunitDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>ido.InsuredUnit.InsuredUnitDao</value>
@@ -12,6 +35,17 @@
 		<property name="target">
 			<bean parent="baseDao">
 				<constructor-arg value="ido.InsuredUnit.InsuredUnitVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="insuredfileDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.InsuredFile.InsuredFileDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.InsuredFile.InsuredFileVO">
 				</constructor-arg>
 			</bean>
 		</property>

@@ -180,15 +180,7 @@ public class LoginUserAction extends BaseAction {
 		}
 		writeToPage(response,getText("msg.operation.success"));
 		return null;
-	}
-	
-	protected String changeStr(String oldStr){
-        try{   
-        return new String(oldStr.getBytes("ISO-8859-1"),"UTF-8");
-        }catch(Exception e){
-                return oldStr;
-	    }
-	}
+	} 
 	
 	/**
 	 * 返回保险公司用户

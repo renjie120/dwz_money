@@ -16,13 +16,13 @@
 						<label>
 							保险公司名称:
 						</label>
-							<input name="comName"   class="textInput  required"    type="text"  value="<s:property value="vo.comName"/>" />
+							<input name="comName" readOnly="true"  class="textInput  required"    type="text"  value="<s:property value="vo.comName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							保险公司编号 :
 						</label>
-							<input name="comNo"   class="textInput  "    type="text"  value="<s:property value="vo.comNo"/>" />
+							<input name="comNo"  readOnly="true" class="textInput  "    type="text"  value="<s:property value="vo.comNo"/>" />
 					</div>
 					 <div class="unit">
 						<label>

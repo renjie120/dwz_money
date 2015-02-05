@@ -106,12 +106,18 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 		ParamSelect select_comId = (ParamSelect)cache_comId.getValue();
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
-		ParamSelect select_yesorno = allSelect
-				.getParamsByType(AllSelectContants.YESORNO.getName()); 
+		ParamSelect select_toubaouser_status = allSelect
+				.getParamsByType(AllSelectContants.TOUBAOUSER_STATUS.getName()); 
+		ParamSelect select_sex = allSelect
+				.getParamsByType(AllSelectContants.SEX.getName());
+		Cache cache_insured = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+		ParamSelect select_ownerCompany = (ParamSelect)cache_insured.getValue(); 
+		 
 		for (InsuredUserVO po : voList) {
 			po.setComId(select_comId.getName("" + po.getComId())); 
-			po.setIuserStatus(select_yesorno.getName("" + po.getIuserStatus())); 
-			po.setIuserIsman(select_yesorno.getName("" + po.getIuserIsman())); 
+			po.setUnitId(select_ownerCompany.getName(po.getUnitId()));
+			po.setIuserStatus(select_toubaouser_status.getName("" + po.getIuserStatus())); 
+			po.setIuserIsman(select_sex.getName("" + po.getIuserIsman())); 
 			eaList.add(new  InsuredUserImpl(po));
 		}
 

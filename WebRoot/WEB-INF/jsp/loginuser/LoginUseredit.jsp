@@ -16,7 +16,7 @@
 						<label>
 							用户姓名:
 						</label>
-							<input name="userName"   class="textInput  required"    type="text"  value="<s:property value="vo.userName"/>" />
+							<input name="userName" readOnly="true"  class="textInput  required"    type="text"  value="<s:property value="vo.userName"/>" />
 					</div>
 					 <div class="unit">
 						<label>

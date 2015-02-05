@@ -26,6 +26,7 @@ public interface LogInfoManager  extends BusinessObjectManager {
 	public Collection<LogInfo> searchLogInfo(Map<LogInfoSearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
+
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件

@@ -16,55 +16,55 @@
 						<label>
 							用户id:
 						</label>
-									<input name="operUser" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operUser"/>" />
+							<input name="operUser" size="30"  class="number  "    type="text"  value="<s:property value="vo.operUser"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							用户:
 						</label>
-									<input name="operUserName" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operUserName"/>" />
+							<input name="operUserName" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							时间 :
 						</label>
-									<input name="operTime" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operTime"/>" />
+							<input name="operTime" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operTime"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							操作类型:
 						</label>
-									<input name="operType" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operType"/>" />
+							<input name="operType" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operType"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							ip地址:
 						</label>
-									<input name="operIp" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operIp"/>" />
+							<input name="operIp" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operIp"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							操作地址:
 						</label>
-									<input name="operUrl" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operUrl"/>" />
+							<input name="operUrl" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operUrl"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							修改前:
 						</label>
-									<input name="operBefore" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operBefore"/>" />
+							<input name="operBefore" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operBefore"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							修改后:
 						</label>
-									<input name="operAfter" class="textInput  "  size="30" type="text"  value="<s:property value="vo.operAfter"/>" />
+							<input name="operAfter" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operAfter"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							备注:
 						</label>
-								<textarea   class="" name="operDesc" cols="30" rows="2"><s:property value="vo.operDesc"/></textarea>
+							<input name="operDesc" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.operDesc"/>" />
 					</div>
 		</div>
 		<div class="formBar">

@@ -3,6 +3,11 @@ package ido.InsuredUser;
 
 import dwz.framework.core.business.BusinessObject;
 import java.util.Date;
+
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.cache.Cache;
+import common.cache.CacheManager;
 /**
  * 关于投保用户的业务实体类.
  * @author www(水清)
@@ -172,5 +177,16 @@ public class InsuredUserImpl implements InsuredUser {
  	public  String   getUpdateTime(){
  		return this.insureduserVO.getUpdateTime();
  	}
+
+	@Override
+	public String getUnitName() {
+		if(this.insureduserVO.getUnitId()!=null&&!"".equals(this.insureduserVO.getUnitId())){
+			Cache cache_insured = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+			ParamSelect select_ownerCompany = (ParamSelect)cache_insured.getValue(); 
+			return select_ownerCompany.getName(this.insureduserVO.getUnitId());
+		}
+		else
+			return "";
+	}
  
 }

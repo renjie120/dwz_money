@@ -16,7 +16,7 @@
 				<tr>
 					<td> 
 						时间 </td><td>
-								<input name="operTime" class="textInput" size="30" type="text"   />
+							<input name="operTime" size="30"  class="textInput " type="text"  value="<s:property value="vo.operTime"/>" />
 					</td> 
 				</tr>
 			</table>
@@ -31,10 +31,6 @@
 							</div>
 						</div>
 					</li>
-					<li>
-						<a class="button" href="/money/loginfo!beforeQuery.do"
-							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -44,26 +40,14 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add" href="/money/loginfo!beforeAdd.do" target="dialog" mask="true"
-					title="添加"><span>添加</span> </a>
-			</li>
-			<li>
 				<a class="delete" href="/money/loginfo!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
 			<li>
-				<a class="edit" href="/money/loginfo!beforeUpdate.do?sno={sno}" mask="true"
-					target="dialog" title="修改"><span>修改</span> </a>
-			</li>
-			<li>
 				<a class="icon" href="/money/loginfo!export.do" target="dwzExport"
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
-			<li>
-				<a class="icon" href="/money/loginfo!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
-			</li> 
-
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">
@@ -75,10 +59,10 @@
 				<th width="100"    orderField="OPERUSERNAME" >
 						用户 
 				</th> 
-				<th width="100"    orderField="OPERTIME" >
+				<th width="140"    orderField="OPERTIME" >
 						时间  
 				</th> 
-				<th width="30"    orderField="OPERTYPE" >
+				<th width="100"    orderField="OPERTYPE" >
 						操作类型 
 				</th> 
 				<th width="100"    orderField="OPERIP" >
@@ -87,7 +71,7 @@
 				<th width="120"    orderField="OPERURL" >
 						操作地址 
 				</th> 
-				<th width=""    orderField="OPERBEFORE" >
+				<th width="100"    orderField="OPERBEFORE" >
 						修改前 
 				</th> 
 				<th width="100"    orderField="OPERAFTER" >
@@ -101,33 +85,33 @@
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
-					<td>
+					<td style="text-align:center;">
 						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
-					<td>
-						<s:property value="operUserName" />
+					<td style="text-align:center;">
+						<div style='width:100px'><s:property value="operUserName" /></div>
 					</td> 
-					<td>
-						<s:property value="operTime" />
+					<td style="text-align:center;">
+						<div style='width:140px'><s:property value="operTime" /></div>
 					</td> 
-					<td>
-						<s:property value="operType" />
+					<td style="text-align:center;">
+						<div style='width:100px'><s:property value="operType" /></div>
 					</td> 
-					<td>
-						<s:property value="operIp" />
+					<td style="text-align:center;">
+						<div style='width:100px'><s:property value="operIp" /></div>
 					</td> 
-					<td>
-						<s:property value="operUrl" />
+					<td style="text-align:center;">
+						<div style='width:120px'><s:property value="operUrl" /></div>
 					</td> 
-					<td>
-						<s:property value="operBefore" />
+					<td style="text-align:center;">
+						<div style='width:100px'><s:property value="operBefore" /></div>
 					</td> 
-					<td>
-						<s:property value="operAfter" />
+					<td style="text-align:center;">
+						<div style='width:100px'><s:property value="operAfter" /></div>
 					</td> 
-					<td>
-						<s:property value="operDesc" />
+					<td style="text-align:center;">
+						<div style='width:300px'><s:property value="operDesc" /></div>
 					</td> 
 				</tr>
 			</s:iterator>

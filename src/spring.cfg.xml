@@ -169,6 +169,15 @@
 				<value>
 					hbm/loginuser.hbm.xml
 				</value>
+				<value>
+					hbm/insuredfile.hbm.xml
+				</value>
+				<value>
+					hbm/userupdatelogger.hbm.xml
+				</value>
+				<value>
+					hbm/systemsequence.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

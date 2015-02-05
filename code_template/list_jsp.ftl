@@ -19,22 +19,22 @@
 					<td> 
 						${attr.desc}</td><td>
 						<#if '${attr.type}'='date'>
-							<input type="text" name="${attr.name}" class="date" size="30" />
+							<input type="text" name="${attr.name}" class="date" size="20" />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 						<#else>
 						 	<#if '${attr.showType}'='select'>
 							<my:newselect tagName="${attr.name}"  paraType="${attr.selectCode}" width="100" allSelected="true" />
 							<#else>
 								<#if '${attr.showType}'='email'>
-							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="email"     type="text"  value="<s:property value="vo.${attr.name}"/>" />
+							<input name="${attr.name}" size="20"  class="email"     type="text"  value="<s:property value="vo.${attr.name}"/>" />
 									<#else>
 										<#if '${attr.showType}'='digits'>
-							<input name="${attr.name}"<#if '${attr.size}'!=''>size="${attr.size}"</#if>   class="digits"   type="text"  value="<s:property value="vo.${attr.name}"/>" />
+							<input name="${attr.name}" size="20"   class="digits"   type="text"  value="<s:property value="vo.${attr.name}"/>" />
 										<#else>
 											<#if '${attr.showType}'='number'>
-							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="number "  type="text"  value="<s:property value="vo.${attr.name}"/>" />
+							<input name="${attr.name}" size="20"  class="number "  type="text"  value="<s:property value="vo.${attr.name}"/>" />
 											<#else>
-							<input name="${attr.name}" <#if '${attr.size}'!=''>size="${attr.size}"</#if>  class="textInput " type="text"  value="<s:property value="vo.${attr.name}"/>" />
+							<input name="${attr.name}" size="20"  class="textInput " type="text"  value="<s:property value="vo.${attr.name}"/>" />
 											</#if>
 										</#if>
 									</#if>
@@ -124,7 +124,7 @@
 					<#list model.attributes as attr>  
 					<#if "${attr.visible}"!='false'>
 					<td style="text-align:center;">
-						<s:property value="${attr.name}" />
+						<div style='width:${attr.width}px'><s:property value="${attr.name}" /></div>
 					</td> 
 					</#if>
 					</#list>   

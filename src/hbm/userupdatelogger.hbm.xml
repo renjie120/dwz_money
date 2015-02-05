@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.UserUpdateLogger.UserUpdateLoggerVO" table="update_User_Logger">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="userId" column="user_Id" type="string" />
+				<property name="state" column="user_state" type="string" />
+				<property name="logDetail" column="log_detail" type="string" />
+				<property name="arg1" column="arg1" type="int" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+	</class>
+
+	<query name="ido.UserUpdateLogger.UserUpdateLoggerDao.findRecordById">
+		<![CDATA[from UserUpdateLoggerVO as userUpdateLoggerDao where sno = ?]]>
+	</query>
+
+	<query name="ido.UserUpdateLogger.UserUpdateLoggerDao.findAll">
+		<![CDATA[from UserUpdateLoggerVO  ]]>
+	</query>
+</hibernate-mapping>

@@ -5,8 +5,17 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean id="systemsequenceManager" class="money.sequence.SystemSequenceManagerImpl">
+		<constructor-arg index="0" ref="systemsequenceDao"></constructor-arg>
+	</bean>
 	<bean id="insuredunitManager" class="ido.InsuredUnit.InsuredUnitManagerImpl">
 		<constructor-arg index="0" ref="insuredunitDao"></constructor-arg>
+	</bean>
+	<bean id="userupdateloggerManager" class="ido.UserUpdateLogger.UserUpdateLoggerManagerImpl">
+		<constructor-arg index="0" ref="userupdateloggerDao"></constructor-arg>
+	</bean>
+	<bean id="insuredfileManager" class="ido.InsuredFile.InsuredFileManagerImpl">
+		<constructor-arg index="0" ref="insuredfileDao"></constructor-arg>
 	</bean>
 	<bean id="insureduserManager" class="ido.InsuredUser.InsuredUserManagerImpl">
 		<constructor-arg index="0" ref="insureduserDao"></constructor-arg>

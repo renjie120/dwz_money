@@ -1,6 +1,20 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
+<script type="text/javascript"> 
+ function kaitong(url,title){
+ 	var checkedItem =  $('input[type=checkbox][name=insuredUserIds]:checked');
+ 	if(checkedItem.size()==1){
+ 		var sno = checkedItem.val();
+ 		var unitName = checkedItem.parent().parent().parent().find('[name=cname]').val(); 
+	 	var options = {mask:true};
+		$.pdialog.open(url+"?userId="+sno+"&userName="+encodeURIComponent(unitName), '', title, options); 
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个用户！");
+ 		return false;
+ 	}
+ }
+</script>
 <form id="pagerForm" method="post" action="/money/insureduser!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
@@ -15,20 +29,20 @@
 			<table class="searchContent">
 				<tr>
 					<td> 
-						投保用户编号</td><td>
+						用户号</td><td>
 							<input name="iuserNo"   class="textInput " type="text"  value="<s:property value="vo.iuserNo"/>" />
-					</td> 
-					<td> 
-						所投保险公司 </td><td>
-							<input name="comId"   class="textInput " type="text"  value="<s:property value="vo.comId"/>" />
 					</td> 
 					<td> 
 						所属投保单位 </td><td>
 							<input name="unitId"   class="textInput " type="text"  value="<s:property value="vo.unitId"/>" />
 					</td> 
 					<td> 
+						保险公司 </td><td>
+							<input name="comId"   class="textInput " type="text"  value="<s:property value="vo.comId"/>" />
+					</td> 
+					<td> 
 						状态 </td><td>
-							<my:newselect tagName="iuserStatus"  paraType="yesorno" width="100" allSelected="true" />
+							<my:newselect tagName="iuserStatus"  paraType="toubaouser_status" width="100" allSelected="true" />
 					</td> 
 				</tr>
 			</table>
@@ -57,8 +71,35 @@
 			</li>
 			<li>
 				<a class="delete" href="/money/insureduser!doDelete.do" postType="string"
-					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+					target="selectedTodo" rel="insuredUserIds" title="确定要删除吗?"><span>删除</span>
 				</a>
+			</li>
+			<li>
+				<a class="edit" href="/money/insureduser!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<li>
+				<a class="add" href="javascript:;"  
+					onclick="kaitong('/money/userupdatelogger!beforeKaitong.do','开通用户')" mask="true"
+					  title="修改"><span>开通业务</span> </a>
+			</li>
+			<li>
+			<a class="add" href="javascript:;"  
+					onclick="kaitong('/money/userupdatelogger!beforeDongjie.do','冻结用户')" mask="true"
+					 title="修改"><span>冻结</span> </a>
+			</li>
+			<li>
+			<a class="add" href="javascript:;"  
+					onclick="kaitong('/money/userupdatelogger!beforeZhuxiao.do','注销用户')" mask="true"
+					  title="修改"><span>注销</span> </a>
+			</li>
+			<li>
+				<a class="edit" href="/money/insureduser!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>充值</span> </a>
+			</li>
+			<li>
+				<a class="icon" href="/money/insureduser!export.do" target="dwzExport"
+					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
 			<li>
 				<a class="icon" href="/money/insureduser!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
@@ -69,58 +110,34 @@
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="ids" class="checkboxCtrl">
+					<input type="checkbox" group="insuredUserIds" class="checkboxCtrl">
 				</th>
 				<th width="100"    orderField="IUSERNO" >
-						投保用户编号 
+						用户号 
 				</th> 
-				<th width="100"    orderField="COMID" >
-						所投保险公司  
-				</th> 
-				<th width="100"    orderField="UNITID" >
-						所属投保单位  
-				</th> 
-				<th width="100"    orderField="IUSERSTATUS" >
-						状态  
-				</th> 
-				<th width="100"    orderField="IUSERNUMBER" >
-						员工号 
-				</th> 
-				<th width="100"    orderField="LEFTMONEY" >
-						余额 
-				</th> 
-				<th width="100"    orderField="EMERGENCYMONEY" >
-						门急诊额度 
-				</th> 
-				<th width="100"    orderField="FROZENMONEY" >
-						冻结金额 
-				</th> 
-				<th width="100"    orderField="HOSPITALMONEY" >
-						住院报销额度 
-				</th> 
-				<th width="100"    orderField="TESMONEY" >
-						体检额度 
-				</th> 
-				<th width=""    orderField="IUSERNAME" >
+				<th width="100"    orderField="IUSERNAME" >
 						姓名 
 				</th> 
-				<th width="100"    orderField="IUSERISMAN" >
+				<th width="40"    orderField="IUSERISMAN" >
 						性别 
 				</th> 
-				<th width="100"    orderField="IUSERCARDNO" >
+				<th width="120"    orderField="IUSERCARDNO" >
 						证件号 
 				</th> 
 				<th width="100"    orderField="IUSERPHONE" >
 						手机号 
 				</th> 
-				<th width="100"    orderField="IUSEREMAIL" >
-						邮箱 
+				<th width="100"    orderField="UNITID" >
+						所属投保单位  
 				</th> 
-				<th width="100"    orderField="IUSERBIRTHDAY" >
-						生日 
+				<th width="100"    orderField="COMID" >
+						保险公司  
 				</th> 
-				<th width="100"    orderField="IUSERREMARK" >
-						备注 
+				<th width="100"    orderField="IUSERSTATUS" >
+						状态  
+				</th> 
+				<th width="100"    orderField="LEFTMONEY" >
+						余额 
 				</th> 
 			</tr>
 		</thead>
@@ -128,41 +145,16 @@
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="ids" value="<s:property value="sno" />"
+						<input name="insuredUserIds" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
 						<s:property value="iuserNo" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="comId" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="unitId" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="iuserStatus" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="iuserNumber" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="leftMoney" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="emergencyMoney" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="frozenMoney" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="hospitalMoney" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="tesMoney" />
-					</td> 
-					<td style="text-align:center;">
 						<s:property value="iuserName" />
+						<input name="cname" value="<s:property value="iuserName" />"
+							type="hidden">
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="iuserIsman" />
@@ -174,13 +166,16 @@
 						<s:property value="iuserPhone" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="iuserEmail" />
+						<s:property value="unitId" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="iuserBirthday" />
+						<s:property value="comId" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="iuserRemark" />
+						<s:property value="iuserStatus" />
+					</td> 
+					<td style="text-align:center;">
+						<s:property value="leftMoney" />
 					</td> 
 				</tr>
 			</s:iterator>

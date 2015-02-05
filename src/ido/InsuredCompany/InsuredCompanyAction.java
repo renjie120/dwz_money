@@ -1,29 +1,40 @@
 package ido.InsuredCompany;
 
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.*;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext;
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
+import money.sequence.SystemSequence;
+import money.sequence.SystemSequenceManager;
+
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.CommonUtil;
+import common.util.DateTool;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 
 /**
  * 关于保险公司的Action操作类.
@@ -40,6 +51,8 @@ public class InsuredCompanyAction extends BaseAction {
 	// 业务接口对象.
 	InsuredCompanyManager pMgr = bf
 			.getManager(BeanManagerKey.insuredcompanyManager);
+	//序列接口对象.
+	SystemSequenceManager sMgr = bf.getManager(BeanManagerKey.systemsequenceManager);
 	// 业务实体对象
 	private InsuredCompany vo;
 	// 当前页数
@@ -57,8 +70,14 @@ public class InsuredCompanyAction extends BaseAction {
 	private String allowTypes;
 	// 下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
 	private String savePath;
-
+	
 	public String beforeAdd() {
+		try {
+			
+			request.setAttribute("comNo",  numberFormat.format(sMgr.getSequence(SystemSequence.SEQ_COMPANY, false)+1));
+		} catch (ValidateFieldsException e) { 
+			e.printStackTrace();
+		}
 		return "detail";
 	}
 
@@ -67,14 +86,16 @@ public class InsuredCompanyAction extends BaseAction {
 	 */
 	public String doAdd() {
 		try {
-			setCurrentUser(false);
+			setCurrentUser(false); 
 			InsuredCompanyImpl insuredcompanyImpl = new InsuredCompanyImpl(
 					comName, comNo, comStatus, comShortName, comPhone,
 					comContactName, comContactPhone, ownerCompany, comEmail,
 					comAddress, comRemark, createUser, createTime, updateUser,
 					updateTime);
 			pMgr.createInsuredCompany(insuredcompanyImpl);
-			pMgr.addCache();
+			pMgr.addCache(); 
+			//序号自增
+			sMgr.getSequence(SystemSequence.SEQ_COMPANY, true);
 			insertLog(logMgr, "添加保险公司", "/doAdd", "", "",
 					JSON.toJSONString(insuredcompanyImpl));
 		} catch (ValidateFieldsException e) {

@@ -9,7 +9,13 @@ import java.util.Date;
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public interface InsuredUser extends BusinessObject {  
+public interface InsuredUser extends BusinessObject { 
+	String STATE_KAITONG = "107";
+	String STATE_WEIKAITONG = "106";
+	String STATE_WEIBANGDING= "105";
+	String STATE_DONGJIE = "108";
+	String STATE_ZHUXIAO = "109";
+	String STATE_JIHUO = "110";
  	/**
  	 * 获取流水号的属性值.
  	 */
@@ -26,6 +32,12 @@ public interface InsuredUser extends BusinessObject {
  	 * 获取所属投保单位 的属性值.
  	 */
  	public  String   getUnitId();
+ 	
+ 	/**
+ 	 * 获取所属保险单位的名称.
+ 	 * @return
+ 	 */
+ 	public  String   getUnitName();
  	/**
  	 * 获取状态 的属性值.
  	 */

@@ -6,6 +6,58 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="systemsequence" class="money.sequence.SystemSequenceAction">
+			<result name="list">
+				/WEB-INF/jsp/systemsequence/SystemSequencelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/systemsequence/SystemSequenceinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/systemsequence/SystemSequenceedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/systemsequence/SystemSequenceimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/systemsequence/SystemSequencequery.jsp
+			</result>
+		</action>
+		<action name="userupdatelogger" class="ido.UserUpdateLogger.UserUpdateLoggerAction">
+			<result name="list">
+				/WEB-INF/jsp/userupdatelogger/UserUpdateLoggerlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/userupdatelogger/UserUpdateLoggerinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/userupdatelogger/UserUpdateLoggeredit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/userupdatelogger/UserUpdateLoggerimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/userupdatelogger/UserUpdateLoggerquery.jsp
+			</result>
+		</action>
+		<action name="insuredfile" class="ido.InsuredFile.InsuredFileAction">
+			<result name="list">
+				/WEB-INF/jsp/insuredfile/InsuredFilelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/insuredfile/InsuredFileinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/insuredfile/InsuredFileedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/insuredfile/InsuredFileimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/insuredfile/InsuredFilequery.jsp
+			</result>
+		</action>
+
 		<action name="insureduser" class="ido.InsuredUser.InsuredUserAction">
 			<result name="list">
 				/WEB-INF/jsp/insureduser/InsuredUserlist.jsp

@@ -1,0 +1,17 @@
+
+package ido.UserUpdateLogger;
+
+/**
+ * 关于用户状态修改记录的查询枚举类.
+ * @author www(水清)
+ * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
+ * http://www.iteye.com
+ */
+public enum UserUpdateLoggerSearchFields { 
+ SNO , USERID , STATE , LOGDETAIL , ARG1 , CREATEUSER , CREATETIME ,USERID_COM_EQUALS,USERID_COM_NOT_EQUALS
+,STATE_COM_EQUALS,STATE_COM_NOT_EQUALS
+,LOGDETAIL_COM_EQUALS,LOGDETAIL_COM_NOT_EQUALS
+,ARG1_COM_EQUALS,ARG1_COM_NOT_EQUALS
+,CREATEUSER_COM_EQUALS,CREATEUSER_COM_NOT_EQUALS
+,CREATETIME_COM_EQUALS,CREATETIME_COM_NOT_EQUALS
+}

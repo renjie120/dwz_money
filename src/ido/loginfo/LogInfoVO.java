@@ -4,6 +4,7 @@ package ido.loginfo;
 import dwz.framework.core.business.BusinessObject;
 import java.util.Date;
 import java.io.Serializable;
+import common.base.SelectAble;
 /**
  * 关于操作日志的实体bean.
  * @author www(水清)
@@ -182,4 +183,5 @@ public class LogInfoVO implements Serializable {
  	public void setOperDesc(String operdesc){
  		this.operDesc = operdesc;
  	}
+
 }

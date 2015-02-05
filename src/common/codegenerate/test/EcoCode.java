@@ -1,6 +1,7 @@
 package common.codegenerate.test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import common.codegenerate.ClassModel;
@@ -8,25 +9,21 @@ import common.codegenerate.Generate;
 import common.codegenerate.ModelParse;
 
 public class EcoCode {
-	public static void main(String[] agrgs) {
-		// final String file =
-		// "E:\\github\\dwz_money\\code_template\\datamodle.xml";
-		// String Root = "D:\\github\\dwz_money";
-		String Root = "E:\\github\\dwz_money";
-		final String file = Root + "\\code_template\\datamodle.xml";
-		String javaRoot = Root + "\\src";
-		String jspRoot = Root + "\\WebRoot\\WEB-INF\\jsp";
-		String hbmRoot = Root + "\\src\\hbm";
-
-		ModelParse p = new ModelParse();
-		p.setFileName(file);
-		Map mm = new HashMap();
-		mm.put("model", p.parse());
+	static String Root = "E:\\github\\dwz_money\\";
+	final static String file = Root + "\\code_template\\datamodle.xml";
+	static String javaRoot = Root + "\\src";
+	static String jspRoot = Root + "\\WebRoot\\WEB-INF\\jsp";
+	static String hbmRoot = Root + "\\src\\hbm";
+	/**
+	 * 根据map生成对应的全部的文件.
+	 * @param m
+	 */
+	public static void generateFiles(Map mm){
 		final Map m = mm;
 		ClassModel model = (ClassModel) mm.get("model");
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
-
+		System.out.println(beanName+",,"+packageName);
 		boolean java = false;//是否生成java文件
 		boolean jsp = true;//是否生成jsp文件
 		boolean hbm = false;//是否生成hbm文件
@@ -141,5 +138,18 @@ public class EcoCode {
 			}.make();
 
 		System.out.println("生成完毕:d:\\" + beanName + "\\");
+	} 
+	
+	public static void main(String[] agrgs) {  
+		ModelParse p = new ModelParse();
+		p.setFileName(file);
+		List<ClassModel> list = p.parseClasses();
+		if(list!=null&&list.size()>0){
+			for(ClassModel cm:list){
+				Map mm = new HashMap();
+				mm.put("model", cm);
+				generateFiles(mm);
+			}
+		}
 	}
 }

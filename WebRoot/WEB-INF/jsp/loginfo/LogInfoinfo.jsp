@@ -8,57 +8,57 @@
 		<div class="pageFormContent" layoutH="57">
 					 <div class="unit">
 						<label>
-							用户id:
+							用户id:30
 						</label>
-									<input name="operUser" class="textInput " size="30" type="text"   />
+							<input name="operUser"  class="number " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							用户:
+							用户:30
 						</label>
-									<input name="operUserName" class="textInput " size="30" type="text"   />
+							<input name="operUserName" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							时间 :
+							时间 :30
 						</label>
-									<input name="operTime" class="textInput " size="30" type="text"   />
+							<input name="operTime" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							操作类型:
+							操作类型:30
 						</label>
-									<input name="operType" class="textInput " size="30" type="text"   />
+							<input name="operType" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							ip地址:
+							ip地址:30
 						</label>
-									<input name="operIp" class="textInput " size="30" type="text"   />
+							<input name="operIp" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							操作地址:
+							操作地址:30
 						</label>
-									<input name="operUrl" class="textInput " size="30" type="text"   />
+							<input name="operUrl" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							修改前:
+							修改前:30
 						</label>
-									<input name="operBefore" class="textInput " size="30" type="text"   />
+							<input name="operBefore" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							修改后:
+							修改后:30
 						</label>
-									<input name="operAfter" class="textInput " size="30" type="text"   />
+							<input name="operAfter" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							备注:
+							备注:30
 						</label>
-								<textarea class="" name="operDesc" cols="30" rows="2"></textarea>
+							<input name="operDesc" class="textInput " size="30" type="text"   />
 					</div>
 		</div>
 		<div class="formBar">

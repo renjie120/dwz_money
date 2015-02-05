@@ -61,10 +61,12 @@ function myCallback(form, callback) {
  * @param {}
  *            txt
  */
-function closeDialogWindow(txt) {
+function closeDialogWindow(txt) { 
 	// 提示返回结果.
 	if (txt.responseText)
 		alertMsg.info(txt.responseText);
+	else if (txt.message)
+		alertMsg.info(txt.message);
 	else
 		alertMsg.info(txt);
 	// 关闭当前页面

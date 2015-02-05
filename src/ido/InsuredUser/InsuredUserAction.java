@@ -156,7 +156,7 @@ public class InsuredUserAction extends BaseAction {
 	}
 
 	public String beforeUpdate() {
-		vo = pMgr.getInsuredUser(sno);
+		vo = pMgr.getInsuredUser(sno); 
 		return "editdetail";
 	} 
 	
@@ -312,13 +312,15 @@ public class InsuredUserAction extends BaseAction {
 	public String beforeQuery() {
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
-		Cache cache_comId = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDCOMPANY_DICT.getName());
+		Cache cache_comId = CacheManager.getCacheInfoNotNull(AllSelectContants.INSURED_COM_DICT.getName());
 		ParamSelect select_comId = (ParamSelect)cache_comId.getValue();
 		request.setAttribute("comid_list", select_comId.getSelectAbles()); 
-		ParamSelect select_yesorno = allSelect
-				.getParamsByType(AllSelectContants.YESORNO.getName()); 
-		request.setAttribute("iuserstatus_list", select_yesorno.getSelectAbles()); 
-		 request.setAttribute("iuserisman_list", select_yesorno.getSelectAbles()); 
+		ParamSelect select_toubaouser_status = allSelect
+				.getParamsByType(AllSelectContants.TOUBAOUSER_STATUS.getName()); 
+		request.setAttribute("iuserstatus_list", select_toubaouser_status.getSelectAbles()); 
+		ParamSelect select_sex = allSelect
+				.getParamsByType(AllSelectContants.SEX.getName()); 
+		request.setAttribute("iuserisman_list", select_sex.getSelectAbles()); 
 		return "query";
 	}
 

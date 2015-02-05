@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.io.File;
 import java.util.Map;
- 
+
 import common.util.NPOIReader;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
@@ -14,6 +14,9 @@ import common.util.DateTool;
 import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -61,7 +64,6 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 			String[][] contents = excel.read(index, true, true);
 			for (int i = 1; i < contents.length; i++) {
 				LogInfoVO vo = new LogInfoVO();
-				
 				this.loginfodao.insert(vo); 
 			}
 
@@ -172,6 +174,115 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 						sb.append(count == 0 ? " where" : " and").append(
 								"  loginfo.operDesc = ? ");
 						argList.add(entry.getValue());
+						count++;
+					break;
+				//下面拼接高级查询条件
+					case OPERUSER_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUser  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERUSER_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUser =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERUSERNAME_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUserName  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERUSERNAME_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUserName =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERTIME_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operTime  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERTIME_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operTime =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERTYPE_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operType  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERTYPE_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operType =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERIP_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operIp  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERIP_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operIp =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERURL_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUrl  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERURL_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operUrl =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERBEFORE_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operBefore  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERBEFORE_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operBefore =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERAFTER_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operAfter  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERAFTER_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operAfter =  ? "); 
+						argList.add( entry.getValue() ); 
+						count++;
+					break;
+					case OPERDESC_COM_NOT_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operDesc  !=  ? "); 
+						argList.add(entry.getValue()); 
+						count++;
+					break;
+					case OPERDESC_COM_EQUALS:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  loginfo.operDesc =  ? "); 
+						argList.add( entry.getValue() ); 
 						count++;
 					break;
 				default:

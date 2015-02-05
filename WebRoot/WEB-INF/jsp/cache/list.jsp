@@ -40,6 +40,11 @@
 					target="selectedTodo" ><span>刷新</span>
 				</a>
 			</li>  
+			<li>
+			<a class="delete" href="/money/cache!doUpdateAll.do" postType="string"
+					target="selectedTodo" ><span>刷新全部</span>
+				</a>
+			</li>  
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">

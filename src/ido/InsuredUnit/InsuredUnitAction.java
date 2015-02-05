@@ -20,6 +20,8 @@ import dwz.constants.BeanManagerKey;
 import dwz.framework.core.exception.ValidateFieldsException;
 import dwz.framework.utils.excel.XlsExport;
 import dwz.present.BaseAction;
+import money.sequence.SystemSequence;
+import money.sequence.SystemSequenceManager;
 import money.tree.TreeManager;
 
 import org.apache.struts2.ServletActionContext;
@@ -57,16 +59,25 @@ public class InsuredUnitAction extends BaseAction {
 	private String allowTypes;
 	// 下面的属性可以通过配置文件来配置，允许动态设置---典型的依赖注入---见这个action的配置文件。
 	private String savePath;
-	
+	//序列接口对象.
+	SystemSequenceManager sMgr = bf.getManager(BeanManagerKey.systemsequenceManager);
+		
 	public String beforeAdd() {
-		request.setAttribute("unitParentId", unitParentId);
-		if(unitParentId!=0){
-			Cache cache_insuredunit = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
-			ParamSelect select_insuredunit = (ParamSelect)cache_insuredunit.getValue();
-			request.setAttribute("ddd", select_insuredunit.getName(""+unitParentId));
-		}
-		else
-			request.setAttribute("ddd", "投保单位");
+		try {
+			request.setAttribute("unitParentId", unitParentId);
+			if(unitParentId!=0){
+				Cache cache_insuredunit = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
+				ParamSelect select_insuredunit = (ParamSelect)cache_insuredunit.getValue();
+				request.setAttribute("ddd", select_insuredunit.getName(""+unitParentId));
+			}
+			else{
+				request.setAttribute("unitCode",  numberFormat.format(sMgr.getSequence(SystemSequence.SEQ_UNIT, false)+1));
+				request.setAttribute("ddd", "投保单位");
+			}
+		} catch (ValidateFieldsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		return "detail";
 	}
  
@@ -82,6 +93,9 @@ public class InsuredUnitAction extends BaseAction {
 			CacheManager.clearOnly(AllSelectContants.INSUREDTREE.getName());
 			TreeManager tMgr = (TreeManager)SpringContextUtil.getBean(BeanManagerKey.treeManager.toString());
 			tMgr.initInsuredCache();
+			//只在顶级的投保单位下面才序号自增
+			if(unitParentId==0)
+				sMgr.getSequence(SystemSequence.SEQ_UNIT, true);
 			insertLog(logMgr,"添加投保单位","/doAdd", "", "" ,JSON.toJSONString(insuredunitImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);

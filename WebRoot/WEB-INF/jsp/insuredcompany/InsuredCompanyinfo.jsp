@@ -16,7 +16,7 @@
 						<label>
 							保险公司编号 :
 						</label>
-							<input name="comNo" class="textInput "  type="text"   />
+							<input name="comNo" readOnly="true" class="textInput "  type="text"  value="${comNo}" />
 					</div>
 					 <div class="unit">
 						<label>

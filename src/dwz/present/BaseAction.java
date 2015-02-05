@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +37,15 @@ import dwz.framework.utils.StringUtils;
 
 public class BaseAction extends ActionSupport implements ServletRequestAware,
 		ServletResponseAware {
-
+	protected static DecimalFormat numberFormat = new DecimalFormat("0000"); 
+	
+	protected String changeStr(String oldStr){
+        try{   
+        return new String(oldStr.getBytes("ISO-8859-1"),"UTF-8");
+        }catch(Exception e){
+                return oldStr;
+	    }
+	}
 	public boolean compare(Object o,Object o2){
 		if(o==null&&o2!=null)
 			return false;
