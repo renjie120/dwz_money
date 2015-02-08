@@ -4,7 +4,7 @@
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="insuredFileId" column="f_id" type="string"
+	<property name="insuredFileId" column="f_id" type="string" notnull="true"
 		notNullInDb="true" canImport="true" canExport="true" columnType="int(10)"
 		width="100" desc="投保单号 " query="true" />
 
@@ -30,7 +30,7 @@
 		visible="false" canImport="true" canExport="true" maxLength="250"
 		columnType="varchar(500)" showType="email" width="100" desc="邮箱" />
 
-	<property name="insuredFileContact" column="f_linkman" type="string"
+	<property name="insuredFileContact" column="f_linkman" type="string" notnull="true"
 		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
 		desc="联系人" width="100" />
 
@@ -42,10 +42,10 @@
 		showType="digits" type="string" canImport="true" canExport="true"
 		maxLength="11" columnType="varchar(20)" width="100" desc="联系人手机" />
 
-	<property name="insuredFileBegin" column="f_begindate" type="string"
+	<property name="insuredFileBegin" column="f_begindate" type="string" notnull="true"
 		columnType="varchar(20)" showType="date" width="100" desc="投保日期" />
 
-	<property name="insuredFileEnd" column="f_enddate" type="string"
+	<property name="insuredFileEnd" column="f_enddate" type="string" notnull="true"
 		showType="date" columnType="varchar(20)" width="100" desc="到期日期" />
 
 	<property name="insuredFileStatus" column="f_status" type="string"
@@ -64,19 +64,19 @@
 		visible="false" maxLength="2000" cols="40" rows="4" columnType="varchar(4000)"
 		showType="textarea" width="100" desc="备注" />
 
-	<property name="insuredFileTotal" column="f_total" type="double"
+	<property name="insuredFileTotal" column="f_total" type="double" notnull="true"
 		visible="false" columnType="double" showType="number" width="100"
 		desc="投保总金额" />
 
-	<property name="insuredFileEmerg" column="f_emergency" type="double"
+	<property name="insuredFileEmerg" column="f_emergency" type="double" notnull="true"
 		visible="false" columnType="double" showType="number" width="100"
 		desc="门急诊额度" />
 
-	<property name="insuredFileHospital" column="f_hospital" type="double"
+	<property name="insuredFileHospital" column="f_hospital" type="double" notnull="true"
 		visible="false" columnType="double" showType="number" width="100"
 		desc="住院额度" />
 
-	<property name="insuredFileExam" column="f_examination" type="double"
+	<property name="insuredFileExam" column="f_examination" type="double" notnull="true"
 		visible="false" columnType="double" showType="number" width="100"
 		desc="体检额度" />
 

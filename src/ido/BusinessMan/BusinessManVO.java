@@ -18,6 +18,26 @@ public class BusinessManVO implements Serializable,SelectAble {
 
 	}
 	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+	
+	
 	public BusinessManVO( int sno , String shopmSno , String shopmName , String shopmShortName , String shopmType , String shopmEmail , String shopmConPhone , String shopmContactName , String shopmAddress , String openBank , String openBankName , String openBankNo , String openTicketUnit , String OpenBankProvince , String OpenBankCity , String compensationDay , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.shopmSno = shopmSno;

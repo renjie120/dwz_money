@@ -17,6 +17,7 @@ import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
 import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
@@ -137,6 +138,8 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
 			po.setIuserStatus(select_toubaouser_status.getName(""
 					+ po.getIuserStatus()));
 			po.setIuserIsman(select_sex.getName("" + po.getIuserIsman()));
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new InsuredUserImpl(po));
 		}
 
@@ -662,7 +665,8 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
 
 		InsuredUserVO insureduser = insuredusers
 				.toArray(new InsuredUserVO[insuredusers.size()])[0];
-
+		insureduser.setCreateUserName(CacheUtil.getSystemUserName(""+insureduser.getCreateUser()));
+		insureduser.setUpdateUserName(CacheUtil.getSystemUserName(""+insureduser.getUpdateUser()));
 		return new InsuredUserImpl(insureduser);
 	}
 

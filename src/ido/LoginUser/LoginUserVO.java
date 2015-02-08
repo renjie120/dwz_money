@@ -18,6 +18,26 @@ public class LoginUserVO implements Serializable,SelectAble {
 
 	}
 	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+
+	
 	public LoginUserVO( int sno , String userName , String userId , String userType , String userUnit , String userPass , String userStatus , String userPhone , String userEmail , String userAddress , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.userName = userName;

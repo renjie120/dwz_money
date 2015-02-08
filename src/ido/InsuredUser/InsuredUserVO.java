@@ -17,7 +17,25 @@ public class InsuredUserVO implements Serializable {
 	public InsuredUserVO() {
 
 	}
-	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+
 	public InsuredUserVO( int sno , String iuserNo , String comId , String unitId , String iuserStatus , String iuserNumber , double leftMoney , double emergencyMoney , double frozenMoney , double hospitalMoney , double tesMoney , String iuserName , String iuserIsman , String iuserCardno , String iuserPhone , String iuserEmail , String iuserBirthday , String iuserRemark , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.iuserNo = iuserNo;

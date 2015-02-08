@@ -110,4 +110,6 @@ public interface InsuredUser extends BusinessObject {
  	 * 获取更新时间的属性值.
  	 */
  	public  String   getUpdateTime();
+	public  String   getCreateUserName();
+ 	public  String   getUpdateUserName();
 }

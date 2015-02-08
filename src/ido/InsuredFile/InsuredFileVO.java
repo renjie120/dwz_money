@@ -13,7 +13,24 @@ import common.base.SelectAble;
  */ 
 public class InsuredFileVO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
 	public InsuredFileVO() {
 
 	}

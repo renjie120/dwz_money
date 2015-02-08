@@ -17,7 +17,24 @@ public class BusinessGroupVO implements Serializable,SelectAble {
 	public BusinessGroupVO() {
 
 	}
-	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
 	public BusinessGroupVO( int sno , String groupSno , String groupName , String groupEmail , String groupContact , String groupContactPhone , String groupContactMobile , String groupStatus , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.groupSno = groupSno;

@@ -129,5 +129,17 @@ public class InsuredUnitImpl implements InsuredUnit {
 	public String getUnitParentName() { 
 		return this.insuredunitVO.getUnitParentName();
 	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
  
 }

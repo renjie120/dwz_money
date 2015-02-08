@@ -26,7 +26,16 @@ public interface InsuredFileManager  extends BusinessObjectManager {
 	public Collection<InsuredFile> searchInsuredFile(Map<InsuredFileSearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
-
+	/**
+	 * 判断是否存在对应的代码.
+	 * @param table
+	 * @param column
+	 * @param value
+	 * @return
+	 */
+	@Transactional
+	public boolean existed(String table,String column,String value);
+	
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件

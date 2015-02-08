@@ -2,7 +2,6 @@
 package ido.UserUpdateLogger;
 import ido.InsuredUser.InsuredUser;
 import ido.InsuredUser.InsuredUserManager;
-import ido.LoginUser.LoginUser;
 import ido.loginfo.LogInfoManager;
 
 import java.io.File;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
@@ -23,7 +21,6 @@ import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
-import common.util.Coder;
 import common.util.CommonUtil;
 import common.util.DateTool;
 

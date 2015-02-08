@@ -2,7 +2,6 @@
 package ido.BusinessShop;
 
 import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 /**
  * 关于商铺的业务类接口
  * @author www(水清)
@@ -10,6 +9,9 @@ import java.util.Date;
  * http://www.iteye.com
  */ 
 public interface BusinessShop extends BusinessObject {  
+	public  String   getCreateUserName();
+ 	public  String   getUpdateUserName();
+
  	/**
  	 * 获取流水号的属性值.
  	 */

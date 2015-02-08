@@ -1,6 +1,28 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script type="text/javascript"> 
+$(function(){
+	$('#shopSno').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedShopCode.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该商铺编号"'+$('#shopSno').val()+'"，请重新输入');
+		  $('#shopSno').val('');
+	 }
+	}
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/businessshop!doAdd.do"
 		class="pageForm required-validate"
@@ -22,7 +44,7 @@
 						<label>
 							商铺编号 :
 						</label>
-							<input name="shopSno" class="textInput required"  type="text"   />
+							<input name="shopSno" id="shopSno" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>

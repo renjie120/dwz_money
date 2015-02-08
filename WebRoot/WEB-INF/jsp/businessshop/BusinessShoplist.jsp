@@ -70,49 +70,31 @@
 			<tr>
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
-				</th>
-				<th width="100"    orderField="SHOPMID" >
-						商家编号 
-				</th> 
-				<th width="100"    orderField="SHOPNAME" >
-						商铺名称  
 				</th> 
 				<th width="100"    orderField="SHOPSNO" >
 						商铺编号  
+				</th> 
+				<th width="100"    orderField="SHOPNAME" >
+						商铺名称  
 				</th> 
 				<th width="100"    orderField="SHOPSTATUS" >
 						商铺状态  
 				</th> 
 				<th width="100"    orderField="SHOPCONTACTNAME" >
-						联系人名称 
+						联系人  
 				</th> 
 				<th width="100"    orderField="SHOPCONPHONE" >
-						联系人手机 
-				</th> 
-				<th width="100"    orderField="SHOPEMAIL" >
-						邮箱 
-				</th> 
-				<th width="100"    orderField="SHOPADDRESS" >
-						地址 
-				</th> 
+					        手机 
+				</th>  
 				<th width="100"    orderField="SHOPDATE" >
 						签约日期 
-				</th> 
-				<th width="100"    orderField="SHOPJINGDU" >
-						经度 
-				</th> 
-				<th width="100"    orderField="SHOPWEIDU" >
-						纬度 
-				</th> 
+				</th>  
 				<th width="100"    orderField="SHOPPROVINCE" >
 						省份 
 				</th> 
 				<th width="100"    orderField="SHOPCITY" >
 						市 
-				</th> 
-				<th width="100"    orderField="SHOPXIAN" >
-						区县 
-				</th> 
+				</th>  
 			</tr>
 		</thead>
 		<tbody>
@@ -121,16 +103,13 @@
 					<td style="text-align:center;">
 						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
-					</td>
-					<td style="text-align:center;">
-						<s:property value="shopmId" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopName" />
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="shopSno" />
 					</td> 
+					<td style="text-align:center;">
+						<s:property value="shopName" />
+					</td>  
 					<td style="text-align:center;">
 						<s:property value="shopStatus" />
 					</td> 
@@ -139,31 +118,16 @@
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="shopConPhone" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopEmail" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopAddress" />
-					</td> 
+					</td>  
 					<td style="text-align:center;">
 						<s:property value="shopDate" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopJingdu" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopWeidu" />
-					</td> 
+					</td>  
 					<td style="text-align:center;">
 						<s:property value="shopProvince" />
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="shopCity" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopxian" />
-					</td> 
+					</td>  
 				</tr>
 			</s:iterator>
 		</tbody>

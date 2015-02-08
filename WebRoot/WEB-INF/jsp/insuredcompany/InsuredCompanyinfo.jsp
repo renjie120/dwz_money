@@ -1,6 +1,28 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script type="text/javascript"> 
+$(function(){
+	$('#comName').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedCompanyCode.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该公司名称"'+$('#comName').val()+'"，请重新输入');
+		  $('#comName').val('');
+	 }
+	}
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/insuredcompany!doAdd.do"
 		class="pageForm required-validate"
@@ -10,7 +32,7 @@
 						<label>
 							保险公司名称:
 						</label>
-							<input name="comName" class="textInput required"  type="text"   />
+							<input name="comName" id="comName" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>

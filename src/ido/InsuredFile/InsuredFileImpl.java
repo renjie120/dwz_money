@@ -190,5 +190,17 @@ public class InsuredFileImpl implements InsuredFile {
  	public  String   getUpdateTime(){
  		return this.insuredfileVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return this.insuredfileVO.getCreateUserName();
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return this.insuredfileVO.getUpdateUserName();
+	}
  
 }

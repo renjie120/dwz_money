@@ -112,5 +112,17 @@ public class BusinessGroupImpl implements BusinessGroup {
  	public  String   getUpdateTime(){
  		return this.businessgroupVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return this.businessgroupVO.getCreateUserName();
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return this.businessgroupVO.getUpdateUserName();
+	}
  
 }

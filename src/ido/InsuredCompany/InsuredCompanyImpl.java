@@ -136,5 +136,17 @@ public class InsuredCompanyImpl implements InsuredCompany {
  	public  String   getUpdateTime(){
  		return this.insuredcompanyVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return this.insuredcompanyVO.getCreateUserName();
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return this.insuredcompanyVO.getUpdateUserName();
+	}
  
 }

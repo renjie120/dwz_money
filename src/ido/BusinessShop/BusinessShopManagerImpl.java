@@ -1,21 +1,20 @@
 
 package ido.BusinessShop;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -139,6 +138,8 @@ public class BusinessShopManagerImpl extends AbstractBusinessObjectManager imple
 			po.setShopProvince(select_shopProvince.getName("" + po.getShopProvince())); 
 			po.setShopCity(select_shopCity.getName("" + po.getShopCity())); 
 			po.setShopxian(select_yesorno.getName("" + po.getShopxian())); 
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  BusinessShopImpl(po));
 		}
 
@@ -679,7 +680,8 @@ public class BusinessShopManagerImpl extends AbstractBusinessObjectManager imple
 			return null;
 
 		BusinessShopVO businessshop = businessshops.toArray(new BusinessShopVO[businessshops.size()])[0];
-
+		businessshop.setCreateUserName(CacheUtil.getSystemUserName(""+businessshop.getCreateUser()));
+		businessshop.setUpdateUserName(CacheUtil.getSystemUserName(""+businessshop.getUpdateUser()));
 		return new BusinessShopImpl(businessshop);
 	}
 

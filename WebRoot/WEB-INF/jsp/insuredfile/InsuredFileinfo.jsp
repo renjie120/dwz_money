@@ -1,6 +1,28 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script type="text/javascript"> 
+$(function(){
+	$('#insuredFileId').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedCode.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该投保单号"'+$('#insuredFileId').val()+'"，请重新输入');
+		  $('#insuredFileId').val('');
+	 }
+	}
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/insuredfile!doAdd.do"
 		class="pageForm required-validate"
@@ -10,7 +32,7 @@
 						<label>
 							投保单号 : 
 						</label>
-							<input name="insuredFileId" class="textInput " size="30" type="text"   />
+							<input name="insuredFileId" id='insuredFileId' class="textInput required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
@@ -40,7 +62,7 @@
 						<label>
 							联系人: 
 						</label>
-							<input name="insuredFileContact" class="textInput " size="30" type="text"   />
+							<input name="insuredFileContact" class="textInput required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
@@ -58,14 +80,14 @@
 						<label>
 							投保日期: 
 						</label>
-							<input type="text" name="insuredFileBegin" class="date "  size="30" readOnly="true"   />
+							<input type="text" name="insuredFileBegin" class="date required"  size="30" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 					</div>
 					 <div class="unit">
 						<label>
 							到期日期: 
 						</label>
-							<input type="text" name="insuredFileEnd" class="date "  size="30" readOnly="true"   />
+							<input type="text" name="insuredFileEnd" class="date required"  size="30" readOnly="true"   />
 							<a class="inputDateButton" href="javascript:;">选择</a>
 					</div>
 					 <div class="unit">
@@ -96,25 +118,25 @@
 						<label>
 							投保总金额: 
 						</label>
-							<input name="insuredFileTotal"  class="number " size="30" type="text"   />
+							<input name="insuredFileTotal"  class="number required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							门急诊额度: 
 						</label>
-							<input name="insuredFileEmerg"  class="number " size="30" type="text"   />
+							<input name="insuredFileEmerg"  class="number required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							住院额度: 
 						</label>
-							<input name="insuredFileHospital"  class="number " size="30" type="text"   />
+							<input name="insuredFileHospital"  class="number required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
 							体检额度: 
 						</label>
-							<input name="insuredFileExam"  class="number " size="30" type="text"   />
+							<input name="insuredFileExam"  class="number required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>

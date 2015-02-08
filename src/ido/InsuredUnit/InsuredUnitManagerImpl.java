@@ -12,6 +12,7 @@ import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
 import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
@@ -103,6 +104,8 @@ public class InsuredUnitManagerImpl extends AbstractBusinessObjectManager implem
 		for (InsuredUnitVO po : voList) {
 			po.setUnitState(select_yesorno.getName("" + po.getUnitState())); 
 			po.setUnitParentName(select_insuredunit.getName(""+po.getUnitParentId()));
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  InsuredUnitImpl(po));
 		}
 
@@ -300,6 +303,8 @@ public class InsuredUnitManagerImpl extends AbstractBusinessObjectManager implem
 		
 		InsuredUnitVO insuredunit = insuredunits.toArray(new InsuredUnitVO[insuredunits.size()])[0];
 		insuredunit.setUnitParentName(select_insuredunit.getName(""+insuredunit.getUnitParentId()));
+		insuredunit.setCreateUserName(CacheUtil.getSystemUserName(""+insuredunit.getCreateUser()));
+		insuredunit.setUpdateUserName(CacheUtil.getSystemUserName(""+insuredunit.getUpdateUser()));
 		return new InsuredUnitImpl(insuredunit);
 	}
 

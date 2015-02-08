@@ -124,5 +124,17 @@ public class LoginUserImpl implements LoginUser {
  	public  String   getUpdateTime(){
  		return this.loginuserVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
  
 }

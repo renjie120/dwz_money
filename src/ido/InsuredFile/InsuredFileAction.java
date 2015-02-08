@@ -1,28 +1,37 @@
 
 package ido.InsuredFile;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream; 
-import java.util.*; 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext; 
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.CommonUtil;
+import common.util.DateTool;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 /**
  * 关于投保单的Action操作类.
  * @author www(水清)
@@ -60,6 +69,97 @@ public class InsuredFileAction extends BaseAction {
 		return "detail";
 	}
   
+	/**
+	 * 判断保险单名称是否重复
+	 * @return
+	 */
+	public String isExistedCode() { 
+		boolean ans  = pMgr.existed("insured_file", "f_name", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	/**
+	 * 判断保险公司名称是否重复
+	 * @return
+	 */
+	public String isExistedCompanyCode() { 
+		boolean ans  = pMgr.existed("insured_company", "com_name", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	/**
+	 * 判断商家编号是否重复.
+	 * @return
+	 */
+	public String isExistedShopmCode() { 
+		boolean ans  = pMgr.existed("business_man", "shopm_sno", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	/**
+	 * 判断商铺编号是否重复.
+	 * @return
+	 */
+	public String isExistedShopCode() { 
+		boolean ans  = pMgr.existed("business_shop", "shop_sno", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	/**
+	 * 判断是否存在用户登录名.
+	 * @return
+	 */
+	public String isExistedUserCode() { 
+		boolean ans  = pMgr.existed("ido_user", "user_id", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	} 
+	
+	/**
+	 * 判断商家集团名称是否重复.
+	 * @return
+	 */
+	public String isExistedGroupCode() { 
+		boolean ans  = pMgr.existed("business_group", "g_sno", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	
  	/**
  	 * 添加投保单.
  	 */

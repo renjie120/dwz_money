@@ -1,22 +1,21 @@
 
 package ido.LoginUser;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.Coder;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
+import common.util.Coder;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -113,6 +112,8 @@ public class LoginUserManagerImpl extends AbstractBusinessObjectManager implemen
 		for (LoginUserVO po : voList) {
 			po.setUserType(select_aiduyonghu.getName("" + po.getUserType())); 
 			po.setUserStatus(select_yesorno_status.getName("" + po.getUserStatus())); 
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  LoginUserImpl(po));
 		}
 
@@ -463,8 +464,9 @@ public class LoginUserManagerImpl extends AbstractBusinessObjectManager implemen
 		if (loginusers == null || loginusers.size() < 1)
 			return null;
 
-		LoginUserVO loginuser = loginusers.toArray(new LoginUserVO[loginusers.size()])[0];
-
+		LoginUserVO loginuser = loginusers.toArray(new LoginUserVO[loginusers.size()])[0]; 
+		loginuser.setCreateUserName(CacheUtil.getSystemUserName(""+loginuser.getCreateUser()));
+		loginuser.setUpdateUserName(CacheUtil.getSystemUserName(""+loginuser.getUpdateUser()));
 		return new LoginUserImpl(loginuser);
 	}
 

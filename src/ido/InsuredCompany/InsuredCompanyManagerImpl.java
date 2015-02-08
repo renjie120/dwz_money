@@ -15,6 +15,7 @@ import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
 import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
@@ -140,7 +141,9 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 		
 		for (InsuredCompanyVO po : voList) {
 			po.setComStatus(select_yesorno_status.getName("" + po.getComStatus())); 
-			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany())); 
+			po.setOwnerCompany(select_ownerCompany.getName("" + po.getOwnerCompany()));
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  InsuredCompanyImpl(po));
 		}
 
@@ -711,7 +714,8 @@ public class InsuredCompanyManagerImpl extends AbstractBusinessObjectManager imp
 			return null;
 
 		InsuredCompanyVO insuredcompany = insuredcompanys.toArray(new InsuredCompanyVO[insuredcompanys.size()])[0];
-
+		insuredcompany.setCreateUserName(CacheUtil.getSystemUserName(""+insuredcompany.getCreateUser()));
+		insuredcompany.setUpdateUserName(CacheUtil.getSystemUserName(""+insuredcompany.getUpdateUser()));
 		return new InsuredCompanyImpl(insuredcompany);
 	}
 

@@ -1,6 +1,28 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script type="text/javascript"> 
+$(function(){
+	$('#groupSno').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedGroupCode.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该集团编号"'+$('#groupSno').val()+'"，请重新输入');
+		  $('#groupSno').val('');
+	 }
+	}
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/businessgroup!doAdd.do"
 		class="pageForm required-validate"
@@ -10,7 +32,7 @@
 						<label>
 							集团编号:
 						</label>
-							<input name="groupSno" class="textInput required"  type="text"   />
+							<input name="groupSno"  id="groupSno" class="textInput required"  type="text"   />
 					</div>
 					 <div class="unit">
 						<label>

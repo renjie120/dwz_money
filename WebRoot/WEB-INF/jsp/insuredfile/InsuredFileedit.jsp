@@ -16,7 +16,7 @@
 						<label>
 							投保单号 :
 						</label>
-							<input name="insuredFileId" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.insuredFileId"/>" />
+							<input name="insuredFileId" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.insuredFileId"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -46,7 +46,7 @@
 						<label>
 							联系人:
 						</label>
-							<input name="insuredFileContact" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.insuredFileContact"/>" />
+							<input name="insuredFileContact" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.insuredFileContact"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -64,13 +64,13 @@
 						<label>
 							投保日期:
 						</label>
-							<input name="insuredFileBegin" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.insuredFileBegin"/>" />
+							<input name="insuredFileBegin" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.insuredFileBegin"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							到期日期:
 						</label>
-							<input name="insuredFileEnd" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.insuredFileEnd"/>" />
+							<input name="insuredFileEnd" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.insuredFileEnd"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -100,25 +100,25 @@
 						<label>
 							投保总金额:
 						</label>
-							<input name="insuredFileTotal" size="30"  class="number  "    type="text"  value="<s:property value="vo.insuredFileTotal"/>" />
+							<input name="insuredFileTotal" size="30"  class="number  required"    type="text"  value="<s:property value="vo.insuredFileTotal"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							门急诊额度:
 						</label>
-							<input name="insuredFileEmerg" size="30"  class="number  "    type="text"  value="<s:property value="vo.insuredFileEmerg"/>" />
+							<input name="insuredFileEmerg" size="30"  class="number  required"    type="text"  value="<s:property value="vo.insuredFileEmerg"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							住院额度:
 						</label>
-							<input name="insuredFileHospital" size="30"  class="number  "    type="text"  value="<s:property value="vo.insuredFileHospital"/>" />
+							<input name="insuredFileHospital" size="30"  class="number  required"    type="text"  value="<s:property value="vo.insuredFileHospital"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							体检额度:
 						</label>
-							<input name="insuredFileExam" size="30"  class="number  "    type="text"  value="<s:property value="vo.insuredFileExam"/>" />
+							<input name="insuredFileExam" size="30"  class="number  required"    type="text"  value="<s:property value="vo.insuredFileExam"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -136,7 +136,7 @@
 						<label>
 							创建用户:
 						</label>
-							<input name="createUser" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUser"/>" />
+							<input name="createUser" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -148,7 +148,7 @@
 						<label>
 							更新用户:
 						</label>
-							<input name="updateUser" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateUser"/>" />
+							<input name="updateUser" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>

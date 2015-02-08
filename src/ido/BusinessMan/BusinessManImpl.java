@@ -160,5 +160,17 @@ public class BusinessManImpl implements BusinessMan {
  	public  String   getUpdateTime(){
  		return this.businessmanVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return this.businessmanVO.getCreateUserName();
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return this.businessmanVO.getUpdateUserName();
+	}
  
 }

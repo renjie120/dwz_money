@@ -1,21 +1,20 @@
 
 package ido.BusinessMan;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -135,6 +134,8 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 			po.setShopmType(select_shopman_status.getName("" + po.getShopmType())); 
 			po.setOpenBankProvince(select_OpenBankProvince.getName("" + po.getOpenBankProvince())); 
 			po.setOpenBankCity(select_OpenBankCity.getName("" + po.getOpenBankCity())); 
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  BusinessManImpl(po));
 		}
 
@@ -612,7 +613,8 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 			return null;
 
 		BusinessManVO businessman = businessmans.toArray(new BusinessManVO[businessmans.size()])[0];
-
+		businessman.setCreateUserName(CacheUtil.getSystemUserName(""+businessman.getCreateUser()));
+		businessman.setUpdateUserName(CacheUtil.getSystemUserName(""+businessman.getUpdateUser()));
 		return new BusinessManImpl(businessman);
 	}
 

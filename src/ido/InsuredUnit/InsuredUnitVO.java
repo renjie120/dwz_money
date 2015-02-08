@@ -17,6 +17,26 @@ public class InsuredUnitVO implements Serializable,SelectAble {
 
 	}
 	
+
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+	
 	public InsuredUnitVO( int sno , String unitCode , String unitName , String contactName , String contactMobile , String contactEmail , int unitParentId , String unitState , String unitAddress , String unitRemark , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.unitCode = unitCode;

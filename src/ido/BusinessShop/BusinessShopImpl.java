@@ -178,5 +178,17 @@ public class BusinessShopImpl implements BusinessShop {
  	public  String   getUpdateTime(){
  		return this.businessshopVO.getUpdateTime();
  	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUpdateUserName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
  
 }

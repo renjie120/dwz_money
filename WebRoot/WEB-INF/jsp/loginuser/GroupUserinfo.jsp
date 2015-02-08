@@ -2,6 +2,27 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
 <script type="text/javascript"> 
+$(function(){
+	$('#userId').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedUserCode.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该登录名"'+$('#userId').val()+'"，请重新输入');
+		  $('#userId').val('');
+	 }
+	}
+	
 function refreshUnitUser(txt){
 	// 提示返回结果.
 	if (txt.responseText)
@@ -38,7 +59,7 @@ function cancelthis(){
 						<label>
 							登录名称 :
 						</label>
-							<input name="userId" class="textInput required"  type="text"   />
+							<input name="userId" id="userId" class="textInput required"  type="text"   />
 							
 					</div> 
 					<div class="unit">

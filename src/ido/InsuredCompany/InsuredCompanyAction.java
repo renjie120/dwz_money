@@ -200,7 +200,7 @@ public class InsuredCompanyAction extends BaseAction {
 	}
 
 	public String beforeUpdate() {
-		vo = pMgr.getInsuredCompany(sno);
+		vo = pMgr.getInsuredCompany(sno); 
 		return "editdetail";
 	}
 

@@ -1,21 +1,20 @@
 
 package ido.BusinessGroup;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -125,6 +124,8 @@ public class BusinessGroupManagerImpl extends AbstractBusinessObjectManager impl
 		
 		for (BusinessGroupVO po : voList) {
 			po.setGroupStatus(select_shopman_status.getName("" + po.getGroupStatus())); 
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  BusinessGroupImpl(po));
 		}
 
@@ -522,7 +523,8 @@ public class BusinessGroupManagerImpl extends AbstractBusinessObjectManager impl
 			return null;
 
 		BusinessGroupVO businessgroup = businessgroups.toArray(new BusinessGroupVO[businessgroups.size()])[0];
-
+		businessgroup.setCreateUserName(CacheUtil.getSystemUserName(""+businessgroup.getCreateUser()));
+		businessgroup.setUpdateUserName(CacheUtil.getSystemUserName(""+businessgroup.getUpdateUser()));
 		return new BusinessGroupImpl(businessgroup);
 	}
 

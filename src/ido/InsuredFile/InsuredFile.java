@@ -98,6 +98,8 @@ public interface InsuredFile extends BusinessObject {
  	 * 获取创建用户的属性值.
  	 */
  	public  int   getCreateUser();
+ 	public  String   getCreateUserName();
+ 	public  String   getUpdateUserName();
  	/**
  	 * 获取创建时间的属性值.
  	 */

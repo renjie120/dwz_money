@@ -10,6 +10,8 @@ import java.util.Date;
  * http://www.iteye.com
  */ 
 public interface InsuredUnit extends BusinessObject {  
+	public  String   getCreateUserName();
+ 	public  String   getUpdateUserName();
  	/**
  	 * 获取流水号的属性值.
  	 */

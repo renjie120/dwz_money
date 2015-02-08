@@ -17,6 +17,25 @@ public class InsuredCompanyVO implements Serializable,SelectAble {
 
 	}
 	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+	
+	
 	public InsuredCompanyVO( int sno , String comName , String comNo , String comStatus , String comShortName , String comPhone , String comContactName , String comContactPhone , String ownerCompany , String comEmail , String comAddress , String comRemark , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.comName = comName;

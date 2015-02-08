@@ -17,7 +17,23 @@ public class BusinessShopVO implements Serializable {
 	public BusinessShopVO() {
 
 	}
-	
+	private String createUserName;
+	private String updateUserName;
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
 	public BusinessShopVO( int sno , String shopmId , String shopName , String shopSno , String shopStatus , String shopContactName , String shopConPhone , String shopEmail , String shopAddress , String shopDate , String shopJingdu , String shopWeidu , String shopProvince , String shopCity , String shopxian , String shopRemark , String shopMain , String shopIntroduce , String shopSpecial , int createUser , String createTime , int updateUser , String updateTime ) {
 		 this.sno = sno;
 		 this.shopmId = shopmId;

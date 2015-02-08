@@ -1,21 +1,27 @@
 
 package ido.InsuredFile;
+import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ConnectionCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -144,7 +150,9 @@ public class InsuredFileManagerImpl extends AbstractBusinessObjectManager implem
 			po.setInsuredFileCompany(select_insuredFileCompany.getName("" + po.getInsuredFileCompany())); 
 			po.setInsuredFileStatus(select_insureFile_state.getName("" + po.getInsuredFileStatus())); 
 			po.setInsuredFileDuijie(select_sys_duijie.getName("" + po.getInsuredFileDuijie())); 
-			po.setInsuredFileDuijieFlag(select_yesorno.getName("" + po.getInsuredFileDuijieFlag())); 
+			po.setInsuredFileDuijieFlag(select_yesorno.getName("" + po.getInsuredFileDuijieFlag()));
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			po.setUpdateUserName(CacheUtil.getSystemUserName(""+po.getUpdateUser()));
 			eaList.add(new  InsuredFileImpl(po));
 		}
 
@@ -729,6 +737,30 @@ public class InsuredFileManagerImpl extends AbstractBusinessObjectManager implem
 		InsuredFileVO insuredfile = insuredfiles.toArray(new InsuredFileVO[insuredfiles.size()])[0];
 
 		return new InsuredFileImpl(insuredfile);
+	}
+
+	@Override
+	public boolean existed(final String table,final String column,final String value) {
+		JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtil
+			    .getBean("jdbcTemplate");
+		return jdbcTemplate.execute(new ConnectionCallback<Boolean>() { 
+			@Override
+			public Boolean doInConnection(java.sql.Connection conn)
+					throws SQLException, DataAccessException {
+				  String sql = "select count(1)  from  "+table +" where  "+column+" =?";
+			    PreparedStatement ps = conn.prepareStatement(sql);
+			    ps.setString(1, value);
+			    ResultSet rs = ps.executeQuery();
+			    boolean result = false;
+				if(rs.next()){
+					int ans = rs.getInt(1);
+					if(ans>0)
+						result =true;
+				} 
+				rs.close();
+				return result;
+			}
+		}); 
 	}
 
 }

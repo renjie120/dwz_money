@@ -106,7 +106,7 @@
 						<label>
 							创建用户:
 						</label>
-							<input name="createUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUser"/>" />
+							<input name="createUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -118,7 +118,7 @@
 						<label>
 							更新用户:
 						</label>
-							<input name="updateUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateUser"/>" />
+							<input name="updateUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>

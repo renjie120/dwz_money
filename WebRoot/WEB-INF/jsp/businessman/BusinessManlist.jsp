@@ -72,51 +72,27 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100"    orderField="SHOPMSNO" >
+				<th width="100"   >
 						商家编号 
 				</th> 
-				<th width="100"    orderField="SHOPMNAME" >
+				<th width="100"    >
 						商家名称  
 				</th> 
-				<th width="100"    orderField="SHOPMSHORTNAME" >
+				<th width="100"    >
 						商家简称  
 				</th> 
 				<th width="100"    orderField="SHOPMTYPE" >
-						商家类型  
-				</th> 
-				<th width="100"    orderField="SHOPMEMAIL" >
-						邮箱 
-				</th> 
-				<th width="100"    orderField="SHOPMCONPHONE" >
-						联系人手机 
-				</th> 
-				<th width="100"    orderField="SHOPMCONTACTNAME" >
+						商家状态  
+				</th>   
+				<th width="100"   >
 						联系人名称 
 				</th> 
-				<th width="100"    orderField="SHOPMADDRESS" >
-						地址 
-				</th> 
-				<th width="100"    orderField="OPENBANK" >
-						开户行 
-				</th> 
-				<th width="100"    orderField="OPENBANKNAME" >
-						户名 
-				</th> 
-				<th width="100"    orderField="OPENBANKNO" >
-						银行帐号 
-				</th> 
-				<th width="100"    orderField="OPENTICKETUNIT" >
-						开票单位 
-				</th> 
-				<th width="100"    orderField="OPENBANKPROVINCE" >
-						开户所在省 
-				</th> 
-				<th width="100"    orderField="OPENBANKCITY" >
-						开户所在市 
-				</th> 
-				<th width="100"    orderField="COMPENSATIONDAY" >
-						理赔截止日期 
-				</th> 
+				<th width="100"    >
+						联系人手机 
+				</th>  
+				<th width="100"    >
+						邮箱
+				</th>  
 			</tr>
 		</thead>
 		<tbody>
@@ -137,40 +113,16 @@
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="shopmType" />
-					</td> 
+					</td>  
 					<td style="text-align:center;">
-						<s:property value="shopmEmail" />
+						<s:property value="shopmContactName" />
 					</td> 
 					<td style="text-align:center;">
 						<s:property value="shopmConPhone" />
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="shopmContactName" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="shopmAddress" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="openBank" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="openBankName" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="openBankNo" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="openTicketUnit" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="OpenBankProvince" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="OpenBankCity" />
-					</td> 
-					<td style="text-align:center;">
-						<s:property value="compensationDay" />
-					</td> 
+						<s:property value="shopmEmail" />
+					</td>  
 				</tr>
 			</s:iterator>
 		</tbody>
