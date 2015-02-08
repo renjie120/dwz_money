@@ -2,29 +2,39 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
 <div class="pageContent">
-	<form method="post" action="/money/userupdatelogger!doAdd.do"
+	<form method="post" action="/money/uploadfile!doAdd.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<div class="pageFormContent" layoutH="57">
 					 <div class="unit">
 						<label>
-							用户名 : 
+							业务关联id : 
 						</label>
-							<input name="userId" class="textInput required" size="30" type="hidden"  value="${userId }" />
-							<input name="userName" class="textInput required" size="30" type="text"  readOnly="true" value="${userName }" />
+							<input name="businessId" class="textInput " size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
-							更新状态: 
+							文件类型: 
 						</label>
-						<input name="state" class="textInput required" size="30" type="hidden"  value="${state }" />
-							<input name="stateName" class="textInput required" size="30" type="text"  readOnly="true" value="${stateName }" /> 
+							<my:newselect tagName="fileType"  paraType="file_type" width="100"  />
 					</div>
 					 <div class="unit">
 						<label>
-							操作原因: 
+							是否有效: 
 						</label>
-							<textarea class="required" name="logDetail" size="30" rows="3" cols="40"></textarea>
+							<my:newselect tagName="isExist"  paraType="yesorno" width="100"  />
+					</div>
+					 <div class="unit">
+						<label>
+							文件名: 
+						</label>
+							<input name="fileName" class="textInput " size="30" type="text"   />
+					</div>
+					 <div class="unit">
+						<label>
+							实际文件名: 
+						</label>
+							<input name="realFileName" class="textInput " size="30" type="text"   />
 					</div>
 		</div>
 		<div class="formBar">

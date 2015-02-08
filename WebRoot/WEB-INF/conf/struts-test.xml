@@ -54,6 +54,7 @@
 				<param name="maximumSize">2000000</param>
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack" />
+			<result name="uploadify">/WEB-INF/struts2/uploadify.jsp</result>
 			<result name="init">/WEB-INF/struts2/fileupload.jsp</result>
 			<result name="input">
 				/WEB-INF/struts2/typeChangeError.jsp

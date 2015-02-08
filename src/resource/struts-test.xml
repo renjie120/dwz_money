@@ -50,7 +50,8 @@
 			<param name="savePath">/upload</param>
 			<result name="init">
 				/WEB-INF/struts2/fileupload.jsp
-			</result>
+			</result> 
+			<result name="uploadify">/WEB-INF/struts2/uploadify.jsp</result>
 			<result name="download" type="stream">
 				<param name="contentType">application/octet-stream;charset=UTF-8</param>
 				<param name="contentDisposition">attachment;filename="${filename}"</param>

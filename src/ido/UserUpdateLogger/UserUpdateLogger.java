@@ -40,6 +40,13 @@ public interface UserUpdateLogger extends BusinessObject {
  	 * 获取创建用户的属性值.
  	 */
  	public  int   getCreateUser();
+ 	
+ 	/**
+ 	 * 返回创建用户名.
+ 	 * @return
+ 	 */
+	public  String   getCreateUserName();
+	
  	/**
  	 * 获取创建时间的属性值.
  	 */

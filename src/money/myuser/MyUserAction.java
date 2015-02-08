@@ -112,10 +112,11 @@ public class MyUserAction extends BaseAction {
 		try {
 			UserImpl user = (UserImpl) ActionContext.getContext().getSession()
 					.get(Constants.AUTHENTICATION_KEY);
-			if (!oldPassword.equals(user.getPassword())) {
+			if(!Coder.getMyCoder(oldPassword).equals(user.getPassword())){
+			//if (!oldPassword.equals(user.getPassword())) {
 				throw new BusinessException("密码不正确！");
 			}
-			newPassword = Coder.toMyCoder(newPassword);
+			newPassword = Coder.getMyCoder(newPassword);
 			pMgr.updatePassword(newPassword, user.getUserName());
 		} catch (ValidateFieldsException e) {
 			log.error(e);

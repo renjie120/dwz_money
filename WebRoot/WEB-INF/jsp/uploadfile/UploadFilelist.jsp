@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<form id="pagerForm" method="post" action="/money/userupdatelogger!query.do">
+<form id="pagerForm" method="post" action="/money/uploadfile!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
@@ -10,17 +10,13 @@
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
-		action="/money/userupdatelogger!query.do" method="post">
+		action="/money/uploadfile!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
 					<td> 
-						用户名 </td><td>
-							<input name="userId" size="20"  class="textInput " type="text"  value="<s:property value="vo.userId"/>" />
-					</td> 
-					<td> 
-						更新状态</td><td>
-							<my:newselect tagName="state"  paraType="toubaouser_status" width="100" allSelected="true" />
+						文件类型</td><td>
+							<my:newselect tagName="fileType"  paraType="file_type" width="100" allSelected="true" />
 					</td> 
 				</tr>
 			</table>
@@ -44,13 +40,18 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="delete" href="/money/userupdatelogger!doDelete.do" postType="string"
+				<a class="add" href="/money/uploadfile!beforeAdd.do" target="dialog" mask="true"
+					title="添加"><span>添加</span> </a>
+			</li>
+			<li>
+				<a class="delete" href="/money/uploadfile!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
 			</li>
 			<li>
-				<a class="icon" href="/money/userupdatelogger!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
-			</li> 
+				<a class="edit" href="/money/uploadfile!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
+			</li>
 		</ul>
 	</div>
 	<table class="table" layoutH="-138">
@@ -59,14 +60,23 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="250"    orderField="USERID" >
-						用户名  
+				<th width="250"    orderField="BUSINESSID" >
+						业务关联id  
 				</th> 
-				<th width="100"    orderField="STATE" >
-						更新状态 
+				<th width="100"    orderField="FILETYPE" >
+						文件类型 
 				</th> 
-				<th width="300"    orderField="LOGDETAIL" >
-						操作原因 
+				<th width="100"    orderField="ISEXIST" >
+						是否有效 
+				</th> 
+				<th width="150"    orderField="FILENAME" >
+						文件名 
+				</th> 
+				<th width="150"    orderField="REALFILENAME" >
+						实际文件名 
+				</th> 
+				<th width="80"    orderField="FILESIZE" >
+						文件大小 
 				</th> 
 			</tr>
 		</thead>
@@ -78,13 +88,22 @@
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
-						<div style='width:250px'><s:property value="userId" /></div>
+						<div style='width:250px'><s:property value="businessId" /></div>
 					</td> 
 					<td style="text-align:center;">
-						<div style='width:100px'><s:property value="state" /></div>
+						<div style='width:100px'><s:property value="fileType" /></div>
 					</td> 
 					<td style="text-align:center;">
-						<div style='width:300px'><s:property value="logDetail" /></div>
+						<div style='width:100px'><s:property value="isExist" /></div>
+					</td> 
+					<td style="text-align:center;">
+						<div style='width:150px'><s:property value="fileName" /></div>
+					</td> 
+					<td style="text-align:center;">
+						<div style='width:150px'><s:property value="realFileName" /></div>
+					</td> 
+					<td style="text-align:center;">
+						<div style='width:80px'><s:property value="fileSize" /></div>
 					</td> 
 				</tr>
 			</s:iterator>

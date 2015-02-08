@@ -1,12 +1,12 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<%@ page import="ido.UserUpdateLogger.UserUpdateLogger"%>
+<%@ page import="money.uploadFile.UploadFile"%>
 <% 
-	UserUpdateLogger vo = (UserUpdateLogger) request.getAttribute("vo"); 
+	UploadFile vo = (UploadFile) request.getAttribute("vo"); 
 %>
 <div class="pageContent">
-	<form method="post" action="/money/userupdatelogger!doUpdate.do"
+	<form method="post" action="/money/uploadfile!doUpdate.do"
 		class="pageForm required-validate"
 		onsubmit="return myCallback(this, closeDialogWindow);">
 		<input type='hidden' name="sno"
@@ -14,37 +14,49 @@
 		<div class="pageFormContent" layoutH="57"> 
 					 <div class="unit">
 						<label>
-							用户名 :
+							业务关联id :
 						</label>
-							<input name="userId" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.userId"/>" />
+							<input name="businessId" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.businessId"/>" />
 					</div>
 					 <div class="unit">
 						<label>
-							更新状态:
+							文件类型:
 						</label>
-							<my:newselect tagName="state"  paraType="toubaouser_status" width="100"  selectedValue="<%=vo.getState() %>"/>									
+							<my:newselect tagName="fileType"  paraType="file_type" width="100"  selectedValue="<%=vo.getFileType() %>"/>									
 					</div>
 					 <div class="unit">
 						<label>
-							操作原因:
+							是否有效:
 						</label>
-							<textarea  size="30"   class="required" name="logDetail" cols="30" rows="2"><s:property value="vo.logDetail"/></textarea>
+							<my:newselect tagName="isExist"  paraType="yesorno" width="100"  selectedValue="<%=vo.getIsExist() %>"/>									
 					</div>
 					 <div class="unit">
 						<label>
-							备用字段1:
+							文件名:
 						</label>
-							<input name="arg1" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.arg1"/>" />
+							<input name="fileName" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.fileName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
-							创建用户:
+							实际文件名:
+						</label>
+							<input name="realFileName" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.realFileName"/>" />
+					</div>
+					 <div class="unit">
+						<label>
+							文件大小:
+						</label>
+							<input name="fileSize" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.fileSize"/>" />
+					</div>
+					 <div class="unit">
+						<label>
+							上传用户:
 						</label>
 							<input name="createUser" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUser"/>" />
 					</div>
 					 <div class="unit">
 						<label>
-							创建时间:
+							上传时间:
 						</label>
 							<input name="createTime" size="30"  class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createTime"/>" />
 					</div>

@@ -6,6 +6,29 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="uploadfile" class="money.uploadFile.UploadFileAction">
+			<result name="list">
+				/WEB-INF/jsp/uploadfile/UploadFilelist.jsp
+			</result>
+			<result name="initCompanyFile">
+				/WEB-INF/jsp/uploadfile/CompanyFileupload.jsp
+			</result>
+			<result name="companyFileList">
+				/WEB-INF/jsp/uploadfile/CompanyUploadFilelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/uploadfile/UploadFileinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/uploadfile/UploadFileedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/uploadfile/UploadFileimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/uploadfile/UploadFilequery.jsp
+			</result>
+		</action>
 		<action name="systemsequence" class="money.sequence.SystemSequenceAction">
 			<result name="list">
 				/WEB-INF/jsp/systemsequence/SystemSequencelist.jsp

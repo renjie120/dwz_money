@@ -1,0 +1,36 @@
+<class name="UploadFile" table="uploadFile" desc="上传文件"
+	importFile="false" exportFile="false" add="true" update="true"
+	delete="true" package="money.uploadFile">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="businessId" column="bussiness_id" type="string"
+		columnType="varchar(1000)" width="250" desc="业务关联id " />
+
+	<property name="fileType" column="file_type" type="string"
+		showType="select" selectCode="file_type" columnType="int" desc="文件类型"
+		width="100" query="true" />
+
+	<property name="isExist" column="is_exist" type="string"
+		showType="select" selectCode="yesorno" columnType="int" desc="是否有效"
+		width="100" />
+
+	<property name="fileName" column="file_Name" type="string"
+		width="150" maxLength="500" columnType="varchar(1000)" desc="文件名" />
+
+	<property name="realFileName" column="real_file_Name" type="string"
+		width="150" maxLength="500" columnType="varchar(1000)" desc="实际文件名" />
+
+	<property name="fileSize" column="file_size" type="int"
+		noedit="true" noadd="true" notnull="true" columnType="int" desc="文件大小"
+		width="80" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="上传用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="上传时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+</class>

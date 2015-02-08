@@ -8,6 +8,9 @@
 	<bean id="systemsequenceManager" class="money.sequence.SystemSequenceManagerImpl">
 		<constructor-arg index="0" ref="systemsequenceDao"></constructor-arg>
 	</bean>
+	<bean id="uploadfileManager" class="money.uploadFile.UploadFileManagerImpl">
+		<constructor-arg index="0" ref="uploadfileDao"></constructor-arg>
+	</bean>
 	<bean id="insuredunitManager" class="ido.InsuredUnit.InsuredUnitManagerImpl">
 		<constructor-arg index="0" ref="insuredunitDao"></constructor-arg>
 	</bean>
@@ -19,6 +22,7 @@
 	</bean>
 	<bean id="insureduserManager" class="ido.InsuredUser.InsuredUserManagerImpl">
 		<constructor-arg index="0" ref="insureduserDao"></constructor-arg>
+		<constructor-arg index="1" ref="jdbcTemplate"></constructor-arg>
 	</bean>
 	<bean id="loginuserManager" class="ido.LoginUser.LoginUserManagerImpl">
 		<constructor-arg index="0" ref="loginuserDao"></constructor-arg>

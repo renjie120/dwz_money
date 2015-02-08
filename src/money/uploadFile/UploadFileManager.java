@@ -1,5 +1,5 @@
 
-package ido.InsuredUser;
+package money.uploadFile;
 import java.util.Collection;
 import java.util.Map; 
 import java.io.File;
@@ -9,12 +9,12 @@ import dwz.framework.core.business.BusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
 /**
- * 关于投保用户的业务操作操作接口.
+ * 关于上传文件的业务操作操作接口.
  * @author www(水清)
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public interface InsuredUserManager  extends BusinessObjectManager {
+public interface UploadFileManager  extends BusinessObjectManager {
 	/**
 	 * 根据条件查询分页信息.
 	 * @param criterias 条件
@@ -23,53 +23,46 @@ public interface InsuredUserManager  extends BusinessObjectManager {
 	 * @param count 总数
 	 * @return
 	 */
-	public Collection<InsuredUser> searchInsuredUser(Map<InsuredUserSearchFields, Object> criterias,
+	public Collection<UploadFile> searchUploadFile(Map<UploadFileSearchFields, Object> criterias,
 			String orderField, int startIndex, int count);
 
-	/**
-	 * 更新投保用户状态.
-	 * @param userSno
-	 * @param status
-	 */
-	@Transactional
-	public void updateStatus(int userSno,int status); 
 
 	/**
 	 * 查询总数.
 	 * @param criterias 查询条件
 	 * @return
 	 */
-	public Integer searchInsuredUserNum(Map<InsuredUserSearchFields, Object> criterias);
+	public Integer searchUploadFileNum(Map<UploadFileSearchFields, Object> criterias);
 
 	/**
 	 * 保存实体到数据库.
-	 * @param insureduser
+	 * @param uploadfile
 	 * @throws ValidateFieldsException
 	 */
 	@Transactional
-	public void createInsuredUser(InsuredUser insureduser) throws ValidateFieldsException;
+	public void createUploadFile(UploadFile uploadfile) throws ValidateFieldsException;
 
 	/**
 	 * 更新操作.
-	 * @param insureduser
+	 * @param uploadfile
 	 * @throws ValidateFieldsException
 	 */
 	@Transactional
-	public void updateInsuredUser(InsuredUser insureduser) throws ValidateFieldsException;
+	public void updateUploadFile(UploadFile uploadfile) throws ValidateFieldsException;
 
 	/**
 	 * 删除操作
 	 * @param sno
 	 */
 	@Transactional
-	public void removeInsuredUsers(String sno);
+	public void removeUploadFiles(String sno);
 
 	/**
 	 * 根据主键取值.
 	 * @param sno
 	 * @return
 	 */
-	public InsuredUser getInsuredUser(int sno);
+	public UploadFile getUploadFile(int sno);
 
 	/**
          * 从excel中导入数据.

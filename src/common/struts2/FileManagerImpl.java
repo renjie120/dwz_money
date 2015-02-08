@@ -1,14 +1,11 @@
 package common.struts2;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +14,6 @@ import java.sql.SQLException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Hibernate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -128,5 +124,59 @@ public class FileManagerImpl extends AbstractBusinessObjectManager implements
 			}
 		}); 
 		return f;
+	}
+
+	@Override
+	public void getFileFromSystem(final String fileid,final HttpServletResponse response,final File rootDir) {
+		JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtil
+				.getBean("jdbcTemplate");
+
+	 jdbcTemplate.execute(new ConnectionCallback<MyFile>() {
+			@Override
+			public MyFile doInConnection(Connection conn) throws SQLException,
+					DataAccessException {
+				String sql = "select file_name,real_file_name from  uploadfile where  id =?";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = null;
+				MyFile result = new MyFile();
+				ps.setString(1, fileid); 
+				rs = ps.executeQuery();
+				ServletOutputStream os = null;
+
+				try {
+					if (rs.next()) {
+						response.setContentType("application/octet-stream;charset=UTF-8");
+						String file_name = rs.getString(1);
+						file_name = URLEncoder.encode(file_name, "UTF-8");   
+						response.addHeader("Content-Disposition",
+								"attachment;filename=" + file_name);
+						String real_file_name = rs.getString(2);
+						System.out.println("file_name--"+file_name+",real_file_name="+real_file_name);
+						File f = new File(rootDir.getAbsoluteFile()+File.separator+real_file_name);
+						InputStream in = new FileInputStream(f);
+
+						os = response.getOutputStream();
+						byte[] buff = new byte[1024];
+						for (int i = 0; (i = in.read(buff)) > 0;) {
+							os.write(buff, 0, i);
+						}
+						os.flush();
+						in.close(); 
+					}
+					rs.close();
+					// stmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (os != null)
+							os.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				return result;
+			}
+		});  
 	}
 }

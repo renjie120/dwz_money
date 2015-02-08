@@ -178,6 +178,9 @@
 				<value>
 					hbm/systemsequence.hbm.xml
 				</value>
+				<value>
+					hbm/uploadfile.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

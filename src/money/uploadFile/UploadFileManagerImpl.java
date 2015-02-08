@@ -1,5 +1,5 @@
 
-package ido.loginfo;
+package money.uploadFile;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,26 +16,27 @@ import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
 /**
- * 关于操作日志的业务操作实现类.
+ * 关于上传文件的业务操作实现类.
  * @author www(水清)
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
-		LogInfoManager {
+public class UploadFileManagerImpl extends AbstractBusinessObjectManager implements
+		UploadFileManager {
 
-	private LogInfoDao loginfodao = null;
+	private UploadFileDao uploadfiledao = null;
 
 	/**
 	 * 构造函数.
 	 */
-	public LogInfoManagerImpl(LogInfoDao loginfodao) {
-		this.loginfodao = loginfodao;
+	public UploadFileManagerImpl(UploadFileDao uploadfiledao) {
+		this.uploadfiledao = uploadfiledao;
 	}
 
 	/**
@@ -43,13 +44,13 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 	 * @param criterias 查询条件
 	 * @return
 	 */
-	public Integer searchLogInfoNum(Map<LogInfoSearchFields, Object> criterias) {
+	public Integer searchUploadFileNum(Map<UploadFileSearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
 		}
 		Object[] quertParas = createQuery(true, criterias, null);
 		String hql = quertParas[0].toString();
-		Number totalCount = this.loginfodao.countByQuery(hql,
+		Number totalCount = this.uploadfiledao.countByQuery(hql,
 				(Object[]) quertParas[1]);
 
 		return totalCount.intValue();
@@ -63,8 +64,8 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 			int index = excel.getSheetNames().indexOf("Sheet0");
 			String[][] contents = excel.read(index, true, true);
 			for (int i = 1; i < contents.length; i++) {
-				LogInfoVO vo = new LogInfoVO();
-				this.loginfodao.insert(vo); 
+				UploadFileVO vo = new UploadFileVO();
+				this.uploadfiledao.insert(vo); 
 			}
 
 		} catch (Exception e) {
@@ -80,208 +81,199 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 	 * @param count 总数
 	 * @return
 	 */
-	public Collection<LogInfo> searchLogInfo(Map<LogInfoSearchFields, Object> criterias,
+	public Collection<UploadFile> searchUploadFile(Map<UploadFileSearchFields, Object> criterias,
 			String orderField, int startIndex, int count) {
-		ArrayList<LogInfo> eaList = new ArrayList<LogInfo>();
+		ArrayList<UploadFile> eaList = new ArrayList<UploadFile>();
 		if (criterias == null)
 			return eaList;
 
 		Object[] quertParas = createQuery(false, criterias, orderField);
 		String hql = quertParas[0].toString();
-		Collection<LogInfoVO> voList = this.loginfodao.findByQuery(hql,
+		Collection<UploadFileVO> voList = this.uploadfiledao.findByQuery(hql,
 				(Object[]) quertParas[1], startIndex, count);
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
 	
+		AllSelect allSelect = (AllSelect) SpringContextUtil
+				.getBean(BeanManagerKey.allSelectManager.toString());
+		ParamSelect select_file_type = allSelect
+				.getParamsByType(AllSelectContants.FILE_TYPE.getName()); 
+		ParamSelect select_yesorno = allSelect
+				.getParamsByType(AllSelectContants.YESORNO.getName());
 		
-		for (LogInfoVO po : voList) {
-			eaList.add(new  LogInfoImpl(po));
+		for (UploadFileVO po : voList) {
+			po.setFileType(select_file_type.getName("" + po.getFileType())); 
+			po.setIsExist(select_yesorno.getName("" + po.getIsExist())); 
+			po.setCreateUserName(CacheUtil.getSystemUserName(""+po.getCreateUser()));
+			eaList.add(new  UploadFileImpl(po));
 		}
 
 		return eaList;
 	}
 
 	private Object[] createQuery(boolean useCount,
-			Map<LogInfoSearchFields, Object> criterias, String orderField) {
+			Map<UploadFileSearchFields, Object> criterias, String orderField) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
-				useCount ? "select count( loginfo) "
-						: "select  loginfo ").append("from LogInfoVO as loginfo ");
+				useCount ? "select count( uploadfile) "
+						: "select  uploadfile ").append("from UploadFileVO as uploadfile ");
 
 		int count = 0;
 		List argList = new ArrayList();
 		if (criterias.size() > 0)
-			for (Map.Entry<LogInfoSearchFields, Object> entry : criterias
+			for (Map.Entry<UploadFileSearchFields, Object> entry : criterias
 					.entrySet()) {
-				LogInfoSearchFields fd = entry.getKey();
+				UploadFileSearchFields fd = entry.getKey();
 				switch (fd) {
 					case SNO:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.sno = ? ");
+								"  uploadfile.sno = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERUSER:
+					case BUSINESSID:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUser = ? ");
+								"  uploadfile.businessId = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERUSERNAME:
+					case FILETYPE:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUserName = ? ");
+								"  uploadfile.fileType = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERTIME:
+					case ISEXIST:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operTime = ? ");
+								"  uploadfile.isExist = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERTYPE:
+					case FILENAME:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operType = ? ");
+								"  uploadfile.fileName = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERIP:
+					case REALFILENAME:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operIp = ? ");
+								"  uploadfile.realFileName = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERURL:
+					case FILESIZE:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUrl = ? ");
+								"  uploadfile.fileSize = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERBEFORE:
+					case CREATEUSER:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operBefore = ? ");
+								"  uploadfile.createUser = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
-					case OPERAFTER:
+					case CREATETIME:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operAfter = ? ");
-						argList.add(entry.getValue());
-						count++;
-					break;
-					case OPERDESC:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operDesc = ? ");
+								"  uploadfile.createTime = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
 				//下面拼接高级查询条件
-					case OPERUSER_COM_NOT_EQUALS:
+					case BUSINESSID_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUser  !=  ? "); 
+								"  uploadfile.businessId  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERUSER_COM_EQUALS:
+					case BUSINESSID_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUser =  ? "); 
+								"  uploadfile.businessId =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERUSERNAME_COM_NOT_EQUALS:
+					case FILETYPE_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUserName  !=  ? "); 
+								"  uploadfile.fileType  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERUSERNAME_COM_EQUALS:
+					case FILETYPE_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUserName =  ? "); 
+								"  uploadfile.fileType =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERTIME_COM_NOT_EQUALS:
+					case ISEXIST_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operTime  !=  ? "); 
+								"  uploadfile.isExist  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERTIME_COM_EQUALS:
+					case ISEXIST_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operTime =  ? "); 
+								"  uploadfile.isExist =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERTYPE_COM_NOT_EQUALS:
+					case FILENAME_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operType  !=  ? "); 
+								"  uploadfile.fileName  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERTYPE_COM_EQUALS:
+					case FILENAME_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operType =  ? "); 
+								"  uploadfile.fileName =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERIP_COM_NOT_EQUALS:
+					case REALFILENAME_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operIp  !=  ? "); 
+								"  uploadfile.realFileName  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERIP_COM_EQUALS:
+					case REALFILENAME_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operIp =  ? "); 
+								"  uploadfile.realFileName =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERURL_COM_NOT_EQUALS:
+					case FILESIZE_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUrl  !=  ? "); 
+								"  uploadfile.fileSize  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERURL_COM_EQUALS:
+					case FILESIZE_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operUrl =  ? "); 
+								"  uploadfile.fileSize =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERBEFORE_COM_NOT_EQUALS:
+					case CREATEUSER_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operBefore  !=  ? "); 
+								"  uploadfile.createUser  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERBEFORE_COM_EQUALS:
+					case CREATEUSER_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operBefore =  ? "); 
+								"  uploadfile.createUser =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
-					case OPERAFTER_COM_NOT_EQUALS:
+					case CREATETIME_COM_NOT_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operAfter  !=  ? "); 
+								"  uploadfile.createTime  !=  ? "); 
 						argList.add(entry.getValue()); 
 						count++;
 					break;
-					case OPERAFTER_COM_EQUALS:
+					case CREATETIME_COM_EQUALS:
 						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operAfter =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
-					break;
-					case OPERDESC_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operDesc  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
-					break;
-					case OPERDESC_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  loginfo.operDesc =  ? "); 
+								"  uploadfile.createTime =  ? "); 
 						argList.add( entry.getValue() ); 
 						count++;
 					break;
@@ -294,44 +286,38 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 			return new Object[] { sb.toString(), argList.toArray() };
 		}
 
-		LogInfoOrderByFields orderBy = LogInfoOrderByFields.SNO_DESC;
+		UploadFileOrderByFields orderBy = UploadFileOrderByFields.SNO_DESC;
 		if (orderField != null && orderField.length() > 0) {
-			orderBy = LogInfoOrderByFields.valueOf(orderField);
+			orderBy = UploadFileOrderByFields.valueOf(orderField);
 		}
 
 		switch (orderBy) {
 			case SNO:
-				 sb.append(" order by loginfo.sno");
+				 sb.append(" order by uploadfile.sno");
 			break;
-			case SNO_DESC:
-				 sb.append(" order by loginfo.sno desc ");
+			case BUSINESSID:
+				 sb.append(" order by uploadfile.businessId");
 			break;
-			case OPERUSER:
-				 sb.append(" order by loginfo.operUser");
+			case FILETYPE:
+				 sb.append(" order by uploadfile.fileType");
 			break;
-			case OPERUSERNAME:
-				 sb.append(" order by loginfo.operUserName");
+			case ISEXIST:
+				 sb.append(" order by uploadfile.isExist");
 			break;
-			case OPERTIME:
-				 sb.append(" order by loginfo.operTime");
+			case FILENAME:
+				 sb.append(" order by uploadfile.fileName");
 			break;
-			case OPERTYPE:
-				 sb.append(" order by loginfo.operType");
+			case REALFILENAME:
+				 sb.append(" order by uploadfile.realFileName");
 			break;
-			case OPERIP:
-				 sb.append(" order by loginfo.operIp");
+			case FILESIZE:
+				 sb.append(" order by uploadfile.fileSize");
 			break;
-			case OPERURL:
-				 sb.append(" order by loginfo.operUrl");
+			case CREATEUSER:
+				 sb.append(" order by uploadfile.createUser");
 			break;
-			case OPERBEFORE:
-				 sb.append(" order by loginfo.operBefore");
-			break;
-			case OPERAFTER:
-				 sb.append(" order by loginfo.operAfter");
-			break;
-			case OPERDESC:
-				 sb.append(" order by loginfo.operDesc");
+			case CREATETIME:
+				 sb.append(" order by uploadfile.createTime");
 			break;
 			default:
 				break;
@@ -339,35 +325,35 @@ public class LogInfoManagerImpl extends AbstractBusinessObjectManager implements
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
-	public void createLogInfo(LogInfo loginfo) throws ValidateFieldsException {
-		LogInfoImpl loginfoImpl = (LogInfoImpl) loginfo;
-		this.loginfodao.insert(loginfoImpl.getLogInfoVO());
+	public void createUploadFile(UploadFile uploadfile) throws ValidateFieldsException {
+		UploadFileImpl uploadfileImpl = (UploadFileImpl) uploadfile;
+		this.uploadfiledao.insert(uploadfileImpl.getUploadFileVO());
 	}
 
-	public void removeLogInfos(String ids) {
+	public void removeUploadFiles(String ids) {
 		String[] idArr = ids.split(",");
 		for (String s : idArr) {
-			LogInfoVO vo = this.loginfodao.findByPrimaryKey(Integer.parseInt(s));
-			this.loginfodao.delete(vo);
+			UploadFileVO vo = this.uploadfiledao.findByPrimaryKey(Integer.parseInt(s));
+			this.uploadfiledao.delete(vo);
 		}
 	}
 
-	public void updateLogInfo(LogInfo loginfo) throws ValidateFieldsException {
-		LogInfoImpl loginfoImpl = (LogInfoImpl) loginfo;
+	public void updateUploadFile(UploadFile uploadfile) throws ValidateFieldsException {
+		UploadFileImpl uploadfileImpl = (UploadFileImpl) uploadfile;
 
-		LogInfoVO po = loginfoImpl.getLogInfoVO();
-		this.loginfodao.update(po);
+		UploadFileVO po = uploadfileImpl.getUploadFileVO();
+		this.uploadfiledao.update(po);
 	}
 
-	public LogInfo getLogInfo(int id) {
-		Collection<LogInfoVO> loginfos = this.loginfodao.findRecordById(id);
+	public UploadFile getUploadFile(int id) {
+		Collection<UploadFileVO> uploadfiles = this.uploadfiledao.findRecordById(id);
 
-		if (loginfos == null || loginfos.size() < 1)
+		if (uploadfiles == null || uploadfiles.size() < 1)
 			return null;
 
-		LogInfoVO loginfo = loginfos.toArray(new LogInfoVO[loginfos.size()])[0];
+		UploadFileVO uploadfile = uploadfiles.toArray(new UploadFileVO[uploadfiles.size()])[0];
 
-		return new LogInfoImpl(loginfo);
+		return new UploadFileImpl(uploadfile);
 	}
 
 }

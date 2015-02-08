@@ -6,7 +6,7 @@ public enum AllSelectContants {
 			"plantype"), USER_TYPE("usertype"), MENU_TARGET("menutarget"), QUESTION_STATUS(
 			"questionStatus"), DIARY_TYPE("diarytype"), DEAL_TYPE("dealType"), INSURE_COMPANY(
 			"insure_company"), YESORNO_STATUS("yesorno_status"), INSUREDCOMPANY_DICT(
-			"insuredcompany_dict"),SEX("sex"),INSURED_COM_DICT(
+			"insuredcompany_dict"),SEX("sex"),FILE_TYPE("file_type"),INSURED_COM_DICT(
 					"insured_com_dict"), ALLPARAMTYPE("allparamtype"), MENUTREE(
 			"menuTree"), ORGTREE("orgTree"), INSUREDTREE("insuredTree"), CITYTREE("cityTree"), INSURED_UNIT_TREE("insuredUnitTree"), INSUREDUNIT_DICT(
 			"insuredunit_dict"), SHOPMAN_STATUS("shopman_status"), BUSINESSGROUP_DICT(

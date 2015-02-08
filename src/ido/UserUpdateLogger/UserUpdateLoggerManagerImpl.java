@@ -16,6 +16,7 @@ import common.base.AllSelect;
 import common.base.AllSelectContants;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.cache.CacheUtil;
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
@@ -112,7 +113,8 @@ public class UserUpdateLoggerManagerImpl extends AbstractBusinessObjectManager i
 				.getParamsByType(AllSelectContants.TOUBAOUSER_STATUS.getName());
 		
 		for (UserUpdateLoggerVO po : voList) {
-			po.setState(select_toubaouser_status.getName("" + po.getState())); 
+			po.setState(select_toubaouser_status.getName("" + po.getState()));
+			po.setCreateUserName(CacheUtil.getSystemUserName(po.getCreateUser()+""));
 			eaList.add(new  UserUpdateLoggerImpl(po));
 		}
 

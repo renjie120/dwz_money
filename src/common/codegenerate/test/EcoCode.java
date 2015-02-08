@@ -26,7 +26,7 @@ public class EcoCode {
 		System.out.println(beanName+",,"+packageName);
 		boolean java = false;//是否生成java文件
 		boolean jsp = true;//是否生成jsp文件
-		boolean hbm = false;//是否生成hbm文件
+		boolean hbm = true;//是否生成hbm文件
 		boolean other = false;//是否生成其他文件
 
 		if (java) {

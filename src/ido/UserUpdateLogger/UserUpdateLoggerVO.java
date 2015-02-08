@@ -59,7 +59,18 @@ public class UserUpdateLoggerVO implements Serializable {
  		return userId;
  	}
  	
- 	/**
+ 	private String createUserName;
+ 	
+ 	
+ 	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	/**
  	 * 设置用户 的属性值.
  	 */
  	public void setUserId(String userid){

@@ -88,5 +88,11 @@ public class UserUpdateLoggerImpl implements UserUpdateLogger {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getCreateUserName() {
+		// TODO Auto-generated method stub
+		return this.userupdateloggerVO.getCreateUserName();
+	}
  
 }

@@ -1,0 +1,17 @@
+<class name="SystemSequence" table="System_Sequence_t" desc="系统序列号"
+	importFile="true" exportFile="false" add="true" update="false" delete="false"
+	package="money.sequence">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="sequenceCode" column="sequence_code" type="string" notnull="true"
+		notNullInDb="true" columnType="varchar(100)" width="250" desc="序列代码 "
+		query="true" />
+
+	<property name="sequenceName" column="sequence_name" type="string"
+		columnType="varchar(100)" desc="序列名称" width="250" notnull="true"
+		query="true" />
+ 
+	<property name="sequenceContent" column="content" type="integer" query="true" notnull="true"
+		columnType="int" desc="序列值" width="80" />
+</class>

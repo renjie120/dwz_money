@@ -98,6 +98,10 @@ public interface Constants {
 
 	String VALIDATION_CODE = "validation_code";
 	
+	String YES = "67";
+	
+	String NO = "68";
+	
 	String DATE_EQUALS="79",DATE_NOT_LATTER="74",DATE_NOT_EARLY="73",
 			DATE_LATTER="72",DATE_EARLY="71";//日期比较符号
 	

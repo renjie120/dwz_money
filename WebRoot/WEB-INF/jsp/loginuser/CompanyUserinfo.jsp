@@ -45,8 +45,8 @@ function cancelthis(){
 						<label>
 							所属类别 :
 						</label>
-						<input name="userTypeName" value="${userType}"  type="hidden"  /> 
-						<input name="userType" value="${userTypeName}"  type="text"  readOnly="true"  /> 
+						<input name="userType" value="${userType}"  type="hidden"  /> 
+						<input name="userTypeName" value="${userTypeName}"  type="text"  readOnly="true"  /> 
 					</div>
 					 <div class="unit">
 						<label>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.uploadFile.UploadFileVO" table="uploadFile">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="businessId" column="bussiness_id" type="string" />
+				<property name="fileType" column="file_type" type="string" />
+				<property name="isExist" column="is_exist" type="string" />
+				<property name="fileName" column="file_Name" type="string" />
+				<property name="realFileName" column="real_file_Name" type="string" />
+				<property name="fileSize" column="file_size" type="int" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+	</class>
+
+	<query name="money.uploadFile.UploadFileDao.findRecordById">
+		<![CDATA[from UploadFileVO as uploadFileDao where sno = ?]]>
+	</query>
+
+	<query name="money.uploadFile.UploadFileDao.findAll">
+		<![CDATA[from UploadFileVO  ]]>
+	</query>
+</hibernate-mapping>

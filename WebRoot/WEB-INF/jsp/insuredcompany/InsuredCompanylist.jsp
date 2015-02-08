@@ -13,6 +13,19 @@
  		return false;
  	}
  }
+ 
+  function addCompanyFile(url,obj){
+ 	var checkedItem =  $('input[type=checkbox][name=company_ids]:checked');
+ 	if(checkedItem.size()==1){
+ 		var sno = checkedItem.val();
+ 		var unitName = checkedItem.parent().parent().parent().find('[name=cname]').val(); 
+	 	var options = {mask:true};
+		$.pdialog.open(url+"?businessId="+sno, '', "保险单位文件管理", options); 
+ 	}else{
+ 		alertMsg.error("必须选择一个且最多一个保险公司！");
+ 		return false;
+ 	}
+ }
 </script>
 <form id="pagerForm" method="post" action="/money/insuredcompany!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
@@ -88,7 +101,7 @@
 			</li>
 			<li>
 				<a class="add" href="javascript:;" 
-					onclick="addCompanyUser('/money/loginuser!getCompanyUser.do',this)"  mask="true"  
+					onclick="addCompanyFile('/money/uploadfile!queryCompanyList.do',this)"  mask="true"  
 					 ><span>附件管理</span> </a> 
 			</li>
 			<li>

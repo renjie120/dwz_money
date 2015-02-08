@@ -1,6 +1,7 @@
 
 package ido.UserUpdateLogger;
 import ido.InsuredUser.InsuredUser;
+import ido.InsuredUser.InsuredUserManager;
 import ido.LoginUser.LoginUser;
 import ido.loginfo.LogInfoManager;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
@@ -47,6 +49,8 @@ public class UserUpdateLoggerAction extends BaseAction {
 	LogInfoManager logMgr = bf.getManager(BeanManagerKey.loginfoManager);
 	//业务接口对象.
 	UserUpdateLoggerManager pMgr = bf.getManager(BeanManagerKey.userupdateloggerManager);
+	//业务接口对象.
+	InsuredUserManager userMgr = bf.getManager(BeanManagerKey.insureduserManager);
 	//业务实体对象
 	private UserUpdateLogger vo;
 	//当前页数
@@ -77,7 +81,7 @@ public class UserUpdateLoggerAction extends BaseAction {
 		request.setAttribute("userId", getUserId());
 		request.setAttribute("state", InsuredUser.STATE_KAITONG);
 		request.setAttribute("stateName", "已开通");
-		userName = changeStr(getUserName());
+		userName = changeStr(getUserName()); 
 		request.setAttribute("userName", userName);
 		return "detail";
 	}
@@ -112,6 +116,7 @@ public class UserUpdateLoggerAction extends BaseAction {
 			setCurrentUser(false);
 			UserUpdateLoggerImpl userupdateloggerImpl = new UserUpdateLoggerImpl(userId ,state ,logDetail ,arg1 ,createUser ,createTime );
 			pMgr.createUserUpdateLogger(userupdateloggerImpl);
+			userMgr.updateStatus(Integer.parseInt(userId), Integer.parseInt(state));
 			insertLog(logMgr,"添加用户状态修改记录","/doAdd", "", "" ,JSON.toJSONString(userupdateloggerImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);

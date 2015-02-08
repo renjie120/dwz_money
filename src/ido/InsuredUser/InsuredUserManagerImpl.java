@@ -1,49 +1,57 @@
-
 package ido.InsuredUser;
+
+import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.io.File;
 import java.util.Map;
 
-import common.util.NPOIReader;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import common.util.NPOIReader; 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import common.util.NPOIReader;
+
 import dwz.constants.BeanManagerKey;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
 /**
  * 关于投保用户的业务操作实现类.
- * @author www(水清)
- * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
- * http://www.iteye.com
- */ 
-public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implements
-		InsuredUserManager {
+ * 
+ * @author www(水清) 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名. http://www.iteye.com
+ */
+public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
+		implements InsuredUserManager {
 
 	private InsuredUserDao insureduserdao = null;
+	private JdbcTemplate jdbcTemplate = null;
 
 	/**
 	 * 构造函数.
 	 */
-	public InsuredUserManagerImpl(InsuredUserDao insureduserdao) {
+	public InsuredUserManagerImpl(InsuredUserDao insureduserdao,
+			JdbcTemplate jdbcTemplate) {
 		this.insureduserdao = insureduserdao;
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	/**
 	 * 查询总数.
-	 * @param criterias 查询条件
+	 * 
+	 * @param criterias
+	 *            查询条件
 	 * @return
 	 */
-	public Integer searchInsuredUserNum(Map<InsuredUserSearchFields, Object> criterias) {
+	public Integer searchInsuredUserNum(
+			Map<InsuredUserSearchFields, Object> criterias) {
 		if (criterias == null) {
 			return 0;
 		}
@@ -55,7 +63,6 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 		return totalCount.intValue();
 	}
 
-
 	public void importFromExcel(File file) {
 		NPOIReader excel = null;
 		try {
@@ -64,15 +71,15 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 			String[][] contents = excel.read(index, true, true);
 			for (int i = 1; i < contents.length; i++) {
 				InsuredUserVO vo = new InsuredUserVO();
-				//导入投保用户编号
+				// 导入投保用户编号
 				String iuserNoStr = contents[i][0];
 				vo.setIuserNo(iuserNoStr);
-				
-				//导入员工号
+
+				// 导入员工号
 				String iuserNumberStr = contents[i][1];
 				vo.setIuserNumber(iuserNumberStr);
-				
-				this.insureduserdao.insert(vo); 
+
+				this.insureduserdao.insert(vo);
 			}
 
 		} catch (Exception e) {
@@ -82,14 +89,20 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 
 	/**
 	 * 根据条件查询分页信息.
-	 * @param criterias 条件
-	 * @param orderField 排序列
-	 * @param startIndex 开始索引
-	 * @param count 总数
+	 * 
+	 * @param criterias
+	 *            条件
+	 * @param orderField
+	 *            排序列
+	 * @param startIndex
+	 *            开始索引
+	 * @param count
+	 *            总数
 	 * @return
 	 */
-	public Collection<InsuredUser> searchInsuredUser(Map<InsuredUserSearchFields, Object> criterias,
-			String orderField, int startIndex, int count) {
+	public Collection<InsuredUser> searchInsuredUser(
+			Map<InsuredUserSearchFields, Object> criterias, String orderField,
+			int startIndex, int count) {
 		ArrayList<InsuredUser> eaList = new ArrayList<InsuredUser>();
 		if (criterias == null)
 			return eaList;
@@ -101,24 +114,30 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 
 		if (voList == null || voList.size() == 0)
 			return eaList;
-	
-		Cache cache_comId = CacheManager.getCacheInfoNotNull(AllSelectContants.INSURED_COM_DICT.getName());
-		ParamSelect select_comId = (ParamSelect)cache_comId.getValue();
+
+		Cache cache_comId = CacheManager
+				.getCacheInfoNotNull(AllSelectContants.INSURED_COM_DICT
+						.getName());
+		ParamSelect select_comId = (ParamSelect) cache_comId.getValue();
 		AllSelect allSelect = (AllSelect) SpringContextUtil
 				.getBean(BeanManagerKey.allSelectManager.toString());
 		ParamSelect select_toubaouser_status = allSelect
-				.getParamsByType(AllSelectContants.TOUBAOUSER_STATUS.getName()); 
+				.getParamsByType(AllSelectContants.TOUBAOUSER_STATUS.getName());
 		ParamSelect select_sex = allSelect
 				.getParamsByType(AllSelectContants.SEX.getName());
-		Cache cache_insured = CacheManager.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT.getName());
-		ParamSelect select_ownerCompany = (ParamSelect)cache_insured.getValue(); 
-		 
+		Cache cache_insured = CacheManager
+				.getCacheInfoNotNull(AllSelectContants.INSUREDUNIT_DICT
+						.getName());
+		ParamSelect select_ownerCompany = (ParamSelect) cache_insured
+				.getValue();
+
 		for (InsuredUserVO po : voList) {
-			po.setComId(select_comId.getName("" + po.getComId())); 
+			po.setComId(select_comId.getName("" + po.getComId()));
 			po.setUnitId(select_ownerCompany.getName(po.getUnitId()));
-			po.setIuserStatus(select_toubaouser_status.getName("" + po.getIuserStatus())); 
-			po.setIuserIsman(select_sex.getName("" + po.getIuserIsman())); 
-			eaList.add(new  InsuredUserImpl(po));
+			po.setIuserStatus(select_toubaouser_status.getName(""
+					+ po.getIuserStatus()));
+			po.setIuserIsman(select_sex.getName("" + po.getIuserIsman()));
+			eaList.add(new InsuredUserImpl(po));
 		}
 
 		return eaList;
@@ -129,7 +148,8 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count( insureduser) "
-						: "select  insureduser ").append("from InsuredUserVO as insureduser ");
+						: "select  insureduser ").append(
+				"from InsuredUserVO as insureduser ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -138,390 +158,390 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 					.entrySet()) {
 				InsuredUserSearchFields fd = entry.getKey();
 				switch (fd) {
-					case SNO:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.sno = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case SNO:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.sno = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNO:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNo = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERNO:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNo = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case COMID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.comId = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case COMID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.comId = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UNITID:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.unitId = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case UNITID:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.unitId = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERSTATUS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserStatus = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERSTATUS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserStatus = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNUMBER:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNumber = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERNUMBER:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNumber = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case LEFTMONEY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.leftMoney = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case LEFTMONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.leftMoney = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case EMERGENCYMONEY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.emergencyMoney = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case EMERGENCYMONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.emergencyMoney = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case FROZENMONEY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.frozenMoney = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case FROZENMONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.frozenMoney = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case HOSPITALMONEY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.hospitalMoney = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case HOSPITALMONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.hospitalMoney = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case TESMONEY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.tesMoney = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case TESMONEY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.tesMoney = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNAME:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserName = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERNAME:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserName = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERISMAN:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserIsman = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERISMAN:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserIsman = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERCARDNO:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserCardno = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERCARDNO:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserCardno = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERPHONE:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserPhone = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERPHONE:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserPhone = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSEREMAIL:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserEmail = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSEREMAIL:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserEmail = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERBIRTHDAY:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserBirthday = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERBIRTHDAY:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserBirthday = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERREMARK:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserRemark = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case IUSERREMARK:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserRemark = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATEUSER:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createUser = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case CREATEUSER:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createUser = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATETIME:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createTime = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case CREATETIME:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createTime = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATEUSER:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateUser = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case UPDATEUSER:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateUser = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATETIME:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateTime = ? ");
-						argList.add(entry.getValue());
-						count++;
+				case UPDATETIME:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateTime = ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-				//下面拼接高级查询条件
-					case IUSERNO_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNo  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				// 下面拼接高级查询条件
+				case IUSERNO_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNo  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNO_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNo =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERNO_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNo =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case COMID_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.comId  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case COMID_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.comId  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case COMID_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.comId =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case COMID_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.comId =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UNITID_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.unitId  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case UNITID_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.unitId  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UNITID_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.unitId =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case UNITID_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.unitId =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERSTATUS_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserStatus  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERSTATUS_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserStatus  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERSTATUS_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserStatus =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERSTATUS_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserStatus =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNUMBER_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNumber  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERNUMBER_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNumber  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNUMBER_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserNumber =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERNUMBER_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserNumber =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case LEFTMONEY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.leftMoney  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case LEFTMONEY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.leftMoney  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case LEFTMONEY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.leftMoney =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case LEFTMONEY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.leftMoney =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case EMERGENCYMONEY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.emergencyMoney  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case EMERGENCYMONEY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.emergencyMoney  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case EMERGENCYMONEY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.emergencyMoney =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case EMERGENCYMONEY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.emergencyMoney =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case FROZENMONEY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.frozenMoney  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case FROZENMONEY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.frozenMoney  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case FROZENMONEY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.frozenMoney =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case FROZENMONEY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.frozenMoney =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case HOSPITALMONEY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.hospitalMoney  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case HOSPITALMONEY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.hospitalMoney  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case HOSPITALMONEY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.hospitalMoney =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case HOSPITALMONEY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.hospitalMoney =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case TESMONEY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.tesMoney  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case TESMONEY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.tesMoney  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case TESMONEY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.tesMoney =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case TESMONEY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.tesMoney =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNAME_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserName  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERNAME_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserName  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERNAME_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserName =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERNAME_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserName =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERISMAN_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserIsman  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERISMAN_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserIsman  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERISMAN_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserIsman =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERISMAN_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserIsman =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERCARDNO_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserCardno  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERCARDNO_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserCardno  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERCARDNO_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserCardno =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERCARDNO_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserCardno =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERPHONE_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserPhone  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERPHONE_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserPhone  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERPHONE_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserPhone =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERPHONE_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserPhone =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSEREMAIL_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserEmail  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSEREMAIL_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserEmail  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSEREMAIL_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserEmail =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSEREMAIL_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserEmail =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERBIRTHDAY_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserBirthday  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERBIRTHDAY_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserBirthday  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERBIRTHDAY_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserBirthday =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERBIRTHDAY_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserBirthday =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERREMARK_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserRemark  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case IUSERREMARK_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserRemark  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case IUSERREMARK_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.iuserRemark =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case IUSERREMARK_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.iuserRemark =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATEUSER_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createUser  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case CREATEUSER_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createUser  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATEUSER_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createUser =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case CREATEUSER_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createUser =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATETIME_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createTime  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case CREATETIME_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createTime  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case CREATETIME_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.createTime =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case CREATETIME_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.createTime =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATEUSER_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateUser  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case UPDATEUSER_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateUser  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATEUSER_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateUser =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case UPDATEUSER_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateUser =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATETIME_COM_NOT_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateTime  !=  ? "); 
-						argList.add(entry.getValue()); 
-						count++;
+				case UPDATETIME_COM_NOT_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateTime  !=  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
-					case UPDATETIME_COM_EQUALS:
-						sb.append(count == 0 ? " where" : " and").append(
-								"  insureduser.updateTime =  ? "); 
-						argList.add( entry.getValue() ); 
-						count++;
+				case UPDATETIME_COM_EQUALS:
+					sb.append(count == 0 ? " where" : " and").append(
+							"  insureduser.updateTime =  ? ");
+					argList.add(entry.getValue());
+					count++;
 					break;
 				default:
 					break;
@@ -538,79 +558,80 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 		}
 
 		switch (orderBy) {
-			case SNO:
-				 sb.append(" order by insureduser.sno");
+		case SNO:
+			sb.append(" order by insureduser.sno");
 			break;
-			case IUSERNO:
-				 sb.append(" order by insureduser.iuserNo");
+		case IUSERNO:
+			sb.append(" order by insureduser.iuserNo");
 			break;
-			case COMID:
-				 sb.append(" order by insureduser.comId");
+		case COMID:
+			sb.append(" order by insureduser.comId");
 			break;
-			case UNITID:
-				 sb.append(" order by insureduser.unitId");
+		case UNITID:
+			sb.append(" order by insureduser.unitId");
 			break;
-			case IUSERSTATUS:
-				 sb.append(" order by insureduser.iuserStatus");
+		case IUSERSTATUS:
+			sb.append(" order by insureduser.iuserStatus");
 			break;
-			case IUSERNUMBER:
-				 sb.append(" order by insureduser.iuserNumber");
+		case IUSERNUMBER:
+			sb.append(" order by insureduser.iuserNumber");
 			break;
-			case LEFTMONEY:
-				 sb.append(" order by insureduser.leftMoney");
+		case LEFTMONEY:
+			sb.append(" order by insureduser.leftMoney");
 			break;
-			case EMERGENCYMONEY:
-				 sb.append(" order by insureduser.emergencyMoney");
+		case EMERGENCYMONEY:
+			sb.append(" order by insureduser.emergencyMoney");
 			break;
-			case FROZENMONEY:
-				 sb.append(" order by insureduser.frozenMoney");
+		case FROZENMONEY:
+			sb.append(" order by insureduser.frozenMoney");
 			break;
-			case HOSPITALMONEY:
-				 sb.append(" order by insureduser.hospitalMoney");
+		case HOSPITALMONEY:
+			sb.append(" order by insureduser.hospitalMoney");
 			break;
-			case TESMONEY:
-				 sb.append(" order by insureduser.tesMoney");
+		case TESMONEY:
+			sb.append(" order by insureduser.tesMoney");
 			break;
-			case IUSERNAME:
-				 sb.append(" order by insureduser.iuserName");
+		case IUSERNAME:
+			sb.append(" order by insureduser.iuserName");
 			break;
-			case IUSERISMAN:
-				 sb.append(" order by insureduser.iuserIsman");
+		case IUSERISMAN:
+			sb.append(" order by insureduser.iuserIsman");
 			break;
-			case IUSERCARDNO:
-				 sb.append(" order by insureduser.iuserCardno");
+		case IUSERCARDNO:
+			sb.append(" order by insureduser.iuserCardno");
 			break;
-			case IUSERPHONE:
-				 sb.append(" order by insureduser.iuserPhone");
+		case IUSERPHONE:
+			sb.append(" order by insureduser.iuserPhone");
 			break;
-			case IUSEREMAIL:
-				 sb.append(" order by insureduser.iuserEmail");
+		case IUSEREMAIL:
+			sb.append(" order by insureduser.iuserEmail");
 			break;
-			case IUSERBIRTHDAY:
-				 sb.append(" order by insureduser.iuserBirthday");
+		case IUSERBIRTHDAY:
+			sb.append(" order by insureduser.iuserBirthday");
 			break;
-			case IUSERREMARK:
-				 sb.append(" order by insureduser.iuserRemark");
+		case IUSERREMARK:
+			sb.append(" order by insureduser.iuserRemark");
 			break;
-			case CREATEUSER:
-				 sb.append(" order by insureduser.createUser");
+		case CREATEUSER:
+			sb.append(" order by insureduser.createUser");
 			break;
-			case CREATETIME:
-				 sb.append(" order by insureduser.createTime");
+		case CREATETIME:
+			sb.append(" order by insureduser.createTime");
 			break;
-			case UPDATEUSER:
-				 sb.append(" order by insureduser.updateUser");
+		case UPDATEUSER:
+			sb.append(" order by insureduser.updateUser");
 			break;
-			case UPDATETIME:
-				 sb.append(" order by insureduser.updateTime");
+		case UPDATETIME:
+			sb.append(" order by insureduser.updateTime");
 			break;
-			default:
-				break;
+		default:
+			break;
 		}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
-	public void createInsuredUser(InsuredUser insureduser) throws ValidateFieldsException {
+	public void createInsuredUser(InsuredUser insureduser)
+			throws ValidateFieldsException {
 		InsuredUserImpl insureduserImpl = (InsuredUserImpl) insureduser;
 		this.insureduserdao.insert(insureduserImpl.getInsuredUserVO());
 	}
@@ -618,12 +639,14 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 	public void removeInsuredUsers(String ids) {
 		String[] idArr = ids.split(",");
 		for (String s : idArr) {
-			InsuredUserVO vo = this.insureduserdao.findByPrimaryKey(Integer.parseInt(s));
+			InsuredUserVO vo = this.insureduserdao.findByPrimaryKey(Integer
+					.parseInt(s));
 			this.insureduserdao.delete(vo);
 		}
 	}
 
-	public void updateInsuredUser(InsuredUser insureduser) throws ValidateFieldsException {
+	public void updateInsuredUser(InsuredUser insureduser)
+			throws ValidateFieldsException {
 		InsuredUserImpl insureduserImpl = (InsuredUserImpl) insureduser;
 
 		InsuredUserVO po = insureduserImpl.getInsuredUserVO();
@@ -631,14 +654,28 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager implem
 	}
 
 	public InsuredUser getInsuredUser(int id) {
-		Collection<InsuredUserVO> insuredusers = this.insureduserdao.findRecordById(id);
+		Collection<InsuredUserVO> insuredusers = this.insureduserdao
+				.findRecordById(id);
 
 		if (insuredusers == null || insuredusers.size() < 1)
 			return null;
 
-		InsuredUserVO insureduser = insuredusers.toArray(new InsuredUserVO[insuredusers.size()])[0];
+		InsuredUserVO insureduser = insuredusers
+				.toArray(new InsuredUserVO[insuredusers.size()])[0];
 
 		return new InsuredUserImpl(insureduser);
+	}
+
+	@Override
+	public void updateStatus(final int userSno, final int status) {
+		jdbcTemplate.update("update insured_user set iuser_status = ? where id= ?",
+				new PreparedStatementSetter() {
+					public void setValues(PreparedStatement ps)
+							throws SQLException {
+						ps.setInt(1, status);
+						ps.setInt(2, userSno); 
+					}
+				});
 	}
 
 }

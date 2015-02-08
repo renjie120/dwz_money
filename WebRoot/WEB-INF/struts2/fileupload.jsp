@@ -2,7 +2,7 @@
 <%@ include file="/include.inc.jsp" %>
 <form  enctype="multipart/form-data" method="post" 
 	action="/upload/test!saveFileToDb.do">
-	上传文件：<input type="file" name="upload"/>
+	上传文件：<input type="file" name="upload"/><br>
 	<input name="dd" type="submit" value="提交"/>
 </form>
  

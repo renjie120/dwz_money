@@ -5,11 +5,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
+import money.uploadFile.UploadFile;
+import money.uploadFile.UploadFileImpl;
+import money.uploadFile.UploadFileManager;
+
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.struts2.ServletActionContext;
 
+import common.util.DateTool;
+
 import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
 import dwz.present.BaseAction;
 
 /**
@@ -144,12 +153,34 @@ public class UploadAction extends BaseAction {
 		boolean result = fMgr.saveFile(f,fis);
 		if (result)
 			f2.deleteOnExit();
-		return "success";
+		writeToPage(response,getText("msg.operation.success"));
+		return null;
 	}
 
-	public String getFile() throws Exception {
+	public String getFileFromDb() throws Exception {
 		System.out.println("下载文件：" + fileId);
 		fMgr.getFile(fileId, response);
+		return null;
+	}
+
+	private String newFileName;
+	public String getNewFileName() {
+		return newFileName;
+	}
+
+
+	public void setNewFileName(String newFileName) {
+		this.newFileName = newFileName;
+	}
+	
+	/**
+	 * 从本地文件系统得到文件.
+	 * @return
+	 * @throws Exception
+	 */
+	public String getFile() throws Exception {
+		System.out.println("下载文件：" + fileId);
+		fMgr.getFileFromSystem(fileId, response,new File(getSavePath()));
 		return null;
 	}
 
@@ -162,23 +193,64 @@ public class UploadAction extends BaseAction {
 		ServletFileUpload uu = new ServletFileUpload(factory);
 		// 文件最大上限
 		uu.setSizeMax(2 * 1024 * 1024); 
+		String fileName = uploadFileName;
+		String	createTime = DateTool.toString(DateTool.now(),"yyyy-MM-dd HH:mm:ss");  
+		if(newFileName!=null&&!"".equals(newFileName.trim())){
+			fileName = newFileName;
+		}
+		int x=(int)(Math.random()*1000); 
+		String realFileName = DateTool.toString(DateTool.now(),"yyyyMMdd_HHmm")+numberFormat.format(x);
+		  
 		// 下面的文件上传类型的是通过Action配置文件里面的属性注入的！param
-		String destFileName = getSavePath() + "\\" + uploadFileName;
+		System.out.println("pathSeparator==="+File.separator );
+		String destFileName = getSavePath() + File.separator + realFileName;
 		FileOutputStream fos = new FileOutputStream(destFileName);
-		FileInputStream fis = new FileInputStream(getUpload());
+		FileInputStream fis = new FileInputStream(getUpload()); 
+				
 		byte[] buffer = new byte[1024];
 		int len = 0;
 		while ((len = fis.read(buffer)) > 0) {
 			fos.write(buffer, 0, len);
 		}
 		fis.close();
-		fos.close();
-		return "success";
+		fos.close(); 
+		
+		//将当前上传的文件相关信息保存到数据库中.
+		User currentUser = (UserImpl) request.getSession().getAttribute(Constants.AUTHENTICATION_KEY);
+		int	createUser = Integer.parseInt(currentUser.getId());
+		UploadFileImpl uploadfileImpl = new UploadFileImpl(businessId ,UploadFile.FILETYPE_COMAPNY ,Constants.YES ,fileName ,realFileName ,(int)upload.length() ,createUser ,createTime );
+		pMgr.createUploadFile(uploadfileImpl);
+		
+		writeToPage(response, "上传成功!");
+		return null;
 	}
+
+	//业务接口对象.
+	UploadFileManager pMgr = bf.getManager(BeanManagerKey.uploadfileManager);
+		
+	/**
+	 * 上传文件关联的业务id .
+	 */
+	private String businessId; 
+	public String getBusinessId() {
+		return businessId;
+	}
+
+
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
+	}
+
 
 	public String init() throws Exception {
 		return "init";
+	} 
+	
+	
+	public String initFile() throws Exception {
+		return "uploadify";
 	}
+	
 
 	public String getArg() {
 		return arg;

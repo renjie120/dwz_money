@@ -36,6 +36,7 @@ public class FileManagerAction extends BaseAction {
 	public String beforeAdd() {
 		return "detail";
 	}
+	 
 
 	public String doAdd() {
 		try {

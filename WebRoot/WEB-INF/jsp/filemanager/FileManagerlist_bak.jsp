@@ -1,21 +1,9 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<script type="text/javascript"> 
- /**
-  * 上传一个保险公司的文件
-  */
- function addFile(url,obj){ 
-	var unitName = $('#companyId').val();
- 	var options = {mask:true};
-	$.pdialog.open(url+"?companyId="+encodeURIComponent(unitName), '', "文件上传", options); 
-	 
- }
- </script>
 <form id="pagerForm" method="post" action="/money/filemanager!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
-	<input type="text" name="companyId" value="${companyId}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
@@ -24,7 +12,7 @@
 	<form onsubmit="return navTabSearch(this);"
 		action="/money/filemanager!query.do" method="post">
 		<div class="searchBar">
-			<table class="searchContent" >
+			<table class="searchContent">
 				<tr>
 					<td>
 						文件名
@@ -44,7 +32,11 @@
 								</button>
 							</div>
 						</div>
-					</li> 
+					</li>
+					<li>
+						<a class="button" href="/money/filemanager!beforeQuery.do"
+							target="dialog" mask="true" title="查询框"><span>高级检索</span> </a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -54,27 +46,39 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add"  href="javascript:;"   
-				onclick="addFile('/upload/test!initCompanyFile.do',this)" 
-				  mask="true" title="添加"><span>上传</span> </a>
+				<a class="add" href="/money/filemanager!beforeAdd.do"
+					target="dialog" mask="true" title="添加"><span>添加</span> </a>
 			</li>
 			<li>
 				<a class="delete" href="/money/filemanager!doDelete.do"
 					postType="string" target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
-			</li> 
+			</li>
+			<li>
+				<a class="edit" href="/money/filemanager!beforeUpdate.do?sno={sno}"
+					mask="true" target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<li>
+				<a class="icon" href="/money/filemanager!export.do"
+					target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
+				</a>
+			</li>
+
 		</ul>
 	</div>
-	<table class="table" layoutH="50">
+	<table class="table" layoutH="-138">
 		<thead>
 			<tr>
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
-				</th> 
-				<th width="150" orderField="FILENAME">
+				</th>
+				<th width="100" orderField="FILEID">
+					文件id
+				</th>
+				<th width="100" orderField="FILENAME">
 					文件名
 				</th>
-				<th width="150" orderField="FILELEN">
+				<th width="100" orderField="FILELEN">
 					文件长度
 				</th>
 				<th width="100">
@@ -88,7 +92,10 @@
 					<td>
 						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
-					</td> 
+					</td>
+					<td>
+						<s:property value="fileId" />
+					</td>
 					<td>
 						<s:property value="fileName" />
 					</td>
