@@ -1,100 +1,36 @@
-<class name="InsuredFile" table="Insured_file" desc="投保单"
-	importFile="true" exportFile="false" add="true" update="true" delete="true"
-	package="ido.InsuredFile">
+<class name="AddMoneyDetail" table="addmoney_record_detail" desc="充值记录明细"
+	importFile="true" exportFile="true" add="true" update="false" delete="true"
+	package="ido.addmoneydetail">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="insuredFileId" column="f_id" type="string" notnull="true"
+	<property name="iuserId" column="iuser_id" type="string"
 		notNullInDb="true" canImport="true" canExport="true" columnType="int(10)"
-		width="100" desc="投保单号 " query="true" />
+		desc="投保用户号" width="100" notnull="true" query="true" />
 
-	<property name="insuredFileName" column="f_name" type="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(500)" desc="保单名称" width="100" notnull="true"
-		query="true" querylike="true" />
+	<property name="addType" column="add_type" type="string"
+		selectCode="addmoneytype" canExport="true" canImport="true" showType="select"
+		columnType="int(10)" width="100" desc="充值字段" />
 
+	<property name="addMoney" column="Add_money" type="string"
+		canExport="true" canImport="true" showType="number" columnType="double"
+		width="100" desc="充值金额 " />
 
+	<property name="insuredFileId" column="Insured_file_Id" type="string"
+		canExport="true" canImport="true" columnType="int(10)" width="100"
+		desc="投保单号 " query="true" />
 
-	<property name="insuredFileUnit" column="unit_id" type="string"
-		showType="dict" fromTable="Insured_unit" useCacheId="insuredunit_dict"
-		idCoulmn="id" nameColumn="unit_Name" query="true" canImport="true"
-		canExport="true" maxLength="500" columnType="varchar(1000)" desc="投保单位"
+	<property name="addTime" column="add_time" type="string"
+		showType="date" canExport="true" columnType="varchar(20)" desc="充值时间"
 		width="100" />
 
-	<property name="insuredFileCompany" column="com_id" type="string"
-		query="true" showType="dict" fromTable="Insured_company" useCacheId="insured_com_dict"
-		idCoulmn="id" nameColumn="com_name" canImport="true" canExport="true"
-		columnType="int(10)" desc="保险公司" width="100" />
-
-	<property name="insuredFileEmail" column="f_email" type="string"
-		visible="false" canImport="true" canExport="true" maxLength="250"
-		columnType="varchar(500)" showType="email" width="100" desc="邮箱" />
-
-	<property name="insuredFileContact" column="f_linkman" type="string" notnull="true"
-		canImport="true" canExport="true" maxLength="50" columnType="varchar(100)"
-		desc="联系人" width="100" />
-
-	<property name="insuredFileConTel" column="f_linktel" type="string"
-		canImport="true" canExport="true" columnType="varchar(20)" maxLength="20"
-		width="100" desc="联系电话" />
-
-	<property name="insuredFileConMobile" column="f_linkmobile"
-		showType="digits" type="string" canImport="true" canExport="true"
-		maxLength="11" columnType="varchar(20)" width="100" desc="联系人手机" />
-
-	<property name="insuredFileBegin" column="f_begindate" type="string" notnull="true"
-		columnType="varchar(20)" showType="date" width="100" desc="投保日期" />
-
-	<property name="insuredFileEnd" column="f_enddate" type="string" notnull="true"
-		showType="date" columnType="varchar(20)" width="100" desc="到期日期" />
-
-	<property name="insuredFileStatus" column="f_status" type="string"
-		query="true" columnType="int(10)" showType="select" selectCode="insurefile_state"
-		width="100" desc="状态" />
-
-	<property name="insuredFileDuijie" column="f_duijie" type="string"
-		visible="false" showType="select" selectCode="sys_duijie" columnType="int(10)"
-		width="100" desc="系统对接方式" />
-
-	<property name="insuredFileDuijieFlag" column="f_duijieflag"
-		visible="false" type="string" columnType="int(10)" showType="select"
-		selectCode="yesorno" width="100" desc="系统对接开启" />
-
-	<property name="insuredFileRemark" column="f_remark" type="string"
-		visible="false" maxLength="2000" cols="40" rows="4" columnType="varchar(4000)"
-		showType="textarea" width="100" desc="备注" />
-
-	<property name="insuredFileTotal" column="f_total" type="double" notnull="true"
-		visible="false" columnType="double" showType="number" width="100"
-		desc="投保总金额" />
-
-	<property name="insuredFileEmerg" column="f_emergency" type="double" notnull="true"
-		visible="false" columnType="double" showType="number" width="100"
-		desc="门急诊额度" />
-
-	<property name="insuredFileHospital" column="f_hospital" type="double" notnull="true"
-		visible="false" columnType="double" showType="number" width="100"
-		desc="住院额度" />
-
-	<property name="insuredFileExam" column="f_examination" type="double" notnull="true"
-		visible="false" columnType="double" showType="number" width="100"
-		desc="体检额度" />
-
-	<property name="insuredFileConsumer" column="f_consumer" type="string"
-		visible="false" maxLength="150" columnType="varchar(300)" width="300"
-		desc="消费商家控制" />
-
-	<property name="insuredFileConsRule" column="f_consumerrule"
-		visible="false" maxLength="1000" type="string" cols="40" rows="4"
-		columnType="varchar(2000)" showType="textarea" width="100" desc="消费规则" />
-
 	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
-		columnType="int(10)" noadd="true" />
+		canExport="true" currentUser="true" width="100" desc="创建用户" visible="false"
+		noedit="true" columnType="int(10)" noadd="true" />
 
 	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
-		columnType="varchar(20)" noadd="true" />
+		canExport="true" currentTime="true" width="100" desc="创建时间" visible="false"
+		noedit="true" columnType="varchar(20)" noadd="true" />
 
 	<property name="updateUser" column="update_user" type="int"
 		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"

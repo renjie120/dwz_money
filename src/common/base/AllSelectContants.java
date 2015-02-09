@@ -1,7 +1,7 @@
 ﻿package common.base;
 
 public enum AllSelectContants {
-	QUESTION_SORT("questionSort"),SYS_DUIJIE("sys_duijie"), MENULEVEL("menulevel"),INSUREFILE_STATE("insurefile_state"), ORDERSTATUS(
+	QUESTION_SORT("questionSort"),ADDMONEYTYPE("addmoneytype"),SYS_DUIJIE("sys_duijie"), MENULEVEL("menulevel"),INSUREFILE_STATE("insurefile_state"), ORDERSTATUS(
 			"orderstatus"), PLAN_STATUS("planstatus"), YESORNO("yesorno"), TOUBAOUSER_STATUS("toubaouser_status"), PLAN_TYPE(
 			"plantype"), USER_TYPE("usertype"), MENU_TARGET("menutarget"), QUESTION_STATUS(
 			"questionStatus"), DIARY_TYPE("diarytype"), DEAL_TYPE("dealType"), INSURE_COMPANY(

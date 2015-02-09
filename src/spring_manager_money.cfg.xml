@@ -8,6 +8,9 @@
 	<bean id="systemsequenceManager" class="money.sequence.SystemSequenceManagerImpl">
 		<constructor-arg index="0" ref="systemsequenceDao"></constructor-arg>
 	</bean>
+	<bean id="addmoneydetailManager" class="ido.addmoneydetail.AddMoneyDetailManagerImpl">
+		<constructor-arg index="0" ref="addmoneydetailDao"></constructor-arg>
+	</bean>
 	<bean id="uploadfileManager" class="money.uploadFile.UploadFileManagerImpl">
 		<constructor-arg index="0" ref="uploadfileDao"></constructor-arg>
 	</bean>

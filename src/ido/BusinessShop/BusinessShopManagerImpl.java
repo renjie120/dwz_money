@@ -58,6 +58,10 @@ public class BusinessShopManagerImpl extends AbstractBusinessObjectManager imple
 	public void importFromExcel(File file) {
 		NPOIReader excel = null;
 		try {
+			AllSelect allSelect = (AllSelect) SpringContextUtil
+			.getBean(BeanManagerKey.allSelectManager.toString());
+			ParamSelect select_shopstatus = allSelect
+					.getParamsByType(AllSelectContants.SHOPSTATUS.getName());
 			excel = new NPOIReader(file);
 			int index = excel.getSheetNames().indexOf("Sheet0");
 			String[][] contents = excel.read(index, true, true);
@@ -90,6 +94,11 @@ public class BusinessShopManagerImpl extends AbstractBusinessObjectManager imple
 				//导入地址
 				String shopAddressStr = contents[i][6];
 				vo.setShopAddress(shopAddressStr);
+				
+				
+				//商铺状态
+				String shopStatusStr = contents[i][7];
+				vo.setShopStatus(select_shopstatus.getValue(shopStatusStr));
 				
 				this.businessshopdao.insert(vo); 
 			}

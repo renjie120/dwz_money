@@ -181,6 +181,9 @@
 				<value>
 					hbm/uploadfile.hbm.xml
 				</value>
+				<value>
+					hbm/addmoneydetail.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

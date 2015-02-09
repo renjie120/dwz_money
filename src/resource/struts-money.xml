@@ -6,6 +6,24 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="addmoneydetail" class="ido.addmoneydetail.AddMoneyDetailAction">
+			<param name="savePath">/upload</param>
+			<result name="list">
+				/WEB-INF/jsp/addmoneydetail/AddMoneyDetaillist.jsp
+			</result>
+					<result name="detail">
+						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailinfo.jsp
+			</result>
+					<result name="editdetail">
+						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailedit.jsp
+			</result>
+					<result name="import">
+						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailimport.jsp
+			</result>
+					<result name="query">
+						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailquery.jsp
+			</result>
+		</action>
 		<action name="uploadfile" class="money.uploadFile.UploadFileAction">
 			<result name="list">
 				/WEB-INF/jsp/uploadfile/UploadFilelist.jsp
@@ -135,6 +153,8 @@
 		</action>
 
 		<action name="businessshop" class="ido.BusinessShop.BusinessShopAction">
+
+			<param name="savePath">/upload</param>
 			<result name="list">
 				/WEB-INF/jsp/businessshop/BusinessShoplist.jsp
 			</result>

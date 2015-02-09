@@ -91,7 +91,7 @@ public class BusinessShopAction extends BaseAction {
 		XlsExport e = new XlsExport();
 		e.createRow(0);
 		for (ImportFiled filed : ImportFiled.values()) {
-			e.setCell(filed.ordinal(), filed.toString());
+			e.setCell(filed.ordinal(), filed.getName());
 		}
 		e.exportXls(response);
 		return null;
@@ -119,7 +119,7 @@ public class BusinessShopAction extends BaseAction {
 		// 得到新的文件名..防止重名.
 		String newfile = uploadFileName.substring(0,
 				uploadFileName.indexOf("."))
-				+ getContextUser().getUserName()
+				+ getContextUser().getId()
 				+ System.currentTimeMillis()
 				+ "." + fileType;
 		// 下面的文件上传路径先要保证在服务器上面已经存在！
@@ -296,7 +296,7 @@ public class BusinessShopAction extends BaseAction {
 	}
 	
 	public enum ImportFiled {
-		  SHOPMID("商家编号")  ,SHOPNAME("商铺名称 ")  ,SHOPSNO("商铺编号 ")  ,SHOPCONTACTNAME("联系人名称")  ,SHOPCONPHONE("联系人手机")  ,SHOPEMAIL("邮箱")  ,SHOPADDRESS("地址");
+		  SHOPMID("商家编号")  ,SHOPNAME("商铺名称 ")  ,SHOPSNO("商铺编号 ")  ,SHOPCONTACTNAME("联系人名称")  ,SHOPCONPHONE("联系人手机")  ,SHOPEMAIL("邮箱")  ,SHOPADDRESS("地址"), SHOPSTATUS("商铺状态");
 		private String str;
 
 		ImportFiled(String str) {
@@ -306,6 +306,7 @@ public class BusinessShopAction extends BaseAction {
 		public String getName() {
 			return this.str;
 		}
+		 
 	}
  
 	

@@ -93,7 +93,7 @@ public class ${bignm}Action extends BaseAction {
 		XlsExport e = new XlsExport();
 		e.createRow(0);
 		for (ImportFiled filed : ImportFiled.values()) {
-			e.setCell(filed.ordinal(), filed.toString());
+			e.setCell(filed.ordinal(), filed.getName());
 		}
 		e.exportXls(response);
 		return null;

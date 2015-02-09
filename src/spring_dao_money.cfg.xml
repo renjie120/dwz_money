@@ -16,6 +16,18 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="addmoneydetailDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.addmoneydetail.AddMoneyDetailDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.addmoneydetail.AddMoneyDetailVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
 	<bean id="systemsequenceDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.sequence.SystemSequenceDao</value>
