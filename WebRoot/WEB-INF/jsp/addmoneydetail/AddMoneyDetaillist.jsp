@@ -15,7 +15,7 @@
 			<table class="searchContent">
 				<tr>
 					<td> 
-						投保用户号</td><td>
+						投保用户号(卡号)</td><td>
 							<input name="iuserId" size="20"  class="textInput " type="text"  value="<s:property value="vo.iuserId"/>" />
 					</td> 
 					<td> 
@@ -57,7 +57,7 @@
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
 			<li>
-				<a class="icon" href="/money/addmoneydetail!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+				<a class="icon" href="/money/addmoneydetail!initImport.do" target="dialog"><span>批量充值</span> </a>
 			</li> 
 		</ul>
 	</div>
@@ -67,19 +67,19 @@
 				<th width="30">
 					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100"   >
-						投保用户号 
-				</th> 
-				<th width="100"    >
-						充值类型 
+				<th width="150"     >
+						投保用户号(卡号) 
 				</th> 
 				<th width="100"     >
+						充值字段 
+				</th> 
+				<th width="100"      >
 						充值金额  
 				</th> 
-				<th width="100"     >
+				<th width="100"      >
 						投保单号  
 				</th> 
-				<th width="100"     >
+				<th width="100"    >
 						充值时间 
 				</th> 
 				<th width="100"     >
@@ -95,7 +95,7 @@
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
-						<div style='width:100px'><s:property value="iuserId" /></div>
+						<div style='width:150px'><s:property value="iuserId" /></div>
 					</td> 
 					<td style="text-align:center;">
 						<div style='width:100px'><s:property value="addType" /></div>

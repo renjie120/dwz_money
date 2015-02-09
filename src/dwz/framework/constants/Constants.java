@@ -3,7 +3,7 @@
 public interface Constants {
 
 	String ROLE = "systemRole";
- 
+
 	String FACTORY_CLASS_KEY = "app.factory.class";
 
 	String FACTORY_CLASS = "dwz.framework.core.factory.DefaultBusinessFoctory";
@@ -22,7 +22,7 @@ public interface Constants {
 
 	String STANDARD_PASSPORT_CLASS = "dwz.framework.core.passport.StandardPassport";
 
-//	String X509_PASSPORT_CLASS = "dwz.framework.core.passport.X509Passport";
+	// String X509_PASSPORT_CLASS = "dwz.framework.core.passport.X509Passport";
 
 	String PASSPORT_USERNAME = "app_username";
 
@@ -97,19 +97,25 @@ public interface Constants {
 	int SYSTEM_COMPANY_ID = 1; // system database reference key
 
 	String VALIDATION_CODE = "validation_code";
-	
+
 	String YES = "67";
-	
+
 	String NO = "68";
-	
-	String DATE_EQUALS="79",DATE_NOT_LATTER="74",DATE_NOT_EARLY="73",
-			DATE_LATTER="72",DATE_EARLY="71";//日期比较符号
-	
-	String NUM_EQUALS="",NUM_SMALL="77",NUM_NOT_SMALL="",
-			NUM_BIG="75",NUM_NOT_BIG="";//数字比较符号(仅仅大于小于)
-	
-	String STR_EQUALS="80",STR_LIKE="82",STR_NOT_LIKE="83",
-			STR_NOT_EQUALS="81" ;//字符串比较符号（等于？）
-	
-	String COM_EQUALS="84",COM_NOT_EQUALS="85"  ;//一般比较符号
+
+	String DATE_EQUALS = "79", DATE_NOT_LATTER = "74", DATE_NOT_EARLY = "73",
+			DATE_LATTER = "72", DATE_EARLY = "71";// 日期比较符号
+
+	String ADD_MONEY_YUE = "121", ADD_MONEY_JIZHEN = "122",
+			ADD_MONEY_ZHUYUAN = "123", ADD_MONEY_TIJIAN = "124",
+			ADD_MONEY_LIXI = "125", REDUCE_MONEY_YUE = "126",
+			REDUCE_MONEY_JIZHEN = "127", REDUCE_MONEY_ZHUYUAN = "128",
+			REDUCE_MONEY_TIJIAN = "129", REDUCE_MONEY_LIXI = "130";
+
+	String NUM_EQUALS = "", NUM_SMALL = "77", NUM_NOT_SMALL = "",
+			NUM_BIG = "75", NUM_NOT_BIG = "";// 数字比较符号(仅仅大于小于)
+
+	String STR_EQUALS = "80", STR_LIKE = "82", STR_NOT_LIKE = "83",
+			STR_NOT_EQUALS = "81";// 字符串比较符号（等于？）
+
+	String COM_EQUALS = "84", COM_NOT_EQUALS = "85";// 一般比较符号
 }

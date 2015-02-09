@@ -202,5 +202,11 @@ public class InsuredFileImpl implements InsuredFile {
 		// TODO Auto-generated method stub
 		return this.insuredfileVO.getUpdateUserName();
 	}
+
+	@Override
+	public String getInsuredFileUnitName() {
+		// TODO Auto-generated method stub
+		return this.insuredfileVO.getInsuredFileUnitName();
+	}
  
 }

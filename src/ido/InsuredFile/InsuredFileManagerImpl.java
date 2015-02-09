@@ -735,7 +735,7 @@ public class InsuredFileManagerImpl extends AbstractBusinessObjectManager implem
 			return null;
 
 		InsuredFileVO insuredfile = insuredfiles.toArray(new InsuredFileVO[insuredfiles.size()])[0];
-
+		insuredfile.setInsuredFileUnitName(CacheUtil.getUnitName(insuredfile.getInsuredFileUnit()));
 		return new InsuredFileImpl(insuredfile);
 	}
 

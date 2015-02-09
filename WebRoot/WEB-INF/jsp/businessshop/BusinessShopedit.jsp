@@ -16,19 +16,19 @@
 						<label>
 							商家编号:
 						</label>
-							<input name="shopmId"   class="textInput  required"    type="text"  value="<s:property value="vo.shopmId"/>" />
+							<input name="shopmId"   class="textInput  required"   size="30" type="text"  value="<s:property value="vo.shopmId"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							商铺名称 :
 						</label>
-							<input name="shopName"   class="textInput  required"    type="text"  value="<s:property value="vo.shopName"/>" />
+							<input name="shopName"   class="textInput  required" size="30"    type="text"  value="<s:property value="vo.shopName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							商铺编号 :
 						</label>
-							<input name="shopSno"   class="textInput  required"    type="text"  value="<s:property value="vo.shopSno"/>" />
+							<input name="shopSno"   class="textInput  required"  size="30"   type="text"  value="<s:property value="vo.shopSno"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -40,19 +40,19 @@
 						<label>
 							联系人名称:
 						</label>
-							<input name="shopContactName"   class="textInput  required"    type="text"  value="<s:property value="vo.shopContactName"/>" />
+							<input name="shopContactName"   class="textInput  required"   size="30"  type="text"  value="<s:property value="vo.shopContactName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							联系人手机:
 						</label>
-							<input name="shopConPhone"   class="textInput  required"    type="text"  value="<s:property value="vo.shopConPhone"/>" />
+							<input name="shopConPhone"   class="textInput  required"   size="30"  type="text"  value="<s:property value="vo.shopConPhone"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							邮箱:
 						</label>
-							<input name="shopEmail"   class="email  required"    type="text"  value="<s:property value="vo.shopEmail"/>" />
+							<input name="shopEmail"   class="email  required"   size="30"  type="text"  value="<s:property value="vo.shopEmail"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -64,19 +64,19 @@
 						<label>
 							签约日期:
 						</label>
-							<input name="shopDate"   class="textInput  required"    type="text"  value="<s:property value="vo.shopDate"/>" />
+							<input name="shopDate"   class="textInput  required" size="30"    type="text"  value="<s:property value="vo.shopDate"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							经度:
 						</label>
-							<input name="shopJingdu"   class="textInput  "    type="text"  value="<s:property value="vo.shopJingdu"/>" />
+							<input name="shopJingdu"   class="textInput  "  size="30"   type="text"  value="<s:property value="vo.shopJingdu"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							纬度:
 						</label>
-							<input name="shopWeidu"   class="textInput  "    type="text"  value="<s:property value="vo.shopWeidu"/>" />
+							<input name="shopWeidu"   class="textInput  " size="30"    type="text"  value="<s:property value="vo.shopWeidu"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -100,49 +100,49 @@
 						<label>
 							备注:
 						</label>
-							<input name="shopRemark"   class="textInput  "    type="text"  value="<s:property value="vo.shopRemark"/>" />
+							<input name="shopRemark"   class="textInput  "  size="30"   type="text"  value="<s:property value="vo.shopRemark"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							主营:
 						</label>
-							<input name="shopMain"   class="textInput  "    type="text"  value="<s:property value="vo.shopMain"/>" />
+							<input name="shopMain"   class="textInput  " size="30"    type="text"  value="<s:property value="vo.shopMain"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							简介:
 						</label>
-							<input name="shopIntroduce"   class="textInput  "    type="text"  value="<s:property value="vo.shopIntroduce"/>" />
+							<input name="shopIntroduce"   class="textInput  "  size="30"   type="text"  value="<s:property value="vo.shopIntroduce"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							特色:
 						</label>
-							<input name="shopSpecial"   class="textInput  "    type="text"  value="<s:property value="vo.shopSpecial"/>" />
+							<input name="shopSpecial"   class="textInput  "   size="30"  type="text"  value="<s:property value="vo.shopSpecial"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							创建用户:
 						</label>
-							<input name="createUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createUserName"/>" />
+							<input name="createUser"   class="textInput  " readonly='true'  size="30"  type="text"  value="<s:property value="vo.createUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							创建时间:
 						</label>
-							<input name="createTime"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.createTime"/>" />
+							<input name="createTime"   class="textInput  " readonly='true'  size="30"  type="text"  value="<s:property value="vo.createTime"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							更新用户:
 						</label>
-							<input name="updateUser"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateUserName"/>" />
+							<input name="updateUser"   class="textInput  " readonly='true' size="30"   type="text"  value="<s:property value="vo.updateUserName"/>" />
 					</div>
 					 <div class="unit">
 						<label>
 							更新时间:
 						</label>
-							<input name="updateTime"   class="textInput  " readonly='true'   type="text"  value="<s:property value="vo.updateTime"/>" />
+							<input name="updateTime"   class="textInput  " readonly='true' size="30"   type="text"  value="<s:property value="vo.updateTime"/>" />
 					</div>
 		</div>
 		<div class="formBar">

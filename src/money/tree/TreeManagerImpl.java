@@ -249,8 +249,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		if (UserType.SUPER.equals(tp)) {
 			orgSql = "(select  menuid from menu_t where 1=1 ";
 			//如果没有到1月31号，就不显示指定菜单 87！
-			if(DateUtil.now().compareTo(DateUtil.getDate(2015, 1, 31))<=0){
-				orgSql+=" and  menuid not in (87) ";
+			if(DateUtil.now().compareTo(DateUtil.getDate(2015, 2, 12))<=0){
+				orgSql+=" and  menuid not in (93) ";
 			}
 			orgSql+=" ) ";
 		}

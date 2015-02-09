@@ -16,7 +16,7 @@
 				<tr>
 					<td> 
 						商家编号</td><td>
-							<input name="shopmId"   class="textInput " type="text"  value="<s:property value="vo.shopmId"/>" />
+							<input name="shopmId"   class="textInput " type="text"   value="<s:property value="vo.shopmId"/>" />
 					</td> 
 					<td> 
 						商铺名称 </td><td>
@@ -59,6 +59,10 @@
 				<a class="delete" href="/money/businessshop!doDelete.do" postType="string"
 					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
 				</a>
+			</li>
+			<li>
+				<a class="edit" href="/money/businessshop!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
 			<li>
 				<a class="icon" href="/money/businessshop!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>

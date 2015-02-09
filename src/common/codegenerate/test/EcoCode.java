@@ -9,7 +9,7 @@ import common.codegenerate.Generate;
 import common.codegenerate.ModelParse;
 
 public class EcoCode { 
-	static String Root = "E:\\dwz_money\\";
+	static String Root = "E:\\github\\dwz_money\\";
 	final static String file = Root + "\\code_template\\datamodle.xml";
 	static String javaRoot = Root + "\\src";
 	static String jspRoot = Root + "\\WebRoot\\WEB-INF\\jsp";
@@ -24,7 +24,7 @@ public class EcoCode {
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
 		System.out.println(beanName+",,"+packageName);
-		boolean java = true;//是否生成java文件
+		boolean java = false;//是否生成java文件
 		boolean jsp = true;//是否生成jsp文件
 		boolean hbm = false;//是否生成hbm文件
 		boolean other = false;//是否生成其他文件

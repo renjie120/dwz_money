@@ -5,6 +5,27 @@
 <% 
 	InsuredFile vo = (InsuredFile) request.getAttribute("vo"); 
 %>
+<script src="/js/treeCombox.js" type="text/javascript" />
+<script type="text/javascript">  
+/**
+	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
+	 */
+	function myOperation() {
+		$('#insuredFileUnitName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	$(document).ready(function() {  
+		var content = {
+			action : '/money/tree!getInsuredUnitTree.do',
+			nameInput : 'insuredFileUnitName',
+			height:'200px',
+			idInput : 'insuredFileUnit' ,
+			treeId:"insuredFileUnitTree"
+		}; 
+		$('#insuredFileUnitName').treeCombox(content);
+	});
+	
+ 
+</script>
 <div class="pageContent">
 	<form method="post" action="/money/insuredfile!doUpdate.do"
 		class="pageForm required-validate"
@@ -28,8 +49,9 @@
 						<label>
 							投保单位:
 						</label>
-							<my:newselect tagName="insuredFileUnit"   tableName="Insured_unit" nameColumn="unit_Name" idColumn ="id"  width="100"   selectedValue="<%=vo.getInsuredFileUnit() %>"/>									
-					</div>
+							<input name="insuredFileUnit" id="insuredFileUnit" type="hidden" value="<s:property value="vo.insuredFileUnit"/>"/>	
+					 <input name="insuredFileUnitName" size="30" id="insuredFileUnitName" type="text" readonly="true" class="required"  value="<s:property value="vo.insuredFileUnitName"/>"/>
+					  		</div>
 					 <div class="unit">
 						<label>
 							保险公司:

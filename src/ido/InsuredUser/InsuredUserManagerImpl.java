@@ -21,6 +21,7 @@ import common.cache.CacheUtil;
 import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
 
@@ -680,6 +681,62 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
 						ps.setInt(2, userSno); 
 					}
 				});
+	}
+
+	@Override
+	public void addMoney(final String userCode, String moneyType, final double money)
+			throws ValidateFieldsException {
+		//添加余额
+		if(Constants.ADD_MONEY_YUE.equals(moneyType)){
+			jdbcTemplate.update("update insured_user set left_money =left_money+ ? where iuser_no= ?",
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDouble(1, money);
+							ps.setString(2, userCode); 
+						}
+					});
+		} 
+		else if(Constants.ADD_MONEY_TIJIAN.equals(moneyType)){
+			jdbcTemplate.update("update insured_user set test_money =test_money+ ? where iuser_no= ?",
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDouble(1, money);
+							ps.setString(2, userCode); 
+						}
+					});
+		} 
+		else if(Constants.ADD_MONEY_JIZHEN.equals(moneyType)){
+			jdbcTemplate.update("update insured_user set Emergency_money =Emergency_money+ ? where iuser_no= ?",
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDouble(1, money);
+							ps.setString(2, userCode); 
+						}
+					});
+		}  
+		else if(Constants.ADD_MONEY_ZHUYUAN.equals(moneyType)){
+			jdbcTemplate.update("update insured_user set Hospital_money =Hospital_money+ ? where iuser_no= ?",
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDouble(1, money);
+							ps.setString(2, userCode); 
+						}
+					});
+		} 
+		else if(Constants.ADD_MONEY_YUE.equals(moneyType)){
+			jdbcTemplate.update("update insured_user set Frozen_money =Frozen_money+ ? where iuser_no= ?",
+					new PreparedStatementSetter() {
+						public void setValues(PreparedStatement ps)
+								throws SQLException {
+							ps.setDouble(1, money);
+							ps.setString(2, userCode); 
+						}
+					});
+		} 
 	}
 
 }

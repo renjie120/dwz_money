@@ -1,5 +1,5 @@
 <class name="BusinessShop" table="business_shop" desc="商铺"
-	importFile="true" exportFile="false" add="true" update="false" delete="true"
+	importFile="true" exportFile="true" add="true" update="true" delete="true"
 	package="ido.BusinessShop">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />

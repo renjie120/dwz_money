@@ -14,7 +14,7 @@
 		<div class="pageFormContent" layoutH="57"> 
 					 <div class="unit">
 						<label>
-							投保用户号:
+							投保用户号(卡号):
 						</label>
 							<input name="iuserId" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.iuserId"/>" />
 					</div>

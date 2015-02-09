@@ -15,6 +15,15 @@ public class InsuredFileVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String createUserName;
 	private String updateUserName;
+	private String insuredFileUnitName;
+	public String getInsuredFileUnitName() {
+		return insuredFileUnitName;
+	}
+
+	public void setInsuredFileUnitName(String insuredFileUnitName) {
+		this.insuredFileUnitName = insuredFileUnitName;
+	}
+
 	public String getCreateUserName() {
 		return createUserName;
 	}

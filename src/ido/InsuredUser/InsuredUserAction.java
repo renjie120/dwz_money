@@ -144,7 +144,7 @@ public class InsuredUserAction extends BaseAction {
 
 	public String doDelete() {
 		setCurrentUser(true);
-		String ids = request.getParameter("ids");
+		String ids = request.getParameter("insuredUserIds");
 		String[] allId = ids.split(",");
 		List<InsuredUser> allDeleteIds = new ArrayList<InsuredUser>();
 		for(String _id:allId){

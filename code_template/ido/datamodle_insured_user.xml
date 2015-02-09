@@ -15,7 +15,7 @@
 		columnType="int(10)" showType="select" selectCode="sex" width="40"
 		desc="性别" />
 
-	<property name="iuserCardno" column="Iuser_cardno" type="string"
+	<property name="iuserCardno" column="Iuser_cardno" type="string" notnull="true" 
 		columnType="varchar(20)" showType="string" width="120" desc="证件号" />
 
 	<property name="iuserPhone" column="Iuser_phone" type="string"
@@ -40,19 +40,19 @@
 		columnType="varchar(100)" desc="员工号" width="100" />
 
 	<property name="leftMoney" column="Left_money" type="double"
-		notnull="true" columnType="double" showType="number" width="100" desc="余额" />
+		 columnType="double" showType="number" width="100" desc="余额" />
 
 	<property name="emergencyMoney" column="Emergency_money" type="double" visible="false"
-		notnull="true" columnType="double" showType="number" width="100" desc="门急诊额度" />
+		  columnType="double" showType="number" width="100" desc="门急诊额度" />
  
 	<property name="frozenMoney" column="Frozen_money" type="double" visible="false"
-		notnull="true" columnType="double" showType="number" width="100" desc="冻结金额" />
+		 columnType="double" showType="number" width="100" desc="冻结金额" />
 
 	<property name="hospitalMoney" column="Hospital_money" type="double" visible="false"
-		notnull="true" columnType="double" showType="number" width="100" desc="住院报销额度" />
+		  columnType="double" showType="number" width="100" desc="住院报销额度" />
 
 	<property name="tesMoney" column="test_money" type="double" visible="false"
-		notnull="true" showType="number" columnType="double" width="100" desc="体检额度" />
+		  showType="number" columnType="double" width="100" desc="体检额度" />
 
 
 	<property name="iuserEmail" column="Iuser_email" type="string" visible="false"

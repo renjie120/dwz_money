@@ -73,8 +73,8 @@ public class InsuredFileAction extends BaseAction {
 	 * 判断保险单名称是否重复
 	 * @return
 	 */
-	public String isExistedCode() { 
-		boolean ans  = pMgr.existed("insured_file", "f_name", changeStr(insuredFileId)); 
+	public String isExistedFileId() { 
+		boolean ans  = pMgr.existed("insured_file", "f_id", changeStr(insuredFileId)); 
 		response.setContentType("text/html;charset=GBK"); 
 		try {
 			response.getWriter().write(ans+"");
@@ -90,6 +90,21 @@ public class InsuredFileAction extends BaseAction {
 	 */
 	public String isExistedCompanyCode() { 
 		boolean ans  = pMgr.existed("insured_company", "com_name", changeStr(insuredFileId)); 
+		response.setContentType("text/html;charset=GBK"); 
+		try {
+			response.getWriter().write(ans+"");
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+		return null;
+	}
+	
+	/**
+	 * 判断投保用户号唯一
+	 * @return
+	 */
+	public String isExistedInsuredUserNo() { 
+		boolean ans  = pMgr.existed("insured_user", "iuser_no", changeStr(insuredFileId)); 
 		response.setContentType("text/html;charset=GBK"); 
 		try {
 			response.getWriter().write(ans+"");

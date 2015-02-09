@@ -35,7 +35,7 @@
 						<label>
 							用户号:
 						</label>
-							<input name="iuserNo" size="30"  class="textInput  required"    type="text"  value="<s:property value="vo.iuserNo"/>" />
+							<input name="iuserNo" size="30"  class="textInput  required"  readOnly="true"  type="text"  value="<s:property value="vo.iuserNo"/>" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -53,7 +53,7 @@
 						<label>
 							证件号:
 						</label>
-							<input name="iuserCardno" size="30"  class="textInput  "    type="text"  value="<s:property value="vo.iuserCardno"/>" />
+							<input name="iuserCardno" size="30"  class="textInput required "    type="text"  value="<s:property value="vo.iuserCardno"/>" />
 					</div>
 					 <div class="unit">
 						<label>

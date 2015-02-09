@@ -32,19 +32,19 @@ function afterJudge(json) {
 						<label>
 							商家编号:
 						</label>
-							<input name="shopmId" class="textInput required"  type="text"   />
+							<input name="shopmId" class="textInput required"  type="text"  size="30"  />
 					</div>
 					 <div class="unit">
 						<label>
 							商铺名称 :
 						</label>
-							<input name="shopName" class="textInput required"  type="text"   />
+							<input name="shopName" class="textInput required"  type="text"   size="30" />
 					</div>
 					 <div class="unit">
 						<label>
 							商铺编号 :
 						</label>
-							<input name="shopSno" id="shopSno" class="textInput required"  type="text"   />
+							<input name="shopSno" id="shopSno" class="textInput required"  type="text"   size="30" />
 					</div>
 					 <div class="unit">
 						<label>
@@ -56,19 +56,19 @@ function afterJudge(json) {
 						<label>
 							联系人名称:
 						</label>
-							<input name="shopContactName" class="textInput required"  type="text"   />
+							<input name="shopContactName" class="textInput required"  type="text"  size="30"  />
 					</div>
 					 <div class="unit">
 						<label>
 							联系人手机:
 						</label>
-							<input name="shopConPhone" class="textInput required"  type="text"   />
+							<input name="shopConPhone" class="textInput required"  type="text"  size="30"  />
 					</div>
 					 <div class="unit">
 						<label>
 							邮箱:
 						</label>
-							<input name="shopEmail"  class="email required"  type="text"   />
+							<input name="shopEmail"  class="email required"  type="text"    size="30"/>
 					</div>
 					 <div class="unit">
 						<label>
@@ -87,13 +87,13 @@ function afterJudge(json) {
 						<label>
 							经度:
 						</label>
-							<input name="shopJingdu" class="textInput "  type="text"   />
+							<input name="shopJingdu" class="textInput "  type="text"   size="30" />
 					</div>
 					 <div class="unit">
 						<label>
 							纬度:
 						</label>
-							<input name="shopWeidu" class="textInput "  type="text"   />
+							<input name="shopWeidu" class="textInput "  type="text"    size="30"/>
 					</div>
 					 <div class="unit">
 						<label>
@@ -117,25 +117,25 @@ function afterJudge(json) {
 						<label>
 							备注:
 						</label>
-							<input name="shopRemark" class="textInput "  type="text"   />
+						<textarea class=" " name="shopRemark"  rows="4" cols="40"></textarea> 
 					</div>
 					 <div class="unit">
 						<label>
 							主营:
 						</label>
-							<input name="shopMain" class="textInput "  type="text"   />
+						<textarea class=" " name="shopMain"  rows="4" cols="40"></textarea>  
 					</div>
 					 <div class="unit">
 						<label>
 							简介:
 						</label>
-							<input name="shopIntroduce" class="textInput "  type="text"   />
+						<textarea class=" " name="shopIntroduce"  rows="4" cols="40"></textarea>   
 					</div>
 					 <div class="unit">
 						<label>
 							特色:
 						</label>
-							<input name="shopSpecial" class="textInput "  type="text"   />
+						<textarea class=" " name="shopSpecial"  rows="4" cols="40"></textarea>    
 					</div>
 		</div>
 		<div class="formBar">

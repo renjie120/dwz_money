@@ -1,13 +1,14 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%> 
+<script src="/js/treeCombox.js" type="text/javascript" />
 <script type="text/javascript"> 
 $(function(){
 	$('#insuredFileId').blur(function(){
 	if(this.value!='')
 	   $.ajax({
 		  type:'POST', 
-		  url:'/money/insuredfile!isExistedCode.do',
+		  url:'/money/insuredfile!isExistedFileId.do',
 		  dataType:'json',
 		  data: {'insuredFileId':encodeURIComponent(this.value)},
 		  success: afterJudge,
@@ -16,6 +17,23 @@ $(function(){
 	});
 })
 
+/**
+	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
+	 */
+	function myOperation() {
+		$('#insuredFileUnitName').hideMenu();//隐藏弹出来的树形下拉菜单.
+	}
+	$(document).ready(function() {  
+		var content = {
+			action : '/money/tree!getInsuredUnitTree.do',
+			nameInput : 'insuredFileUnitName',
+			height:'200px',
+			idInput : 'insuredFileUnit' ,
+			treeId:"insuredFileUnitTree"
+		}; 
+		$('#insuredFileUnitName').treeCombox(content);
+	});
+	
 function afterJudge(json) {  
 	 if((json+"")=='true'){
 		  DWZ.ajaxDone('已经存在该投保单号"'+$('#insuredFileId').val()+'"，请重新输入');
@@ -44,8 +62,9 @@ function afterJudge(json) {
 						<label>
 							投保单位: 
 						</label>
-							<my:newselect tagName="insuredFileUnit"  tableName="Insured_unit" nameColumn="unit_Name" idColumn ="id" width="100"  />
-					</div>
+						<input name="insuredFileUnit" id="insuredFileUnit" type="hidden" />	
+					 <input name="insuredFileUnitName" size="30" id="insuredFileUnitName" type="text" readonly="true" class="required" />
+					 	</div>
 					 <div class="unit">
 						<label>
 							保险公司: 

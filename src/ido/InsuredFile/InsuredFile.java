@@ -26,6 +26,7 @@ public interface InsuredFile extends BusinessObject {
  	 * 获取投保单位的属性值.
  	 */
  	public  String   getInsuredFileUnit();
+ 	public  String   getInsuredFileUnitName();
  	/**
  	 * 获取保险公司的属性值.
  	 */

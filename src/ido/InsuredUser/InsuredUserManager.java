@@ -58,6 +58,16 @@ public interface InsuredUserManager  extends BusinessObjectManager {
 	public void updateInsuredUser(InsuredUser insureduser) throws ValidateFieldsException;
 
 	/**
+	 * 给用户充值到指定类型.
+	 * @param userCode 用户编码（不是流水号）
+	 * @param moneyType 金额类型
+	 * @param money 数值
+	 * @throws ValidateFieldsException
+	 */
+	@Transactional
+	public void addMoney(String userCode,String moneyType,double money) throws ValidateFieldsException; 
+	
+	/**
 	 * 删除操作
 	 * @param sno
 	 */

@@ -3,6 +3,27 @@
 <%@ include file="/include.inc.jsp"%> 
 <script src="/js/treeCombox.js" type="text/javascript" />
 <script type="text/javascript">
+$(function(){
+	$('#iuserNo').blur(function(){
+	if(this.value!='')
+	   $.ajax({
+		  type:'POST', 
+		  url:'/money/insuredfile!isExistedInsuredUserNo.do',
+		  dataType:'json',
+		  data: {'insuredFileId':encodeURIComponent(this.value)},
+		  success: afterJudge,
+		  error: DWZ.ajaxError
+		 }); 
+	});
+})
+
+function afterJudge(json) {  
+	 if((json+"")=='true'){
+		  DWZ.ajaxDone('已经存在该用户号"'+$('#iuserNo').val()+'"，请重新输入');
+		  $('#iuserNo').val('');
+	 }
+	}
+	
 	/**
 	 * 在弹出框里面点击关闭按钮，拖放按钮触发本事件.
 	 */
@@ -29,7 +50,7 @@
 						<label>
 							用户号:
 						</label>
-							<input name="iuserNo" class="textInput required" size="30" type="text"   />
+							<input name="iuserNo" id="iuserNo" class="textInput required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
@@ -47,7 +68,7 @@
 						<label>
 							证件号:
 						</label>
-							<input name="iuserCardno" class="textInput " size="30" type="text"   />
+							<input name="iuserCardno" class="textInput required" size="30" type="text"   />
 					</div>
 					 <div class="unit">
 						<label>
