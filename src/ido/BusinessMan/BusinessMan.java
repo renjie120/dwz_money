@@ -12,6 +12,7 @@ import java.util.Date;
 public interface BusinessMan extends BusinessObject {  
 	public  String   getCreateUserName();
  	public  String   getUpdateUserName();
+ 	public  String   getGroupSno();
  	/**
  	 * 获取流水号的属性值.
  	 */

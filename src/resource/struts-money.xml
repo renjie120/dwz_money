@@ -211,6 +211,9 @@
 			<result name="list">
 				/WEB-INF/jsp/businessman/BusinessManlist.jsp
 			</result>
+			<result name="tinyShopm">
+				/WEB-INF/jsp/businessman/TinyBusinessManlist.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/businessman/BusinessManinfo.jsp
 			</result>

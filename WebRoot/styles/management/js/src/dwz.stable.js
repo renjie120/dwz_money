@@ -10,6 +10,10 @@
 			var aStyles = [];
 			var $tc = $table.parent().addClass("j-resizeGrid"); // table parent container
 			var layoutH = $(this).attr("layoutH");
+			var myStyle = $(this).attr("myStyle");
+			if(!myStyle)
+				myStyle = "";
+			console.log("myStyle---"+myStyle);
 			var modifyHeight = $(this).attr("modifyHeight");
 			var setHeight = $(this).attr("setHeight");
 			var configHeight = $(this).attr("configHeight");
@@ -23,7 +27,9 @@
 				style[1] = $th.attr("align");
 				aStyles[aStyles.length] = style;
 			}
-			$(this).wrap("<div class='grid'></div>");
+			
+			$(this).wrap("<div class='grid' ></div>"); 
+				
 			var $grid = $table.parent().html($table.html());
 			var thead = $grid.find("thead");
 			thead.wrap("<div class='gridHeader'><div class='gridThead'><table style='width:" + (tlength - 20) + "px;'></table></div></div>");
@@ -49,7 +55,7 @@
 			var modifyHeightStr = modifyHeight ? " modifyHeight='" + modifyHeight + "'" : "";
 			var configHeightStr = configHeight ? " configHeight='" + configHeight + "'" : "";
 			var setHeightStr = setHeight ? " setHeight='" + setHeight + "'" : ""; 
-			tbody.wrap("<div class='gridScroller'" + configHeightStr+layoutStr +modifyHeightStr+ setHeightStr+" style='width:" + $tc.width() + "px;'><div class='gridTbody'><table style='width:" + (tlength - 20) + "px;'></table></div></div>");
+			tbody.wrap("<div class='gridScroller'" + configHeightStr+layoutStr +modifyHeightStr+ setHeightStr+" style='width:" + $tc.width() + "px;'><div class='gridTbody' style='"+myStyle+"' ><table style='width:" + (tlength - 20) + "px;'></table></div></div>");
 			var ftr = $(">tr:first-child", tbody);
 			var $trs = tbody.find('>tr');
 			

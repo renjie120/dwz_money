@@ -172,5 +172,11 @@ public class BusinessManImpl implements BusinessMan {
 		// TODO Auto-generated method stub
 		return this.businessmanVO.getUpdateUserName();
 	}
+
+	@Override
+	public String getGroupSno() {
+		// TODO Auto-generated method stub
+		return this.businessmanVO.getGroupSno();
+	}
  
 }

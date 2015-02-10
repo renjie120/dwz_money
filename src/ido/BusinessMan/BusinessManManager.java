@@ -31,6 +31,14 @@ public interface BusinessManManager  extends BusinessObjectManager {
 	 */
 	@Transactional
 	public void addCache() ;
+	
+	/**
+	 * 添加到对应的商铺集团.
+	 * @param ids
+	 * @param groupSno
+	 */
+	@Transactional
+	public void addToGroupSno(String ids,String groupSno) ;
 
 	/**
 	 * 查询总数.

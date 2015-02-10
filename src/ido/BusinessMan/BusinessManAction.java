@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream; 
 import java.util.*; 
+
 import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
 import common.base.ParamSelect;
@@ -20,6 +21,7 @@ import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
 import common.cache.Cache;
 import common.cache.CacheManager;
+import ido.InsuredCompany.InsuredCompany;
 import ido.loginfo.LogInfoManager;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
@@ -58,6 +60,41 @@ public class BusinessManAction extends BaseAction {
 	
 	public String beforeAdd() {
 		return "detail";
+	}
+	
+	/**
+	 * 添加商家关联到对应的商家集团
+	 * @return
+	 */
+	public String addShopmToGroup() {
+		String ids = request.getParameter("mids");
+		pMgr.addToGroupSno(ids, groupSno);
+		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
+	
+	/**
+	 * 打开简短的商家页面供选择.
+	 * @return
+	 */
+	public String tinyShopmList() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<BusinessManSearchFields, Object> criterias = getCriterias();
+
+		Collection<BusinessMan> moneyList = pMgr.searchBusinessMan(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("groupSno", groupSno);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchBusinessManNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count); 
+		return "tinyShopm";
 	}
   
  	/**
@@ -1483,4 +1520,13 @@ public class BusinessManAction extends BaseAction {
 		this.query_updateTime = s;
 	}
 	
+	private String groupSno;
+
+	public String getGroupSno() {
+		return groupSno;
+	}
+
+	public void setGroupSno(String groupSno) {
+		this.groupSno = groupSno;
+	}
 }

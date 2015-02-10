@@ -1,10 +1,17 @@
 
 package ido.BusinessMan;
 import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ConnectionCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import common.base.AllSelect;
 import common.base.AllSelectContants;
@@ -630,5 +637,29 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 		c.setValue(ans);
 		c.setName("商家");
 		CacheManager.putCache(_tempCacheId, c);
+	}
+
+	@Override
+	public void addToGroupSno(String ids,final String groupSno) {
+		JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtil
+			    .getBean("jdbcTemplate");
+		String[] allId = ids.split(",");
+		for(String id:allId){
+			if(id!=null&&!"".equals(id)){
+				final String tempID = id;
+				jdbcTemplate.execute(new ConnectionCallback () { 
+					@Override
+					public Object doInConnection(java.sql.Connection conn)
+							throws SQLException, DataAccessException {
+						String sql = "update business_man set group_sno = ? where  id=?  " ;
+					    PreparedStatement ps = conn.prepareStatement(sql);
+					    ps.setString(1, groupSno);
+					    ps.setString(2, tempID);
+					    ps.executeUpdate();  
+					    return null ;
+					}
+				}); 
+			}
+		}
 	}
 }

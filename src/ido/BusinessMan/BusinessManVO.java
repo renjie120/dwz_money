@@ -18,6 +18,15 @@ public class BusinessManVO implements Serializable,SelectAble {
 
 	}
 	
+	private String groupSno;
+	public String getGroupSno() {
+		return groupSno;
+	}
+
+	public void setGroupSno(String groupSno) {
+		this.groupSno = groupSno;
+	}
+
 	private String createUserName;
 	private String updateUserName;
 	public String getCreateUserName() {
