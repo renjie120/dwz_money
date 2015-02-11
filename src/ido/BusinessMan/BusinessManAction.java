@@ -1,30 +1,36 @@
 
 package ido.BusinessMan;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream; 
-import java.util.*; 
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext; 
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.InsuredCompany.InsuredCompany;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.CommonUtil;
+import common.util.DateTool;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 /**
  * 关于商家的Action操作类.
  * @author www(水清)
@@ -60,6 +66,17 @@ public class BusinessManAction extends BaseAction {
 	
 	public String beforeAdd() {
 		return "detail";
+	} 
+	
+	/**
+	 * 接触绑定
+	 * @return
+	 */
+	public String deleteShopmToGroup() {
+		String ids = request.getParameter("mids");
+		pMgr.deleteToGroupSno(ids, groupSno);
+		insertLog(logMgr,"解除商家绑定","/deleteShopmToGroup", "groupSno="+groupSno+",ids="+ids, "" ,"");  
+		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 	
 	/**
@@ -69,7 +86,31 @@ public class BusinessManAction extends BaseAction {
 	public String addShopmToGroup() {
 		String ids = request.getParameter("mids");
 		pMgr.addToGroupSno(ids, groupSno);
+		insertLog(logMgr,"添加商家绑定","/addShopmToGroup", "groupSno="+groupSno+",ids="+ids, "" ,"");  
 		return ajaxForwardSuccess(getText("msg.operation.success"));
+	}
+	
+	public String getShopmList() {
+		String ids = request.getParameter("mids"); 
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<BusinessManSearchFields, Object> criterias = getCriterias();
+		criterias.put(BusinessManSearchFields.GROUPSNO, groupSno);
+		
+		Collection<BusinessMan> moneyList = pMgr.searchBusinessMan(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("groupSno", groupSno);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchBusinessManNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count); 
+		return "tinyShopm2";
 	}
 	
 	/**

@@ -29,7 +29,7 @@
 			}
 		},
 		//打开一个层
-		open:function(url, dlgid, title, options) {
+		open:function(url, dlgid, title, options) { 
 			var op = $.extend({},$.pdialog._op, options);
 			var dialog = $("body").data(dlgid); 
 			//重复打开一个层

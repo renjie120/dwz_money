@@ -6,22 +6,40 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="bindfamily" class="ido.bindFamily.BindFamilyAction">
+			<result name="list">
+				/WEB-INF/jsp/bindfamily/BindFamilylist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/bindfamily/BindFamilyinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/bindfamily/BindFamilyedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/bindfamily/BindFamilyimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/bindfamily/BindFamilyquery.jsp
+			</result>
+		</action>
+
 		<action name="addmoneydetail" class="ido.addmoneydetail.AddMoneyDetailAction">
 			<param name="savePath">/upload</param>
 			<result name="list">
 				/WEB-INF/jsp/addmoneydetail/AddMoneyDetaillist.jsp
 			</result>
-					<result name="detail">
-						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailinfo.jsp
+			<result name="detail">
+				/WEB-INF/jsp/addmoneydetail/AddMoneyDetailinfo.jsp
 			</result>
-					<result name="editdetail">
-						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailedit.jsp
+			<result name="editdetail">
+				/WEB-INF/jsp/addmoneydetail/AddMoneyDetailedit.jsp
 			</result>
-					<result name="import">
-						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailimport.jsp
+			<result name="import">
+				/WEB-INF/jsp/addmoneydetail/AddMoneyDetailimport.jsp
 			</result>
-					<result name="query">
-						/WEB-INF/jsp/addmoneydetail/AddMoneyDetailquery.jsp
+			<result name="query">
+				/WEB-INF/jsp/addmoneydetail/AddMoneyDetailquery.jsp
 			</result>
 		</action>
 		<action name="uploadfile" class="money.uploadFile.UploadFileAction">
@@ -214,6 +232,9 @@
 			<result name="tinyShopm">
 				/WEB-INF/jsp/businessman/TinyBusinessManlist.jsp
 			</result>
+			<result name="tinyShopm2">
+				/WEB-INF/jsp/businessman/TinyBusinessManlist2.jsp
+			</result>
 			<result name="detail">
 				/WEB-INF/jsp/businessman/BusinessManinfo.jsp
 			</result>
@@ -230,6 +251,9 @@
 		<action name="businessgroup" class="ido.BusinessGroup.BusinessGroupAction">
 			<result name="list">
 				/WEB-INF/jsp/businessgroup/BusinessGrouplist.jsp
+			</result>
+			<result name="groupAddShopm">
+				/WEB-INF/jsp/businessgroup/BusinessGroupAddShopm.jsp
 			</result>
 			<result name="detail">
 				/WEB-INF/jsp/businessgroup/BusinessGroupinfo.jsp

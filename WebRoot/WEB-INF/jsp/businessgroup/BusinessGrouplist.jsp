@@ -2,20 +2,20 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <%@ page import="common.util.DateUtil"%>
-<script type="text/javascript">  
- function addShopm(url,title){
+<script type="text/javascript"> 
+ function addGroupUser(url,obj){
  	var checkedItem =  $('input[type=checkbox][name=group_ids]:checked');
  	if(checkedItem.size()==1){
  		var sno = checkedItem.val();
  		var unitName = checkedItem.parent().parent().parent().find('[name=cname]').val(); 
-	 	var options = {mask:true};
-		$.pdialog.open(url+"?groupSno="+sno, "", "添加关联商家", options); 
- 	}else{
+	 	var options = {mask:true}; 
+		$.pdialog.open(url+"?companySno="+sno+"&userUnit="+encodeURIComponent(unitName), '', "商家集团用户管理", options);
+	}else{
  		alertMsg.error("必须选择一个且最多一个商家集团！");
  		return false;
  	}
  }
- 
+  
 </script>
 <form id="pagerForm" method="post"
 	action="/money/businessgroup!query.do">
@@ -56,13 +56,30 @@
 </div>
 <div class="pageContent" >
 	<div class="panelBar">
-		<ul class="toolBar">  
+		<ul class="toolBar">
+			<li><a class="add" href="/money/businessgroup!beforeAdd.do"
+				target="dialog" mask="true" title="添加"><span>添加</span> </a></li>
+			<li><a class="delete" href="/money/businessgroup!doDelete.do"
+				postType="string" target="selectedTodo" rel="group_ids"
+				title="确定要删除吗?"><span>删除</span> </a></li>
+			<li><a class="edit"
+				href="/money/businessgroup!beforeUpdate.do?sno={sno}" mask="true"
+				target="dialog" title="修改"><span>修改</span> </a></li>
+			<%
+				if (DateUtil.now().compareTo(DateUtil.getDate(2015, 1, 31)) > 0) {
+			%>
 			<li><a class="add" href="javascript:;"
-				onclick="addShopm('/money/businessman!tinyShopmList.do',this)"
-				mask="true"><span>新增关联商家</span> </a></li> 
+				onclick="addGroupUser('/money/loginuser!getGroupUser.do',this)"
+				mask="true"><span>用户管理</span> </a></li>
+			<%
+				}
+			%>
+			<li><a class="icon" href="/money/businessgroup!export.do"
+				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
+			</a></li>
 		</ul>
 	</div>
-	<table class="table"   myStyle="height:100px;overflow-y:auto">
+	<table class="table"  layoutH="-138"  >
 		<thead>
 			<tr>
 				<th width="30"><input type="checkbox" group="group_ids"
@@ -120,10 +137,7 @@
 		</div>
 		<div class="pagination" targetType="navTab" totalCount="${totalCount}"
 			numPerPage="${numPerPage}" pageNumShown="20" currentPage="${pageNum}"></div>
-	</div>
-	<div id="jbsxBox3" class="unitBox"
-		style="height:700px;border:1px #BAD1D7 solid;overflow:hidden;">
-	</div>
+	</div> 
 </div>
 
 

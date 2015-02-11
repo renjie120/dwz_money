@@ -22,6 +22,7 @@
 				<property name="OpenBankProvince" column="Open_bank_province" type="string" />
 				<property name="OpenBankCity" column="Open_bank_city" type="string" />
 				<property name="compensationDay" column="Compensation_day" type="string" />
+				<property name="groupSno" column="group_sno" type="string" />
 				<property name="createUser" column="create_user" type="int" />
 				<property name="createTime" column="create_time" type="string" />
 				<property name="updateUser" column="update_user" type="int" />

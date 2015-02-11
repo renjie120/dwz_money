@@ -22,14 +22,19 @@ public class Lujinsuo {
 	}
 
 	public static void main(String[] aegs) {
-		System.out.println(getDengben(150000, 0.084, 36));
+		double old = 200000;
+		int month = 36;
+		double fei = 0.084;
+		double ben = getDengben(old, fei, month);
+		System.out.println("每月收款："+ben);
+		System.out.println("总利息："+(ben*month-old));
 		
-		try {
-			Document doc = Jsoup.connect("https://list.lufax.com/list/charts-gather?lufax_ref=http://www.lufax.com/").get();
-			System.out.println(doc.html());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Document doc = Jsoup.connect("https://list.lufax.com/list/charts-gather?lufax_ref=http://www.lufax.com/").get();
+//			System.out.println(doc.html());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }

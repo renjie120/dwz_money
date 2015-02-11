@@ -1,34 +1,35 @@
-<class name="BugList" table="bug_list" desc="问题清单" importFile="true"
-	exportFile="true" add="true" update="true" delete="true" package="ido.bindFamily">
+<class name="BindFamily" table="bind_family" desc="投保用户"
+	importFile="true" exportFile="true" add="true" update="true" delete="true"
+	package="ido.bindFamily">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="bindName" column="bind_name" type="string"
-		canImport="true" canExport="true" width="100" notnull="true"
-		maxLength="50" columnType="varchar(100)" desc="问题发现人" />
-
 	<property name="iuserNo" column="Iuser_no" type="string"
 		notNullInDb="true" canImport="true" canExport="true" maxLength="50"
-		columnType="varchar(1000)" desc="问题描述" width="100" notnull="true"
+		columnType="varchar(100)" desc="主用户号" width="100" notnull="true"
 		query="true" />
+
+	<property name="bindName" column="bind_name" type="string"
+		canImport="true" canExport="true" width="100" notnull="true"
+		maxLength="50" columnType="varchar(100)" desc="绑定人" />
 
 	<property name="relation" column="relation" type="string"
 		canImport="true" canExport="true" columnType="int(10)" showType="select"
-		selectCode="bugtype" width="100" desc="问题类型" />
+		selectCode="bindusertype" width="100" desc="关系" />
 
 	<property name="cardNo" column="cardno" type="string" notnull="true"
 		canImport="true" canExport="true" columnType="varchar(20)" showType="string"
-		width="150" desc="待解决时间" />
+		width="150" desc="身份证" />
 
 	<property name="phone" column="phone" type="string" notnull="true"
 		canImport="true" canExport="true" columnType="varchar(20)" showType="string"
-		maxLength="15" width="150" desc="解决时间" />
+		maxLength="15" width="150" desc="手机号" />
 
 	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="问题发现人" visible="false" noedit="true"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
 		columnType="int(10)" noadd="true" />
 
 	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="发现时间" visible="false" noedit="true"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
 		columnType="varchar(20)" noadd="true" />
 </class>

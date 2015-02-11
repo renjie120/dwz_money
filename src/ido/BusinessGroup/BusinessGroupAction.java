@@ -349,6 +349,26 @@ public class BusinessGroupAction extends BaseAction {
 		return null;
 	}
 
+	public String groupAddShopm() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<BusinessGroupSearchFields, Object> criterias = getCriterias();
+
+		Collection<BusinessGroup> moneyList = pMgr.searchBusinessGroup(criterias, realOrderField(),
+				startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchBusinessGroupNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount",count);
+		return "groupAddShopm";
+	}
+	
 	public String query() {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();

@@ -2,19 +2,19 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
 <script type="text/javascript">  
- function addGroup(url,title){
- 	var checkedItem =  $('input[type=checkbox][name=mids]:checked'); 
+ function deleteFromGroup(url,title){
+ 	var checkedItem =  $('input[type=checkbox][name=mids2]:checked'); 
  	if(checkedItem.size()>0){
  		var ans = '';
  		checkedItem.each(function(){
  			ans+=this.value+",";
- 		}); 
+ 		});
  		 $.ajax({
 		  type:'POST', 
 		  url:url,
 		  dataType:'json',
-		  data: {'mids':ans,'groupSno':$('#xixi').val()},
-		  success: closeDialogWindow,
+		  data: {'mids':ans,'groupSno':$('#groupSno').val()},
+		  success:afterUnbind,
 		  error: DWZ.ajaxError
 		 });   
  	}else{
@@ -23,55 +23,27 @@
  	}
  }
  
+ function afterUnbind(json) { 
+	DWZ.ajaxDone(json); 
+ }
+ 
 </script>
 
 <form id="pagerForm" method="post" action="/money/businessman!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
-	<input type="text" name="groupSno" id="xixi" value="${groupSno}" />
+	<input type="hidden" name="groupSno" id="groupSno" value="${groupSno}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
 </form>
-<div class="pageHeader">
-	<form onsubmit="return navTabSearch(this);"
-		action="/money/businessman!query.do" method="post">
-		<div class="searchBar">
-			<table class="searchContent">
-				<tr>
-					<td> 
-						商家编号</td><td>
-							<input name="shopmSno"   class="textInput " type="text"  value="<s:property value="vo.shopmSno"/>" />
-					</td> 
-					<td> 
-						商家名称 </td><td>
-							<input name="shopmName"   class="textInput " type="text"  value="<s:property value="vo.shopmName"/>" />
-					</td>  
-				</tr>
-			</table>
-			<div class="subBar">
-				<ul>
-					<li>
-						<div class="buttonActive">
-							<div class="buttonContent">
-								<button type="submit">
-									检索
-								</button>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</form>
-</div>
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
 				<a class="add" href="javascript:;" 
-					onclick="addGroup('/money/businessman!addShopmToGroup.do',this)"  mask="true"  
-					 ><span>确定</span> </a>  
+					onclick="deleteFromGroup('/money/businessman!deleteShopmToGroup.do',this)"  mask="true"  
+					 ><span>解除绑定</span> </a>  
 			</li> 
 		</ul>
 	</div>
@@ -79,18 +51,18 @@
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="mids" class="checkboxCtrl">
+					<input type="checkbox" group="mids2" class="checkboxCtrl">
 				</th>
-				<th width="100"   >
+				<th width="140"   >
 						商家编号 
 				</th> 
-				<th width="100"    >
+				<th width="140"    >
 						商家名称  
 				</th>   
-				<th width="100"   >
+				<th width="140"   >
 						联系人名称 
 				</th> 
-				<th width="100"    >
+				<th width="150"    >
 						联系人手机 
 				</th>   
 			</tr>
@@ -99,7 +71,7 @@
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="mids" value="<s:property value="sno" />"
+						<input name="mids2" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">

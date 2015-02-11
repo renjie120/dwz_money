@@ -1,52 +1,23 @@
 
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ include file="/include.inc.jsp"%>
-<script type="text/javascript">  
- function addGroup(url,title){
- 	var checkedItem =  $('input[type=checkbox][name=mids]:checked'); 
- 	if(checkedItem.size()>0){
- 		var ans = '';
- 		checkedItem.each(function(){
- 			ans+=this.value+",";
- 		}); 
- 		 $.ajax({
-		  type:'POST', 
-		  url:url,
-		  dataType:'json',
-		  data: {'mids':ans,'groupSno':$('#xixi').val()},
-		  success: closeDialogWindow,
-		  error: DWZ.ajaxError
-		 });   
- 	}else{
- 		alertMsg.error("必须至少选择一个商家！");
- 		return false;
- 	}
- }
- 
-</script>
-
-<form id="pagerForm" method="post" action="/money/businessman!query.do">
+<form id="pagerForm" method="post" action="/money/bindfamily!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
-	<input type="text" name="groupSno" id="xixi" value="${groupSno}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
-		action="/money/businessman!query.do" method="post">
+		action="/money/bindfamily!query.do" method="post">
 		<div class="searchBar">
 			<table class="searchContent">
 				<tr>
 					<td> 
-						商家编号</td><td>
-							<input name="shopmSno"   class="textInput " type="text"  value="<s:property value="vo.shopmSno"/>" />
+						主用户号</td><td>
+							<input name="iuserNo" size="20"  class="textInput " type="text"  value="<s:property value="vo.iuserNo"/>" />
 					</td> 
-					<td> 
-						商家名称 </td><td>
-							<input name="shopmName"   class="textInput " type="text"  value="<s:property value="vo.shopmName"/>" />
-					</td>  
 				</tr>
 			</table>
 			<div class="subBar">
@@ -69,9 +40,24 @@
 	<div class="panelBar">
 		<ul class="toolBar">
 			<li>
-				<a class="add" href="javascript:;" 
-					onclick="addGroup('/money/businessman!addShopmToGroup.do',this)"  mask="true"  
-					 ><span>确定</span> </a>  
+				<a class="add" href="/money/bindfamily!beforeAdd.do" target="dialog" mask="true"
+					title="添加"><span>添加</span> </a>
+			</li>
+			<li>
+				<a class="delete" href="/money/bindfamily!doDelete.do" postType="string"
+					target="selectedTodo" rel="ids" title="确定要删除吗?"><span>删除</span>
+				</a>
+			</li>
+			<li>
+				<a class="edit" href="/money/bindfamily!beforeUpdate.do?sno={sno}" mask="true"
+					target="dialog" title="修改"><span>修改</span> </a>
+			</li>
+			<li>
+				<a class="icon" href="/money/bindfamily!export.do" target="dwzExport"
+					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
+			</li>
+			<li>
+				<a class="icon" href="/money/bindfamily!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
 			</li> 
 		</ul>
 	</div>
@@ -79,41 +65,47 @@
 		<thead>
 			<tr>
 				<th width="30">
-					<input type="checkbox" group="mids" class="checkboxCtrl">
+					<input type="checkbox" group="ids" class="checkboxCtrl">
 				</th>
-				<th width="100"   >
-						商家编号 
+				<th width="100"    orderField="IUSERNO" >
+						主用户号 
 				</th> 
-				<th width="100"    >
-						商家名称  
-				</th>   
-				<th width="100"   >
-						联系人名称 
+				<th width="100"    orderField="BINDNAME" >
+						绑定人 
 				</th> 
-				<th width="100"    >
-						联系人手机 
-				</th>   
+				<th width="100"    orderField="RELATION" >
+						关系 
+				</th> 
+				<th width="150"    orderField="CARDNO" >
+						身份证 
+				</th> 
+				<th width="150"    orderField="PHONE" >
+						手机号 
+				</th> 
 			</tr>
 		</thead>
 		<tbody>
 			<s:iterator value="list" status="stu">
 				<tr target="sno" rel="<s:property value="sno" />">
 					<td style="text-align:center;">
-						<input name="mids" value="<s:property value="sno" />"
+						<input name="ids" value="<s:property value="sno" />"
 							type="checkbox">
 					</td>
 					<td style="text-align:center;">
-						<s:property value="shopmSno" />
+						<div style='width:100px'><s:property value="iuserNo" /></div>
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="shopmName" />
-					</td>  
-					<td style="text-align:center;">
-						<s:property value="shopmContactName" />
+						<div style='width:100px'><s:property value="bindName" /></div>
 					</td> 
 					<td style="text-align:center;">
-						<s:property value="shopmConPhone" />
-					</td>  
+						<div style='width:100px'><s:property value="relation" /></div>
+					</td> 
+					<td style="text-align:center;">
+						<div style='width:150px'><s:property value="cardNo" /></div>
+					</td> 
+					<td style="text-align:center;">
+						<div style='width:150px'><s:property value="phone" /></div>
+					</td> 
 				</tr>
 			</s:iterator>
 		</tbody>

@@ -164,6 +164,9 @@
 					hbm/businessshop.hbm.xml
 				</value>
 				<value>
+					hbm/bindfamily.hbm.xml
+				</value>
+				<value>
 					hbm/insureduser.hbm.xml
 				</value>
 				<value>

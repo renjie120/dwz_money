@@ -4,7 +4,7 @@ public enum AllSelectContants {
 	QUESTION_SORT("questionSort"),ADDMONEYTYPE("addmoneytype"),SYS_DUIJIE("sys_duijie"), MENULEVEL("menulevel"),INSUREFILE_STATE("insurefile_state"), ORDERSTATUS(
 			"orderstatus"), PLAN_STATUS("planstatus"), YESORNO("yesorno"), TOUBAOUSER_STATUS("toubaouser_status"), PLAN_TYPE(
 			"plantype"), USER_TYPE("usertype"), MENU_TARGET("menutarget"), QUESTION_STATUS(
-			"questionStatus"), DIARY_TYPE("diarytype"), DEAL_TYPE("dealType"), INSURE_COMPANY(
+			"questionStatus"), DIARY_TYPE("diarytype"),BINDUSERTYPE("bindusertype"), DEAL_TYPE("dealType"), INSURE_COMPANY(
 			"insure_company"), YESORNO_STATUS("yesorno_status"), INSUREDCOMPANY_DICT(
 			"insuredcompany_dict"),SEX("sex"),FILE_TYPE("file_type"),INSURED_COM_DICT(
 					"insured_com_dict"), ALLPARAMTYPE("allparamtype"), MENUTREE(

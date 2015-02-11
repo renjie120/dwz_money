@@ -2,7 +2,6 @@
 package ido.BusinessMan;
 import java.io.File;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -244,6 +243,12 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 					case OPENBANKPROVINCE:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  businessman.OpenBankProvince = ? ");
+						argList.add(entry.getValue());
+						count++;
+					break;
+					case GROUPSNO:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  businessman.groupSno = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
@@ -655,6 +660,29 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 					    PreparedStatement ps = conn.prepareStatement(sql);
 					    ps.setString(1, groupSno);
 					    ps.setString(2, tempID);
+					    ps.executeUpdate();  
+					    return null ;
+					}
+				}); 
+			}
+		}
+	}
+
+	@Override
+	public void deleteToGroupSno(String ids, String groupSno) {
+		JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtil
+			    .getBean("jdbcTemplate");
+		String[] allId = ids.split(",");
+		for(String id:allId){
+			if(id!=null&&!"".equals(id)){
+				final String tempID = id;
+				jdbcTemplate.execute(new ConnectionCallback () { 
+					@Override
+					public Object doInConnection(java.sql.Connection conn)
+							throws SQLException, DataAccessException {
+						String sql = "update business_man set group_sno = null where  id=?  " ;
+					    PreparedStatement ps = conn.prepareStatement(sql);
+					    ps.setString(1, tempID);
 					    ps.executeUpdate();  
 					    return null ;
 					}
