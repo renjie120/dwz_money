@@ -5,8 +5,8 @@ import java.util.Map;
 import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
-import common.report.ReportStrGenerate;
 import common.report.ReportStrGenerate2;
+
 import dwz.present.BaseAction;
 
 /**
@@ -142,7 +142,7 @@ public class MoneyReport extends BaseAction {
 	 */
 	public String reportSumByType() {
 		ReportDaoUtil util = (ReportDaoUtil) SpringContextUtil
-				.getBean("reportUtil");
+				.getBean("reportUtil"); 
 		String sql = new MyReport.Builder("money_detail_view")
 				.groupBy("bigtype").sum("money").where(" big_money_type='2' ")
 				.colomns(new String[] { "bigtype" }).build().generateSql();

@@ -32,6 +32,7 @@ public class StandardPassport extends Passport {
 		} 
 		MyUserVO userVo = ids.iterator().next();
 		String pass = userVo.getPassword();  
+		System.out.println("Coder.fromMyCoder(pass)=="+Coder.fromMyCoder(pass));
 		if(!Coder.fromMyCoder(pass).equals(appPassword)){
 			
 			System.out.println("login failed: " + appUserType + ": "
