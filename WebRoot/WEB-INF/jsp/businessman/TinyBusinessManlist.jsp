@@ -29,7 +29,7 @@
 	<input type="hidden" name="pageNum" value="${pageNum}" />
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
 	<input type="hidden" name="orderField" value="${param.orderField}" />
-	<input type="text" name="groupSno" id="xixi" value="${groupSno}" />
+	<input type="hidden" name="groupSno" id="xixi" value="${groupSno}" />
 	<input type="hidden" name="orderDirection"
 		value="${param.orderDirection}" />
 </form>

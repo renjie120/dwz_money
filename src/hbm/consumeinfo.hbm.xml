@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.ConsumeInfo.ConsumeInfoVO" table="consume_info">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="iuserId" column="iuser_id" type="string" />
+				<property name="comId" column="Com_id" type="string" />
+				<property name="shopmId" column="Shopm_id" type="string" />
+				<property name="shopId" column="Shop_id" type="string" />
+				<property name="ownerCom" column="Owner_com" type="string" />
+				<property name="consumeStatus" column="Consume_status" type="string" />
+				<property name="consumeMoney" column="Consume_money" type="double" />
+				<property name="cardMoney" column="Card_money" type="double" />
+				<property name="cashMoney" column="Cash_money" type="double" />
+				<property name="consumeTime" column="Consume_time" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.ConsumeInfo.ConsumeInfoDao.findRecordById">
+		<![CDATA[from ConsumeInfoVO as consumeInfoDao where sno = ?]]>
+	</query>
+
+	<query name="ido.ConsumeInfo.ConsumeInfoDao.findAll">
+		<![CDATA[from ConsumeInfoVO  ]]>
+	</query>
+</hibernate-mapping>

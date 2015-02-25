@@ -18,6 +18,12 @@ public interface Menu extends BusinessObject  {
 	 * @return
 	 */
 	public String getParentName();
+	
+	/**
+	 * 返回是否有效.
+	 * @return
+	 */
+	public String getValid();
 
 	/**
 	 * 获取目标的属性值.

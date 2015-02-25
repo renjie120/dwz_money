@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import common.util.DomUtil;
+import common.util.IDatamodelXmlReader;
 
 /**
  * 解析数据说明文件.
@@ -17,7 +18,7 @@ import common.util.DomUtil;
  * @author lisq
  * 
  */
-public class ModelParse {
+public class ModelParse implements IXmlParse{
 	protected static Log log = LogFactory.getLog(ModelParse.class);
 	private String fileName;
 	
@@ -226,9 +227,9 @@ public class ModelParse {
 	 * 解析一个文件里面的多个class节点.
 	 * @return
 	 */
-	public List<ClassModel> parseClasses() {
+	public List<IDatamodelXmlReader> parseClasses() {
 		Document doc = DomUtil.getXmlDocument(fileName);
-		List<ClassModel> ans= new ArrayList<ClassModel>();
+		List<IDatamodelXmlReader> ans= new ArrayList<IDatamodelXmlReader>();
 		int size = doc.getElementsByTagName("class").getLength();
 		for(int i=0,j=size;i<j;i++){
 			Node list = doc.getElementsByTagName("class").item(i);

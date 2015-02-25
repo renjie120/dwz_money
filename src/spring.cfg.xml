@@ -86,6 +86,9 @@
 					hbm/SysUser.hbm.xml
 				</value>
 				<value>
+					hbm/consumeinfo.hbm.xml
+				</value> 
+				<value>
 					hbm/ConFolder.hbm.xml
 				</value>
 				<value>
@@ -186,6 +189,12 @@
 				</value>
 				<value>
 					hbm/addmoneydetail.hbm.xml
+				</value>
+				<value>
+					hbm/buglist.hbm.xml
+				</value>
+				<value>
+					hbm/drugtypeselect.hbm.xml
 				</value>
 			</list>
 		</property>

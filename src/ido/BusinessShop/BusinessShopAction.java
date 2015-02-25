@@ -1,28 +1,39 @@
 
 package ido.BusinessShop;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream; 
-import java.util.*; 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext; 
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
+import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.CommonUtil;
+import common.util.DateTool;
+import common.util.DateUtil;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 /**
  * 关于商铺的Action操作类.
  * @author www(水清)
@@ -84,7 +95,13 @@ public class BusinessShopAction extends BaseAction {
 	 */
 	public String model() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("result.xls");
+		String file_name = "商铺上传模板";
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		String fileNameString =file_name+".xls"; 
 		response.addHeader("Content-Disposition", "attachment;filename="
 				+ fileNameString);
 
@@ -338,7 +355,13 @@ public class BusinessShopAction extends BaseAction {
 	 */
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=BusinessShopList.xls");
+		String file_name = "商铺信息_"+DateUtil.toString(DateUtil.now(),"yyyyMMddHHmm");
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		response.addHeader("Content-Disposition","attachment;filename="+file_name+".xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();

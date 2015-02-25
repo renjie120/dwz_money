@@ -14,6 +14,7 @@
 		<property name="url" column="url" type="string" />
 		<property name="level" column="level" type="string" />
 		<property name="relId" column="relId" type="string" />
+		<property name="valid" column="valid" type="string" />
 	</class>
 
 	<query name="money.menu.MenuDao.findRecordById">

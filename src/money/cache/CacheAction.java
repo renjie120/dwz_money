@@ -2,6 +2,7 @@
 
 import ido.BusinessGroup.BusinessGroupManager;
 import ido.BusinessMan.BusinessManManager;
+import ido.Dict_Drugtype.DrugTypeSelectManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
 import ido.LoginUser.LoginUserManager;
 import ido.city.CityDictManager;
@@ -75,6 +76,10 @@ public class CacheAction extends BaseAction {
 		
 		//组织机构树
 		tMgr.initOrgCache();
+		
+		//药品类别
+		DrugTypeSelectManager drugtypeselectManager = bf.getManager(BeanManagerKey.drugtypeselectManager);
+		drugtypeselectManager.addCache();
 		
 		//投保单位树.
 		tMgr.initInsuredCache();

@@ -2,6 +2,7 @@
 
 import ido.BusinessGroup.BusinessGroupManager;
 import ido.BusinessMan.BusinessManManager;
+import ido.Dict_Drugtype.DrugTypeSelectManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
 import ido.InsuredCompany.InsuredCompanyManager;
 import ido.InsuredUnit.InsuredUnitManager;
@@ -178,6 +179,10 @@ public class CacheManager {
 				InsuredCompanyManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyManager);
 				pMgr.addCache();
 			}
+			if(AllSelectContants.DRUGTYPE_DICT.getName().equals(key)){
+				DrugTypeSelectManager pDrugTypeSelectMgr = bf.getManager(BeanManagerKey.drugtypeselectManager);
+				pDrugTypeSelectMgr.addCache();
+			} 
 			if(AllSelectContants.IDOUSER_DICT.getName().equals(key)){
 				LoginUserManager pLoginUserMgr = bf.getManager(BeanManagerKey.loginuserManager);
 				pLoginUserMgr.addCache();

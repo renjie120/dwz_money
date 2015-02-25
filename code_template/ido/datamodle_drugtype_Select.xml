@@ -1,0 +1,32 @@
+<class name="DrugTypeSelect" table="dict_drugtypes" desc="药品大类字典表"
+	importFile="false" exportFile="false" add="true" update="false" delete="true"
+	cacheIdColumn="sno" cacheNameColumn="drugType" cacheName="drugtype_dict"
+	package="ido.Dict_Drugtype">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="drugType" column="drug_type" type="string"
+		notNullInDb="true" canImport="true" canExport="true" maxLength="250"
+		columnType="varchar(500)" desc="药品类别名称" width="150" notnull="true"
+		query="true" />
+
+	<property name="typeStatus" column="type_status" type="string"
+		width="100" showType="select" selectCode="yesorno" columnType="int"
+		desc="是否有效" query="true" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
+		columnType="varchar(20)" noadd="true" />
+</class>

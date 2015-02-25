@@ -16,6 +16,39 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="consumeinfoDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.ConsumeInfo.ConsumeInfoDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.ConsumeInfo.ConsumeInfoVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="drugtypeselectDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>ido.Dict_Drugtype.DrugTypeSelectDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="ido.Dict_Drugtype.DrugTypeSelectVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="buglistDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.bugList.BugListDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.bugList.BugListVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="uploadfileDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.uploadFile.UploadFileDao</value>

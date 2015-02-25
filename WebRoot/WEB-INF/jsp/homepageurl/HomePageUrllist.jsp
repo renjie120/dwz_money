@@ -58,7 +58,7 @@
 			</li>
 			<li>
 				<a class="icon" href="/money/homepageurl!export.do" target="dwzExport"
-					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
+					targetType="navTab" title="确实要导出这些记录吗?"><span>导出</span> </a>
 			</li>
 
 		</ul>

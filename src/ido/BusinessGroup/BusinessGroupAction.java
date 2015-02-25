@@ -5,6 +5,8 @@ import ido.loginfo.LogInfoManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.util.CommonUtil;
 import common.util.DateTool;
+import common.util.DateUtil;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.constants.Constants;
@@ -294,7 +297,13 @@ public class BusinessGroupAction extends BaseAction {
 	 */
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=BusinessGroupList.xls");
+		String file_name = "商家集团_"+DateUtil.toString(DateUtil.now(),"yyyyMMddHHmm");
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		response.addHeader("Content-Disposition","attachment;filename="+file_name+".xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
@@ -353,8 +362,8 @@ public class BusinessGroupAction extends BaseAction {
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
-		Map<BusinessGroupSearchFields, Object> criterias = getCriterias();
-
+		Map<BusinessGroupSearchFields, Object> criterias = getCriterias(); 
+		
 		Collection<BusinessGroup> moneyList = pMgr.searchBusinessGroup(criterias, realOrderField(),
 				startIndex, numPerPage);
 
@@ -383,6 +392,11 @@ public class BusinessGroupAction extends BaseAction {
 		int count = pMgr.searchBusinessGroupNum(criterias);
 		request.setAttribute("totalCount", count);
 		ActionContext.getContext().put("list", moneyList);
+		System.out.println(" getOrderDirection()==="+ getOrderDirection());
+		if("desc".equals(getOrderDirection()))
+			ActionContext.getContext().put("orderDirection", "asc");
+		else
+			ActionContext.getContext().put("orderDirection", "asc");
 		ActionContext.getContext().put("pageNum", pageNum);
 		ActionContext.getContext().put("numPerPage", numPerPage);
 		ActionContext.getContext().put("totalCount",count);

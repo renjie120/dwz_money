@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.io.File;
 import java.util.Map;
-
+import common.cache.CacheUtil;
 import common.util.NPOIReader;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
@@ -127,6 +127,9 @@ public class ${model.className}ManagerImpl extends AbstractBusinessObjectManager
 			</#if>
 			<#if '${attr.showType}'='dict'>
 			po.set${attr.name?cap_first}(select_${attr.name}.getName("" + po.get${attr.name?cap_first}())); 
+			</#if>
+			<#if '${attr.currentUser}'='true'>
+			po.set${attr.name?cap_first}(CacheUtil.getSystemUserName(""+po.get${attr.name?cap_first}())); 
 			</#if>
 			</#list>
 			eaList.add(new  ${model.className}Impl(po));

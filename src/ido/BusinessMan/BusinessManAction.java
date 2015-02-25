@@ -5,6 +5,8 @@ import ido.loginfo.LogInfoManager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,6 +25,7 @@ import common.cache.Cache;
 import common.cache.CacheManager;
 import common.util.CommonUtil;
 import common.util.DateTool;
+import common.util.DateUtil;
 
 import dwz.constants.BeanManagerKey;
 import dwz.framework.constants.Constants;
@@ -122,7 +125,7 @@ public class BusinessManAction extends BaseAction {
 		int numPerPage = getNumPerPage();
 		int startIndex = (pageNum - 1) * numPerPage;
 		Map<BusinessManSearchFields, Object> criterias = getCriterias();
-
+		criterias.put(BusinessManSearchFields.GROUPSNO_NULL,  getShopmType());
 		Collection<BusinessMan> moneyList = pMgr.searchBusinessMan(criterias, realOrderField(),
 				startIndex, numPerPage);
 
@@ -403,7 +406,13 @@ public class BusinessManAction extends BaseAction {
 	 */
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=BusinessManList.xls");
+		String file_name = "商家_"+DateUtil.toString(DateUtil.now(),"yyyyMMddHHmm");
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		response.addHeader("Content-Disposition","attachment;filename="+file_name+".xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();

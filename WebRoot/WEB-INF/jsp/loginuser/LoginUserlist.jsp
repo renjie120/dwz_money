@@ -77,7 +77,7 @@
 					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
 			</li>
 			<li>
-				<a class="icon" href="/money/loginuser!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+				<a class="icon" href="/money/loginuser!initImport.do" target="dialog"><span>导入</span> </a>
 			</li> 
 		</ul>
 	</div>

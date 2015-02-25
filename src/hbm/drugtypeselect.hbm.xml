@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ido.Dict_Drugtype.DrugTypeSelectVO" table="dict_drugtypes">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="drugType" column="drug_type" type="string" />
+				<property name="typeStatus" column="type_status" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="updateUser" column="update_user" type="int" />
+				<property name="updateTime" column="update_time" type="string" />
+	</class>
+
+	<query name="ido.Dict_Drugtype.DrugTypeSelectDao.findRecordById">
+		<![CDATA[from DrugTypeSelectVO as drugTypeSelectDao where sno = ?]]>
+	</query>
+
+	<query name="ido.Dict_Drugtype.DrugTypeSelectDao.findAll">
+		<![CDATA[from DrugTypeSelectVO  ]]>
+	</query>
+</hibernate-mapping>

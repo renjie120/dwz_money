@@ -46,7 +46,7 @@ public class MenuAction extends BaseAction {
 	public String doAdd() {
 		try {
 			MenuImpl menuImpl = new MenuImpl(target, menuName, parentId,
-					orderId, url, level, relId);
+					orderId, url, level, relId,"1");
 			pMgr.createMenu(menuImpl);
 			common.cache.CacheManager.clearOnly(CacheEnum.MENUTREE.getName());
 		} catch (ValidateFieldsException e) {
@@ -72,7 +72,7 @@ public class MenuAction extends BaseAction {
 	public String doUpdate() {
 		try {
 			MenuImpl menuImpl = new MenuImpl(menuId, target, menuName,
-					parentId, orderId, url, level, relId);
+					parentId, orderId, url, level, relId,valid);
 			pMgr.updateMenu(menuImpl);
 			common.cache.CacheManager.clearOnly(CacheEnum.MENUTREE.getName());
 		} catch (ValidateFieldsException e) {
@@ -470,6 +470,16 @@ public class MenuAction extends BaseAction {
 	}
 
 	private String relId;
+	
+	private String valid;
+
+	public String getValid() {
+		return valid;
+	}
+
+	public void setValid(String valid) {
+		this.valid = valid;
+	}
 
 	/**
 	 * 获取关联id的属性值.

@@ -78,7 +78,16 @@
 			return this.each(function(){
 				var $this = $(this).css({cursor:"pointer"}).click(function(){
 					var orderField = $this.attr("orderField");
-					var orderDirection = $this.hasClass(op.asc) ? op.desc : op.asc;
+					var orderDirection = $this.hasClass(op.asc) ? op.desc : op.asc; 
+					orderDirection = $('#orderDirection').val(); 
+					console.log('orderDirection==='+orderDirection);
+					if(orderDirection=='desc'){
+						console.log('添加样式desc');
+						$('#orderDirection').val('asc')
+					}else{
+						console.log('删除样式desc');
+						$('#orderDirection').val('desc')
+					}
 					dwzPageBreak({targetType:op.targetType, rel:op.rel, data:{orderField: orderField, orderDirection: orderDirection},arglist:$pcpc.attr('arglist')});
 				});
 				

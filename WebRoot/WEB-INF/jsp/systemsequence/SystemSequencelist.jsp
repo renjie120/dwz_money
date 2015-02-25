@@ -52,7 +52,7 @@
 					title="添加"><span>添加</span> </a>
 			</li>
 			<li>
-				<a class="icon" href="/money/systemsequence!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+				<a class="icon" href="/money/systemsequence!initImport.do" target="dialog"><span>导入</span> </a>
 			</li> 
 		</ul>
 	</div>

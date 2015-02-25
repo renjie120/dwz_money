@@ -90,11 +90,11 @@
 			</#if><#if  '${model.canExport}'='true'>
 			<li>
 				<a class="icon" href="/money/${nm}!export.do" target="dwzExport"
-					targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span> </a>
+					targetType="navTab" title="确实要导出这些记录吗?"><span>导出</span> </a>
 			</li>
 			</#if><#if  '${model.canImport}'='true'>
 			<li>
-				<a class="icon" href="/money/${nm}!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+				<a class="icon" href="/money/${nm}!initImport.do" target="dialog"><span>导入</span> </a>
 			</li> 
 			</#if>
 		</ul>

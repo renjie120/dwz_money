@@ -22,8 +22,17 @@ public class MenuVO implements Serializable {
 
 	}
 
+	private String valid;
+	public String getValid() {
+		return valid;
+	}
+
+	public void setValid(String valid) {
+		this.valid = valid;
+	}
+
 	public MenuVO(int menuId, String target, String menuName, String parentId,
-			int orderId, String url, String level, String relId) {
+			int orderId, String url, String level, String relId,String valid) {
 		this.menuId = menuId;
 		this.target = target;
 		this.menuName = menuName;
@@ -32,11 +41,12 @@ public class MenuVO implements Serializable {
 		this.url = url;
 		this.level = level;
 		this.relId = relId;
+		this.valid = valid;
 	}
 
 	public MenuVO(int menuId, String target, String menuName, String parentId,
 			int orderId, String url, String level, String relId,
-			String parentName) {
+			String parentName,String valid) {
 		this.menuId = menuId;
 		this.target = target;
 		this.menuName = menuName;
@@ -45,12 +55,14 @@ public class MenuVO implements Serializable {
 		this.url = url;
 		this.level = level;
 		this.relId = relId;
+		this.valid =valid;
 		this.parentName = parentName;
 	}
 
 	public MenuVO(String target, String menuName, String parentId, int orderId,
-			String url, String level, String relId) {
+			String url, String level, String relId,String valid) {
 		this.target = target;
+		this.valid=valid;
 		this.menuName = menuName;
 		this.parentId = parentId;
 		this.orderId = orderId;

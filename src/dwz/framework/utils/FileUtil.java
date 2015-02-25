@@ -5,12 +5,16 @@ import it.sauronsoftware.base64.Base64;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
@@ -21,16 +25,17 @@ import org.dom4j.io.SAXReader;
 
 public class FileUtil {
 	public static Log log = LogFactory.getLog(FileUtil.class);
+
 	
 	public static boolean uploadFile(InputStream is, String filePath) {
 
 		boolean retCode = false;
 		byte[] buffer = new byte[1024];
 		FileOutputStream fos = null;
-		
+
 		try {
 			fos = new FileOutputStream(new File(filePath));
-			
+
 			int n = -1;
 			while ((n = is.read(buffer, 0, buffer.length)) != -1) {
 				fos.write(buffer, 0, n);
@@ -64,7 +69,7 @@ public class FileUtil {
 
 		return retCode;
 	}
-	
+
 	public static String getXmlContent(File xmlFile) {
 		try {
 			Document document = new SAXReader().read(xmlFile);
@@ -72,12 +77,12 @@ public class FileUtil {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
 	public static String getFileContent(String fileName) {
-		
+
 		BufferedReader reader = null;
 		StringBuilder fileContent = new StringBuilder();
 		try {
@@ -87,7 +92,7 @@ public class FileUtil {
 			String line = "";
 			while ((line = reader.readLine()) != null) {
 				fileContent.append(line);
-				fileContent.append("\n"); 
+				fileContent.append("\n");
 			}
 
 		} catch (Exception e) {
@@ -114,7 +119,7 @@ public class FileUtil {
 			String line = "";
 			while ((line = reader.readLine()) != null) {
 				fileContent.append(line);
-				fileContent.append("\n"); 
+				fileContent.append("\n");
 			}
 
 		} catch (Exception e) {
@@ -132,7 +137,7 @@ public class FileUtil {
 		return fileContent.toString();
 
 	}
-	
+
 	public static boolean setFileContent(String path, String content) {
 		boolean flag = false;
 		DataOutputStream dos = null;
@@ -161,7 +166,7 @@ public class FileUtil {
 		}
 		return flag;
 	}
-	
+
 	public static String file2Base64String(String filePath, String tmpDir) {
 		File file = new File(filePath);
 

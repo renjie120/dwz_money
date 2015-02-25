@@ -60,7 +60,7 @@
 			</li>
 			<li>
 				<a class="icon" href="/money/filemanager!export.do"
-					target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
+					target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出</span>
 				</a>
 			</li>
 

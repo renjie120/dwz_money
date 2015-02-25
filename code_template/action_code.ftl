@@ -3,12 +3,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream; 
 import java.util.*; 
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 import dwz.framework.constants.Constants;
 import com.alibaba.fastjson.JSON;
 import common.base.ParamSelect;
 import common.base.SpringContextUtil;
 import common.util.CommonUtil;
 import common.util.DateTool;
+import common.util.DateUtil;
 import com.opensymphony.xwork2.ActionContext; 
 import dwz.framework.user.User;
 import dwz.framework.user.impl.UserImpl;
@@ -86,7 +89,13 @@ public class ${bignm}Action extends BaseAction {
 	 */
 	public String model() {
 		response.setContentType("Application/excel");
-		String fileNameString = CommonUtil.toUtf8String("result.xls");
+		String file_name = "${model.classDesc}上传模板";
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		String fileNameString =file_name+".xls";
 		response.addHeader("Content-Disposition", "attachment;filename="
 				+ fileNameString);
 
@@ -261,7 +270,13 @@ public class ${bignm}Action extends BaseAction {
 	 */
 	public String export() {
 		response.setContentType("Application/excel");
-		response.addHeader("Content-Disposition","attachment;filename=${bignm}List.xls");
+		String file_name = "${model.classDesc}_"+DateUtil.toString(DateUtil.now(),"yyyyMMddHHmm");
+		try {
+			file_name = URLEncoder.encode(file_name, "UTF-8");
+		} catch (UnsupportedEncodingException e1) { 
+			e1.printStackTrace();
+		}   
+		response.addHeader("Content-Disposition","attachment;filename="+file_name+".xls");
 
 		int pageNum = getPageNum();
 		int numPerPage = getNumPerPage();

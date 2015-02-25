@@ -8,8 +8,17 @@
 	<bean id="systemsequenceManager" class="money.sequence.SystemSequenceManagerImpl">
 		<constructor-arg index="0" ref="systemsequenceDao"></constructor-arg>
 	</bean>
+	<bean id="consumeinfoManager" class="ido.ConsumeInfo.ConsumeInfoManagerImpl">
+		<constructor-arg index="0" ref="consumeinfoDao"></constructor-arg>
+	</bean>
+	<bean id="drugtypeselectManager" class="ido.Dict_Drugtype.DrugTypeSelectManagerImpl">
+		<constructor-arg index="0" ref="drugtypeselectDao"></constructor-arg>
+	</bean>
 	<bean id="bindfamilyManager" class="ido.bindFamily.BindFamilyManagerImpl">
 		<constructor-arg index="0" ref="bindfamilyDao"></constructor-arg>
+	</bean>
+	<bean id="buglistManager" class="money.bugList.BugListManagerImpl">
+		<constructor-arg index="0" ref="buglistDao"></constructor-arg>
 	</bean>
 	<bean id="addmoneydetailManager" class="ido.addmoneydetail.AddMoneyDetailManagerImpl">
 		<constructor-arg index="0" ref="addmoneydetailDao"></constructor-arg>

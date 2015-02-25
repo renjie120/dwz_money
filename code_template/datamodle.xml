@@ -1,34 +1,59 @@
-<class name="BugList" table="bug_list" desc="问题清单" importFile="true"
-	exportFile="true" add="true" update="true" delete="true" package="ido.bindFamily">
+<class name="ConsumeInfo" table="consume_info" desc="消费记录"
+	exportFile="true" add="true" update="true" delete="true" package="ido.ConsumeInfo">
 	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
 		canExport="true" columnType="int(10)" noedit="true" />
 
-	<property name="bindName" column="bind_name" type="string"
-		canImport="true" canExport="true" width="100" notnull="true"
-		maxLength="50" columnType="varchar(100)" desc="问题发现人" />
+	<property name="iuserId" column="iuser_id" type="string"
+		notNullInDb="true" canExport="true" columnType="int(10)" desc="投保用户号"
+		width="100" notnull="true" query="true" />
 
-	<property name="iuserNo" column="Iuser_no" type="string"
-		notNullInDb="true" canImport="true" canExport="true" maxLength="50"
-		columnType="varchar(1000)" desc="问题描述" width="100" notnull="true"
+	<property name="comId" column="Com_id" type="string" noadd="true"
+		noedit="true" columnType="int(10)" width="100" desc="投保公司" />
+
+	<property name="shopmId" column="Shopm_id" type="string"
+		noadd="true" noedit="true" columnType="int(10)" width="100" desc="所属商家 "
 		query="true" />
 
-	<property name="relation" column="relation" type="string"
-		canImport="true" canExport="true" columnType="int(10)" showType="select"
-		selectCode="bugtype" width="100" desc="问题类型" />
+	<property name="shopId" column="Shop_id" type="string"
+		columnType="int(10)" width="100" desc="所属商铺 " query="true" />
 
-	<property name="cardNo" column="cardno" type="string" notnull="true"
-		canImport="true" canExport="true" columnType="varchar(20)" showType="string"
-		width="150" desc="待解决时间" />
+	<property name="ownerCom" column="Owner_com" type="string"
+		noadd="true" noedit="true" columnType="int(10)" width="100" desc="所属分公司 "
+		query="true" />
 
-	<property name="phone" column="phone" type="string" notnull="true"
-		canImport="true" canExport="true" columnType="varchar(20)" showType="string"
-		maxLength="15" width="150" desc="解决时间" />
+	<property name="consumeStatus" column="Consume_status" type="string"
+		showType="select" selectCode="paytype" canExport="true" columnType="int(10)"
+		desc="支付状态" width="100" />
+
+	<property name="consumeMoney" column="Consume_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="消费金额"
+		width="100" />
+
+	<property name="cardMoney" column="Card_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="刷卡消费"
+		width="100" />
+
+	<property name="cashMoney" column="Cash_money" type="double"
+		showType="number" canExport="true" columnType="double" desc="现金支付"
+		width="100" />
+
+	<property name="consumeTime" column="Consume_time" type="string"
+		showType="date" canExport="true" columnType="varchar(20)" desc="消费时间"
+		width="100" />
 
 	<property name="createUser" column="create_user" type="int"
-		currentUser="true" width="100" desc="问题发现人" visible="false" noedit="true"
+		currentUser="true" width="100" desc="创建用户" visible="false" noedit="true"
 		columnType="int(10)" noadd="true" />
 
 	<property name="createTime" column="create_time" type="string"
-		currentTime="true" width="100" desc="发现时间" visible="false" noedit="true"
+		currentTime="true" width="100" desc="创建时间" visible="false" noedit="true"
+		columnType="varchar(20)" noadd="true" />
+
+	<property name="updateUser" column="update_user" type="int"
+		currentUser="true" width="100" desc="更新用户" visible="false" noedit="true"
+		columnType="int(10)" noadd="true" />
+
+	<property name="updateTime" column="update_time" type="string"
+		currentTime="true" width="100" visible="false" noedit="true" desc="更新时间"
 		columnType="varchar(20)" noadd="true" />
 </class>

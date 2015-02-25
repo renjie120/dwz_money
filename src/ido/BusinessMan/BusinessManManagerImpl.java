@@ -252,6 +252,16 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 						argList.add(entry.getValue());
 						count++;
 					break;
+					case GROUPSNO_NOTNUL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  businessman.groupSno != null "); 
+						count++;
+					break;
+					case GROUPSNO_NULL:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  businessman.groupSno = null "); 
+						count++;
+					break;
 					case OPENBANKCITY:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  businessman.OpenBankCity = ? ");
@@ -660,7 +670,7 @@ public class BusinessManManagerImpl extends AbstractBusinessObjectManager implem
 					    PreparedStatement ps = conn.prepareStatement(sql);
 					    ps.setString(1, groupSno);
 					    ps.setString(2, tempID);
-					    ps.executeUpdate();  
+					    ps.executeUpdate();   
 					    return null ;
 					}
 				}); 

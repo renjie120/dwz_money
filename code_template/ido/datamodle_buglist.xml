@@ -1,0 +1,38 @@
+<class name="BugList" table="bug_list" desc="问题清单" importFile="false"
+	exportFile="true" add="true" update="true" delete="true" package="money.bugList">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="bugType" column="bug_type" type="string"
+		canImport="true" canExport="true" columnType="int(10)" showType="select"
+		selectCode="bugtype" width="100" desc="问题类型" />
+
+	<property name="bugDesc" column="bug_desc" type="string"
+		maxLength="1000" notNullInDb="true" canExport="true" columnType="varchar(1000)"
+		desc="问题描述" width="150" notnull="true" query="true" />
+
+	<property name="createUser" column="create_user" type="int"
+		currentUser="true" width="100" desc="问题发现人" noedit="true" columnType="int(10)"
+		noadd="true" />
+
+	<property name="createTime" column="create_time" type="string"
+		noadd="true" currentTime="true" width="100" desc="发现时间" noedit="true"
+		columnType="varchar(20)" />
+
+	<property name="needTime" column="need_time" type="string"
+		showType="date" canImport="true" canExport="true" columnType="varchar(20)"
+		width="150" desc="待解决时间" />
+
+	<property name="consolePeople" column="console_people" type="string"
+		canExport="true" width="100" notnull="true" maxLength="50" columnType="varchar(100)"
+		desc="解决人" />
+
+	<property name="consoleTile" column="console_time" type="string"
+		notnull="true" canImport="true" canExport="true" columnType="varchar(20)"
+		showType="string" maxLength="15" width="150" desc="解决时间" />
+
+	<property name="remark" column="remark" type="string"
+		maxLength="1000" notNullInDb="true" canImport="true" canExport="true"
+		columnType="varchar(1000)" desc="备注" width="150" notnull="true" query="true" />
+
+</class>

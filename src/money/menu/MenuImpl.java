@@ -18,15 +18,15 @@ public class MenuImpl implements Menu,CheckAble {
 	}
 
 	public MenuImpl(int menuId, String target, String menuName,
-			String parentId, int orderId, String url, String level, String relId) {
+			String parentId, int orderId, String url, String level, String relId, String valid) {
 		this.menuVO = new MenuVO(menuId, target, menuName, parentId, orderId,
-				url, level, relId);
+				url, level, relId,valid);
 	}
 
 	public MenuImpl(String target, String menuName, String parentId,
-			int orderId, String url, String level, String relId) {
+			int orderId, String url, String level, String relId, String valid) {
 		this.menuVO = new MenuVO(target, menuName, parentId, orderId, url,
-				level, relId);
+				level, relId,valid);
 	}
 
 	public MenuVO getMenuVO() {
@@ -108,6 +108,12 @@ public class MenuImpl implements Menu,CheckAble {
 	@Override
 	public String getChecked() { 
 		return this.menuVO.getChecked(); 
+	}
+
+	@Override
+	public String getValid() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -12,8 +12,58 @@ public class ColumnModel {
 	private String noedit;
 	private String fromTable;
 	private String idCoulmn;
-	//复杂搜索类型(select,string,dict,common,date,number)
+	private String nameColumn;
+	private String allSelect;
+	private String noadd;
+	private String currentUser;
+	// 列类型:可选：resource int date double depart customer areatext select checkbox
+	// radio
+	private String type;
+	// 节点类型：属性，或者id列
+	private String nodeType;
+	// 列宽度
+	private String width;
+	private String currentTime;
+	// 是否可以导出该字段
+	private String canExport;
+	// 数据的最大长度.
+	private String size;
+	private String querylike;
+	private String columnType;
+	private String showType;
+	// 数据库中的列名
+	private String column;
+	/**
+	 * 浏览框对应的url地址.
+	 */
+	private String browerUrl;
+	// 是否可见.
+	private String visible;
+	/**
+	 * 是否出现在查询条件中
+	 */
+	private String query;
+	/**
+	 * 是否出现在浏览框中.
+	 */
+	private String brower;
+	// 非空.
+	private String notnull;
+	// 属性描述
+	private String desc;
+	// jsp中描述属性的样式（number）
+	private String clas;
+	// 长度
+	private String length;
+	// 下拉菜单对应的编码
+	private String selectCode;
+	// 是否可以导入
+	private String canImport;
+	// 数据库中唯一字段
+	private String notNullInDb;// 使用缓存id.(在表单类型是select的时候才有用)
+	private String useCacheId;// 复杂搜索类型(select,string,dict,common,date,number)
 	private String complexQueryType;//
+
 	public String getComplexQueryType() {
 		return complexQueryType;
 	}
@@ -22,10 +72,6 @@ public class ColumnModel {
 		this.complexQueryType = complexQueryType;
 	}
 
-	private String nameColumn;
-	private String allSelect;
-	//使用缓存id.(在表单类型是select的时候才有用)
-	private String useCacheId;
 	public String getUseCacheId() {
 		return useCacheId;
 	}
@@ -66,13 +112,6 @@ public class ColumnModel {
 		this.nameColumn = nameColumn;
 	}
 
-	private String noadd;
-	private String currentUser;
-	private String currentTime;
-	//是否可以导入
-	private String canImport;
-	//数据库中唯一字段
-	private String notNullInDb;
 	public String getNotNullInDb() {
 		return notNullInDb;
 	}
@@ -81,8 +120,6 @@ public class ColumnModel {
 		this.notNullInDb = notNullInDb;
 	}
 
-	//是否可以导出该字段
-	private String canExport;
 	public String getCanExport() {
 		return canExport;
 	}
@@ -98,9 +135,6 @@ public class ColumnModel {
 	public void setCanImport(String canImport) {
 		this.canImport = canImport;
 	}
-
-	//数据的最大长度.
-	private String size;
 
 	public String getSize() {
 		return size;
@@ -134,9 +168,6 @@ public class ColumnModel {
 		this.noadd = noadd;
 	}
 
-	private String querylike;
-	private String columnType; 
-  
 	public String getShowType() {
 		return showType;
 	}
@@ -144,14 +175,6 @@ public class ColumnModel {
 	public void setShowType(String showType) {
 		this.showType = showType;
 	}
-
-	private String showType;
-	// 数据库中的列名
-	private String column; 
-	/**
-	 * 浏览框对应的url地址.
-	 */
-	private String browerUrl;
 
 	public String getBrowerUrl() {
 		return browerUrl;
@@ -161,17 +184,6 @@ public class ColumnModel {
 		this.browerUrl = browerUrl;
 	}
 
-	// 是否可见.
-	private String visible;
-	/**
-	 * 是否出现在查询条件中
-	 */
-	private String query;
-	/**
-	 * 是否出现在浏览框中.
-	 */
-	private String brower;
-
 	public String getBrower() {
 		return brower;
 	}
@@ -180,16 +192,6 @@ public class ColumnModel {
 		this.brower = brower;
 	}
 
-	// 非空.
-	private String notnull;
-	// 属性描述
-	private String desc;
-	// jsp中描述属性的样式（number）
-	private String clas;
-	// 长度
-	private String length;
-	// 下拉菜单对应的编码
-	private String selectCode;
 	public String getSelectCode() {
 		return selectCode;
 	}
@@ -289,14 +291,6 @@ public class ColumnModel {
 		this.minLength = minLength;
 	}
 
-	// 列类型:可选：resource int date double depart customer areatext select checkbox
-	// radio
-	private String type;
-	// 节点类型：属性，或者id列
-	private String nodeType;
-	// 列宽度
-	private String width;
-
 	public String getColumnType() {
 		return columnType;
 	}
@@ -320,15 +314,14 @@ public class ColumnModel {
 	public void setNoedit(String noedit) {
 		this.noedit = noedit;
 	}
- 
 
-//	public String getTextarea() {
-//		return textarea;
-//	}
-//
-//	public void setTextarea(String textarea) {
-//		this.textarea = textarea;
-//	}
+	// public String getTextarea() {
+	// return textarea;
+	// }
+	//
+	// public void setTextarea(String textarea) {
+	// this.textarea = textarea;
+	// }
 
 	public String getVisible() {
 		return visible;

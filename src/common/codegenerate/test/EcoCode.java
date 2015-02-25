@@ -1,33 +1,35 @@
 package common.codegenerate.test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import common.codegenerate.ClassModel;
+import common.codegenerate.Dom4jModelParse;
 import common.codegenerate.Generate;
-import common.codegenerate.ModelParse;
+import common.codegenerate.IXmlParse;
+import common.util.IDatamodelXmlReader;
 
-public class EcoCode { 
+public class EcoCode {
 	static String Root = "E:\\github\\dwz_money\\";
 	final static String file = Root + "\\code_template\\datamodle.xml";
 	static String javaRoot = Root + "\\src";
 	static String jspRoot = Root + "\\WebRoot\\WEB-INF\\jsp";
 	static String hbmRoot = Root + "\\src\\hbm";
+
 	/**
 	 * 根据map生成对应的全部的文件.
+	 * 
 	 * @param m
 	 */
-	public static void generateFiles(Map mm){
+	public static void generateFiles(Map mm) {
 		final Map m = mm;
-		ClassModel model = (ClassModel) mm.get("model");
+		IDatamodelXmlReader model = (IDatamodelXmlReader) mm.get("model");
 		String beanName = model.getClassName();
 		String packageName = model.getPackageName();
-		System.out.println(beanName+",,"+packageName);
-		boolean java = true;//是否生成java文件
-		boolean jsp = false;//是否生成jsp文件
-		boolean hbm = false;//是否生成hbm文件
-		boolean other = false;//是否生成其他文件
+		System.out.println(beanName + ",," + packageName);
+		boolean java = true;// 是否生成java文件
+		boolean jsp = false;// 是否生成jsp文件
+		boolean hbm = false;// 是否生成hbm文件
+		boolean other = false;// 是否生成其他文件
 
 		if (java) {
 			new Generate("action_code.ftl", beanName, "Action.java",
@@ -129,27 +131,36 @@ public class EcoCode {
 
 		}
 
-		if (other)
+		if (other) {
 			new Generate("config.ftl", beanName.toLowerCase(), "-config.txt",
 					packageName) {
 				public Object setData() {
 					return m;
 				}
 			}.make();
+			new Generate("test.ftl", beanName.toLowerCase(), "-test.html",
+					packageName) {
+				public Object setData() {
+					return m;
+				}
+			}.make();
+		}
 
 		System.out.println("生成完毕:d:\\" + beanName + "\\");
-	} 
-	
-	public static void main(String[] agrgs) {  
-		ModelParse p = new ModelParse();
-		p.setFileName(file);
-		List<ClassModel> list = p.parseClasses();
-		if(list!=null&&list.size()>0){
-			for(ClassModel cm:list){
-				Map mm = new HashMap();
-				mm.put("model", cm);
-				generateFiles(mm);
-			}
-		}
+	}
+
+	public static void main(String[] agrgs) {
+		IXmlParse p = new Dom4jModelParse(file);
+		Map mm = new HashMap();
+		mm.put("model", p.parse());
+		generateFiles(mm);
+		// if(list!=null&&list.size()>0){
+		// for(IDatamodelXmlReader cm:list){
+		// Map mm = new HashMap();
+		// System.out.println();
+		// mm.put("model", cm);
+		// generateFiles(mm);
+		// }
+		// }
 	}
 }

@@ -69,7 +69,7 @@
 					target="dialog" title="修改"><span>修改</span> </a>
 			</li>
 			<li>
-				<a class="icon" href="/money/insuredfile!initImport.do" target="dialog"><span>从EXCEL导入</span> </a>
+				<a class="icon" href="/money/insuredfile!initImport.do" target="dialog"><span>导入</span> </a>
 			</li> 
 		</ul>
 	</div>

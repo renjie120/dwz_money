@@ -380,8 +380,10 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	}
 
 	public String realOrderField(){
+		System.out.println("orderDirection="+orderDirection+",orderField="+orderField);
 		if ("desc".equalsIgnoreCase(orderDirection))
-			return orderField+"_DESC";
-		return null;
+			return orderField+"_DESC"; 
+		else
+			return orderField; 
 	}
 }

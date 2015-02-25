@@ -19,10 +19,10 @@
 </script>
 <form id="pagerForm" method="post"
 	action="/money/businessgroup!query.do">
-	<input type="hidden" name="pageNum" value="${pageNum}" /> <input
-		type="hidden" name="numPerPage" value="${numPerPage}" /> <input
-		type="hidden" name="orderField" value="${param.orderField}" /> <input
-		type="hidden" name="orderDirection" value="${param.orderDirection}" />
+	<input type="hidden" name="pageNum" value="${pageNum}" /> 
+	<input type="hidden" name="numPerPage" value="${numPerPage}" />
+	<input type="text"   name="orderField"  id="orderField" value="${param.orderField}" />
+    <input type="text" name="orderDirection" id="orderDirection"  value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
@@ -75,7 +75,7 @@
 				}
 			%>
 			<li><a class="icon" href="/money/businessgroup!export.do"
-				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出EXCEL</span>
+				target="dwzExport" targetType="navTab" title="确实要导出这些记录吗?"><span>导出</span>
 			</a></li>
 		</ul>
 	</div>

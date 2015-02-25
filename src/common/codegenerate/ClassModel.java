@@ -2,27 +2,52 @@ package common.codegenerate;
 
 import java.util.List;
 
+import common.util.IDatamodelXmlReader;
+
 /**
  * 类的结构文件.
  * 
  * @author lisq
  * 
  */
-public class ClassModel {
+public class ClassModel implements IDatamodelXmlReader{
 	public List getAttributes() {
 		return attributes;
 	}
+
+	private String keyName;
+	private String keyColumn;
+	private String keyType;
+	/**
+	 * 主键对应的数据库字段类型
+	 */
+	private String keyColumnType;
+	private String keyDesc; 
+	private List attributes = null;
+	private String idKey = "";
+	private String className = "";
+	// 是否添加到缓存
+	private String addToCache = "";
+	private String cacheIdColumn = "";
+	private String cacheNameColumn = "";
+	private String cacheName = "";
+	private String packageName = "";
+	private String classDesc = "";
+	private String idColumn = "";
+	private String idType = "";
+	private String table = "";
 	private String canImport;
 	private String canExport;
 	private String canAdd;
 	private String canUpdate;
-	private String canDelete; 
+	private String canDelete;
 	private String importRole;
 	private String exportRole;
 	private String addRole;
 	private String updateRole;
 	private String deleteRole;
-	private String canComplexQuery; 
+	private String canComplexQuery;
+
 	public String getCanComplexQuery() {
 		return canComplexQuery;
 	}
@@ -70,8 +95,9 @@ public class ClassModel {
 	public void setDeleteRole(String deleteRole) {
 		this.deleteRole = deleteRole;
 	}
-  
+
 	private String arg1;
+
 	public String getArg1() {
 		return arg1;
 	}
@@ -180,13 +206,6 @@ public class ClassModel {
 		this.table = table;
 	}
 
-	private String keyName;
-	private String keyColumn;
-	private String keyType;
-	/**
-	 * 主键对应的数据库字段类型
-	 */
-	private String keyColumnType;
 	public String getKeyColumnType() {
 		return keyColumnType;
 	}
@@ -194,7 +213,7 @@ public class ClassModel {
 	public void setKeyColumnType(String keyColumnType) {
 		this.keyColumnType = keyColumnType;
 	}
-	private String keyDesc;
+
 	public String getKeyName() {
 		return keyName;
 	}
@@ -227,13 +246,6 @@ public class ClassModel {
 		this.keyDesc = keyDesc;
 	}
 
-	private List attributes = null;
-	private String idKey = "";
-	private String className = "";
-	//是否添加到缓存
-	private String addToCache = "";
-	private String cacheIdColumn = "";
-	private String cacheNameColumn = "";
 	public String getAddToCache() {
 		return addToCache;
 	}
@@ -265,11 +277,5 @@ public class ClassModel {
 	public void setCacheName(String cacheName) {
 		this.cacheName = cacheName;
 	}
-	private String cacheName = "";
-	private String packageName = "";
-	private String classDesc = "";
-	private String idColumn = "";
-	private String idType = "";
-	private String table = "";
 
 }

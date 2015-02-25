@@ -6,6 +6,57 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="consumeinfo" class="ido.ConsumeInfo.ConsumeInfoAction">
+			<result name="list">
+				/WEB-INF/jsp/consumeinfo/ConsumeInfolist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/consumeinfo/ConsumeInfoinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/consumeinfo/ConsumeInfoedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/consumeinfo/ConsumeInfoimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/consumeinfo/ConsumeInfoquery.jsp
+			</result>
+		</action>
+		<action name="drugtypeselect" class="ido.Dict_Drugtype.DrugTypeSelectAction">
+			<result name="list">
+				/WEB-INF/jsp/drugtypeselect/DrugTypeSelectlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/drugtypeselect/DrugTypeSelectinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/drugtypeselect/DrugTypeSelectedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/drugtypeselect/DrugTypeSelectimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/drugtypeselect/DrugTypeSelectquery.jsp
+			</result>
+		</action>
+		<action name="buglist" class="money.bugList.BugListAction">
+			<result name="list">
+				/WEB-INF/jsp/buglist/BugListlist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/buglist/BugListinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/buglist/BugListedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/buglist/BugListimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/buglist/BugListquery.jsp
+			</result>
+		</action>
 		<action name="bindfamily" class="ido.bindFamily.BindFamilyAction">
 			<result name="list">
 				/WEB-INF/jsp/bindfamily/BindFamilylist.jsp

@@ -90,7 +90,7 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				useCount ? "select count( menu.menuId) "
-						: "select  new MenuVO(menu.menuId,menu.target,menu.menuName,menu2.menuName,menu.orderId,menu.url,menu.level,menu.relId) ").append("from MenuVO as menu ,MenuVO as menu2 ");
+						: "select  new MenuVO(menu.menuId,menu.target,menu.menuName,menu2.menuName,menu.orderId,menu.url,menu.level,menu.relId,menu.valid) ").append("from MenuVO as menu ,MenuVO as menu2 ");
 
 		int count = 0;
 		List argList = new ArrayList();
@@ -102,6 +102,12 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 					case MENUID:
 						sb.append(count == 0 ? " where" : " and").append(
 								"  menu.menuId = ? ");
+						argList.add(entry.getValue());
+						count++;
+					break;
+					case VALID:
+						sb.append(count == 0 ? " where" : " and").append(
+								"  menu.valid = ? ");
 						argList.add(entry.getValue());
 						count++;
 					break;
@@ -170,8 +176,14 @@ public class MenuManagerImpl extends AbstractBusinessObjectManager implements
 			case MENUID:
 				 sb.append(" order by menu.menuId");
 			break;
+			case MENUID_DESC:
+				 sb.append(" order by menu.menuId desc ");
+			break;
 			case TARGET:
 				 sb.append(" order by menu.target");
+			break;
+			case TARGET_DESC:
+				 sb.append(" order by menu.target desc ");
 			break;
 			case MENUNAME:
 				 sb.append(" order by menu.menuName");

@@ -64,4 +64,4 @@ if(AllSelectContants.${model.cacheName?upper_case}.getName().equals(key)){
 insert into class :  AllSelectContants.java :
 ,${model.cacheName?upper_case}("${model.cacheName}")
  
-</#if>
+</#if> 

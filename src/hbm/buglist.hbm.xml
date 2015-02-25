@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.bugList.BugListVO" table="bug_list">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="bugType" column="bug_type" type="string" />
+				<property name="bugDesc" column="bug_desc" type="string" />
+				<property name="createUser" column="create_user" type="int" />
+				<property name="createTime" column="create_time" type="string" />
+				<property name="needTime" column="need_time" type="string" />
+				<property name="consolePeople" column="console_people" type="string" />
+				<property name="consoleTile" column="console_time" type="string" />
+				<property name="remark" column="remark" type="string" />
+	</class>
+
+	<query name="money.bugList.BugListDao.findRecordById">
+		<![CDATA[from BugListVO as bugListDao where sno = ?]]>
+	</query>
+
+	<query name="money.bugList.BugListDao.findAll">
+		<![CDATA[from BugListVO  ]]>
+	</query>
+</hibernate-mapping>
