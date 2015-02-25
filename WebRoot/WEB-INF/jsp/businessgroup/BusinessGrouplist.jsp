@@ -21,8 +21,8 @@
 	action="/money/businessgroup!query.do">
 	<input type="hidden" name="pageNum" value="${pageNum}" /> 
 	<input type="hidden" name="numPerPage" value="${numPerPage}" />
-	<input type="text"   name="orderField"  id="orderField" value="${param.orderField}" />
-    <input type="text" name="orderDirection" id="orderDirection"  value="${param.orderDirection}" />
+	<input type="hidden"   name="orderField"  id="orderField" value="${param.orderField}" />
+    <input type="hidden" name="orderDirection" id="orderDirection"  value="${param.orderDirection}" />
 </form>
 <div class="pageHeader">
 	<form onsubmit="return navTabSearch(this);"
