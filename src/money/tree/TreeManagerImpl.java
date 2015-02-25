@@ -245,7 +245,7 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 		tree = new Tree("0", "菜单树");
 		LinkedList<TreeNode> allP = new LinkedList();
 		allP.add(tree.getRoot());
-		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.id = ?)";
 		if (UserType.SUPER.equals(tp)) {
 			orgSql = "(select  menuid from menu_t where valid=1  ";
 			//如果没有到1月31号，就不显示指定菜单 87！
@@ -253,6 +253,8 @@ public class TreeManagerImpl extends AbstractBusinessObjectManager implements
 				orgSql+=" and  menuid not in (93,94,95) ";
 			}
 			orgSql+=" ) ";
+		}else{
+			orgSql = " (select distinct mr.menuid  from new_role_detail nr,ido_user u,role_menu_right mr  where mr.roleid = nr.role_id  and  nr.role_key = u.user_type and nr.role_type=150 and u.id = ? ) ";
 		}
 		// 查询一个人的角色里面全部的菜单.
 		// select distinct r.menuid from user_role_right t,role_menu_right r

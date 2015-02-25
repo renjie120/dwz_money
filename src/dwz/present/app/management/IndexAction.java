@@ -44,7 +44,7 @@ public class IndexAction extends BaseAction implements ModelDriven<UiModel> {
 		System.out.println("权限Id:"+uMgr.getRights(user.getId(), tp));
 		request.getSession().setAttribute(Constants.ROLE, uMgr.getRights(user.getId(), tp)); 
 		// 得到菜单树
-		Tree t = tMgr.initMenuWithRight(user.getUserId(),user.getUserType());
+		Tree t = tMgr.initMenuWithRight(user.getId(),user.getUserType());
 		request.setAttribute("allMenu", t.getDeepTree());
 		request.getSession().setAttribute("allMenu", t.getDeepTree());
 //		request.setAttribute("allHomepage", pMgr.searchAllHomePageUrl());

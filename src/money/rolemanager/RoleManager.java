@@ -27,6 +27,12 @@ public interface RoleManager  extends BusinessObjectManager {
 			String orderField, int startIndex, int count);
  
 	/**
+	 * 添加到缓存.
+	 */
+	@Transactional
+	public void addCache() ;
+	
+	/**
 	 * 查询一个用户的角色数量.
 	 * @param userId
 	 * @return

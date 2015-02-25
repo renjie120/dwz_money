@@ -14,4 +14,7 @@
 	<query name="money.rolemanager.RoleDao.findRecordById">
 		<![CDATA[from RoleVO as roleDao where roleId = ?]]>
 	</query>
+	<query name="money.rolemanager.RoleDao.findAll">
+		<![CDATA[from RoleVO  ]]>
+	</query>
 </hibernate-mapping>

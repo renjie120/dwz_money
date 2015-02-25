@@ -1,5 +1,7 @@
 package ido.InsuredUser;
 
+import ido.Dict_InsuredCompany.InsuredCompanySelectVO;
+
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -563,74 +565,140 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
 
 		switch (orderBy) {
 		case SNO:
-			sb.append(" order by insureduser.sno");
-			break;
+			 sb.append(" order by insureduser.sno");
+		break;
+		case SNO_DESC:
+			 sb.append(" order by insureduser.sno desc");
+		break;
 		case IUSERNO:
-			sb.append(" order by insureduser.iuserNo");
-			break;
-		case COMID:
-			sb.append(" order by insureduser.comId");
-			break;
-		case UNITID:
-			sb.append(" order by insureduser.unitId");
-			break;
-		case IUSERSTATUS:
-			sb.append(" order by insureduser.iuserStatus");
-			break;
-		case IUSERNUMBER:
-			sb.append(" order by insureduser.iuserNumber");
-			break;
-		case LEFTMONEY:
-			sb.append(" order by insureduser.leftMoney");
-			break;
-		case EMERGENCYMONEY:
-			sb.append(" order by insureduser.emergencyMoney");
-			break;
-		case FROZENMONEY:
-			sb.append(" order by insureduser.frozenMoney");
-			break;
-		case HOSPITALMONEY:
-			sb.append(" order by insureduser.hospitalMoney");
-			break;
-		case TESMONEY:
-			sb.append(" order by insureduser.tesMoney");
-			break;
+			 sb.append(" order by insureduser.iuserNo");
+		break;
+		case IUSERNO_DESC:
+			 sb.append(" order by insureduser.iuserNo desc");
+		break;
 		case IUSERNAME:
-			sb.append(" order by insureduser.iuserName");
-			break;
+			 sb.append(" order by insureduser.iuserName");
+		break;
+		case IUSERNAME_DESC:
+			 sb.append(" order by insureduser.iuserName desc");
+		break;
 		case IUSERISMAN:
-			sb.append(" order by insureduser.iuserIsman");
-			break;
+			 sb.append(" order by insureduser.iuserIsman");
+		break;
+		case IUSERISMAN_DESC:
+			 sb.append(" order by insureduser.iuserIsman desc");
+		break;
 		case IUSERCARDNO:
-			sb.append(" order by insureduser.iuserCardno");
-			break;
+			 sb.append(" order by insureduser.iuserCardno");
+		break;
+		case IUSERCARDNO_DESC:
+			 sb.append(" order by insureduser.iuserCardno desc");
+		break;
 		case IUSERPHONE:
-			sb.append(" order by insureduser.iuserPhone");
-			break;
+			 sb.append(" order by insureduser.iuserPhone");
+		break;
+		case IUSERPHONE_DESC:
+			 sb.append(" order by insureduser.iuserPhone desc");
+		break;
+		case UNITID:
+			 sb.append(" order by insureduser.unitId");
+		break;
+		case UNITID_DESC:
+			 sb.append(" order by insureduser.unitId desc");
+		break;
+		case COMID:
+			 sb.append(" order by insureduser.comId");
+		break;
+		case COMID_DESC:
+			 sb.append(" order by insureduser.comId desc");
+		break;
+		case IUSERSTATUS:
+			 sb.append(" order by insureduser.iuserStatus");
+		break;
+		case IUSERSTATUS_DESC:
+			 sb.append(" order by insureduser.iuserStatus desc");
+		break;
+		case IUSERNUMBER:
+			 sb.append(" order by insureduser.iuserNumber");
+		break;
+		case IUSERNUMBER_DESC:
+			 sb.append(" order by insureduser.iuserNumber desc");
+		break;
+		case LEFTMONEY:
+			 sb.append(" order by insureduser.leftMoney");
+		break;
+		case LEFTMONEY_DESC:
+			 sb.append(" order by insureduser.leftMoney desc");
+		break;
+		case EMERGENCYMONEY:
+			 sb.append(" order by insureduser.emergencyMoney");
+		break;
+		case EMERGENCYMONEY_DESC:
+			 sb.append(" order by insureduser.emergencyMoney desc");
+		break;
+		case FROZENMONEY:
+			 sb.append(" order by insureduser.frozenMoney");
+		break;
+		case FROZENMONEY_DESC:
+			 sb.append(" order by insureduser.frozenMoney desc");
+		break;
+		case HOSPITALMONEY:
+			 sb.append(" order by insureduser.hospitalMoney");
+		break;
+		case HOSPITALMONEY_DESC:
+			 sb.append(" order by insureduser.hospitalMoney desc");
+		break;
+		case TESMONEY:
+			 sb.append(" order by insureduser.tesMoney");
+		break;
+		case TESMONEY_DESC:
+			 sb.append(" order by insureduser.tesMoney desc");
+		break;
 		case IUSEREMAIL:
-			sb.append(" order by insureduser.iuserEmail");
-			break;
+			 sb.append(" order by insureduser.iuserEmail");
+		break;
+		case IUSEREMAIL_DESC:
+			 sb.append(" order by insureduser.iuserEmail desc");
+		break;
 		case IUSERBIRTHDAY:
-			sb.append(" order by insureduser.iuserBirthday");
-			break;
+			 sb.append(" order by insureduser.iuserBirthday");
+		break;
+		case IUSERBIRTHDAY_DESC:
+			 sb.append(" order by insureduser.iuserBirthday desc");
+		break;
 		case IUSERREMARK:
-			sb.append(" order by insureduser.iuserRemark");
-			break;
+			 sb.append(" order by insureduser.iuserRemark");
+		break;
+		case IUSERREMARK_DESC:
+			 sb.append(" order by insureduser.iuserRemark desc");
+		break;
 		case CREATEUSER:
-			sb.append(" order by insureduser.createUser");
-			break;
+			 sb.append(" order by insureduser.createUser");
+		break;
+		case CREATEUSER_DESC:
+			 sb.append(" order by insureduser.createUser desc");
+		break;
 		case CREATETIME:
-			sb.append(" order by insureduser.createTime");
-			break;
+			 sb.append(" order by insureduser.createTime");
+		break;
+		case CREATETIME_DESC:
+			 sb.append(" order by insureduser.createTime desc");
+		break;
 		case UPDATEUSER:
-			sb.append(" order by insureduser.updateUser");
-			break;
+			 sb.append(" order by insureduser.updateUser");
+		break;
+		case UPDATEUSER_DESC:
+			 sb.append(" order by insureduser.updateUser desc");
+		break;
 		case UPDATETIME:
-			sb.append(" order by insureduser.updateTime");
-			break;
+			 sb.append(" order by insureduser.updateTime");
+		break;
+		case UPDATETIME_DESC:
+			 sb.append(" order by insureduser.updateTime desc");
+		break;
 		default:
 			break;
-		}
+	}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 
@@ -737,6 +805,20 @@ public class InsuredUserManagerImpl extends AbstractBusinessObjectManager
 						}
 					});
 		} 
+	}
+
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<InsuredUserVO> all = this.insureduserdao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(AllSelectContants.INSURED_USER.getName());
+		Cache c = new Cache(); 
+		c.setKey(AllSelectContants.INSURED_USER.getName());
+		c.setValue(ans);
+		c.setName("投保用户字典"); 
+		CacheManager.putCache(AllSelectContants.INSURED_USER.getName(), c);
 	}
 
 }

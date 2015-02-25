@@ -38,6 +38,28 @@
 			</bean>
 		</property>
 	</bean>
+	<bean id="addroledetailDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.addRoleDetail.AddRoleDetailDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.addRoleDetail.AddRoleDetailVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="addroleDao" parent="daoProxy">
+		<property name="proxyInterfaces">
+			<value>money.addRole2.AddRoleDao</value>
+		</property>
+		<property name="target">
+			<bean parent="baseDao">
+				<constructor-arg value="money.addRole2.AddRoleVO">
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 	<bean id="buglistDao" parent="daoProxy">
 		<property name="proxyInterfaces">
 			<value>money.bugList.BugListDao</value>

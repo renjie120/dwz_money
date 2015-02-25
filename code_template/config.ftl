@@ -65,3 +65,18 @@ insert into class :  AllSelectContants.java :
 ,${model.cacheName?upper_case}("${model.cacheName}")
  
 </#if> 
+
+
+排序条件：
+		switch (orderBy) {
+		<#list model.attributes as attr>
+			case ${attr.name?upper_case}:
+				 sb.append(" order by ${classarg}.${attr.name}");
+			break;
+			case ${attr.name?upper_case}_DESC:
+				 sb.append(" order by ${classarg}.${attr.name} desc");
+			break;
+		</#list>  
+			default:
+				break;
+		}

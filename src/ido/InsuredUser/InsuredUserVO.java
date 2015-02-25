@@ -1,9 +1,8 @@
 
 package ido.InsuredUser;
 
-import dwz.framework.core.business.BusinessObject;
-import java.util.Date;
 import java.io.Serializable;
+
 import common.base.SelectAble;
 /**
  * 关于投保用户的实体bean.
@@ -11,7 +10,7 @@ import common.base.SelectAble;
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public class InsuredUserVO implements Serializable {
+public class InsuredUserVO implements Serializable ,SelectAble {
 	private static final long serialVersionUID = 1L;
 	
 	public InsuredUserVO() {
@@ -393,5 +392,17 @@ public class InsuredUserVO implements Serializable {
  	public void setUpdateTime(String updatetime){
  		this.updateTime = updatetime;
  	}
+
+	@Override
+	public String getOptionId() {
+		// TODO Auto-generated method stub
+		return this.sno+"";
+	}
+
+	@Override
+	public String getOptionName() {
+		// TODO Auto-generated method stub
+		return this.iuserName;
+	}
 
 }

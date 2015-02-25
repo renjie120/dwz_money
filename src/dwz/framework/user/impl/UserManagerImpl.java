@@ -375,9 +375,31 @@ public class UserManagerImpl extends AbstractBusinessObjectManager implements
 		return sb.toString();
 	}
 
+	/**
+	 * 查询用户对应的用户类型所有的角色列表.
+	 * @param userId
+	 * @return
+	 */
+	private String getRolesByUserType(String userId){
+		String orgSql = " select role_ids  from new_role nr,ido_user u  where  nr.role_key = u.user_type and nr.role_type=147 and u.id = ?";
+		List roles = jdbc.queryForList(orgSql,new Object[]{userId});
+		StringBuilder bui = new StringBuilder();
+		if(roles!=null&&roles.size()>0){
+			for(Object o:roles){
+				LinkedCaseInsensitiveMap mm = (LinkedCaseInsensitiveMap)o;
+				System.out.println("mm.values().toArray()[0]="+mm.values().toArray()[0]);
+				bui.append(mm.values().toArray()[0]).append(",");
+			}
+			if(bui.length()>1)
+				return bui.substring(0,bui.length()-1).toString();
+		}
+		return null;
+	}
 	@Override
 	public String getRights(String userId, UserType tp) {
-		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+//		String orgSql = "(select distinct r.menuid from user_role_right t,role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+//		String orgSql = "(select distinct r.menuid from  role_menu_right r where r.roleid=t.roleid and t.userid = ?)";
+		String orgSql = " (select distinct mr.menuid  from new_role_detail nr,ido_user u,role_menu_right mr  where mr.roleid = nr.role_id  and  nr.role_key = u.user_type and nr.role_type=150 and u.id = ? ) ";
 		List menuList = null;
 		//如果是超级管理员 就可以查询全部的菜单
 		if (UserType.SUPER.equals(tp)) {
@@ -385,7 +407,10 @@ public class UserManagerImpl extends AbstractBusinessObjectManager implements
 			orgSql+=" ) ";
 			menuList = jdbc.queryForList(orgSql);
 		}else{
-			menuList = jdbc.queryForList(orgSql,new Object[]{userId});
+//			String roleIds = getRolesByUserType(userId);
+//			orgSql = " select distinct r.menuid from  role_menu_right r where r.roleid in ( "+roleIds+")";
+//			System.out.println(orgSql+"---orgSql");
+			menuList = jdbc.queryForList(orgSql,new Object[]{userId} );
 		}
 		String result = ",";
 		if(menuList!=null&&menuList.size()>0){

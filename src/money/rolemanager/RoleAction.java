@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import money.addRole2.AddRoleManager;
 import money.tree.TreeManager;
 
 import org.apache.struts2.ServletActionContext;
@@ -31,6 +32,8 @@ public class RoleAction extends BaseAction {
 	// 业务接口对象.
 	RoleManager pMgr = bf.getManager(BeanManagerKey.roleManager);
 	UserRoleRightManager userRoleRightMgr = bf.getManager(BeanManagerKey.userrolerightManager);
+	//业务接口对象.
+	AddRoleManager addRoleManager = bf.getManager(BeanManagerKey.addroleManager);
 	// 业务实体对象
 	private Role vo;
 	// 当前页数
@@ -51,6 +54,7 @@ public class RoleAction extends BaseAction {
 		try {
 			RoleImpl roleImpl = new RoleImpl(roleDesc, roleName);
 			pMgr.createRole(roleImpl);
+			pMgr.addCache();
 		} catch (ValidateFieldsException e) {
 			log.error(e);
 			return ajaxForwardError(e.getLocalizedMessage());
@@ -106,6 +110,8 @@ public class RoleAction extends BaseAction {
 		}
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
+	
+ 
 
 	/**
 	 * 得到角色拥有的菜单权限树.
@@ -146,10 +152,62 @@ public class RoleAction extends BaseAction {
 		return "addUserRolelist";
 	}
 	
+	/**
+	 * 角色授权类型.
+	 */
+	private String roleType;
+	/**
+	 * 角色授权对象值.
+	 */
+	private String roleKey;
+	public String getRoleType() {
+		return roleType;
+	}
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
+	}
+
+	public String getRoleKey() {
+		return roleKey;
+	}
+
+	public void setRoleKey(String roleKey) {
+		this.roleKey = roleKey;
+	}
+
+	/**
+	 * 新的角色授权页面,根据角色授权类型进行授权。
+	 * 可能是用户类型，组织机构类型等.
+	 * @return
+	 */
+	public String beforeRoleInUser2() {
+		int pageNum = getPageNum();
+		int numPerPage = getNumPerPage();
+		int startIndex = (pageNum - 1) * numPerPage;
+		Map<RoleSearchFields, Object> criterias = getCriterias();
+
+		Collection<Role> moneyList = pMgr.searchRole(criterias,
+				realOrderField(), startIndex, numPerPage);
+
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("numPerPage", numPerPage);
+		int count = pMgr.searchRoleNum(criterias);
+		request.setAttribute("totalCount", count);
+		ActionContext.getContext().put("list", moneyList);
+		ActionContext.getContext().put("roleType", roleType);
+		ActionContext.getContext().put("roleKey", roleKey);
+		ActionContext.getContext().put("pageNum", pageNum);
+		ActionContext.getContext().put("numPerPage", numPerPage);
+		ActionContext.getContext().put("totalCount", count);
+		return "addUserRolelist2";
+	}
+	
 	
 	public String doDelete() {
 		String ids = request.getParameter("ids");
 		pMgr.removeRoles(ids);
+		pMgr.addCache();
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
 
@@ -162,6 +220,7 @@ public class RoleAction extends BaseAction {
 		try {
 			RoleImpl roleImpl = new RoleImpl(roleId, roleDesc, roleName);
 			pMgr.updateRole(roleImpl);
+			pMgr.addCache();
 		} catch (ValidateFieldsException e) {
 			e.printStackTrace();
 		}

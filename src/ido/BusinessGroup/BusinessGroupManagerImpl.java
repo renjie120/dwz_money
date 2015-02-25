@@ -454,45 +454,81 @@ public class BusinessGroupManagerImpl extends AbstractBusinessObjectManager impl
 		}
 
 		switch (orderBy) {
-			case SNO:
-				 sb.append(" order by businessgroup.sno");
+		case SNO:
+			 sb.append(" order by businessgroup.sno");
+		break;
+		case SNO_DESC:
+			 sb.append(" order by businessgroup.sno desc");
+		break;
+		case GROUPSNO:
+			 sb.append(" order by businessgroup.groupSno");
+		break;
+		case GROUPSNO_DESC:
+			 sb.append(" order by businessgroup.groupSno desc");
+		break;
+		case GROUPNAME:
+			 sb.append(" order by businessgroup.groupName");
+		break;
+		case GROUPNAME_DESC:
+			 sb.append(" order by businessgroup.groupName desc");
+		break;
+		case GROUPEMAIL:
+			 sb.append(" order by businessgroup.groupEmail");
+		break;
+		case GROUPEMAIL_DESC:
+			 sb.append(" order by businessgroup.groupEmail desc");
+		break;
+		case GROUPCONTACT:
+			 sb.append(" order by businessgroup.groupContact");
+		break;
+		case GROUPCONTACT_DESC:
+			 sb.append(" order by businessgroup.groupContact desc");
+		break;
+		case GROUPCONTACTPHONE:
+			 sb.append(" order by businessgroup.groupContactPhone");
+		break;
+		case GROUPCONTACTPHONE_DESC:
+			 sb.append(" order by businessgroup.groupContactPhone desc");
+		break;
+		case GROUPCONTACTMOBILE:
+			 sb.append(" order by businessgroup.groupContactMobile");
+		break;
+		case GROUPCONTACTMOBILE_DESC:
+			 sb.append(" order by businessgroup.groupContactMobile desc");
+		break;
+		case GROUPSTATUS:
+			 sb.append(" order by businessgroup.groupStatus");
+		break;
+		case GROUPSTATUS_DESC:
+			 sb.append(" order by businessgroup.groupStatus desc");
+		break;
+		case CREATEUSER:
+			 sb.append(" order by businessgroup.createUser");
+		break;
+		case CREATEUSER_DESC:
+			 sb.append(" order by businessgroup.createUser desc");
+		break;
+		case CREATETIME:
+			 sb.append(" order by businessgroup.createTime");
+		break;
+		case CREATETIME_DESC:
+			 sb.append(" order by businessgroup.createTime desc");
+		break;
+		case UPDATEUSER:
+			 sb.append(" order by businessgroup.updateUser");
+		break;
+		case UPDATEUSER_DESC:
+			 sb.append(" order by businessgroup.updateUser desc");
+		break;
+		case UPDATETIME:
+			 sb.append(" order by businessgroup.updateTime");
+		break;
+		case UPDATETIME_DESC:
+			 sb.append(" order by businessgroup.updateTime desc");
+		break;
+		default:
 			break;
-			case GROUPSNO:
-				 sb.append(" order by businessgroup.groupSno");
-			break;
-			case GROUPNAME:
-				 sb.append(" order by businessgroup.groupName");
-			break;
-			case GROUPEMAIL:
-				 sb.append(" order by businessgroup.groupEmail");
-			break;
-			case GROUPCONTACT:
-				 sb.append(" order by businessgroup.groupContact");
-			break;
-			case GROUPCONTACTPHONE:
-				 sb.append(" order by businessgroup.groupContactPhone");
-			break;
-			case GROUPCONTACTMOBILE:
-				 sb.append(" order by businessgroup.groupContactMobile");
-			break;
-			case GROUPSTATUS:
-				 sb.append(" order by businessgroup.groupStatus");
-			break;
-			case CREATEUSER:
-				 sb.append(" order by businessgroup.createUser");
-			break;
-			case CREATETIME:
-				 sb.append(" order by businessgroup.createTime");
-			break;
-			case UPDATEUSER:
-				 sb.append(" order by businessgroup.updateUser");
-			break;
-			case UPDATETIME:
-				 sb.append(" order by businessgroup.updateTime");
-			break;
-			default:
-				break;
-		}
+	}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 

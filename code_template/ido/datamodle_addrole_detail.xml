@@ -1,0 +1,17 @@
+<class name="AddRoleDetail" table="new_role_detail" desc="新角色授权明细"
+	package="money.addRoleDetail">
+	<id name="sno" column="id" type="int" desc="流水号" width="10" visible="false"
+		canExport="true" columnType="int(10)" noedit="true" />
+
+	<property name="roleType" column="role_type" type="string"
+		query="true" selectCode="roletype" showType="select" columnType="int(10)"
+		width="100" desc="角色类型" />
+
+	<property name="roleKey" column="role_key" type="string"
+		canExport="true" canImport="true" showType="string" columnType="double"
+		width="100" desc="授权对象 " />
+
+	<property name="roleId" column="role_id" type="string"
+		showType="string" maxLength="1000" columnType="varchar(10)" width="100"
+		desc="角色 " />
+</class>

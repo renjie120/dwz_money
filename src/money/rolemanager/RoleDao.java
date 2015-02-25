@@ -1,6 +1,8 @@
 
 package money.rolemanager;
 
+import ido.Dict_InsuredCompany.InsuredCompanySelectVO;
+
 import java.util.Collection;
 
 import dwz.dal.BaseDao; 
@@ -16,6 +18,7 @@ public interface RoleDao extends BaseDao<RoleVO, Integer> {
 	 * 根据主键查询全部集合.
 	 */
 	public Collection<RoleVO> findRecordById(int roleId); 
+	  
 	
 	/**
 	 * 查询全部集合.

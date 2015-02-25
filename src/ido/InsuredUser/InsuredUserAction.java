@@ -1,28 +1,36 @@
 
 package ido.InsuredUser;
+import ido.loginfo.LogInfoManager;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream; 
-import java.util.*; 
-import dwz.framework.constants.Constants;
-import com.alibaba.fastjson.JSON;
-import common.base.ParamSelect;
-import common.base.SpringContextUtil;
-import common.util.CommonUtil;
-import common.util.DateTool;
-import com.opensymphony.xwork2.ActionContext; 
-import dwz.framework.user.User;
-import dwz.framework.user.impl.UserImpl;
-import dwz.constants.BeanManagerKey;
-import dwz.framework.core.exception.ValidateFieldsException;
-import dwz.framework.utils.excel.XlsExport;
-import dwz.present.BaseAction;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.struts2.ServletActionContext;
-import common.cache.Cache;
-import common.cache.CacheManager;
-import ido.loginfo.LogInfoManager;
+
+import com.alibaba.fastjson.JSON;
+import com.opensymphony.xwork2.ActionContext;
 import common.base.AllSelect;
 import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.base.SpringContextUtil;
+import common.cache.Cache;
+import common.cache.CacheManager;
+import common.util.CommonUtil;
+import common.util.DateTool;
+
+import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.User;
+import dwz.framework.user.impl.UserImpl;
+import dwz.framework.utils.excel.XlsExport;
+import dwz.present.BaseAction;
 /**
  * 关于投保用户的Action操作类.
  * @author www(水清)
@@ -68,6 +76,7 @@ public class InsuredUserAction extends BaseAction {
 			setCurrentUser(false);
 			InsuredUserImpl insureduserImpl = new InsuredUserImpl(iuserNo ,comId ,unitId ,iuserStatus ,iuserNumber ,leftMoney ,emergencyMoney ,frozenMoney ,hospitalMoney ,tesMoney ,iuserName ,iuserIsman ,iuserCardno ,iuserPhone ,iuserEmail ,iuserBirthday ,iuserRemark ,createUser ,createTime ,updateUser ,updateTime );
 			pMgr.createInsuredUser(insureduserImpl);
+			pMgr.addCache();
 			insertLog(logMgr,"添加投保用户","/doAdd", "", "" ,JSON.toJSONString(insureduserImpl));  
 		} catch (ValidateFieldsException e) {
 			log.error(e);
@@ -137,6 +146,7 @@ public class InsuredUserAction extends BaseAction {
 			pMgr.importFromExcel(f);
 		}
 		insertLog(logMgr,"导入投保用户","/importExcel", "", "" ,"");  
+		pMgr.addCache();
 		writeToPage(response, "导入成功!");
 		return null;
 	}
@@ -151,6 +161,7 @@ public class InsuredUserAction extends BaseAction {
 			allDeleteIds.add(pMgr.getInsuredUser(Integer.parseInt(_id)));
 		}
 		pMgr.removeInsuredUsers(ids);
+		pMgr.addCache();
 		insertLog(logMgr,"删除投保用户","/doDelete", "", "" ,JSON.toJSONString(allDeleteIds));   
 		return ajaxForwardSuccess(getText("msg.operation.success"));
 	}
@@ -268,6 +279,7 @@ public class InsuredUserAction extends BaseAction {
 			
 			InsuredUserImpl insureduserImpl = new InsuredUserImpl( sno , iuserNo , comId , unitId , iuserStatus , iuserNumber , leftMoney , emergencyMoney , frozenMoney , hospitalMoney , tesMoney , iuserName , iuserIsman , iuserCardno , iuserPhone , iuserEmail , iuserBirthday , iuserRemark , createUser , createTime , updateUser , updateTime );
 			pMgr.updateInsuredUser(insureduserImpl);
+			pMgr.addCache();
 			insertLog(logMgr,"修改投保用户","/doUpdate", oldObj, 
 						newObj,
 						"原始记录："+JSON.toJSONString(old)+"\n新的记录："+JSON.toJSONString(insureduserImpl));  

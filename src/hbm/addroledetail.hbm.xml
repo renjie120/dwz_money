@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="money.addRoleDetail.AddRoleDetailVO" table="new_role_detail">
+		<id name="sno" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+				<property name="roleType" column="role_type" type="string" />
+				<property name="roleKey" column="role_key" type="string" />
+				<property name="roleId" column="role_id" type="string" />
+	</class>
+
+	<query name="money.addRoleDetail.AddRoleDetailDao.findRecordById">
+		<![CDATA[from AddRoleDetailVO as addRoleDetailDao where sno = ?]]>
+	</query>
+
+	<query name="money.addRoleDetail.AddRoleDetailDao.findAll">
+		<![CDATA[from AddRoleDetailVO  ]]>
+	</query>
+</hibernate-mapping>

@@ -2,13 +2,15 @@
 package money.rolemanager;
 
 import java.io.Serializable;
+
+import common.base.SelectAble;
 /**
  * 关于角色信息的实体bean.
  * @author www(水清)
  * 任何人和公司可以传播并且修改本程序，但是不得去掉本段声明以及作者署名.
  * http://www.iteye.com
  */ 
-public class RoleVO implements Serializable {
+public class RoleVO implements Serializable ,SelectAble{
 	private static final long serialVersionUID = 1L;
 	
 	public RoleVO() {
@@ -68,4 +70,16 @@ public class RoleVO implements Serializable {
  	public void setRoleName(String rolename){
  		this.roleName = rolename;
  	}
+
+	@Override
+	public String getOptionId() {
+		// TODO Auto-generated method stub
+		return this.roleId+"";
+	}
+
+	@Override
+	public String getOptionName() {
+		// TODO Auto-generated method stub
+		return this.roleName+"";
+	}
 }

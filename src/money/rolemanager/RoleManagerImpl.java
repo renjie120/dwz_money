@@ -1,10 +1,16 @@
 package money.rolemanager;
 
+import ido.Dict_InsuredCompany.InsuredCompanySelectVO;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import common.base.AllSelectContants;
+import common.base.ParamSelect;
+import common.cache.Cache;
+import common.cache.CacheManager;
 import common.util.CommonUtil;
 
 import dwz.framework.core.business.AbstractBusinessObjectManager;
@@ -237,5 +243,20 @@ public class RoleManagerImpl extends AbstractBusinessObjectManager implements
 				vo.setUserId(userId);
 				this.userRoleDao.insert(vo);
 			}
+	}
+
+	@Override
+	public void addCache() {
+		ParamSelect ans = null;
+		Collection<RoleVO> all = this.roledao.findAll();
+		ans = new ParamSelect(all);
+
+		CacheManager.clearOnly(AllSelectContants.ROLE.getName());
+		Cache c = new Cache(); 
+		c.setKey(AllSelectContants.ROLE.getName());
+		c.setValue(ans);
+		c.setName("角色名称字典"); 
+		CacheManager.putCache(AllSelectContants.ROLE.getName(), c);
+	
 	}
 }

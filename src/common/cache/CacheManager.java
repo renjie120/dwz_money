@@ -2,10 +2,10 @@
 
 import ido.BusinessGroup.BusinessGroupManager;
 import ido.BusinessMan.BusinessManManager;
-import ido.Dict_Drugtype.DrugTypeSelectManager;
 import ido.Dict_InsuredCompany.InsuredCompanySelectManager;
 import ido.InsuredCompany.InsuredCompanyManager;
 import ido.InsuredUnit.InsuredUnitManager;
+import ido.InsuredUser.InsuredUserManager;
 import ido.LoginUser.LoginUserManager;
 import ido.city.CityDictManager;
 import ido.province.ProvinceDictManager;
@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import money.cache.CacheImpl;
+import money.rolemanager.RoleManager;
 
 import common.base.AllSelectContants;
 
@@ -175,14 +176,18 @@ public class CacheManager {
 				InsuredCompanySelectManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyselectManager);
 				pMgr.addCache();
 			}
+			if(AllSelectContants.INSURED_USER.getName().equals(key)){
+				InsuredUserManager pMgr = bf.getManager(BeanManagerKey.insureduserManager);
+				pMgr.addCache();
+			}
+			if(AllSelectContants.ROLE.getName().equals(key)){
+				RoleManager pMgr = bf.getManager(BeanManagerKey.roleManager);
+				pMgr.addCache();
+			}
 			if(AllSelectContants.INSURED_COM_DICT.getName().equals(key)){
 				InsuredCompanyManager pMgr = bf.getManager(BeanManagerKey.insuredcompanyManager);
 				pMgr.addCache();
 			}
-			if(AllSelectContants.DRUGTYPE_DICT.getName().equals(key)){
-				DrugTypeSelectManager pDrugTypeSelectMgr = bf.getManager(BeanManagerKey.drugtypeselectManager);
-				pDrugTypeSelectMgr.addCache();
-			} 
 			if(AllSelectContants.IDOUSER_DICT.getName().equals(key)){
 				LoginUserManager pLoginUserMgr = bf.getManager(BeanManagerKey.loginuserManager);
 				pLoginUserMgr.addCache();

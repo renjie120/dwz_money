@@ -6,6 +6,40 @@
 
 	<package name="money" namespace="/money" extends="struts2">
 		<!-- ido -->
+		<action name="addroledetail" class="money.addRoleDetail.AddRoleDetailAction">
+			<result name="list">
+				/WEB-INF/jsp/addroledetail/AddRoleDetaillist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/addroledetail/AddRoleDetailinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/addroledetail/AddRoleDetailedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/addroledetail/AddRoleDetailimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/addroledetail/AddRoleDetailquery.jsp
+			</result>
+		</action>
+		<action name="addrole" class="money.addRole2.AddRoleAction">
+			<result name="list">
+				/WEB-INF/jsp/addrole/AddRolelist.jsp
+			</result>
+			<result name="detail">
+				/WEB-INF/jsp/addrole/AddRoleinfo.jsp
+			</result>
+			<result name="editdetail">
+				/WEB-INF/jsp/addrole/AddRoleedit.jsp
+			</result>
+			<result name="import">
+				/WEB-INF/jsp/addrole/AddRoleimport.jsp
+			</result>
+			<result name="query">
+				/WEB-INF/jsp/addrole/AddRolequery.jsp
+			</result>
+		</action>
 		<action name="consumeinfo" class="ido.ConsumeInfo.ConsumeInfoAction">
 			<result name="list">
 				/WEB-INF/jsp/consumeinfo/ConsumeInfolist.jsp
@@ -409,6 +443,9 @@
 			</result>
 			<result name="detail">
 				/WEB-INF/jsp/role/Roleinfo.jsp
+			</result>
+			<result name="addUserRolelist2">
+				/WEB-INF/jsp/role/addUserRolelist2.jsp
 			</result>
 			<result name="addUserRolelist">
 				/WEB-INF/jsp/role/addUserRolelist.jsp

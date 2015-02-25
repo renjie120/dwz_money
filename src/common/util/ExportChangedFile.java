@@ -33,6 +33,7 @@ public class ExportChangedFile {
 				FileTool.fileChannelCopy(f, newF);
 			}
 		}
+		System.out.println("操作完毕"+desDir);
 	}
 
 }

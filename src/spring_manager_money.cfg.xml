@@ -8,6 +8,14 @@
 	<bean id="systemsequenceManager" class="money.sequence.SystemSequenceManagerImpl">
 		<constructor-arg index="0" ref="systemsequenceDao"></constructor-arg>
 	</bean>
+	<bean id="addroleManager" class="money.addRole2.AddRoleManagerImpl">
+		<constructor-arg index="0" ref="addroleDao"></constructor-arg>
+		<constructor-arg index="1" ref="addroledetailDao"></constructor-arg>
+		<constructor-arg index="2" ref="jdbcTemplate"></constructor-arg>
+	</bean>
+	<bean id="addroledetailManager" class="money.addRoleDetail.AddRoleDetailManagerImpl">
+		<constructor-arg index="0" ref="addroledetailDao"></constructor-arg>
+	</bean>
 	<bean id="consumeinfoManager" class="ido.ConsumeInfo.ConsumeInfoManagerImpl">
 		<constructor-arg index="0" ref="consumeinfoDao"></constructor-arg>
 	</bean>

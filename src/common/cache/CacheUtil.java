@@ -22,6 +22,27 @@ public class CacheUtil {
 	}
 	
 	/**
+	 * 返回投保用户姓名
+	 * @param id
+	 * @return
+	 */
+	public static String getInsuredUserName(String id) {
+		Cache cache = CacheManager.getCacheInfoNotNull(AllSelectContants.INSURED_USER.getName());
+		ParamSelect select = (ParamSelect)cache.getValue();
+		return select.getName(id);
+	}
+	
+	
+	/*
+	 * 返回角色id对应的名称
+	 */
+	public static String getRoleName(String id) {
+		Cache cache = CacheManager.getCacheInfoNotNull(AllSelectContants.ROLE.getName());
+		ParamSelect select = (ParamSelect)cache.getValue();
+		return select.getName(id);
+	}
+	
+	/**
 	 * 返回爱都投保保险公司名
 	 * @param id
 	 * @return

@@ -196,6 +196,12 @@
 				<value>
 					hbm/drugtypeselect.hbm.xml
 				</value>
+				<value>
+					hbm/addrole.hbm.xml
+				</value>
+				<value>
+					hbm/addroledetail.hbm.xml
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

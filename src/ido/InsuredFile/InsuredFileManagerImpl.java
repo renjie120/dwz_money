@@ -627,84 +627,159 @@ public class InsuredFileManagerImpl extends AbstractBusinessObjectManager implem
 		}
 
 		switch (orderBy) {
-			case SNO:
-				 sb.append(" order by insuredfile.sno");
+		case SNO:
+			 sb.append(" order by insuredfile.sno");
+		break;
+		case SNO_DESC:
+			 sb.append(" order by insuredfile.sno desc");
+		break;
+		case INSUREDFILEID:
+			 sb.append(" order by insuredfile.insuredFileId");
+		break;
+		case INSUREDFILEID_DESC:
+			 sb.append(" order by insuredfile.insuredFileId desc");
+		break;
+		case INSUREDFILENAME:
+			 sb.append(" order by insuredfile.insuredFileName");
+		break;
+		case INSUREDFILENAME_DESC:
+			 sb.append(" order by insuredfile.insuredFileName desc");
+		break;
+		case INSUREDFILEUNIT:
+			 sb.append(" order by insuredfile.insuredFileUnit");
+		break;
+		case INSUREDFILEUNIT_DESC:
+			 sb.append(" order by insuredfile.insuredFileUnit desc");
+		break;
+		case INSUREDFILECOMPANY:
+			 sb.append(" order by insuredfile.insuredFileCompany");
+		break;
+		case INSUREDFILECOMPANY_DESC:
+			 sb.append(" order by insuredfile.insuredFileCompany desc");
+		break;
+		case INSUREDFILEEMAIL:
+			 sb.append(" order by insuredfile.insuredFileEmail");
+		break;
+		case INSUREDFILEEMAIL_DESC:
+			 sb.append(" order by insuredfile.insuredFileEmail desc");
+		break;
+		case INSUREDFILECONTACT:
+			 sb.append(" order by insuredfile.insuredFileContact");
+		break;
+		case INSUREDFILECONTACT_DESC:
+			 sb.append(" order by insuredfile.insuredFileContact desc");
+		break;
+		case INSUREDFILECONTEL:
+			 sb.append(" order by insuredfile.insuredFileConTel");
+		break;
+		case INSUREDFILECONTEL_DESC:
+			 sb.append(" order by insuredfile.insuredFileConTel desc");
+		break;
+		case INSUREDFILECONMOBILE:
+			 sb.append(" order by insuredfile.insuredFileConMobile");
+		break;
+		case INSUREDFILECONMOBILE_DESC:
+			 sb.append(" order by insuredfile.insuredFileConMobile desc");
+		break;
+		case INSUREDFILEBEGIN:
+			 sb.append(" order by insuredfile.insuredFileBegin");
+		break;
+		case INSUREDFILEBEGIN_DESC:
+			 sb.append(" order by insuredfile.insuredFileBegin desc");
+		break;
+		case INSUREDFILEEND:
+			 sb.append(" order by insuredfile.insuredFileEnd");
+		break;
+		case INSUREDFILEEND_DESC:
+			 sb.append(" order by insuredfile.insuredFileEnd desc");
+		break;
+		case INSUREDFILESTATUS:
+			 sb.append(" order by insuredfile.insuredFileStatus");
+		break;
+		case INSUREDFILESTATUS_DESC:
+			 sb.append(" order by insuredfile.insuredFileStatus desc");
+		break;
+		case INSUREDFILEDUIJIE:
+			 sb.append(" order by insuredfile.insuredFileDuijie");
+		break;
+		case INSUREDFILEDUIJIE_DESC:
+			 sb.append(" order by insuredfile.insuredFileDuijie desc");
+		break;
+		case INSUREDFILEDUIJIEFLAG:
+			 sb.append(" order by insuredfile.insuredFileDuijieFlag");
+		break;
+		case INSUREDFILEDUIJIEFLAG_DESC:
+			 sb.append(" order by insuredfile.insuredFileDuijieFlag desc");
+		break;
+		case INSUREDFILEREMARK:
+			 sb.append(" order by insuredfile.insuredFileRemark");
+		break;
+		case INSUREDFILEREMARK_DESC:
+			 sb.append(" order by insuredfile.insuredFileRemark desc");
+		break;
+		case INSUREDFILETOTAL:
+			 sb.append(" order by insuredfile.insuredFileTotal");
+		break;
+		case INSUREDFILETOTAL_DESC:
+			 sb.append(" order by insuredfile.insuredFileTotal desc");
+		break;
+		case INSUREDFILEEMERG:
+			 sb.append(" order by insuredfile.insuredFileEmerg");
+		break;
+		case INSUREDFILEEMERG_DESC:
+			 sb.append(" order by insuredfile.insuredFileEmerg desc");
+		break;
+		case INSUREDFILEHOSPITAL:
+			 sb.append(" order by insuredfile.insuredFileHospital");
+		break;
+		case INSUREDFILEHOSPITAL_DESC:
+			 sb.append(" order by insuredfile.insuredFileHospital desc");
+		break;
+		case INSUREDFILEEXAM:
+			 sb.append(" order by insuredfile.insuredFileExam");
+		break;
+		case INSUREDFILEEXAM_DESC:
+			 sb.append(" order by insuredfile.insuredFileExam desc");
+		break;
+		case INSUREDFILECONSUMER:
+			 sb.append(" order by insuredfile.insuredFileConsumer");
+		break;
+		case INSUREDFILECONSUMER_DESC:
+			 sb.append(" order by insuredfile.insuredFileConsumer desc");
+		break;
+		case INSUREDFILECONSRULE:
+			 sb.append(" order by insuredfile.insuredFileConsRule");
+		break;
+		case INSUREDFILECONSRULE_DESC:
+			 sb.append(" order by insuredfile.insuredFileConsRule desc");
+		break;
+		case CREATEUSER:
+			 sb.append(" order by insuredfile.createUser");
+		break;
+		case CREATEUSER_DESC:
+			 sb.append(" order by insuredfile.createUser desc");
+		break;
+		case CREATETIME:
+			 sb.append(" order by insuredfile.createTime");
+		break;
+		case CREATETIME_DESC:
+			 sb.append(" order by insuredfile.createTime desc");
+		break;
+		case UPDATEUSER:
+			 sb.append(" order by insuredfile.updateUser");
+		break;
+		case UPDATEUSER_DESC:
+			 sb.append(" order by insuredfile.updateUser desc");
+		break;
+		case UPDATETIME:
+			 sb.append(" order by insuredfile.updateTime");
+		break;
+		case UPDATETIME_DESC:
+			 sb.append(" order by insuredfile.updateTime desc");
+		break;
+		default:
 			break;
-			case INSUREDFILEID:
-				 sb.append(" order by insuredfile.insuredFileId");
-			break;
-			case INSUREDFILENAME:
-				 sb.append(" order by insuredfile.insuredFileName");
-			break;
-			case INSUREDFILEUNIT:
-				 sb.append(" order by insuredfile.insuredFileUnit");
-			break;
-			case INSUREDFILECOMPANY:
-				 sb.append(" order by insuredfile.insuredFileCompany");
-			break;
-			case INSUREDFILEEMAIL:
-				 sb.append(" order by insuredfile.insuredFileEmail");
-			break;
-			case INSUREDFILECONTACT:
-				 sb.append(" order by insuredfile.insuredFileContact");
-			break;
-			case INSUREDFILECONTEL:
-				 sb.append(" order by insuredfile.insuredFileConTel");
-			break;
-			case INSUREDFILECONMOBILE:
-				 sb.append(" order by insuredfile.insuredFileConMobile");
-			break;
-			case INSUREDFILEBEGIN:
-				 sb.append(" order by insuredfile.insuredFileBegin");
-			break;
-			case INSUREDFILEEND:
-				 sb.append(" order by insuredfile.insuredFileEnd");
-			break;
-			case INSUREDFILESTATUS:
-				 sb.append(" order by insuredfile.insuredFileStatus");
-			break;
-			case INSUREDFILEDUIJIE:
-				 sb.append(" order by insuredfile.insuredFileDuijie");
-			break;
-			case INSUREDFILEDUIJIEFLAG:
-				 sb.append(" order by insuredfile.insuredFileDuijieFlag");
-			break;
-			case INSUREDFILEREMARK:
-				 sb.append(" order by insuredfile.insuredFileRemark");
-			break;
-			case INSUREDFILETOTAL:
-				 sb.append(" order by insuredfile.insuredFileTotal");
-			break;
-			case INSUREDFILEEMERG:
-				 sb.append(" order by insuredfile.insuredFileEmerg");
-			break;
-			case INSUREDFILEHOSPITAL:
-				 sb.append(" order by insuredfile.insuredFileHospital");
-			break;
-			case INSUREDFILEEXAM:
-				 sb.append(" order by insuredfile.insuredFileExam");
-			break;
-			case INSUREDFILECONSUMER:
-				 sb.append(" order by insuredfile.insuredFileConsumer");
-			break;
-			case INSUREDFILECONSRULE:
-				 sb.append(" order by insuredfile.insuredFileConsRule");
-			break;
-			case CREATEUSER:
-				 sb.append(" order by insuredfile.createUser");
-			break;
-			case CREATETIME:
-				 sb.append(" order by insuredfile.createTime");
-			break;
-			case UPDATEUSER:
-				 sb.append(" order by insuredfile.updateUser");
-			break;
-			case UPDATETIME:
-				 sb.append(" order by insuredfile.updateTime");
-			break;
-			default:
-				break;
-		}
+	}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 

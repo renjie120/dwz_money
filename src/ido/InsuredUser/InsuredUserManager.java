@@ -27,6 +27,12 @@ public interface InsuredUserManager  extends BusinessObjectManager {
 			String orderField, int startIndex, int count);
 
 	/**
+	 * 添加到缓存.
+	 */
+	@Transactional
+	public void addCache() ;
+	
+	/**
 	 * 更新投保用户状态.
 	 * @param userSno
 	 * @param status

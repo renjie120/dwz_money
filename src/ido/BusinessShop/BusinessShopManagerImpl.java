@@ -587,78 +587,147 @@ public class BusinessShopManagerImpl extends AbstractBusinessObjectManager imple
 		}
 
 		switch (orderBy) {
-			case SNO:
-				 sb.append(" order by businessshop.sno");
+		case SNO:
+			 sb.append(" order by businessshop.sno");
+		break;
+		case SNO_DESC:
+			 sb.append(" order by businessshop.sno desc");
+		break;
+		case SHOPMID:
+			 sb.append(" order by businessshop.shopmId");
+		break;
+		case SHOPMID_DESC:
+			 sb.append(" order by businessshop.shopmId desc");
+		break;
+		case SHOPNAME:
+			 sb.append(" order by businessshop.shopName");
+		break;
+		case SHOPNAME_DESC:
+			 sb.append(" order by businessshop.shopName desc");
+		break;
+		case SHOPSNO:
+			 sb.append(" order by businessshop.shopSno");
+		break;
+		case SHOPSNO_DESC:
+			 sb.append(" order by businessshop.shopSno desc");
+		break;
+		case SHOPSTATUS:
+			 sb.append(" order by businessshop.shopStatus");
+		break;
+		case SHOPSTATUS_DESC:
+			 sb.append(" order by businessshop.shopStatus desc");
+		break;
+		case SHOPCONTACTNAME:
+			 sb.append(" order by businessshop.shopContactName");
+		break;
+		case SHOPCONTACTNAME_DESC:
+			 sb.append(" order by businessshop.shopContactName desc");
+		break;
+		case SHOPCONPHONE:
+			 sb.append(" order by businessshop.shopConPhone");
+		break;
+		case SHOPCONPHONE_DESC:
+			 sb.append(" order by businessshop.shopConPhone desc");
+		break;
+		case SHOPEMAIL:
+			 sb.append(" order by businessshop.shopEmail");
+		break;
+		case SHOPEMAIL_DESC:
+			 sb.append(" order by businessshop.shopEmail desc");
+		break;
+		case SHOPADDRESS:
+			 sb.append(" order by businessshop.shopAddress");
+		break;
+		case SHOPADDRESS_DESC:
+			 sb.append(" order by businessshop.shopAddress desc");
+		break;
+		case SHOPDATE:
+			 sb.append(" order by businessshop.shopDate");
+		break;
+		case SHOPDATE_DESC:
+			 sb.append(" order by businessshop.shopDate desc");
+		break;
+		case SHOPJINGDU:
+			 sb.append(" order by businessshop.shopJingdu");
+		break;
+		case SHOPJINGDU_DESC:
+			 sb.append(" order by businessshop.shopJingdu desc");
+		break;
+		case SHOPWEIDU:
+			 sb.append(" order by businessshop.shopWeidu");
+		break;
+		case SHOPWEIDU_DESC:
+			 sb.append(" order by businessshop.shopWeidu desc");
+		break;
+		case SHOPPROVINCE:
+			 sb.append(" order by businessshop.shopProvince");
+		break;
+		case SHOPPROVINCE_DESC:
+			 sb.append(" order by businessshop.shopProvince desc");
+		break;
+		case SHOPCITY:
+			 sb.append(" order by businessshop.shopCity");
+		break;
+		case SHOPCITY_DESC:
+			 sb.append(" order by businessshop.shopCity desc");
+		break;
+		case SHOPXIAN:
+			 sb.append(" order by businessshop.shopxian");
+		break;
+		case SHOPXIAN_DESC:
+			 sb.append(" order by businessshop.shopxian desc");
+		break;
+		case SHOPREMARK:
+			 sb.append(" order by businessshop.shopRemark");
+		break;
+		case SHOPREMARK_DESC:
+			 sb.append(" order by businessshop.shopRemark desc");
+		break;
+		case SHOPMAIN:
+			 sb.append(" order by businessshop.shopMain");
+		break;
+		case SHOPMAIN_DESC:
+			 sb.append(" order by businessshop.shopMain desc");
+		break;
+		case SHOPINTRODUCE:
+			 sb.append(" order by businessshop.shopIntroduce");
+		break;
+		case SHOPINTRODUCE_DESC:
+			 sb.append(" order by businessshop.shopIntroduce desc");
+		break;
+		case SHOPSPECIAL:
+			 sb.append(" order by businessshop.shopSpecial");
+		break;
+		case SHOPSPECIAL_DESC:
+			 sb.append(" order by businessshop.shopSpecial desc");
+		break;
+		case CREATEUSER:
+			 sb.append(" order by businessshop.createUser");
+		break;
+		case CREATEUSER_DESC:
+			 sb.append(" order by businessshop.createUser desc");
+		break;
+		case CREATETIME:
+			 sb.append(" order by businessshop.createTime");
+		break;
+		case CREATETIME_DESC:
+			 sb.append(" order by businessshop.createTime desc");
+		break;
+		case UPDATEUSER:
+			 sb.append(" order by businessshop.updateUser");
+		break;
+		case UPDATEUSER_DESC:
+			 sb.append(" order by businessshop.updateUser desc");
+		break;
+		case UPDATETIME:
+			 sb.append(" order by businessshop.updateTime");
+		break;
+		case UPDATETIME_DESC:
+			 sb.append(" order by businessshop.updateTime desc");
+		break;
+		default:
 			break;
-			case SHOPMID:
-				 sb.append(" order by businessshop.shopmId");
-			break;
-			case SHOPNAME:
-				 sb.append(" order by businessshop.shopName");
-			break;
-			case SHOPSNO:
-				 sb.append(" order by businessshop.shopSno");
-			break;
-			case SHOPSTATUS:
-				 sb.append(" order by businessshop.shopStatus");
-			break;
-			case SHOPCONTACTNAME:
-				 sb.append(" order by businessshop.shopContactName");
-			break;
-			case SHOPCONPHONE:
-				 sb.append(" order by businessshop.shopConPhone");
-			break;
-			case SHOPEMAIL:
-				 sb.append(" order by businessshop.shopEmail");
-			break;
-			case SHOPADDRESS:
-				 sb.append(" order by businessshop.shopAddress");
-			break;
-			case SHOPDATE:
-				 sb.append(" order by businessshop.shopDate");
-			break;
-			case SHOPJINGDU:
-				 sb.append(" order by businessshop.shopJingdu");
-			break;
-			case SHOPWEIDU:
-				 sb.append(" order by businessshop.shopWeidu");
-			break;
-			case SHOPPROVINCE:
-				 sb.append(" order by businessshop.shopProvince");
-			break;
-			case SHOPCITY:
-				 sb.append(" order by businessshop.shopCity");
-			break;
-			case SHOPXIAN:
-				 sb.append(" order by businessshop.shopxian");
-			break;
-			case SHOPREMARK:
-				 sb.append(" order by businessshop.shopRemark");
-			break;
-			case SHOPMAIN:
-				 sb.append(" order by businessshop.shopMain");
-			break;
-			case SHOPINTRODUCE:
-				 sb.append(" order by businessshop.shopIntroduce");
-			break;
-			case SHOPSPECIAL:
-				 sb.append(" order by businessshop.shopSpecial");
-			break;
-			case CREATEUSER:
-				 sb.append(" order by businessshop.createUser");
-			break;
-			case CREATETIME:
-				 sb.append(" order by businessshop.createTime");
-			break;
-			case UPDATEUSER:
-				 sb.append(" order by businessshop.updateUser");
-			break;
-			case UPDATETIME:
-				 sb.append(" order by businessshop.updateTime");
-			break;
-			default:
-				break;
-		}
+	}
 		return new Object[] { sb.toString(), argList.toArray() };
 	}
 

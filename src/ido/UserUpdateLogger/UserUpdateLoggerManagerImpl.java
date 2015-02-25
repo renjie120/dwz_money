@@ -115,6 +115,7 @@ public class UserUpdateLoggerManagerImpl extends AbstractBusinessObjectManager i
 		for (UserUpdateLoggerVO po : voList) {
 			po.setState(select_toubaouser_status.getName("" + po.getState()));
 			po.setCreateUserName(CacheUtil.getSystemUserName(po.getCreateUser()+""));
+			po.setUserId(CacheUtil.getInsuredUserName(po.getUserId()+""));
 			eaList.add(new  UserUpdateLoggerImpl(po));
 		}
 
