@@ -129,6 +129,18 @@
 			<result name="report">
 				/WEB-INF/jsp/money/detail/report.jsp
 			</result>
+			<result name="bigReport2">
+				/WEB-INF/jsp/money/detail/bigreport2.jsp
+			</result>
+			<result name="bigReport3">
+				/WEB-INF/jsp/money/detail/bigreport3.jsp
+			</result>
+			<result name="bigReport">
+				/WEB-INF/jsp/money/detail/bigreport.jsp
+			</result>
+			<result name="bigtable">
+				/WEB-INF/jsp/money/detail/bigtable.jsp
+			</result>
 		</action>
 
 		<action name="newmoney" class="money.detail.MoneyAction">

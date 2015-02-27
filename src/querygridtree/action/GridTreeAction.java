@@ -7,11 +7,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import querygridtree.bo.QueryGridTreeBO;
 import querygridtree.data.GridTreeVO;
-import testGridTree.GridTreeUtil;
 
 import com.opensymphony.xwork2.ModelDriven;
 import common.base.SpringContextUtil;

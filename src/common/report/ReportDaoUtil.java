@@ -16,7 +16,7 @@ import common.base.SpringContextUtil;
  * @author renjie120 connect my:(QQ)1246910068
  * 
  */
-public class ReportDaoUtil extends HibernateDaoSupport {
+public class ReportDaoUtil<T> extends HibernateDaoSupport {
 
 	public List<List<String>> getReportData(final String sql,
 			final ReportDataGenerate genere) {
@@ -34,11 +34,11 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 		return (List<List<String>>) result;
 	}
 
-	public List<List<String>> getReportData(final String sql,
-			final ReportDataGenerate2  genere) {
+	public  List<T>  getReportData(final String sql,
+			final ReportDataGenerate2<T>  genere) {
 		JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtil
 				.getBean("jdbcTemplate");
-		List result = new ArrayList();
+		List<T> result = new ArrayList<T>();
 		List ansList = jdbcTemplate.queryForList(sql);
 		if (ansList != null) {
 			Iterator it = ansList.iterator();
@@ -48,7 +48,7 @@ public class ReportDaoUtil extends HibernateDaoSupport {
 				result.add(genere.change(map));
 			}
 		}
-		return (List<List<String>>) result;
+		return (List<T>) result;
 	}
 
 	public String getReportStr(final String sql, final ReportStrGenerate genere) {
