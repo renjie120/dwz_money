@@ -16,6 +16,7 @@ import common.base.SpringContextUtil;
 import common.report.MyReport;
 import common.report.ReportDaoUtil;
 import common.report.ReportStrGenerate2;
+import common.util.Coder;
 import common.util.CommonUtil;
 
 import dwz.present.BaseAction;
@@ -85,6 +86,26 @@ public class MyJdbcAction extends BaseAction {
 	}
 
 	private String moneyStr;
+	/**
+	 * 导入的人员.
+	 */
+	private String user;
+	private String pass; 
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
 
 	public String getMoneyStr() {
 		return moneyStr;
@@ -107,28 +128,33 @@ public class MyJdbcAction extends BaseAction {
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		def.setTimeout(50);
 		TransactionStatus status = transactionManager.getTransaction(def);
-		if (moneyStr != null) {
-			String[] moneys = moneyStr.split("\\$;");
-			for (String m : moneys) {
-				String[] strs = m.split("\\$,");
-				String sqlsql = "insert into gongguo_detail(g_value,gtime,flag)   "
-						+ "select p.paramvalue,'"
-						+ strs[0]
-						+ "','"
-						+ ("true".equals(strs[3]) ? "1" : "0")
-						+ "' from params p where p.parameterType=9 and p.usevalue = '"
-						+ strs[1] + "' ";
-				try {
-					jdbcDaoTest.exeSql(sqlsql);
-				} catch (Exception ex) {
-					transactionManager.rollback(status);
-					System.out.println("出现异常了，回滚了！！");
-					throw ex;
+		if (user == null) {
+			writeToPage(response, "上传失败：未带有用户信息");
+		}
+		else{
+			if (moneyStr != null) {
+				String[] moneys = moneyStr.split("\\$;");
+				for (String m : moneys) {
+					String[] strs = m.split("\\$,");
+					String sqlsql = "insert into gongguo_detail(g_value,gtime,flag)   "
+							+ "select p.paramvalue,'"
+							+ strs[0]
+							+ "','"
+							+ ("true".equals(strs[3]) ? "1" : "0")
+							+ "' from params p where p.parameterType=9 and p.usevalue = '"
+							+ strs[1] + "' ";
+					try {
+						jdbcDaoTest.exeSql(sqlsql);
+					} catch (Exception ex) {
+						transactionManager.rollback(status);
+						System.out.println("出现异常了，回滚了！！");
+						throw ex;
+					}
 				}
 			}
+			transactionManager.commit(status);
+			writeToPage(response, getText("msg.operation.success"));
 		}
-		transactionManager.commit(status);
-		writeToPage(response, getText("msg.operation.success"));
 		return null;
 	}
 
@@ -379,31 +405,61 @@ public class MyJdbcAction extends BaseAction {
 		def.setTimeout(50);
 		TransactionStatus status = transactionManager.getTransaction(def);
 		System.out.println("moneyStr---" + request.getAttribute("moneyStr"));
-		if (moneyStr != null) {
-			String[] moneys = moneyStr.split("\\$;");
-			for (String m : moneys) {
-				String[] strs = m.split("\\$,");
-				String sqlsql = "insert into money_detail_t(money_time,money,money_type,money_desc )"
-						+ " select '"
-						+ strs[0]
-						+ "',"
-						+ strs[1]
-						+ ",te.type_code,'"
-						+ ("0".equals(strs[3]) ? "" : strs[3])
-						+ "'"
-						+ "  from tally_type_t te where te.tally_type_desc= '"
-						+ strs[2] + "'";
-				try {
-					jdbcDaoTest.exeSql(sqlsql);
-				} catch (Exception ex) {
-					transactionManager.rollback(status);
-					System.out.println("出现异常了，回滚了！！");
-					throw ex;
+		System.out.println("user---" + user);
+		try{
+		if(user==null||"".equals(user.trim())){
+			writeToPage(response, "上传失败：未带有用户信息");
+		}
+		else if(pass==null||"".equals(pass.trim())){
+			writeToPage(response, "上传失败：未带有同步密码");
+		}
+		else { 
+			List count = jdbcDaoTest.queryForList("select pass from user_t where loginid = '"+user+"'");
+			if(count==null||count.size()==0){
+				writeToPage(response, "上传失败：未查找到有效用户名！");
+			}
+			else{
+				Map mp =(Map)count.get(0);
+				String userpass =(String)mp.get("pass");
+				if(!Coder.fromMyCoder(userpass).equals(pass)){
+					writeToPage(response, "上传失败：密码不匹配!");
+				}
+				else{
+					if (moneyStr != null) {
+					String[] moneys = moneyStr.split("\\$;");
+					for (String m : moneys) {
+						String[] strs = m.split("\\$,");
+						if("地鐵".equals(strs[2])){
+							strs[2] = "地铁";
+						}
+						String sqlsql = "insert into money_detail_t(money_time,money,money_type,money_desc,username )"
+								+ " select '"
+								+ strs[0]
+								+ "',"
+								+ strs[1]
+								+ ",te.type_code,'"
+								+ ("0".equals(strs[3]) ? "" : strs[3])
+								+ "','"+user+"' "
+								+ "  from tally_type_t te where te.tally_type_desc= '"
+								+ strs[2] + "'";
+						try {
+							jdbcDaoTest.exeSql(sqlsql);
+						} catch (Exception ex) {
+							transactionManager.rollback(status);
+							System.out.println("出现异常了，回滚了！！");
+							throw ex;
+						}
+					}
+				}
+				transactionManager.commit(status);
+				writeToPage(response, getText("msg.operation.success"));
 				}
 			}
 		}
-		transactionManager.commit(status);
-		writeToPage(response, getText("msg.operation.success"));
+		}catch(Exception e){
+			e.printStackTrace();
+			writeToPage(response, "上传失败：出现异常！");
+		}
 		return null;
 	}
 

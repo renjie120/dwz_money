@@ -12,6 +12,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import net.sf.json.JSONObject;
 import brightmoon.jdbc.DataHandler;
 import brightmoon.jdbc.DbTool;
@@ -25,8 +27,11 @@ import common.util.DateTool;
 import common.util.NPOIReader;
 
 import dwz.constants.BeanManagerKey;
+import dwz.framework.constants.Constants;
+import dwz.framework.constants.user.UserType;
 import dwz.framework.core.business.AbstractBusinessObjectManager;
 import dwz.framework.core.exception.ValidateFieldsException;
+import dwz.framework.user.impl.UserImpl;
 
 public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 		MoneyManager {
@@ -420,6 +425,9 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 
 	public void createMoney(Money money, int splitMonths)
 			throws ValidateFieldsException {
+		UserImpl user = (UserImpl) ActionContext.getContext().getSession()
+				.get(Constants.AUTHENTICATION_KEY); 
+		String userName = user.getId();  
 		MoneyImpl moneyImpl = (MoneyImpl) money;
 		MoneyVO v = moneyImpl.getMoneyVO();
 		double realMoney = v.getMoney();
@@ -438,10 +446,13 @@ public class MoneyManagerImpl extends AbstractBusinessObjectManager implements
 				newV.setMoney(m);
 				newV.setRealMoney(realMoney);
 				newV.setSplitSno(maxSplitSno); 
+				newV.setUserName(userName);
 				this.moneyDao.insert(newV);
 			}
 		}else{
-			this.moneyDao.insert(moneyImpl.getMoneyVO());
+			MoneyVO vv = moneyImpl.getMoneyVO();
+			vv.setUserName(userName);
+			this.moneyDao.insert(vv);
 		}
 	}
 

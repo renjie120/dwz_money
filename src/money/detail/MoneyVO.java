@@ -15,6 +15,15 @@ public class MoneyVO implements Serializable, Cloneable {
 	private Date moneyTime;
 	private double money;
 	private String moneyType;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	private String moneyDesc;
 	private int shopCard;
 	private String moneyTypeName;

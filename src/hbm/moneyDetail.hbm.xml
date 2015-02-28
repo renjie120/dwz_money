@@ -9,6 +9,7 @@
 		</id>
 		<property name="moneyTime" column="money_Time" type="date" />
 		<property name="money" column="money" type="double" />
+		<property name="userName" column="userName" type="string" />
 		<property name="moneyType" column="money_Type" type="string" />
 		<property name="moneyDesc" column="money_Desc" type="string" />
 		<property name="shopCard" column="shopCard" type="int" />
